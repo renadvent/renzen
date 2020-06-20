@@ -6,6 +6,34 @@ const ReactDOM = require('react-dom'); // <2>
 const client = require('./client'); // <3>
 // end::vars[]
 
+const follow = require('./follow');
+const root = '/api';
+
+//-----------------------------------------------------------------------
+
+class testNote extends React.Component {
+
+	constructor (props)  {
+		super(props);
+		this.state.content=props.content;
+		this.state.user=props.user;
+		this.onCreate=this.onCreate.bind(this);
+	}
+
+	//onCreate
+
+	// tag::follow-1[]
+	componentDidMount() {
+		this.loadFromServer(this.state.pageSize);
+	}
+
+	loadFromServer() {
+
+	}
+}
+
+//-----------------------------------------------------------------------
+
 // tag::app[]
 class App extends React.Component { // <1>
 
@@ -17,6 +45,8 @@ class App extends React.Component { // <1>
 	componentDidMount() { // <2>
 
 	console.log(client)
+
+		this.loadFromServer(this.state.pageSize);
 
 //	    const response = client({method: 'GET', path: '/api/employees'});
 //
@@ -31,8 +61,29 @@ class App extends React.Component { // <1>
 //			this.setState({employees: response.entity._embedded.employees});
 //		});
 
-		client({method: 'GET', path: '/api/employees'}).then(response => {
-			this.setState({employees: response.entity._embedded.employees});
+		// client({method: 'GET', path: '/api/employees'}).then(response => {
+		// 	this.setState({employees: response.entity._embedded.employees});
+		// });
+	}
+
+	loadFromServer(pageSize) {
+		follow(client, root, [
+			{rel: 'employees', params: {size: pageSize}}]
+		).then(employeeCollection => {
+			return client({
+				method: 'GET',
+				path: employeeCollection.entity._links.profile.href,
+				headers: {'Accept': 'application/schema+json'}
+			}).then(schema => {
+				this.schema = schema.entity;
+				return employeeCollection;
+			});
+		}).done(employeeCollection => {
+			this.setState({
+				employees: employeeCollection.entity._embedded.employees,
+				attributes: Object.keys(this.schema.properties),
+				pageSize: pageSize,
+				links: employeeCollection.entity._links});
 		});
 	}
 

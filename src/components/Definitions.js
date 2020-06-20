@@ -175,6 +175,15 @@ function Def_Card(props) {
       <button>View More Definitions ^ </button>
       <div>
         <hr></hr>
+          <h1>The Docs</h1>
+          <ul className="list-group">
+              <li className="list-group-item disabled" aria-disabled="true">Null</li>
+              <li className="list-group-item">Hypothesis</li>
+              <li className="list-group-item">Morbi leo risus</li>
+              <li className="list-group-item">Porta ac consectetur ac</li>
+              <li className="list-group-item">Vestibulum at eros</li>
+          </ul>
+          <hr></hr>
         <h1>When to Use</h1>
         <button>Add Case </button>
 

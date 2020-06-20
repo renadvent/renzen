@@ -241,6 +241,9 @@ function App() {
                                         <a class="dropdown-item" href="#">
                                             Note
                                         </a>
+                                        <a className="dropdown-item" href="#">
+                                            Doc
+                                        </a>
                                         <a class="dropdown-item" href="#">
                                             From Study Guide
                                         </a>
