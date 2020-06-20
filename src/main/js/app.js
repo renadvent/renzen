@@ -11,6 +11,8 @@ const root = '/api';
 
 //-----------------------------------------------------------------------
 
+
+
 class testNote extends React.Component {
 
 	constructor (props)  {
@@ -24,7 +26,9 @@ class testNote extends React.Component {
 
 	// tag::follow-1[]
 	componentDidMount() {
-		this.loadFromServer(this.state.pageSize);
+
+		fetch ()
+		//this.loadFromServer(this.state.pageSize);
 	}
 
 	loadFromServer() {
