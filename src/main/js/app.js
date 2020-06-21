@@ -27,7 +27,7 @@ class testNote extends React.Component {
 	// tag::follow-1[]
 	componentDidMount() {
 
-		fetch ()
+		//fetch ()
 		//this.loadFromServer(this.state.pageSize);
 	}
 

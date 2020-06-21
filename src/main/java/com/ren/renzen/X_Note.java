@@ -26,4 +26,9 @@ public class X_Note {
         this.user= user;
     }
 
+    public X_Note(String content) {
+        this.content = content;
+
+    }
+
 }
