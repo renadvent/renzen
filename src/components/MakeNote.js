@@ -18,84 +18,53 @@ function MakeNote() {
 
     const [noteInput, setNoteInput] = useState();
 
+    const [loadedNotes, setLoadedNotes] = useState()
 
 
     function LoadNotes() {
         const requestOptions = {
             method: 'GET',
-            //headers: { 'Content-Type': 'application/json' },
-            //body: JSON.stringify({firstName:"fetchFirst",lastName:"fetchLast",description:"IT HAS BEEN POSTED"} )
-            //body: JSON.stringify({ firstName:"User",lastName:"name",description: content })
         };
-
-        //var allNotes =
 
         fetch("/mongo", requestOptions)
             .then(response => {
-                    return response.json()
-
-                }
-            )
+                return response.json()
+            })
             .then(data => {
+
                 console.log(data)
                 console.log(data[1].description)
 
                 var arr = []
 
-                console.log("asfsadfsadfsafsdfasfsfsdfsadfsa")
-                console.log("Array?" + Array.isArray(arr))
-
-
-                data.map((x => {
+                data.map(x => {
                     console.log(x.description)
                     arr.push(x.description)
-                    //arr.push( "<li>"+x.description+"</li>")
-                }))
+                })
 
-                console.log("Array?" + Array.isArray(arr))
-                console.log(arr)
-                return arr
+                setLoadedNotes(
+                    <ol>
+                        <li>Placeholder</li>
+                        {arr.map(g => (<li>{g}</li>))}
+                        {console.log("LOADED LOADED")}
+                    </ol>
+                )
 
-            }).finally( p=>{
-                console.log(p)
-                return (<ol>{p.map(g => (<li>{g}</li>))}</ol>)
-            }
 
-        )
 
-            // }).then(y => {
-            //     console.log("Passed Array?"+Array.isArray(y))
-            //
-            // })
+            })
 
-        // console.log(result[0])
-
-        //return result
-        //return <div>HI</div>
-        //return <div>{result.map(x=>{return <li>{x.description}</li>})}</div>
-
-        //
-        // }).then((x) => {
-        //     console.log(x)
-        //         return (
-        //             <div>
-        //                 {x.map((d, idx) => {
-        //                     return (<li key={idx}>{d.description}</li>)
-        //                 })}
-        //             </div>
-        //         )
-        //     }
-        // )
-        // alert(data)
-        // //console.log(data)
-        // console.log(allNotes)
 
     }
 
-    function NoteObject(){
+
+    function NoteObject() {
+
+
+
         return (
             <div>
-                {LoadNotes()}
+                {loadedNotes}
             </div>
         )
     }
@@ -182,7 +151,7 @@ function MakeNote() {
 
     }
 
-    //loadNotes()
+//loadNotes()
 
     return (
         <div>
