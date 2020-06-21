@@ -15,6 +15,8 @@
  */
 package com.ren.renzen;
 
+import com.ren.renzen.Entities.Employee;
+import com.ren.renzen.Repos.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

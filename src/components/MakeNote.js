@@ -1,7 +1,8 @@
 import React, {useState} from "react"
 
 
-
+const https = require("https");
+const bodyParser = require("body-parser");
 
 
 
@@ -31,6 +32,19 @@ function MakeNote(){
         fetch('/api/x_Notes', requestOptions)
          //    .then(response => response.json())
         //     .then(data => this.setState({ postId: data.id }));
+
+
+        https.get('/api/x_Notes',(response) => {
+            response.on("data",(data)=> {
+                console.log("From https.get")
+                console.log(JSON.parse(data))
+            })
+        })
+
+        //https.post("/api/x_Notes",{content:"HEELOW THIS IS CONTENTET"})
+
+
+
 
 
     }
