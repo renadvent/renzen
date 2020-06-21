@@ -2,11 +2,12 @@ import MakeNote from "../MakeNote";
 import React from "react";
 
 
-function YourStudyGuide (){
+function YourStudyGuide() {
     return (
         //<div className="row">
 
-            <div id="notes" className="col-3">
+        <div id="notes" className="col-3 ">
+            <div className="sticky-top">
                 <p></p>
                 <h1 className="center">Your Study Guide</h1>
 
@@ -126,10 +127,11 @@ function YourStudyGuide (){
                     </div>
                 </form>
 
-                {/* <StudyGuide /> */}
-
-
             </div>
+            {/* <StudyGuide /> */}
+
+
+        </div>
 
     )
 }
