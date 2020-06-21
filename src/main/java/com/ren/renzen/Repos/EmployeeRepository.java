@@ -16,13 +16,14 @@
 package com.ren.renzen.Repos;
 
 import com.ren.renzen.Entities.Employee;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  * @author Greg Turnquist
  */
 // tag::code[]
-public interface EmployeeRepository extends CrudRepository<Employee, Long> { // <1>
+public interface EmployeeRepository extends MongoRepository<Employee, String> { // <1>
 
 }
 // end::code[]

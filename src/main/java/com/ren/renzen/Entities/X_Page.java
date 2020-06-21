@@ -2,19 +2,17 @@ package com.ren.renzen.Entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity
+
 @Getter
 @Setter
 public class X_Page {
 
     private @Id
-    @GeneratedValue Long id;
+    Long id;
 
     private String pageName;
     private String description;

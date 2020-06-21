@@ -2,16 +2,14 @@ package com.ren.renzen.Entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Getter@Setter@Entity
+@Getter@Setter
 public class X_Note {
 
     private @Id
-    @GeneratedValue Long id;
+ Long id;
 
     private String content;
     private String date;

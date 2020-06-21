@@ -1,15 +1,104 @@
 import React, {useState} from "react"
 
+//const express = require ("express");
+
 
 const https = require("https");
 const bodyParser = require("body-parser");
 
+// const app = express();
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 
+const axios = require('axios')
 
-function MakeNote(){
+
+function MakeNote() {
 
     const [noteInput, setNoteInput] = useState();
+
+
+
+    function LoadNotes() {
+        const requestOptions = {
+            method: 'GET',
+            //headers: { 'Content-Type': 'application/json' },
+            //body: JSON.stringify({firstName:"fetchFirst",lastName:"fetchLast",description:"IT HAS BEEN POSTED"} )
+            //body: JSON.stringify({ firstName:"User",lastName:"name",description: content })
+        };
+
+        //var allNotes =
+
+        fetch("/mongo", requestOptions)
+            .then(response => {
+                    return response.json()
+
+                }
+            )
+            .then(data => {
+                console.log(data)
+                console.log(data[1].description)
+
+                var arr = []
+
+                console.log("asfsadfsadfsafsdfasfsfsdfsadfsa")
+                console.log("Array?" + Array.isArray(arr))
+
+
+                data.map((x => {
+                    console.log(x.description)
+                    arr.push(x.description)
+                    //arr.push( "<li>"+x.description+"</li>")
+                }))
+
+                console.log("Array?" + Array.isArray(arr))
+                console.log(arr)
+                return arr
+
+            }).finally( p=>{
+                console.log(p)
+                return (<ol>{p.map(g => (<li>{g}</li>))}</ol>)
+            }
+
+        )
+
+            // }).then(y => {
+            //     console.log("Passed Array?"+Array.isArray(y))
+            //
+            // })
+
+        // console.log(result[0])
+
+        //return result
+        //return <div>HI</div>
+        //return <div>{result.map(x=>{return <li>{x.description}</li>})}</div>
+
+        //
+        // }).then((x) => {
+        //     console.log(x)
+        //         return (
+        //             <div>
+        //                 {x.map((d, idx) => {
+        //                     return (<li key={idx}>{d.description}</li>)
+        //                 })}
+        //             </div>
+        //         )
+        //     }
+        // )
+        // alert(data)
+        // //console.log(data)
+        // console.log(allNotes)
+
+    }
+
+    function NoteObject(){
+        return (
+            <div>
+                {LoadNotes()}
+            </div>
+        )
+    }
 
     function addNote() {
         var content = document.getElementById("noteContent").value;
@@ -18,35 +107,21 @@ function MakeNote(){
         put.classList.add("x");
         put.textContent = content;
         //document.getElementById("all-notes").appendChild(put);
-        //document.getElementById("noteContent").value = "";
+        document.getElementById("noteContent").value = "";
 
+        //---------------------------------
 
+        var inputData = {firstName: "User", lastName: "User", description: content}
 
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({content} )
-            //body: JSON.stringify({ content: {content} })
+            headers: {'Content-Type': 'application/json'},
+            //body: JSON.stringify({firstName:"fetchFirst",lastName:"fetchLast",description:"IT HAS BEEN POSTED"} )
+            body: JSON.stringify({firstName: "User", lastName: "name", description: content})
         };
-        fetch('/api/x_Notes', requestOptions)
-        fetch('/api/x_Notes', requestOptions)
-         //    .then(response => response.json())
-        //     .then(data => this.setState({ postId: data.id }));
 
-
-        https.get('/api/x_Notes',(response) => {
-            response.on("data",(data)=> {
-                console.log("From https.get")
-                console.log(JSON.parse(data))
-            })
-        })
-
-        //https.post("/api/x_Notes",{content:"HEELOW THIS IS CONTENTET"})
-
-
-
-
-
+        //posting note
+        fetch("/mongo", requestOptions)
     }
 
     function proccessTextInput(e) {
@@ -107,28 +182,35 @@ function MakeNote(){
 
     }
 
-    return(
-<div>
-        <textarea
-            className="form-control"
-            id="noteContent"
-            type="text"
-            rows="20"
-            cols="100"
-            placeholder="Type Note Here (use # to  quickly enter and exit styling while typing)"
-            onFocus=""
-            value={noteInput}
-            // onInput={proccessTextInput}
-            onKeyPress={processKeyPress}
-        ></textarea>
-    <p>(Max Note Length 140 words or 1 paragraph)</p>
+    //loadNotes()
 
-    <input placeholder="Add Tags Here" style={{width: "100%"}}/>
+    return (
+        <div>
+            <NoteObject/>
+            {/*<LoadNotes/>*/}
 
-        <button type="button" className="btn-block" onClick={addNote}>
-            Make Note
-        </button>
-</div>
+            <textarea
+                className="form-control"
+                id="noteContent"
+                type="text"
+                rows="20"
+                cols="100"
+                placeholder="Type Note Here (use # to  quickly enter and exit styling while typing)"
+                onFocus=""
+                value={noteInput}
+                // onInput={proccessTextInput}
+                onKeyPress={processKeyPress}
+            ></textarea>
+            <p>(Max Note Length 140 words or 1 paragraph)</p>
+
+            <input placeholder="Add Tags Here" style={{width: "100%"}}/>
+
+            <button type="button" className="btn-block" onClick={addNote}>
+                Make Note
+            </button>
+
+
+        </div>
     )
 
 }

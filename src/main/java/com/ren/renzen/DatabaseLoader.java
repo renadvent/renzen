@@ -29,13 +29,11 @@ import org.springframework.stereotype.Component;
 public class DatabaseLoader implements CommandLineRunner { // <2>
 
 	private final EmployeeRepository repository;
-	//private final EmployeeRepository repo;
-	//private final X_Note_Repository repo;
+
 
 	@Autowired // <3>
 	public DatabaseLoader(EmployeeRepository repository) {
 		this.repository = repository;
-		//this.repo = repo;
 	}
 
 
@@ -49,8 +47,6 @@ public class DatabaseLoader implements CommandLineRunner { // <2>
 		this.repository.save(new Employee("Meriadoc", "Brandybuck", "pony rider"));
 		this.repository.save(new Employee("Peregrin", "Took", "pipe smoker"));
 
-		//this.repo.save(new X_Note("ren"));
-		//this.repo.save(new X_Note("angel"));
 
 	}
 

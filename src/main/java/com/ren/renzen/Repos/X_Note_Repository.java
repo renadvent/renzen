@@ -27,6 +27,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 //}
 
-public interface X_Note_Repository extends MongoRepository<X_Note, String> {
+public interface X_Note_Repository extends MongoRepository<X_Note, Long> {
 
 }

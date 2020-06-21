@@ -2,16 +2,14 @@ package com.ren.renzen.Entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
 @Setter@Getter
 public class X_User {
 
-    private @Id @GeneratedValue Long id;
+    private @Id
+    Long id;
     private String userName;
 
     private X_User(){}
