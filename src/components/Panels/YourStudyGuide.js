@@ -2,6 +2,42 @@ import MakeNote from "../MakeNote";
 import React from "react";
 
 
+function aClick() {
+
+    //
+    // function getPositionXY(element) {
+    //     var rect = element.getBoundingClientRect();
+    //     document.getElementById('annoBar').innerHTML =
+    //         'X: ' + rect.x + ', ' + 'Y: ' + rect.y
+    // }
+
+    var el = document.getElementById("annoBar")
+    el.style.position="absolute"
+    //el.style.margin="auto auto auto auto"
+    //el.style={"{top:50px;left:100px;}"}
+
+
+    var d= document.getElementById("topPage")
+    //var rect=d.getBoundingClientRect();
+
+    //console.log(rect.x)
+    //console.log(rect.y)
+
+    //rect.
+
+    var offset = $(d).offset()
+
+    console.log(offset.left)
+    console.log(offset.top)
+
+        //el.scroll(rect.x,rect.y)
+    //el.style["left"]=offset.x+"px"
+    el.style["top"]=offset.top+"px"
+
+    el.innerText="SHOW ANNOTATION HERE!!"
+
+}
+
 function YourStudyGuide() {
     return (
         //<div className="row">
@@ -9,7 +45,7 @@ function YourStudyGuide() {
         <div id="notes" className="col-3 ">
             <div className="sticky-top">
                 <p></p>
-                <h1 className="center">Your Study Guide</h1>
+                <h1 id="topPage" className="center">Your Study Guide</h1>
 
                 <ul className="nav nav-tabs">
                     <li className="nav-item">
@@ -126,7 +162,7 @@ function YourStudyGuide() {
                         </div>
                     </div>
                 </form>
-
+                <button id="click" onClick={aClick}>CLICK HERE TO TEST ANNOTATION</button>
             </div>
             {/* <StudyGuide /> */}
 

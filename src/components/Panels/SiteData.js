@@ -20,11 +20,37 @@ function createDefinition(props) {
     );
 }
 
+function aClick() {
+
+    //
+    // function getPositionXY(element) {
+    //     var rect = element.getBoundingClientRect();
+    //     document.getElementById('annoBar').innerHTML =
+    //         'X: ' + rect.x + ', ' + 'Y: ' + rect.y
+    // }
+
+    var el = document.getElementById("annoBar")
+    el.style.position="absolute"
+    //el.style={"{top:50px;left:100px;}"}
+
+    el.style["top"]="50px"
+    el.style["left"]="100px"
+
+    el.innerText="SWITCHED AGAIN!!"
+
+}
+
 function SiteData() {
     return (
         <div id="mid" className="col-6">
 
 
+            <div id="hold">
+                <button data-placement="right" type="button" className="btn btn-lg btn-danger" data-toggle="popover" title="Popover title"
+                        data-content="And here's some amazing content. It's very engaging. Right?" onClick={aClick}
+                data-container="#mid">Click to toggle popover
+                </button>
+            </div>
 
             <ul className="nav nav-tabs">
                 <li className="nav-item" role="presentation">
@@ -162,6 +188,8 @@ function SiteData() {
                     <h1>Screenshots</h1>
                 </div>
             </div>
+
+
         </div>
     )
 }
