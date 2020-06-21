@@ -20,9 +20,12 @@ function createDefinition(props) {
     );
 }
 
-function SiteData(){
+function SiteData() {
     return (
-        <div className="col-6">
+        <div id="mid" className="col-6">
+
+
+
             <ul className="nav nav-tabs">
                 <li className="nav-item" role="presentation">
                     <a
@@ -163,4 +166,4 @@ function SiteData(){
     )
 }
 
-export default  SiteData
+export default SiteData
