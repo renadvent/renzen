@@ -13,6 +13,7 @@ package com.ren.renzen.Repos;
 
 
 import com.ren.renzen.Entities.X_Note;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
@@ -26,6 +27,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 //}
 
-public interface X_Note_Repository extends PagingAndSortingRepository<X_Note, Long> {
+public interface X_Note_Repository extends MongoRepository<X_Note, String> {
 
 }
