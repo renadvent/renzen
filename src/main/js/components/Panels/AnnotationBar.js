@@ -2,8 +2,7 @@ import React from "react";
 import {replaceSelection} from "../AnnotationBarComponents/replaceSelection";
 import defaultText from "../AnnotationBarComponents/DefaultText"
 
-
-function selection() {
+function annotateSelection() {
     if (document.getSelection) {
         var content = document.getSelection();
         var put = document.createElement("p");
@@ -17,14 +16,13 @@ function selection() {
     }
 }
 
-function createHighlight() {
+function highlightSelection() {
     if (document.getSelection) {
         replaceSelection(
             "<a href='google.com'><b>" + document.getSelection() + "</b></a>"
         );
     }
 }
-
 
 function AnnotationBar(){
 
@@ -34,16 +32,11 @@ function AnnotationBar(){
         {/* <h1>Community Annotations</h1> */}
         <div className="btn-group-vertical">
             <form>
-                <button type="button" onClick={selection}>
+                <button type="button" onClick={annotateSelection}>
                     Add Annotation
                 </button>
             </form>
-            {/* <button>Add Note as Definition</button>
-            <button>Add Note as Comment</button> */}
-            {/* <button>Add Note as Section</button> */}
-            {/* <button>Add Note as Synonymous/Alternative</button> */}
-            {/* <button>Add Link/Reference</button> */}
-            <button type="button" onClick={createHighlight}>
+            <button type="button" onClick={highlightSelection}>
                 Highlight
             </button>
         </div>
@@ -52,7 +45,6 @@ function AnnotationBar(){
 
             {defaultText}
         </div>
-
 
     </div>
     )
