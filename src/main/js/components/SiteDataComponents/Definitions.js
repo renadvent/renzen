@@ -1,68 +1,6 @@
 import React from "react";
-import Comment from "./Comment";
-import UseCases from "./UseCases";
-import QA from "./QA";
-import Collapse from "./collapse";
+import {createComment, createQA, createUse, createWalkthrough} from "../1stParty/functions";
 
-function createComment(props) {
-  return (
-    <div>
-      <Comment author={props.author} comment={props.comment} key={props.id} />
-    </div>
-  );
-}
-
-function createUse(props) {
-  return (
-    <div>
-      <UseCases situation={props.situation} example={props.example} />
-
-      <span>
-        <button class="x">Save to Study Guide</button>
-      </span>
-    </div>
-  );
-}
-
-function createQA(props) {
-  return (
-    <div>
-      <QA Q={props.Q} A={props.A} />
-    </div>
-  );
-}
-
-function createWalkthrough(props) {
-  return (
-    <div>
-      <h3>
-        <a href="">{props.name} </a>
-        <span class="badge badge-secondary">{props.type}</span>
-      </h3>
-      <p>
-        <span class="badge badge-secondary">{props.description}</span>
-      </p>
-
-      {props.tags.map((x) => {
-        return (
-          <span>
-            <span class="badge badge-secondary">{x}</span>
-            <span
-              style={{ borderRadius: "5px", backgroundColor: "#00cec9" }}
-            ></span>
-          </span>
-        );
-      })}
-
-      <Collapse
-        name={props.name}
-        description={props.description}
-        key={props.id}
-        id={props.id}
-      />
-    </div>
-  );
-}
 
 function Def_Card(props) {
   return (

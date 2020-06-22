@@ -1,15 +1,7 @@
 import React, {useEffect, useState} from "react"
 
-//const express = require ("express");
-
-
 const https = require("https");
 const bodyParser = require("body-parser");
-
-// const app = express();
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-
 
 const axios = require('axios')
 
@@ -17,8 +9,6 @@ const axios = require('axios')
 function MakeNote() {
 
     const [noteInput, setNoteInput] = useState();
-
-
 
     function addNote() {
         var content = document.getElementById("noteContent").value;

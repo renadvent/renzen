@@ -1,56 +1,39 @@
-import React, {useEffect,useState} from "react"
-
-
-
+import React, {useEffect, useState} from "react"
 
 function NoteObject(props) {
 
     const [loadedNotes, setLoadedNotes] = useState()
 
+    useEffect(() => {
 
-//function LoadNotes() {
-    useEffect(()=>{
-        const requestOptions = {
-            method: 'GET',
-        };
-
-        fetch("/mongo", requestOptions)
+        //load from mongoDB database
+        fetch("/mongo", {method: 'GET'})
             .then(response => {
                 return response.json()
             })
+
+            //get description from loaded data
             .then(data => {
-
-                console.log(data)
-                console.log(data[1].description)
-
                 var arr = []
-
                 data.map(x => {
-                    console.log(x.description)
                     arr.push(x.description)
                 })
 
+                //convert array into React objects
+                //and set the state to this
                 setLoadedNotes(
                     <ol>
                         <li>Placeholder</li>
                         {arr.map(g => (<li>{g}</li>))}
-                        {console.log("LOADED LOADED")}
+                        {console.log("LOADED")}
                     </ol>
                 )
 
-
-
             })
-
-
     },[])
-//}
-
-
 
     return (
-        <div key={props.key} >
-            <p>hi</p>
+        <div key={props.key}>
             {loadedNotes}
         </div>
     )
