@@ -20,26 +20,6 @@ function createDefinition(props) {
     );
 }
 
-function aClick() {
-
-    //
-    // function getPositionXY(element) {
-    //     var rect = element.getBoundingClientRect();
-    //     document.getElementById('annoBar').innerHTML =
-    //         'X: ' + rect.x + ', ' + 'Y: ' + rect.y
-    // }
-
-    var el = document.getElementById("annoBar")
-    el.style.position="absolute"
-    //el.style={"{top:50px;left:100px;}"}
-
-    el.style["top"]="50px"
-    el.style["left"]="100px"
-
-    el.innerText="SWITCHED AGAIN!!"
-
-}
-
 function SiteData() {
     return (
         <div id="mid" className="col-6">
@@ -107,9 +87,6 @@ function SiteData() {
                 </li>
             </ul>
 
-
-
-
             <div className="tab-content" id="myTabContent">
                 <div
                     className="tab-pane fade"
@@ -123,7 +100,7 @@ function SiteData() {
                         src="https://www.wikipedia.org/"
                         width="100%"
                         height="600"
-                    ></iframe>
+                    />
                 </div>
                 <div
                     className="tab-pane fade"
@@ -136,7 +113,7 @@ function SiteData() {
                         src="https://codesandbox.io/dashboard/recent"
                         width="100%"
                         height="600"
-                    ></iframe>
+                    />
                 </div>
 
                 <div
@@ -150,7 +127,7 @@ function SiteData() {
                         src="https://getbootstrap.com/docs/4.5/components/alerts/"
                         width="100%"
                         height="600"
-                    ></iframe>
+                    />
                 </div>
 
                 <div

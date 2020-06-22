@@ -1,8 +1,6 @@
 import React from "react";
 
-//NavBar Panel
-
-function nav_bar() {
+function NavBar() {
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">
@@ -74,7 +72,7 @@ function nav_bar() {
             type="search"
             placeholder="Search"
             aria-label="Search"
-          ></input>
+          />
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
             Search
           </button>
@@ -84,4 +82,4 @@ function nav_bar() {
   );
 }
 
-export default nav_bar;
+export default NavBar;
