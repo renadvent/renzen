@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {createComment, createQA, createUse, createWalkthrough} from "../1stParty/functions";
 
 
