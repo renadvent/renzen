@@ -1,4 +1,4 @@
-import MakeNote from "../MakeNote";
+import MakeNote from "../YourStudyGuideComponents/MakeNote";
 import React from "react";
 
 

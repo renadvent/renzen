@@ -1,4 +1,4 @@
-import fillerData from "../../FillerData";
+import fillerData from "../../../resources/static/FillerData";
 import React from "react";
 import DefCard from "../SiteDataComponents/Definitions";
 

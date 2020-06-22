@@ -1,5 +1,7 @@
 import React from "react";
 
+//NavBar Panel
+
 function nav_bar() {
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
