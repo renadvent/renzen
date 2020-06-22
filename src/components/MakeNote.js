@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 
 //const express = require ("express");
 
@@ -21,7 +21,8 @@ function MakeNote() {
     const [loadedNotes, setLoadedNotes] = useState()
 
 
-    function LoadNotes() {
+    //function LoadNotes() {
+    useEffect(()=>{
         const requestOptions = {
             method: 'GET',
         };
@@ -55,15 +56,17 @@ function MakeNote() {
             })
 
 
-    }
+    },[])
+        //}
 
 
-    function NoteObject() {
+    function NoteObject(props) {
 
 
 
         return (
-            <div>
+            <div key={props.key} >
+                <p>hi</p>
                 {loadedNotes}
             </div>
         )
@@ -155,7 +158,7 @@ function MakeNote() {
 
     return (
         <div>
-            <NoteObject/>
+            <NoteObject key={10}/>
             {/*<LoadNotes/>*/}
 
             <textarea
