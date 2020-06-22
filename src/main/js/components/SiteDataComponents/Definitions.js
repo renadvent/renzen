@@ -3,6 +3,35 @@ import {createComment, createQA, createUse, createWalkthrough} from "../1stParty
 
 
 function Def_Card(props) {
+
+    const [loadedDefs, setLoadedDefs] = useState()
+
+    useEffect( () => {
+
+        fetch("/Definitions", {method: 'GET'})
+        .then(response => {
+            return response.json()
+        })
+
+            .then(data => {
+
+                var arr = []
+
+                data.map(x => {
+                    arr.push(x.def)
+                })
+
+                setLoadedDefs(
+                    <ol>
+                        <li>Placeholder</li>
+                        {arr.map(g => (<li>{g}</li>))}
+                    </ol>
+                )
+            })
+    },[])
+
+
+
   return (
     <div className="card">
       {/* <h2>{props.name}</h2> */}
