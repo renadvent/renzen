@@ -1,5 +1,5 @@
 import React from "react";
-import {replaceSelection} from "../AnnotationBarComponents/replaceSelection";
+import {replaceSelection} from "../3rdParty/replaceSelection";
 import defaultText from "../AnnotationBarComponents/DefaultText"
 
 function annotateSelection() {
