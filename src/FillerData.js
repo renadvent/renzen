@@ -1,4 +1,4 @@
-var definitions = [
+var fillerData = [
     {
         id: 1,
 
@@ -83,4 +83,4 @@ var definitions = [
     }
 ]
 
-export default definitions
+export default fillerData

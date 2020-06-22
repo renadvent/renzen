@@ -1,4 +1,4 @@
-import definitions from "../../definitions";
+import fillerData from "../../FillerData";
 import React from "react";
 import DefCard from "../SiteDataComponents/Definitions";
 
@@ -157,7 +157,7 @@ function SiteData() {
                     aria-labelledby="home-tab"
                 >
                     <div className="y">
-                        <h1>{definitions[0].name}</h1>
+                        <h1>{fillerData[0].name}</h1>
                         <h3>Contents</h3>
 
                         <ul className="list-group">
@@ -183,7 +183,7 @@ function SiteData() {
                     <hr></hr>
 
 
-                    {definitions.map(createDefinition)}
+                    {fillerData.map(createDefinition)}
                     <h1>Interactive Examples</h1>
                     <h1>Screenshots</h1>
                 </div>

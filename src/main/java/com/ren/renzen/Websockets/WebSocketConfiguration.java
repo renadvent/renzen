@@ -10,18 +10,18 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 //work on later
 
 @Component
-@EnableWebSocketMessageBroker(1)
-public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer { (2)
+@EnableWebSocketMessageBroker
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
-    static final String MESSAGE_PREFIX = "/topic"; (3)
+    static final String MESSAGE_PREFIX = "/topic";
 
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) { (4)
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/payroll").withSockJS();
     }
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) { (5)
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker(MESSAGE_PREFIX);
         registry.setApplicationDestinationPrefixes("/app");
     }
