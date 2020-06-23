@@ -2,14 +2,15 @@ package com.ren.renzen.Controllers;
 
 import com.ren.renzen.Entities.Definition;
 import com.ren.renzen.Repos.X_Definition_Repository;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@Getter @Setter
 @RestController
 @RequestMapping("/Definitions")
 public class DefinitionController {
@@ -20,8 +21,22 @@ public class DefinitionController {
         this.mongoRepo=mongoRepo;
     }
 
-    @RequestMapping(method= RequestMethod.GET)
+    //, produces = MediaType.APPLICATION_JSON_VALUE
+    @GetMapping()
     public List<Definition> getDefinitions(){
         return this.mongoRepo.findAll();
+    }
+
+    @PostMapping()
+    public String createDefinition(@RequestBody Definition definition){
+
+        System.out.println(definition.getId());
+        System.out.println(definition.getDefinition());
+
+        Definition x = mongoRepo.save(definition);
+
+
+        return ("Hello from Def: "+x.getDefinition());
+
     }
 }

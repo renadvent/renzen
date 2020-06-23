@@ -25,20 +25,20 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Objects;
 
-/**
- * @author Greg Turnquist
- */
-
 @Getter@Setter
 @Document(collection = "Employees")
 public class Employee {
 
-	//@Id
-	private Long id;
+	@Id
+	private String id;
+
+	@Field("firstName")
 	private String firstName;
+
+	@Field("lastName")
 	private String lastName;
 
-	@Id
+	@Field("description")
 	private String description;
 
 	private Employee() {}

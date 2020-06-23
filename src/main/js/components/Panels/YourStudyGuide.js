@@ -2,6 +2,7 @@ import MakeNote from "../YourStudyGuideComponents/MakeNote";
 import NoteObject from "../YourStudyGuideComponents/LoadedNotes";
 import React from "react";
 import {getAnnotationPosition} from "../1stParty/functions";
+import NoteTypeSelector from "../YourStudyGuideComponents/NoteTypeSelector";
 
 //
 function YourStudyGuide() {
@@ -71,35 +72,47 @@ function YourStudyGuide() {
                                             className="dropdown-menu"
                                             aria-labelledby="dropdownMenuButton"
                                         >
-                                            <a className="dropdown-item" href="#">
-                                                Definition
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                Overview
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                Clarification
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                Note
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                Doc
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                From Study Guide
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                From User
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                ...New Section
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                ...New Link
-                                            </a>
+
+                                            <NoteTypeSelector name={"Definition"}/>
+                                            <NoteTypeSelector name={"Employee"}/>
+                                            <NoteTypeSelector name={"Overview"}/>
+                                            <NoteTypeSelector name={"Clarification"}/>
+                                            <NoteTypeSelector name={"Note"}/>
+                                            <NoteTypeSelector name={"Doc"}/>
+                                            <NoteTypeSelector name={"Note"}/>
+
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    Definition*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    Overview*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    Clarification*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    Note*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    Doc*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    From Study Guide*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    From User*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    ...New Section*/}
+                                            {/*</a>*/}
+                                            {/*<a className="dropdown-item" href="#">*/}
+                                            {/*    ...New Link*/}
+                                            {/*</a>*/}
                                         </div>
                                     </div>
+
+                                    <div id={"selectedType"}>PLACEHOLDER</div>
+
                                 </div>
                                 <div className="col-8">
                                 </div>

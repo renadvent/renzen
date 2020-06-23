@@ -8,27 +8,44 @@ function Definition(props) {
 
     useEffect(() => {
 
+        //Load Definitions
         fetch("/Definitions", {method: 'GET'})
             .then(response => {
                 return response.json()
             })
 
             .then(data => {
-                var arr = []
 
-                data.map(x => {
-                    arr.push(x.definition)
-                    console.log(x)
-                })
+                // var arr = []
+                //
+                // data.map(x => {
+                //     arr.push(x.definition)
+                //     console.log(x)
+                // })
+
+                // setLoadedDefs(
+                //     <div>
+                //     <ol>
+                //         <li>Placeholder</li>
+                //         {arr.map(g => (<li>{g}</li>))}
+                //     </ol>
+                //     </div>
+                // )
 
                 setLoadedDefs(
                     <div>
-                    <ol>
-                        <li>Placeholder</li>
-                        {arr.map(g => (<li>{g}</li>))}
-                    </ol>
+                        <ol>
+                            {data.map(obj => {
+                            return (
+                                <li>EDIT{obj.definition}</li>
+                            )
+                            })
+                        }
+                        </ol>
                     </div>
                 )
+
+
             })
     }, [])
 

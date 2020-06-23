@@ -1,37 +1,52 @@
 import React, {useEffect, useState} from "react"
 
-const https = require("https");
-const bodyParser = require("body-parser");
-
-const axios = require('axios')
-
-
 function MakeNote() {
 
     const [noteInput, setNoteInput] = useState();
 
     function addNote() {
+
         var content = document.getElementById("noteContent").value;
-        var put = document.createElement("p");
-        put.classList.add("card");
-        put.classList.add("x");
-        put.textContent = content;
+
+        // var put = document.createElement("p");
+        // put.classList.add("card");
+        // put.classList.add("x");
+        // put.textContent = content;
         //document.getElementById("all-notes").appendChild(put);
-        document.getElementById("noteContent").value = "";
+
+
 
         //---------------------------------
 
-        var inputData = {firstName: "User", lastName: "User", description: content}
+        //var inputData = {firstName: "User", lastName: "User", description: content}
 
-        const requestOptions = {
+
+        //POSTING OPTIONS
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     //body: JSON.stringify({firstName:"fetchFirst",lastName:"fetchLast",description:"IT HAS BEEN POSTED"} )
+        //     body: JSON.stringify({firstName: "User", lastName: "name", description: content})
+        // };
+        //
+        // fetch("/mongo", requestOptions)
+
+
+
+        const requestOptions2 = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             //body: JSON.stringify({firstName:"fetchFirst",lastName:"fetchLast",description:"IT HAS BEEN POSTED"} )
-            body: JSON.stringify({firstName: "User", lastName: "name", description: content})
+            body: JSON.stringify({definition : content})
         };
 
-        //posting note
-        fetch("/mongo", requestOptions)
+        //POSTING NOTE
+        let t = document.getElementById("selectedType")
+        //fetch("/"+t.innerText+"s", requestOptions2)
+        fetch("/Definitions", requestOptions2)
+
+        document.getElementById("noteContent").value = "";
+
     }
 
     function proccessTextInput(e) {
@@ -109,8 +124,8 @@ function MakeNote() {
                 onFocus=""
                 value={noteInput}
                 // onInput={proccessTextInput}
-                onKeyPress={processKeyPress}
-            ></textarea>
+                //onKeyPress={processKeyPress}
+            />
             <p>(Max Note Length 140 words or 1 paragraph)</p>
 
             <input placeholder="Add Tags Here" style={{width: "100%"}}/>

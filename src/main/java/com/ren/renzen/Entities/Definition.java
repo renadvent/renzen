@@ -11,11 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "Definitions")
 public class Definition {
 
-    @Id
+    @Field(value = "id")
     private String id;
 
-    @Field("definition")
+    @Field(value = "definition")
     private String definition;
+
+    public Definition() {}
 
     public Definition(String definition){
         this.definition=definition;
