@@ -13,7 +13,7 @@ function WebsiteTabContent(props){
         >
             {" "}
             <iframe
-                title="search"
+                // title="search"
                 src={props.site}
                 width="100%"
                 height="600"

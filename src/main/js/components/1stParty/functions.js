@@ -1,9 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
+import Definition from "../SiteDataComponents/Definitions";
 import UseCases from "../SiteDataComponents/UseCases";
 import QA from "../SiteDataComponents/QA";
 import Comment from "../SiteDataComponents/Comment";
 import Collapse from "../SiteDataComponents/collapse";
 import {replaceSelection} from "../3rdParty/replaceSelection";
+
 
 function aClick() {
 
@@ -97,7 +99,7 @@ export function createWalkthrough(props) {
 export function createDefinition(props) {
     return (
         <div>
-            <DefCard
+            <Definition
                 id={props.id}
                 key={props.id}
                 content={props.content}
