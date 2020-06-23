@@ -3,12 +3,16 @@ package com.ren.renzen.Entities;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Objects;
 
 
 @Getter
 @Setter
+@Document(collection="Pages")
 public class X_Page {
 
     private @Id
@@ -23,6 +27,7 @@ public class X_Page {
         this.pageName=pageName;
         this.description=description;
     }
+
 
     @Override
     public boolean equals(Object obj) {

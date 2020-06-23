@@ -37,7 +37,7 @@ function Definition(props) {
                         <ol>
                             {data.map(obj => {
                             return (
-                                <li>EDIT{obj.definition}</li>
+                                <li>{obj.definition}</li>
                             )
                             })
                         }
