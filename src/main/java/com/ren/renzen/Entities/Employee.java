@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Objects;
@@ -33,7 +34,7 @@ import java.util.Objects;
 public class Employee {
 
 	//@Id
-	//private Long id;
+	private Long id;
 	private String firstName;
 	private String lastName;
 

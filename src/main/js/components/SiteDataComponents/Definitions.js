@@ -6,29 +6,31 @@ function Definition(props) {
 
     const [loadedDefs, setLoadedDefs] = useState()
 
-    // useEffect(() => {
-    //
-    //     fetch("/Definitions", {method: 'GET'})
-    //         .then(response => {
-    //             return response.json()
-    //         })
-    //
-    //         .then(data => {
-    //
-    //             var arr = []
-    //
-    //             data.map(x => {
-    //                 arr.push(x.def)
-    //             })
-    //
-    //             setLoadedDefs(
-    //                 <ol>
-    //                     <li>Placeholder</li>
-    //                     {arr.map(g => (<li>{g}</li>))}
-    //                 </ol>
-    //             )
-    //         })
-    // }, [])
+    useEffect(() => {
+
+        fetch("/Definitions", {method: 'GET'})
+            .then(response => {
+                return response.json()
+            })
+
+            .then(data => {
+                var arr = []
+
+                data.map(x => {
+                    arr.push(x.definition)
+                    console.log(x)
+                })
+
+                setLoadedDefs(
+                    <div>
+                    <ol>
+                        <li>Placeholder</li>
+                        {arr.map(g => (<li>{g}</li>))}
+                    </ol>
+                    </div>
+                )
+            })
+    }, [])
 
 
     return (
@@ -39,70 +41,11 @@ function Definition(props) {
             <ul class="nav nav-tabs">
 
                 <DefinitionTab name={"Featured"} id={"#"} linkTo={"#featured"} active={"active"}/>
-
-                {/*<li class="nav-item" role="presentation">*/}
-                {/*  <a*/}
-                {/*    class="nav-link active"*/}
-                {/*    id="home-tab"*/}
-                {/*    data-toggle="tab"*/}
-                {/*    href="#featured"*/}
-                {/*    role="tab"*/}
-                {/*    aria-controls="profile"*/}
-                {/*    aria-selected="true"*/}
-                {/*  >*/}
-                {/*    Featured*/}
-                {/*  </a>*/}
-                {/*</li>*/}
-
                 <DefinitionTab name={"Top Voted"} id={""} linkTo={"#popular"}/>
-
-                {/*<li class="nav-item">*/}
-                {/*  <a*/}
-                {/*    class="nav-link"*/}
-                {/*    id="profile-tab"*/}
-                {/*    data-toggle="tab"*/}
-                {/*    href="#popular"*/}
-                {/*    role="tab"*/}
-                {/*    aria-controls="profile"*/}
-                {/*    aria-selected="false"*/}
-                {/*  >*/}
-                {/*    Top Voted*/}
-                {/*  </a>*/}
-                {/*</li>*/}
-
                 <DefinitionTab name={"Newest"} id={"#"} linkTo={"#newest"}/>
-
-                {/*<li class="nav-item">*/}
-                {/*  <a*/}
-                {/*    class="nav-link"*/}
-                {/*    id="sandbox-tab"*/}
-                {/*    data-toggle="tab"*/}
-                {/*    href="#newest"*/}
-                {/*    role="tab"*/}
-                {/*    aria-controls="profile"*/}
-                {/*    aria-selected="false"*/}
-                {/*  >*/}
-                {/*    Newest*/}
-                {/*  </a>*/}
-                {/*</li>*/}
-
                 <DefinitionTab name={"Your Definitions"} id={"#"} linkTo={"#yourdefs"}/>
 
-                {/*<li class="nav-item">*/}
-                {/*  <a*/}
-                {/*    class="nav-link"*/}
-                {/*    id="boot-tab"*/}
-                {/*    data-toggle="tab"*/}
-                {/*    href="#yourdefs"*/}
-                {/*    role="tab"*/}
-                {/*    aria-controls="profile"*/}
-                {/*    aria-selected="false"*/}
-                {/*  >*/}
-                {/*    Your Definitions*/}
-                {/*  </a>*/}
-                {/*</li>*/}
             </ul>
-
 
             <button>Add Definition</button>
             <p>
@@ -135,7 +78,16 @@ function Definition(props) {
                 <span>Upvotes+</span>
                 <span class="badge badge-primary badge-pill">14</span>
             </p>
+
+
+            {/*working here*/}
+            {loadedDefs}
+
             <p className="info">{props.content}</p>
+
+
+
+
             <div className="comments">
                 {props.comments.map(createComment)}
                 <button>Add Comment</button>
