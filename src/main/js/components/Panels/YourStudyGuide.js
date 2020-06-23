@@ -74,12 +74,12 @@ function YourStudyGuide() {
                                         >
 
                                             <NoteTypeSelector name={"Definition"}/>
-                                            <NoteTypeSelector name={"Employee"}/>
-                                            <NoteTypeSelector name={"Overview"}/>
-                                            <NoteTypeSelector name={"Clarification"}/>
+                                            {/*<NoteTypeSelector name={"Employee"}/>*/}
+                                            {/*<NoteTypeSelector name={"Overview"}/>*/}
+                                            {/*<NoteTypeSelector name={"Clarification"}/>*/}
                                             <NoteTypeSelector name={"Note"}/>
-                                            <NoteTypeSelector name={"Doc"}/>
-                                            <NoteTypeSelector name={"Note"}/>
+                                            {/*<NoteTypeSelector name={"Doc"}/>*/}
+
 
                                             {/*<a className="dropdown-item" href="#">*/}
                                             {/*    Definition*/}
@@ -111,7 +111,7 @@ function YourStudyGuide() {
                                         </div>
                                     </div>
 
-                                    <div id={"selectedType"}>PLACEHOLDER</div>
+                                    <div id={"selectedType"}>Note</div>
 
                                 </div>
                                 <div className="col-8">

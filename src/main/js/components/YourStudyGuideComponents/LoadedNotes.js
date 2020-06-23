@@ -7,7 +7,7 @@ function NoteObject(props) {
     useEffect(() => {
 
         //load from mongoDB database
-        fetch("/mongo", {method: 'GET'})
+        fetch("/Notes", {method: 'GET'})
             .then(response => {
                 return response.json()
             })
@@ -16,7 +16,7 @@ function NoteObject(props) {
             .then(data => {
                 var arr = []
                 data.map(x => {
-                    arr.push(x.description)
+                    arr.push(x.definition)
                 })
 
                 //convert array into React objects

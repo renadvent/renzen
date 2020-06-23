@@ -42,8 +42,8 @@ function MakeNote() {
 
         //POSTING NOTE
         let t = document.getElementById("selectedType")
-        //fetch("/"+t.innerText+"s", requestOptions2)
-        fetch("/Definitions", requestOptions2)
+        fetch("/"+t.innerText+"s", requestOptions2)
+        //fetch("/Definitions", requestOptions2)
 
         document.getElementById("noteContent").value = "";
 
