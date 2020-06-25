@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react"
+import {JSONLoader} from "./JSONLoader";
+
 
 function DataLoader(props) {
 
@@ -7,10 +9,7 @@ function DataLoader(props) {
     useEffect(() => {
 
         //load from mongoDB database
-        fetch(props.data, {method: 'GET'})
-            .then(response => {
-                return response.json()
-            })
+        JSONLoader(props.data)
 
             //get description from loaded data
             .then(data => {
@@ -30,7 +29,7 @@ function DataLoader(props) {
                 )
 
             })
-    },[])
+    }, [])
 
     return (
         <div key={props.key}>
