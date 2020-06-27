@@ -15,8 +15,18 @@
  */
 package com.ren.renzen;
 
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.SimpleScriptContext;
+import java.io.FileReader;
+import java.io.StringWriter;
+import java.util.Properties;
 
 /**
  * @author Greg Turnquist
@@ -25,8 +35,73 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ReactAndSpringDataRestApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(com.ren.renzen.ReactAndSpringDataRestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(com.ren.renzen.ReactAndSpringDataRestApplication.class, args);
+
+        PythonInterpreter interpreter = null;
+        String path = "C:\\Users\\erick\\.m2\\repository\\org\\python\\jython\\2.7.2\\jython-2.7.2.jar";
+//
+//		try{
+//			Properties p = new Properties();
+////			p.setProperty("python.path", path);
+////			p.setProperty("python.home", path);
+////			p.setProperty("python.prefix", path);
+//			//p.setProperty("python.path", "PATH TO jython-standalone-2.7.0.jar");
+//			PythonInterpreter.initialize(System.getProperties(), p, new String[] {});
+//			interpreter = new PythonInterpreter();
+//		}catch (Exception e){
+//			System.out.println(e);
+//		}
+//
+        try {
+            PythonInterpreter pyInterp = new PythonInterpreter();
+            pyInterp.exec("x = 10+10");
+            PyObject x = pyInterp.get("x");
+            System.out.println(x.asInt());
+
+            pyInterp.execfile("C:/Users/erick/OneDrive/Documents/renzen_reloaded/renzen/src/main/python/helloWorld.py");
+
+            //assertEquals("x: ", 20, x.asInt());
+        } catch (Exception e) {
+
+            System.out.println(e);
+
+        }
+
+
+        try {
+            StringWriter writer = new StringWriter();
+            ScriptContext context = new SimpleScriptContext();
+            context.setWriter(writer);
+
+            ScriptEngineManager manager = new ScriptEngineManager();
+            ScriptEngine engine = manager.getEngineByName("python");
+            Object x = engine.eval(new FileReader("C:/Users/erick/OneDrive/Documents/renzen_reloaded/renzen/src/main/python/helloWorld.py"), context);        //assertEquals("Should contain script output: ", "Hello Baeldung Readers!!", writer.toString().trim());
+
+            System.out.println(x);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+//
+//
+//		StringWriter writer = new StringWriter();
+//		ScriptContext context = new SimpleScriptContext();
+//		context.setWriter(writer);
+//
+//		ScriptEngineManager manager = new ScriptEngineManager();
+//		ScriptEngine engine = manager.getEngineByName("python");
+//
+//		try {
+//
+//			engine.eval(new FileReader("src/main/python/helloWorld.py"), context);
+//			//engine.eval(new FileReader("src/main/python/helloWorld.py"), context);
+//			//engine.eval(new FileReader("src/main/python/helloWorld.py"), context);
+//			//engine.eval(new FileReader("C:/Users/erick/OneDrive/Documents/renzen_reloaded/renzen/src/main/python/helloWorld.py"), context);
+//		}catch(Exception e){
+//			System.out.println("FAILED");
+//			System.out.println(e);
+//		}
+    }
 }
 // end::code[]
