@@ -29,9 +29,9 @@ public class NoteController {
 
         X_Note x = mongoRepo.save(note);
 
-        x.getDefinition();
+        x.getContent();
 
-        return ("Note Content: "+x.getDefinition());
+        return ("Note Content: "+x.getContent());
     }
 
 

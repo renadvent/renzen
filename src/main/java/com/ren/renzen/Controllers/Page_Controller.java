@@ -1,14 +1,16 @@
 package com.ren.renzen.Controllers;
 
 
+import com.ren.renzen.Entities.Definition;
+import com.ren.renzen.Entities.X_Note;
 import com.ren.renzen.Entities.X_Page;
 import com.ren.renzen.Repos.X_Page_Repository;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Getter
@@ -23,6 +25,12 @@ public class Page_Controller {
         this.mongoRep=mongoRep;
     }
 
+    @Field(value="definitions")
+    List<X_Note> definitions;
+
+    @Field(value="walkthroughs")
+    List<X_Note> walkthroughs;
+
 //    @PostMapping()
 //    public String createPage(@RequestBody X_Page page){
 //        X_Page x = this.mongoRep.save(page);
@@ -33,4 +41,13 @@ public class Page_Controller {
     public Optional<X_Page> getPageByID(String id){
         return mongoRep.findById(id);
     }
+
+
+    @GetMapping("/{id}")
+    public Optional<X_Page> loadPageContent(@PathVariable(value = "id") String pageId){
+
+        //get a list of definitions
+
+    }
+
 }

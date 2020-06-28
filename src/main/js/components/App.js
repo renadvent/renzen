@@ -9,9 +9,15 @@ import PageLoader from "./1stParty/PageLoader";
 //sets up navbar, and columns for site
 
 function App() {
+
+    let content = PageLoader();
+
+
     return (
         <div className="container-fluid">
-            <PageLoader/>
+            {/*<PageLoader/>*/}
+            {content.definitions}
+            {content.QA}
             <Navbar/>
             <div className="row">
                 <YourStudyGuide/>

@@ -16,6 +16,9 @@ function PageLoader(props) {
 
     //POSTING NOTE
     //let t = document.getElementById("selectedType")
+
+    const [defRender, setDefRender] = useState()
+    const [QARender, setQARender] = useState()
     let page = fetch("/Pages", requestOptions2).then(page => {
         return page.json()
     }).then(page => {
@@ -25,7 +28,7 @@ function PageLoader(props) {
             //return object with render of each section
 
             //load definitions and render
-            const [defRender, setDefRender] = useState()
+
             setDefRender(
                 <ol>
                     {page.definitions.map(def => {
@@ -40,7 +43,7 @@ function PageLoader(props) {
             )
 
             //load QA and render
-            const [QARender, setQARender] = useState()
+
             setQARender(
                 <div>
 
