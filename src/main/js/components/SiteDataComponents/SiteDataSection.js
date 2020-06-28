@@ -21,8 +21,35 @@ function SiteDataSection(props){
             //process add content
             console.log("process add content")
 
+            //const content = e.target.innerText
+
+            const content = e.target.value
+
+            let former = document.createElement("p")
+
+            former.innerText=content
+
+            document.getElementById(e.target.id).insertAdjacentElement("beforebegin",former)
+
+            //document.getElementById(e.target.id).insertAdjacentHTML("beforebegin",content)
+
+            const reqOptions = {
+                method : 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(
+                    {
+                        user:"default",
+                        content : content,
+                        noteType : "comment",
+                        pageSource : "default"
+                        })
+            }
+
+            fetch("/Notes",reqOptions)
+
             console.log(e.target.id)
-            //document.getElementById(this.id).value=""
+            document.getElementById(e.target.id).value=""
+            //document.getElementById(e.target.id).insertAdjacentHTML("beforebegin",content)
         }
 
     }
@@ -41,13 +68,9 @@ function SiteDataSection(props){
         el.setAttribute("id",getNewId())
         el.setAttribute("rows",1)
         el.setAttribute("placeholder", "Type comment here")
+        el.autofocus=true
         el.addEventListener("keypress",processKeyPress)
         document.getElementById(id).insertAdjacentElement("afterend",el)
-
-
-
-
-        //save note to database
 
         //get note content and render as a <p> element
 
