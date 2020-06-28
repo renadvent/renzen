@@ -37,17 +37,18 @@ public class Page_Controller {
 //        return "New Page "+x.getPageName();
 //    }
 
-    @PostMapping()
-    public Optional<X_Page> getPageByID(String id){
-        return mongoRep.findById(id);
-    }
+//    @PostMapping()
+//    public Optional<X_Page> getPageByID(String id){
+//        return mongoRep.findById(id);
+//    }
 
-
-    @GetMapping("/{id}")
-    public Optional<X_Page> loadPageContent(@PathVariable(value = "id") String pageId){
-
-        //get a list of definitions
-
-    }
+//
+//    @GetMapping("/{id}")
+//    public Optional<X_Page> loadPageContent(@PathVariable(value = "id") String pageId){
+//
+////        //get a list of definitions
+////        return null;
+//
+//    }
 
 }

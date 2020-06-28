@@ -18,9 +18,9 @@ function SiteData() {
 
             <div className="tab-content" id="myTabContent">
 
-                <WebsiteTabContent id="wiki" site="https://wikipedia.org"/>
-                <WebsiteTabContent id="codesandbox" site="https://codesandbox.io/dashboard/recent"/>
-                <WebsiteTabContent id="boot" site="https://getbootstrap.com/docs/4.5/components/alerts/"/>
+                {/*<WebsiteTabContent id="wiki" site="https://wikipedia.org"/>*/}
+                {/*<WebsiteTabContent id="codesandbox" site="https://codesandbox.io/dashboard/recent"/>*/}
+                {/*<WebsiteTabContent id="boot" site="https://getbootstrap.com/docs/4.5/components/alerts/"/>*/}
                 <MainTab/>
 
 

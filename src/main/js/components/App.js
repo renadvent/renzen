@@ -15,9 +15,9 @@ function App() {
 
     return (
         <div className="container-fluid">
-            {/*<PageLoader/>*/}
-            {content.definitions}
-            {content.QA}
+            {/*/!*<PageLoader/>*!/*/}
+            {/*{content.definitions}*/}
+            {/*{content.QA}*/}
             <Navbar/>
             <div className="row">
                 <YourStudyGuide/>

@@ -26,13 +26,13 @@ function MainTab(props) {
                         <span className="badge badge-primary badge-pill">4</span>
                     </li>
                     <li className="list-group-item">General Q&A</li>
-                    <li className="list-group-item">Links & Resources</li>
+                    {/*<li className="list-group-item">Links & Resources</li>*/}
                 </ul>
             </div>
             <p></p>
             <hr></hr>
             {fillerData.map(createDefinition)}
-            <h1>Interactive Examples</h1>
+            {/*<h1>Interactive Examples</h1>*/}
         </div>
     )
 }

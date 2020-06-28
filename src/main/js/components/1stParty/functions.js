@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import Definition from "../SiteDataComponents/Definitions";
+import SiteDataBuild from "../SiteDataComponents/SiteDataBuild";
 import UseCases from "../SiteDataComponents/UseCases";
 import QA from "../SiteDataComponents/QA";
 import Comment from "../SiteDataComponents/Comment";
@@ -99,7 +99,7 @@ export function createWalkthrough(props) {
 export function createDefinition(props) {
     return (
         <div>
-            <Definition
+            <SiteDataBuild
                 id={props.id}
                 key={props.id}
                 content={props.content}
