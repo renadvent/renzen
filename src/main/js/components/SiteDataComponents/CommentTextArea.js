@@ -10,6 +10,8 @@ function CommentTextArea(props){
     }
 
 
+    //transforms text area to comment
+    //and add it to database
     function processKeyPress(e) {
 
         if (e.key === "Enter"){
@@ -46,14 +48,9 @@ function CommentTextArea(props){
             console.log(e.target.id)
             document.getElementById(e.target.id).remove()
 
-            let el = createTextArea(former);
-
-            createReply(former)
         }
 
     }
-
-
 
     let areaStyle = {
         width: "70%",
