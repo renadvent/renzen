@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
+//content
 
 @Getter@Setter
 @Document(collection = "Notes")
@@ -26,6 +27,8 @@ public class X_Note {
     private String time;
     private String noteType;
     private String user;
+
+    private String threadID;
 
     @Field(value="comments")
     private List<String> comments;

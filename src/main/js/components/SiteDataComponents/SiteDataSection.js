@@ -23,9 +23,23 @@ function SiteDataSection(props){
 
     }
 
+    function addNewReply(e){
+        setElementsInSection( x => x.concat([
+
+            <CommentTextArea replyTo={false} placeholder={"Type reply here"} margin={"6rem"}/>]))
+
+            // <CommentTextArea replyTo={false} placeholder={"Type reply here"} margin={"6rem"}/>,
+            // <CommentOptions click={addNewReply.bind(this)}/>]))
+    }
+
     function addNewContent(e){
 
-        setElementsInSection( x => x.concat([<CommentTextArea/>,<CommentOptions click={addNewContent.bind(this)}/>]))
+        setElementsInSection( x => x.concat([
+
+            <CommentTextArea replyTo={true} placeholder={"Type Definition Here"}/>,
+            <CommentOptions click={addNewReply.bind(this)}/>]))
+
+
         //setElementsInSection( x => return(...x,...[<CommentTextArea/>,<CommentOptions click={addNewContent.bind(this)}/>])
 
 

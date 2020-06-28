@@ -52,14 +52,16 @@ function CommentTextArea(props){
 
     }
 
+    ///"6rem"
+
     let areaStyle = {
         width: "70%",
-        marginLeft:"6rem"
+        marginLeft: props.margin
     }
 
     return(
         <div>
-            <textarea id={getNewId()} rows={1} placeholder={"Type comment here"}
+            <textarea id={getNewId()} rows={1} placeholder={props.placeholder}
                       autoFocus={true} style={areaStyle} className={"form-control"}
                       onKeyPress={processKeyPress}/>
         </div>
