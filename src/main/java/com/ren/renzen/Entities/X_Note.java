@@ -1,5 +1,6 @@
 package com.ren.renzen.Entities;
 
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +10,7 @@ import java.util.List;
 
 //content
 
+@QueryEntity
 @Getter@Setter
 @Document(collection = "Notes")
 public class X_Note {

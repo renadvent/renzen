@@ -14,7 +14,12 @@ package com.ren.renzen.Repos;
 
 import com.ren.renzen.Entities.X_Note;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.support.*;
+
+
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.List;
 
 
 //public interface X_Note_Repository extends MongoRepository<com.ren.renzen.Entities.X_Note, String> {
@@ -27,6 +32,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 //}
 
-public interface X_Note_Repository extends MongoRepository<X_Note, String> {
+public interface X_Note_Repository extends MongoRepository<X_Note, String>{
+
+    List<X_Note> findX_NotesByPageSource(String pageSource);
 
 }

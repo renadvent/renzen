@@ -11,9 +11,9 @@ function SiteData() {
 
             <ul className="nav nav-tabs">
                 <WebsiteTab name="Study Guide" linkTo="#ALLC" active="active"/>
-                <WebsiteTab name="Wikipedia" linkTo="#wiki"/>
-                <WebsiteTab name="CodeSandbox.io" linkTo="#codesandbox"/>
-                <WebsiteTab name="Bootstrap Docs" linkTo="#boot"/>
+                {/*<WebsiteTab name="Wikipedia" linkTo="#wiki"/>*/}
+                {/*<WebsiteTab name="CodeSandbox.io" linkTo="#codesandbox"/>*/}
+                {/*<WebsiteTab name="Bootstrap Docs" linkTo="#boot"/>*/}
             </ul>
 
             <div className="tab-content" id="myTabContent">

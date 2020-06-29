@@ -21,6 +21,22 @@ function SiteDataSection(props){
 
     function loadCommentSection(){
 
+        const reqOptions = {
+            method : 'GET',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(
+                {
+                    user:"default",
+                    content : content,
+                    noteType : "comment",
+                    pageSource : "default"
+                })
+        }
+
+        let notes=fetch("/Notes",reqOptions)
+
+
+
     }
 
     function addNewReply(e){
