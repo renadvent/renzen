@@ -36,7 +36,21 @@ function SiteDataSection(props) {
 
                 notes.map(note => {
                     //render a note for each one
-                    arr.push(<p>{note.content}</p>)
+
+                    let replyStyle = {
+                        width: "70%",
+                        marginLeft: props.margin
+                    }
+
+                    let defStyle = {
+
+                    }
+
+
+                    arr.push(
+                        <div className={"card"}>
+                            <div style={{marginLeft: (note.noteType === "comment") ? replyStyle : defStyle}} className={"card-body"}>{note.content}</div>
+                        </div>)
                 })
 
                 console.log("array content")
@@ -55,7 +69,7 @@ function SiteDataSection(props) {
     function addNewReply(e) {
         setElementsInSection(x => x.concat([
 
-            <CommentTextArea replyTo={false} placeholder={"Type reply here"} margin={"6rem"}/>]))
+            <CommentTextArea noteType={"reply"} placeholder={"Type reply here"} margin={"6rem"}/>]))
 
         // <CommentTextArea replyTo={false} placeholder={"Type reply here"} margin={"6rem"}/>,
         // <CommentOptions click={addNewReply.bind(this)}/>]))
@@ -67,7 +81,7 @@ function SiteDataSection(props) {
 
         setElementsInSection(x => x.concat([
 
-            <CommentTextArea replyTo={true} placeholder={"Type Definition Here"}/>,
+            <CommentTextArea noteType={"def"} placeholder={"Type Definition Here"}/>,
             <CommentOptions click={addNewReply.bind(this)}/>]))
 
 
