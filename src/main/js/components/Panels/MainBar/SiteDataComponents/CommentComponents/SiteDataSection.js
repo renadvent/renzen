@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react"
-import DefinitionTab from "./DefinitionTab";
-import {createComment} from "../1stParty/functions";
-import CommentArea from "./CommentArea";
+import DefinitionTab from "../DefinitionTab";
 import CommentTextArea from "./CommentTextArea";
 import CommentOptions from "./CommentOptions";
 

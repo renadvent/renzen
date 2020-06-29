@@ -1,8 +1,8 @@
-import MakeNote from "../YourStudyGuideComponents/MakeNote";
-import DataLoader from "../1stParty/DataLoader";
+import MakeNote from "./Components/MakeNote";
+import DataLoader from "../../1stParty/DataLoader";
 import React from "react";
-import {getAnnotationPosition} from "../1stParty/functions";
-import NoteTypeSelector from "../YourStudyGuideComponents/NoteTypeSelector";
+import {getAnnotationPosition} from "../../1stParty/functions";
+import NoteTypeSelector from "./Components/NoteTypeSelector";
 
 //
 function YourStudyGuide() {

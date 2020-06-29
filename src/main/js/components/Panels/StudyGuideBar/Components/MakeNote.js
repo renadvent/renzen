@@ -8,31 +8,6 @@ function MakeNote() {
 
         var content = document.getElementById("noteContent").value;
 
-        // var put = document.createElement("p");
-        // put.classList.add("card");
-        // put.classList.add("x");
-        // put.textContent = content;
-        //document.getElementById("all-notes").appendChild(put);
-
-
-
-        //---------------------------------
-
-        //var inputData = {firstName: "User", lastName: "User", description: content}
-
-
-        //POSTING OPTIONS
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     //body: JSON.stringify({firstName:"fetchFirst",lastName:"fetchLast",description:"IT HAS BEEN POSTED"} )
-        //     body: JSON.stringify({firstName: "User", lastName: "name", description: content})
-        // };
-        //
-        // fetch("/mongo", requestOptions)
-
-
-
         const requestOptions2 = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -107,13 +82,8 @@ function MakeNote() {
 
     }
 
-//loadNotes()
-
     return (
         <div>
-            {/*<NoteObject key={10}/>*/}
-            {/*<LoadNotes/>*/}
-
             <textarea
                 className="form-control"
                 id="noteContent"
@@ -123,7 +93,7 @@ function MakeNote() {
                 placeholder="Type Note Here (use # to  quickly enter and exit styling while typing)"
                 onFocus=""
                 value={noteInput}
-                // onInput={proccessTextInput}
+                //onInput={proccessTextInput}
                 //onKeyPress={processKeyPress}
             />
             <p>(Max Note Length 140 words or 1 paragraph)</p>
