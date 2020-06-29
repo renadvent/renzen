@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React, {useState, useEffect} from "react"
 import DefinitionTab from "./DefinitionTab";
 import {createComment} from "../1stParty/functions";
 import CommentArea from "./CommentArea";
@@ -6,51 +6,66 @@ import CommentTextArea from "./CommentTextArea";
 import CommentOptions from "./CommentOptions";
 
 
+function SiteDataSection(props) {
 
+    const [ElementsInSection, setElementsInSection] = useState([])
 
-function SiteDataSection(props){
+    let counter = 10000
 
-    const [ElementsInSection,setElementsInSection] = useState([])
-
-    let counter=10000
-
-    function getNewId(){
-        counter=counter+1;
-        return counter-1
+    function getNewId() {
+        counter = counter + 1;
+        return counter - 1
     }
 
-    function loadCommentSection(){
+    function loadCommentSection() {
 
         const reqOptions = {
-            method : 'GET',
+            method: 'GET',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(
-                {
-                    user:"default",
-                    content : content,
-                    noteType : "comment",
-                    pageSource : "default"
-                })
         }
 
-        let notes=fetch("/Notes",reqOptions)
+        fetch("/Notes/default", reqOptions).then((x) => {
+            console.log(x)
+            console.log("FETCHING")
+            return x.json()
+        }).then(notes => {
+                //do something with restult
+                console.log(notes)
 
+                const arr = []
+
+                notes.map(note => {
+                    //render a note for each one
+                    arr.push(<p>{note.content}</p>)
+                })
+
+                console.log("array content")
+                console.log(arr)
+
+                setElementsInSection(x =>
+                    x.concat(arr)
+                )
+                //return(arr)
+            }
+        )
 
 
     }
 
-    function addNewReply(e){
-        setElementsInSection( x => x.concat([
+    function addNewReply(e) {
+        setElementsInSection(x => x.concat([
 
             <CommentTextArea replyTo={false} placeholder={"Type reply here"} margin={"6rem"}/>]))
 
-            // <CommentTextArea replyTo={false} placeholder={"Type reply here"} margin={"6rem"}/>,
-            // <CommentOptions click={addNewReply.bind(this)}/>]))
+        // <CommentTextArea replyTo={false} placeholder={"Type reply here"} margin={"6rem"}/>,
+        // <CommentOptions click={addNewReply.bind(this)}/>]))
+
+        // loadCommentSection()
     }
 
-    function addNewContent(e){
+    function addNewContent(e) {
 
-        setElementsInSection( x => x.concat([
+        setElementsInSection(x => x.concat([
 
             <CommentTextArea replyTo={true} placeholder={"Type Definition Here"}/>,
             <CommentOptions click={addNewReply.bind(this)}/>]))
@@ -59,9 +74,13 @@ function SiteDataSection(props){
         //setElementsInSection( x => return(...x,...[<CommentTextArea/>,<CommentOptions click={addNewContent.bind(this)}/>])
 
 
-
         //setElementsInSection(ElementsInSection.concat([<CommentTextArea/>,<CommentOptions click={addNewContent.bind(this)}/>]))
     }
+
+    useEffect( () => {
+        console.log("loading comment section")
+        loadCommentSection()
+    },[])
 
     return (
 
@@ -80,9 +99,6 @@ function SiteDataSection(props){
             </ul>
 
             {/*<button onClick={this => addNewContent(this)}>Add Definition</button>*/}
-
-
-
 
 
             <button id={"TEST" + getNewId()} onClick={event => addNewContent(event)}>Add Definition</button>
@@ -146,7 +162,7 @@ function SiteDataSection(props){
             {/*<button>View More Definitions ^</button>*/}
 
 
-</div>
+        </div>
 
 
     )
