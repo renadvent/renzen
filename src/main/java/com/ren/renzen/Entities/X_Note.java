@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Document(collection = "Notes")
 public class X_Note {
 
+    @MongoId
     @Field(value="id")
     private String id;
 
@@ -29,6 +31,9 @@ public class X_Note {
     private String time;
     private String noteType;
     private String user;
+
+    private int upVotes;
+    private int downVotes;
 
     private String threadID;
 

@@ -1,22 +1,22 @@
 import React, {useState,useEffect} from "react"
-
-
-
-
-
-
-
-
+import Axios from "axios";
 
 function CommentOptions(props) {
 
 
     let counter = 200202
 
+    const [upVotes, setUpVotes] = useState(props.upVotes)
+    const [downVotes, setDownVotes] = useState(props.downVotes)
+
     useEffect(()=>{
         console.log("use effect")
         console.log(props)
-    })
+
+        //SET UP PATCHING NOTES UPVOTE/DOWNVOTE VALUES
+        Axios.patch("/Notes/"+props.id)
+
+    },[upVotes,downVotes])
 
 
     function getNewId() {
@@ -27,14 +27,24 @@ function CommentOptions(props) {
     function handleChange(event){
         console.log("handling click")
         console.log(props.click)
-        props.click();
+        //addNewReply
+        //props.click();
     }
 
 
     return (
         <div>
-            <button id={getNewId()} onClick={handleChange}>Reply
-            </button>
+            <button id={getNewId()} onClick={handleChange}>Reply</button>
+
+            <button id={getNewId()}
+                onClick={()=>setUpVotes(x=> x+1)}
+            >UpVote</button>
+
+            {upVotes-downVotes}
+
+            <button id={getNewId()}
+                onClick={()=>setDownVotes(x=>x+1)}
+            >DownVote</button>
             {/*<button id = {getNewId()} onClick={console.log("PRRRRRRRRRR")}>Reply</button>*/}
         </div>
     )

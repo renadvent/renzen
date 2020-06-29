@@ -7,6 +7,8 @@ import Axios from "axios";
 import SaveToButton from "./SaveToButton";
 import CommentNav from "./CommentNav";
 
+import Comment from "./Comment";
+
 
 function SiteDataSection(props) {
 
@@ -28,19 +30,14 @@ function SiteDataSection(props) {
                 notes.data.map(note => {
                     //render a note for each one
 
-                    let replyStyle = {
-                        width: "70%",
-                        marginLeft: props.margin
-                    }
-
-                    let defStyle = {}
+                    console.log(note)
 
                     //create comment
                     arr.push(
-                        <div className={"card"}>
-                            <div style={{marginLeft: (note.noteType == "comment") ? replyStyle : defStyle}}
-                                 className={"card-body"}>{note.content}</div>
-                        </div>)
+                        <div>
+                            <Comment content={note} />
+                        </div>
+                    )
                 })
 
                 setElementsInSection(x =>
