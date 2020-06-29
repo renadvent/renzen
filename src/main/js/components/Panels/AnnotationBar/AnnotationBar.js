@@ -2,7 +2,7 @@ import React from "react";
 import defaultText from "./AnnotationBarComponents/DefaultText"
 import {annotateSelection, highlightSelection} from "../../1stParty/functions";
 import WebsiteTab from "../MainBar/SiteDataComponents/WebsiteTab";
-import DataLoader from "../../1stParty/DataLoader";
+import NoteLoader from "../StudyGuideBar/Components/NoteLoader";
 
 function AnnotationBar() {
 
@@ -28,10 +28,10 @@ function AnnotationBar() {
                 {/*     aria-labelledby="profile-tab">*/}
 
                 {/*    <h3>Definitions</h3>*/}
-                {/*    <DataLoader data="/Definitions"/>*/}
+                {/*    <NoteLoader data="/Definitions"/>*/}
 
                 {/*        /!*<h3>Notes</h3>*!/*/}
-                {/*        /!*<DataLoader data="/Notes"/>*!/*/}
+                {/*        /!*<NoteLoader data="/Notes"/>*!/*/}
 
 
                 {/*    <h3>Overviews</h3>*/}

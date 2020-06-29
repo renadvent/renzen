@@ -38,7 +38,7 @@ function CommentTextArea(props){
                     {
                         user:"default",
                         content : content,
-                        noteType : "comment",
+                        noteType : props.noteType,
                         pageSource : "default"
                     })
             }

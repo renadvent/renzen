@@ -1,9 +1,7 @@
-import fillerData from "../../../../resources/static/FillerData";
 import React from "react";
 import WebsiteTab from "./SiteDataComponents/WebsiteTab"
-import WebsiteTabContent from "./SiteDataComponents/WebsiteTabContent";
 import MainTab from "./SiteDataComponents/MainTab";
-import {createDefinition} from "../../1stParty/functions";
+
 
 function SiteData() {
     return (

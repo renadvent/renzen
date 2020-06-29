@@ -91,7 +91,7 @@ function MakeNote() {
                 rows="20"
                 cols="100"
                 placeholder="Type Note Here (use # to  quickly enter and exit styling while typing)"
-                onFocus=""
+                // onFocus=""
                 value={noteInput}
                 //onInput={proccessTextInput}
                 //onKeyPress={processKeyPress}

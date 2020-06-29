@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react"
-import {JSONLoader} from "./JSONLoader";
+import {JSONLoader} from "../../../1stParty/JSONLoader";
 
 
-function DataLoader(props) {
+function NoteLoader(props) {
 
     const [loadedNotes, setLoadedNotes] = useState()
 
@@ -15,7 +15,7 @@ function DataLoader(props) {
             .then(data => {
                 var arr = []
                 data.map(x => {
-                    arr.push(x.definition)
+                    arr.push(x.content)
                 })
 
                 //convert array into React objects
@@ -24,7 +24,6 @@ function DataLoader(props) {
                     <ol>
                         <li>Placeholder</li>
                         {arr.map(g => (<li>{g}</li>))}
-                        {console.log("LOADED")}
                     </ol>
                 )
 
@@ -38,4 +37,4 @@ function DataLoader(props) {
     )
 }
 
-export default DataLoader
+export default NoteLoader

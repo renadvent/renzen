@@ -1,5 +1,5 @@
 import MakeNote from "./Components/MakeNote";
-import DataLoader from "../../1stParty/DataLoader";
+import NoteLoader from "./Components/NoteLoader";
 import React from "react";
 import {getAnnotationPosition} from "../../1stParty/functions";
 import NoteTypeSelector from "./Components/NoteTypeSelector";
@@ -123,7 +123,7 @@ function YourStudyGuide() {
 
                     {/*display loaded notes*/}
                     <div className="tab-pane fade" id="loadedNotes" role="tabpanel">
-                        <DataLoader data={"/Notes"}/>
+                        <NoteLoader data={"/Notes"}/>
                     </div>
                 </div>
 
