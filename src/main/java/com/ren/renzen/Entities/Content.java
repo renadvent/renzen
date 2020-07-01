@@ -16,7 +16,7 @@ import java.util.List;
 @QueryEntity
 @Getter@Setter
 @Document(collection = "Notes")
-public class X_Note {
+public class Content {
 
 //    @MongoId
 //    @Field(value="id")
@@ -36,28 +36,30 @@ public class X_Note {
     private String noteType;
     private String user;
 
+    //private List<X_Note> replies;
+
     private int upVotes;
     private int downVotes;
 
-    private String threadID;
+    private String parentNote;
 
     @Field(value="comments")
     private List<String> comments;
 
-    public X_Note () {};
+    public Content() {}
 
-    public X_Note(String content, String user) {
+    public Content(String content, String user) {
         this.content = content;
         this.user= user;
     }
 
-    public X_Note(String content, String user, String pageSource) {
+    public Content(String content, String user, String pageSource) {
         this.content = content;
         this.user= user;
         this.pageSource=pageSource;
     }
 
-    public X_Note(String content) {
+    public Content(String content) {
         this.content = content;
     }
 

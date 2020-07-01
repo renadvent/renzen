@@ -5,8 +5,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Document(collection="Pages")
-public class X_Page {
+public class Page {
 
 
     @Id
@@ -36,9 +34,9 @@ public class X_Page {
 //    }
 
 
-    private X_Page(){}
+    private Page(){}
 
-    public X_Page(String pageName, String description){
+    public Page(String pageName, String description){
         this.pageName=pageName;
         this.description=description;
     }
@@ -48,9 +46,9 @@ public class X_Page {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        X_Page x_page = (X_Page) obj;
-        return Objects.equals(pageName,x_page.pageName) &&
-                Objects.equals(pageName,x_page.pageName) && Objects.equals(description,x_page.description);
+        Page _page = (Page) obj;
+        return Objects.equals(pageName, _page.pageName) &&
+                Objects.equals(pageName, _page.pageName) && Objects.equals(description, _page.description);
     }
 
     @Override

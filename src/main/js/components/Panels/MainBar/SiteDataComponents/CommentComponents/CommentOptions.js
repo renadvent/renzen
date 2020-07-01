@@ -3,7 +3,6 @@ import Axios from "axios";
 
 function CommentOptions(props) {
 
-
     let counter = 200202
 
     const [upVotes, setUpVotes] = useState(props.upVotes)
@@ -22,9 +21,6 @@ function CommentOptions(props) {
          Axios.patch("/api/x_Notes/"+props.id, {
             downVotes: downVotes,
             upVotes: upVotes,
-            //id:props.id,
-            // downVotes:downRef,
-            // upVotes:upRef,
             pageName: "default"
         })
 
@@ -37,12 +33,9 @@ function CommentOptions(props) {
     }
 
     function handleChange(event){
-        console.log("handling click")
-        console.log(props.click)
-        //addNewReply
-        //props.click();
-    }
+        props.click();
 
+    }
 
     return (
         <div>

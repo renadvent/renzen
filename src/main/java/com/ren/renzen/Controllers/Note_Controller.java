@@ -1,11 +1,10 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.Entities.X_Note;
-import com.ren.renzen.Repos.X_Note_Repository;
+import com.ren.renzen.Entities.Content;
+import com.ren.renzen.Repos.Note_Repository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @Getter@Setter
 //@RepositoryRestController()
 @BasePathAwareController
-public class NoteController {
+public class Note_Controller {
 
-    private X_Note_Repository mongoRepo;
+    private Note_Repository mongoRepo;
 
-    public NoteController(X_Note_Repository mongoRepo){
+    public Note_Controller(Note_Repository mongoRepo){
         this.mongoRepo=mongoRepo;
     }
 
@@ -37,7 +36,7 @@ public class NoteController {
 //    }
 
     @GetMapping( value="/a")
-    public @ResponseBody Iterable<X_Note> getNotesByPage(){
+    public @ResponseBody Iterable<Content> getNotesByPage(){
 
         //return ("hi");
         return mongoRepo.findAll();
@@ -45,11 +44,27 @@ public class NoteController {
     }
 
     @GetMapping(value="/pageSource")
-    public @ResponseBody Iterable<X_Note> getNotesByPage(@RequestParam("pageSource") String pageSource){
+    public @ResponseBody Iterable<Content> getNotesByPage(@RequestParam("pageSource") String pageSource){
         System.out.println("proc");
         //return ("HI");
         return this.mongoRepo.findX_NotesByPageSource(pageSource);
     }
+
+    @GetMapping(value="/section")
+    public @ResponseBody Iterable<Content> getNotesByPage(
+            @RequestParam("pageSource") String pageSource,
+            @RequestParam("noteType") String noteType ){
+        System.out.println("proc");
+        //return ("HI");
+        return this.mongoRepo.findX_NotesByPageSourceAndNoteType(pageSource,noteType);
+    }
+
+    @GetMapping(value="/getChildren")
+    public @ResponseBody Iterable<Content> getByParent(
+            @RequestParam("parent") String parent){
+        return this.mongoRepo.findX_NotesByParentNote(parent);
+    }
+
 
     //mapping to retrieve user content on page
     //@GetMapping(path="x_Notes/{id}")
