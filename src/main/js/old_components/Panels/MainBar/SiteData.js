@@ -1,6 +1,6 @@
 import React from "react";
-import WebsiteTab from "./SiteDataComponents/WebsiteTab"
-import MainTab from "./SiteDataComponents/MainTab";
+import WebsiteTab from "../../SiteDataComponents/WebsiteTab"
+import MainTab from "../../SiteDataComponents/MainTab";
 
 
 function SiteData() {

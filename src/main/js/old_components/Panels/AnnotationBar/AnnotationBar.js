@@ -1,7 +1,7 @@
 import React from "react";
 import defaultText from "./AnnotationBarComponents/DefaultText"
 import {annotateSelection, highlightSelection} from "../../1stParty/functions";
-import WebsiteTab from "../MainBar/SiteDataComponents/WebsiteTab";
+import WebsiteTab from "../../SiteDataComponents/WebsiteTab";
 import NoteLoader from "../StudyGuideBar/Components/NoteLoader";
 
 function AnnotationBar() {

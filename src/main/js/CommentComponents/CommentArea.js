@@ -10,9 +10,7 @@ function CommentArea(){
             //process add content
             console.log("process add content")
         }
-
     }
-
     return (
         <div>
             <textarea placeholder={"Type Comment Here"} rows={1} onKeyPress={processKeyPress} />

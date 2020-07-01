@@ -1,7 +1,7 @@
 import React from "react"
 import Axios from "axios";
 
-function CommentTextArea(props){
+function InputArea(props){
 
     let counter=1
 
@@ -44,4 +44,4 @@ function CommentTextArea(props){
     )
 }
 
-export default CommentTextArea
+export default InputArea

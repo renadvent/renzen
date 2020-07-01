@@ -1,9 +1,9 @@
 import React from "react";
-import YourStudyGuide from "./Panels/StudyGuideBar/YourStudyGuide";
-import SiteData from "./Panels/MainBar/SiteData";
-import AnnotationBar from "./Panels/AnnotationBar/AnnotationBar";
-import Navbar from "./Panels/NavBar/nav";
-import SiteDataSection from "./Panels/MainBar/SiteDataComponents/CommentComponents/SiteDataSection";
+import YourStudyGuide from "./old_components/Panels/StudyGuideBar/YourStudyGuide";
+import SiteData from "./old_components/Panels/MainBar/SiteData";
+import AnnotationBar from "./old_components/Panels/AnnotationBar/AnnotationBar";
+import Navbar from "./old_components/Panels/NavBar/nav";
+import SiteDataSection from "./CommentComponents/SiteDataSection";
 
 //Main JS file
 //sets up navbar, and columns for site
