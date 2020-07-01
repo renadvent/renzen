@@ -23,7 +23,7 @@ function SiteDataSection(props) {
 
     function loadCommentSection() {
 
-        Axios.get("/Notes/default").then(notes => {
+        Axios.get("/api/pageSource?pageSource=default").then(notes => {
                 //do something with restult
                 const arr = []
 
@@ -73,10 +73,10 @@ function SiteDataSection(props) {
             <ul className="nav nav-tabs">
 
                 <DefinitionTab name={"Getting Started"} id={"#a"} linkTo={"#gettingStarted"} active={"active"}/>
-                <DefinitionTab name={"Featured"} id={"#b"} linkTo={"#featured"}/>
-                <DefinitionTab name={"Top Voted"} id={"#c"} linkTo={"#popular"}/>
-                <DefinitionTab name={"Newest"} id={"#d"} linkTo={"#newest"}/>
-                <DefinitionTab name={"Your Definitions"} id={"#e"} linkTo={"#yourdefs"}/>
+                {/*<DefinitionTab name={"Featured"} id={"#b"} linkTo={"#featured"}/>*/}
+                {/*<DefinitionTab name={"Top Voted"} id={"#c"} linkTo={"#popular"}/>*/}
+                {/*<DefinitionTab name={"Newest"} id={"#d"} linkTo={"#newest"}/>*/}
+                {/*<DefinitionTab name={"Your Definitions"} id={"#e"} linkTo={"#yourdefs"}/>*/}
 
             </ul>
             <button id={"TEST" + getNewId()}
@@ -85,12 +85,12 @@ function SiteDataSection(props) {
 
             {ElementsInSection}
 
-            <SaveToButton/>
+            {/*<SaveToButton/>*/}
 
             <div className="comments">
                 <button>Add Comment</button>
             </div>
-            <CommentNav/>
+            {/*<CommentNav/>*/}
         </div>
 
 

@@ -3,6 +3,8 @@ package com.ren.renzen.Entities;
 import com.querydsl.core.annotations.QueryEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -16,9 +18,11 @@ import java.util.List;
 @Document(collection = "Notes")
 public class X_Note {
 
-    @MongoId
-    @Field(value="id")
+//    @MongoId
+//    @Field(value="id")
+    @Id
     private String id;
+    //private ObjectId id;
 
     @Field(value="content")
     private  String content;

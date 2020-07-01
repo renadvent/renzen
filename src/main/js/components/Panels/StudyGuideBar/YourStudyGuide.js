@@ -123,7 +123,12 @@ function YourStudyGuide() {
 
                     {/*display loaded notes*/}
                     <div className="tab-pane fade" id="loadedNotes" role="tabpanel">
-                        <NoteLoader data={"/Notes"}/>
+
+
+                        <NoteLoader data={"/api/x_Notes"}/>
+
+
+
                     </div>
                 </div>
 

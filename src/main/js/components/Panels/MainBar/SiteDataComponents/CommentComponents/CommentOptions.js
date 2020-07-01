@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react"
+import React, {useState,useEffect,useRef} from "react"
 import Axios from "axios";
 
 function CommentOptions(props) {
@@ -9,12 +9,24 @@ function CommentOptions(props) {
     const [upVotes, setUpVotes] = useState(props.upVotes)
     const [downVotes, setDownVotes] = useState(props.downVotes)
 
+    const upRef=useRef(upVotes)
+    const downRef=useRef(downVotes)
+
     useEffect(()=>{
         console.log("use effect")
         console.log(props)
 
-        //SET UP PATCHING NOTES UPVOTE/DOWNVOTE VALUES
-        Axios.patch("/Notes/"+props.id)
+        console.log(props.id)
+        //console.log(props.id.toString())
+
+         Axios.patch("/api/x_Notes/"+props.id, {
+            downVotes: downVotes,
+            upVotes: upVotes,
+            //id:props.id,
+            // downVotes:downRef,
+            // upVotes:upRef,
+            pageName: "default"
+        })
 
     },[upVotes,downVotes])
 

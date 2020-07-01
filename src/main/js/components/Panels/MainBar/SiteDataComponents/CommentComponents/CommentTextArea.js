@@ -1,4 +1,5 @@
 import React from "react"
+import Axios from "axios";
 
 function CommentTextArea(props){
 
@@ -31,19 +32,26 @@ function CommentTextArea(props){
             document.getElementById(e.target.id).insertAdjacentElement("beforebegin",former)
             document.getElementById(e.target.id).insertAdjacentElement("beforebegin",username)
 
-            const reqOptions = {
-                method : 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(
-                    {
-                        user:"default",
-                        content : content,
-                        noteType : props.noteType,
-                        pageSource : "default"
-                    })
-            }
+            // const reqOptions = {
+            //     method : 'POST',
+            //     headers: {'Content-Type': 'application/json'},
+            //     body: JSON.stringify(
+            //         {
+            //             user:"default",
+            //             content : content,
+            //             noteType : props.noteType,
+            //             pageSource : "default"
+            //         })
+            // }
+            //
+            // fetch("/Notes",reqOptions)
 
-            fetch("/Notes",reqOptions)
+            Axios.post("/api/x_Notes",{
+                user:"default",
+                content:content,
+                noteType:props.noteType,
+                pageSource:"default"
+            })
 
             console.log(e.target.id)
             document.getElementById(e.target.id).remove()

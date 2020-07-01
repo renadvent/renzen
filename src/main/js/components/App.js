@@ -12,9 +12,9 @@ function App() {
         <div className="container-fluid">
             <Navbar/>
             <div className="row">
-                <YourStudyGuide/>
+                {/*<YourStudyGuide/>*/}
                 <SiteData />
-                <AnnotationBar/>
+                {/*<AnnotationBar/>*/}
             </div>
         </div>
     );
