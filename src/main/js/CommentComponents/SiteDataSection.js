@@ -8,9 +8,9 @@ function SiteDataSection(props) {
 
     useEffect(() => {
         //console.log("__SDKLLJJFKLALKFJAJFALJAFKLAJFLKAJFKALJFKALKJFKL")
-        ReactDOM.unstable_batchedUpdates(() => {
+        //ReactDOM.unstable_batchedUpdates(() => {
             loadSections(page_ref)
-        })
+        //})
         //load sections for default page
     }, [])
 
@@ -24,7 +24,10 @@ function SiteDataSection(props) {
     }
 
     function reload() {
-        loadSections(page_ref)
+        //ReactDOM.unstable_batchedUpdates(() => {
+            //setElementsInSection(()=>[])
+            loadSections(page_ref)
+        //})
     }
 
     function InputArea(props) {
@@ -63,7 +66,8 @@ function SiteDataSection(props) {
         return (
             <div>
             <textarea id={getNewId()} rows={1} placeholder={props.placeholder}
-                      autoFocus={true} style={areaStyle} className={"form-control"}
+                      //autoFocus={true}
+                      style={areaStyle} className={"form-control"}
                       onKeyPress={props.action}
                 // onKeyPress={processKeyPress}
             />
@@ -79,6 +83,8 @@ function SiteDataSection(props) {
         //on "enter", POST text as new CONTENT, add href to content to new SECTION,
         //add href to section to Page
 
+        //SPRING IS STRIPPING ID FIELD FOR SOME REASON
+
         if (e.key === "Enter") {
 
             const content = e.target.value
@@ -87,28 +93,39 @@ function SiteDataSection(props) {
             Axios.post("/api/contents/", {
                 user: "default",
                 content: content,
-                noteType: props.noteType,
+                noteType: "question",
                 pageSource: "default"
             }).then(postedContent => {
 
+                console.log("testing section post")
+                //console.log(postedContent.data)
+                //console.log("api/contents/"+postedContent.data.id)
+                console.log(postedContent)
+                console.log(postedContent.data._links.self.href)
+
                 //create new section and post ref in
                 Axios.post("/api/sections/", {
-                    question_ref: postedContent.data._links.href
+                    //question_ref: "api/contents/"+postedContent.data.id
+                    question_ref: postedContent.data._links.self.href
                 }).then(postedSection => {
 
                     //get sections_refs for page, add new ref, patch
                     Axios.get(page_ref).then(page => {
                         //page.data.section_refs.push(postedSection.data._links.href)
                         //add to beginning
-                        page.data.section_refs.unshift(postedSection.data._links.href)
-                    }).then(() => {
+
+                        page.data.section_refs.unshift(postedSection.data._links.self.href)
+                        //page.data.section_refs.unshift(postedSection.data._links.href)
+                        return (page)
+                    }).then((page) => {
                         Axios.patch(page_ref, {
                             section_refs: page.data.section_refs
                         })
+                    }).then( () => {
+                        reload();
                     })
                 })
             })
-            reload();
         }
     }
 
@@ -116,9 +133,9 @@ function SiteDataSection(props) {
 
         //on "enter" POST text as CONTENT, add href to Section.answer_refs
 
-        if (e.key === "enter"){
+        if (e.key === "enter") {
 
-            Axios
+            //Axios
 
             reload()
         }

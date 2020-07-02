@@ -28,13 +28,13 @@ public class Content {
 
     public Content() {}
 
+    public Content(String content) {
+        this.content = content;
+    }
+
     public Content(String content, String user) {
         this.content = content;
         this.user= user;
-    }
-
-    public Content(String content) {
-        this.content = content;
     }
 
 }

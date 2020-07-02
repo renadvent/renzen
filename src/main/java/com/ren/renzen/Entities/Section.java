@@ -15,4 +15,11 @@ public class Section {
 
     private String question_ref;
     private List<String> answer_refs;
+
+    public Section() {}
+
+    //create new section with question_ref
+    public Section(String question_ref){
+        this.question_ref=question_ref;
+    }
 }
