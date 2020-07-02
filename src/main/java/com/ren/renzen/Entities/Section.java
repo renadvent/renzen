@@ -14,6 +14,5 @@ public class Section {
     private String id;
 
     private String question_ref;
-    private List<String> answer_refs; //references "Content"
-    //private List<String> comment_refs; //references "Content"
+    private List<String> answer_refs;
 }
