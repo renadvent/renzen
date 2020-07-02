@@ -23,6 +23,10 @@ function SiteDataSection(props) {
         return counter - 1
     }
 
+    function reload() {
+        loadSections(page_ref)
+    }
+
     function InputArea(props) {
 
         let counter = 1
@@ -94,7 +98,9 @@ function SiteDataSection(props) {
 
                     //get sections_refs for page, add new ref, patch
                     Axios.get(page_ref).then(page => {
-                        page.data.section_refs.push(postedSection.data._links.href)
+                        //page.data.section_refs.push(postedSection.data._links.href)
+                        //add to beginning
+                        page.data.section_refs.unshift(postedSection.data._links.href)
                     }).then(() => {
                         Axios.patch(page_ref, {
                             section_refs: page.data.section_refs
@@ -102,15 +108,20 @@ function SiteDataSection(props) {
                     })
                 })
             })
-            props.reload();
+            reload();
         }
     }
 
-    function AnswerQuestion() {
-
-        //show input text area at bottom of section
+    function AnswerQuestion(e) {
 
         //on "enter" POST text as CONTENT, add href to Section.answer_refs
+
+        if (e.key === "enter"){
+
+            Axios
+
+            reload()
+        }
 
         //reload
 
