@@ -1,19 +1,18 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useEffect, useState} from "react"
 import Axios from "axios";
 import ReactDOM from 'react-dom';
 
 function SiteDataSection(props) {
 
-
-    let x=1;
+    let [page_ref, setPageRef] = useState("/api/pages/5efd2911d231b04eecfcd282")
 
     useEffect(() => {
         //console.log("__SDKLLJJFKLALKFJAJFALJAFKLAJFLKAJFKALJFKALKJFKL")
         ReactDOM.unstable_batchedUpdates(() => {
-            loadSections("/api/pages/5efd2911d231b04eecfcd282")
+            loadSections(page_ref)
         })
         //load sections for default page
-    }, [x])
+    }, [])
 
     const [ElementsInSection, setElementsInSection] = useState([])
 
@@ -24,44 +23,46 @@ function SiteDataSection(props) {
         return counter - 1
     }
 
-    function InputArea(props){
+    function InputArea(props) {
 
-        let counter=1
+        let counter = 1
 
-        function getNewId(){
-            counter=counter+1;
-            return counter-1
+        function getNewId() {
+            counter = counter + 1;
+            return counter - 1
         }
 
         //add a new definition/reply
-        function processKeyPress(e) {
-
-            if (e.key === "Enter"){
-
-                const content = e.target.value
-
-                Axios.post("/api/Contents/",{
-                    user:"default",
-                    content:content,
-                    noteType:props.noteType,
-                    pageSource:"default"
-                })
-
-                props.reload();
-            }
-
-        }
+        // function processKeyPress(e) {
+        //
+        //     if (e.key === "Enter") {
+        //
+        //         const content = e.target.value
+        //
+        //         Axios.post("/api/contents/", {
+        //             user: "default",
+        //             content: content,
+        //             noteType: props.noteType,
+        //             pageSource: "default"
+        //         })
+        //
+        //         props.reload();
+        //     }
+        //
+        // }
 
         let areaStyle = {
             width: "70%",
             marginLeft: props.margin
         }
 
-        return(
+        return (
             <div>
             <textarea id={getNewId()} rows={1} placeholder={props.placeholder}
                       autoFocus={true} style={areaStyle} className={"form-control"}
-                      onKeyPress={processKeyPress}/>
+                      onKeyPress={props.action}
+                // onKeyPress={processKeyPress}
+            />
             </div>
 
         )
@@ -69,16 +70,43 @@ function SiteDataSection(props) {
 
     //----------------------------------------------------------------------------
 
-    function askNewQuestion(){
+    function askNewQuestion(e) {
 
         //on "enter", POST text as new CONTENT, add href to content to new SECTION,
         //add href to section to Page
 
-        //reload
+        if (e.key === "Enter") {
 
+            const content = e.target.value
+
+            //create new content
+            Axios.post("/api/contents/", {
+                user: "default",
+                content: content,
+                noteType: props.noteType,
+                pageSource: "default"
+            }).then(postedContent => {
+
+                //create new section and post ref in
+                Axios.post("/api/sections/", {
+                    question_ref: postedContent.data._links.href
+                }).then(postedSection => {
+
+                    //get sections_refs for page, add new ref, patch
+                    Axios.get(page_ref).then(page => {
+                        page.data.section_refs.push(postedSection.data._links.href)
+                    }).then(() => {
+                        Axios.patch(page_ref, {
+                            section_refs: page.data.section_refs
+                        })
+                    })
+                })
+            })
+            props.reload();
+        }
     }
 
-    function AnswerQuestion(){
+    function AnswerQuestion() {
 
         //show input text area at bottom of section
 
@@ -88,7 +116,7 @@ function SiteDataSection(props) {
 
     }
 
-    function replyToQuestionOrAnswer(){
+    function replyToQuestionOrAnswer() {
 
         //show input text area at bottom of question/answer comments
 
@@ -105,12 +133,12 @@ function SiteDataSection(props) {
         const [upVotes, setUpVotes] = useState(props.upVotes)
         const [downVotes, setDownVotes] = useState(props.downVotes)
 
-        const upRef = useRef(upVotes)
-        const downRef = useRef(downVotes)
+        // const upRef = useRef(upVotes)
+        // const downRef = useRef(downVotes)
 
         useEffect(() => {
 
-            Axios.patch("/api/contents/" + props.id, {
+            Axios.patch("/api/contents/" + props.src.id, {
                 downVotes: downVotes,
                 upVotes: upVotes,
                 pageName: "default"
@@ -120,7 +148,7 @@ function SiteDataSection(props) {
 
         return (
             <div>
-                <button id={getNewId()} onClick={props.refer.click}>Reply</button>
+                <button id={getNewId()} onClick={(event) => replyToQuestionOrAnswer(event)}>Reply</button>
 
                 <button id={getNewId()}
                         onClick={() => setUpVotes(x => x + 1)}
@@ -160,7 +188,7 @@ function SiteDataSection(props) {
 
                         </div>
 
-                        {/*<ReplyOptions src={reply}/>*/}
+                        <ReplyOptions src={reply}/>
 
                         {/*<ReplyOptions id={props.content.id}*/}
                         {/*                upVotes={props.content.upVotes}*/}
@@ -185,31 +213,29 @@ function SiteDataSection(props) {
         const [loadedAnswer, setLoadedAnswer] = useState("loading answer")
         const [loadedReplies, setLoadedReplies] = useState([])
 
-        useEffect(()=>{
+        useEffect(() => {
 
-        //load answer from reference
-        Axios.get(props.refer).then(answer => {
-            console.log("getting answers")
-            console.log(answer.data.content)
-            console.log(answer.data.reply_refs)
+            //load answer from reference
+            Axios.get(props.refer).then(answer => {
+                    console.log("getting answers")
+                    console.log(answer.data.content)
+                    console.log(answer.data.reply_refs)
 
-            // loadedAnswer=answer.data.content
-            setLoadedAnswer(answer.data.content)
-            //t=answer.data.content
+                    setLoadedAnswer(answer.data.content)
 
-                //create react objects from comment references
-                // setLoadedReplies(
-                //     answer.data.reply_refs.map(reply_ref => {
-                //         return (
-                //             <div>
-                //                 <Reply refer={reply_ref}/>
-                //             </div>
-                //         )
-                //     })
-                // )
-            }
-        )
-        },[])
+                    // create react objects from comment references
+                    setLoadedReplies(
+                        answer.data.reply_refs.map(reply_ref => {
+                            return (
+                                <div>
+                                    <Reply refer={reply_ref}/>
+                                </div>
+                            )
+                        })
+                    )
+                }
+            )
+        }, [])
 
         return (
             <div>
@@ -230,68 +256,56 @@ function SiteDataSection(props) {
 
         //load section from reference
 
-        useEffect(()=>
+        useEffect(() => {
 
-        Axios.get(props.refer).then(section => {
-            console.log("getting sections")
-            console.log(section.data)
+            Axios.get(props.refer).then(section => {
+                    console.log("getting sections")
+                    console.log(section.data)
 
-                //load Question from reference
-                Axios.get(section.data.question_ref).then(question => {
-                    console.log("getting questions")
-                    console.log(question.data)
+                    //load Question from reference
+                    Axios.get(section.data.question_ref).then(question => {
+                            console.log("getting questions")
+                            console.log(question.data)
 
-                        setLoadedQuestion(question.data.content)
+                            setLoadedQuestion(question.data.content)
 
-                        //create react objects from comment references
-                        // setLoadedReplies(
-                        //     question.data.reply_refs.map(reply_ref => {
-                        //         return (
-                        //             <div>
-                        //                 <Reply key={"ia"+getNewId()} refer={reply_ref}/>
-                        //             </div>
-                        //         )
-                        //     })
-                        // )
-                    }
-                )
+                            //create react objects from comment references
+                            setLoadedReplies(
+                                question.data.reply_refs.map(reply_ref => {
+                                    return (
+                                        <div>
+                                            <Reply key={"ia" + getNewId()} refer={reply_ref}/>
+                                        </div>
+                                    )
+                                })
+                            )
+                        }
+                    )
 
-                //create react object from answer references
+                    //create react object from answer references
 
-            // const arr_ref = []
-            //
-            // section.data.answer_refs.map(answer_ref=>{
-            //     arr_ref.push(
-            //         <div>
-            //             <Answer key={"ia"+getNewId()} refer={answer_ref}/>
-            //         </div>
-            //     )
-            // })
-            //
-            // setLoadedAnswers(arr_ref)
+                    setLoadedAnswers(
+                        section.data.answer_refs.map(answer_ref => {
+                                return (
+                                    <Answer key={"ia" + getNewId()} refer={answer_ref}/>
+                                )
+                            }
+                        ))
+                }
+            )
 
-
-                setLoadedAnswers(
-                    section.data.answer_refs.map(answer_ref => {
-                        return (
-                                <Answer key={"ia"+getNewId()} refer={answer_ref}/>
-                        )
-                    }
-                ))
-            }
-        )
-
-        ,[])
+        }, [])
 
         return (
             <div>
                 <h2>{loadedQuestion}</h2>
                 <p>{loadedReplies}</p>
-                <InputArea key={"ia"+getNewId()} placeholder={"Enter A New Reply"} action={replyToQuestionOrAnswer}/>
+                <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Reply"} action={replyToQuestionOrAnswer}/>
                 <h4>{loadedAnswers}</h4>
             </div>
         )
     }
+
 
     //this loads each section for the page
     function loadSections(page) {
@@ -310,9 +324,10 @@ function SiteDataSection(props) {
                             console.log(refer)
 
                             return (
-                                <div key={"ia"+getNewId()}>
+                                <div key={"ia" + getNewId()}>
                                     <Section refer={refer}/>
-                                    <InputArea key={"ia"+getNewId()} placeholder={"Answer Question"} action={AnswerQuestion}/>
+                                    <InputArea key={"ia" + getNewId()} placeholder={"Answer Question"}
+                                               action={AnswerQuestion}/>
                                 </div>
                             )
                         })
@@ -325,9 +340,11 @@ function SiteDataSection(props) {
     //----------------------------------------------------------------------------
 
     return (
-        <div >
+        <div>
             <h1>The Docs</h1>
-            <InputArea key={"ia"+getNewId()} placeholder={"Enter A New Question"} action={askNewQuestion}/>
+            <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Question"} action={(event) => {
+                askNewQuestion(event)
+            }}/>
             {ElementsInSection}
         </div>
     )
