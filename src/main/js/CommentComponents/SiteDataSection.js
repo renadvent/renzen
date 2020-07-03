@@ -88,15 +88,8 @@ function SiteDataSection(props) {
                 reply_refs : []
             }).then(postedContent => {
 
-                console.log("testing section post")
-                //console.log(postedContent.data)
-                //console.log("api/contents/"+postedContent.data.id)
-                console.log(postedContent)
-                console.log(postedContent.data._links.self.href)
-
                 //create new section and post ref in
                 Axios.post("/api/sections/", {
-                    //question_ref: "api/contents/"+postedContent.data.id
                     question_ref: postedContent.data._links.self.href,
                     answer_refs : []
                 }).then(postedSection => {
@@ -138,7 +131,7 @@ function SiteDataSection(props) {
             }).then(postedContent => {
                 Axios.get(refer).then(question => {
                     //post new content as an answer
-                    question.data.answer_refs.unshift(postedContent.data._links.self.href)
+                    question.data.answer_refs.push(postedContent.data._links.self.href)
                     Axios.patch(refer, {
                         answer_refs: question.data.answer_refs
                     })
@@ -151,7 +144,30 @@ function SiteDataSection(props) {
 
     function replyToQuestionOrAnswer(e,refer) {
 
+        if (e.key === "Enter") {
 
+            const content = e.target.value
+
+            Axios.post("/api/contents/", {
+                user: "default",
+                content: content,
+                upVotes : 0,
+                downVotes : 0,
+                reply_refs : null
+            }).then(postedContent => {
+                Axios.get(refer).then(replyingTo => {
+                    //post new content as an answer
+                    console.log("replyingto: "+replyingTo.data.reply_refs)
+                    replyingTo.data.reply_refs.unshift(postedContent.data._links.self.href)
+                    Axios.patch(refer, {
+                        reply_refs: replyingTo.data.reply_refs
+                    })
+                })
+
+            }).then(() => {
+                reload()
+            })
+        }
 
     }
 
@@ -171,7 +187,11 @@ function SiteDataSection(props) {
                 downVotes: downVotes,
                 upVotes: upVotes,
                 pageName: "default"
-            })
+            }).catch( ()=> {
+                    console.log("nothing to patch")
+            }
+
+            )
 
         }, [upVotes, downVotes])
 
@@ -205,6 +225,8 @@ function SiteDataSection(props) {
             width: "100%",
         }
 
+        //useEffect(()=>{
+
         Axios.get(props.refer).then(reply => {
             console.log("getting replies")
             setLoadedReply(
@@ -219,19 +241,15 @@ function SiteDataSection(props) {
 
                         <ReplyOptions src={reply}/>
 
-                        {/*<ReplyOptions id={props.content.id}*/}
-                        {/*                upVotes={props.content.upVotes}*/}
-                        {/*                downVotes={props.content.downVotes}*/}
-                        {/*                reload={props.reload}*/}
-                        {/*                click={props.click}/>*/}
                     </div>
                 </div>
             )
         })
+        //},[loadedReply])
 
         return (
             <div>
-                {loadedReply}
+                LR{loadedReply}
             </div>
         );
     }
@@ -272,7 +290,10 @@ function SiteDataSection(props) {
             <div>
                 <p>{loadedAnswer}</p>
                 <p>{loadedReplies}</p>
-                <InputArea placeholder={"Enter A New Reply"} action={replyToQuestionOrAnswer}/>
+                <InputArea placeholder={"Enter A New Reply"}
+                           section_refs={props.refer}
+                           action={replyToQuestionOrAnswer
+                }/>
             </div>
         )
 
@@ -303,6 +324,7 @@ function SiteDataSection(props) {
                             setLoadedQuestion(question.data.content)
 
                             console.log("reply_refs: "+question.data.reply_refs)
+
                             setReplyRse(question.data.reply_refs)
 
                             //create react objects from comment references
