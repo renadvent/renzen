@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useEffect, useState} from "react"
 import Axios from "axios";
 
 function SiteDataSection(props) {
@@ -9,14 +9,6 @@ function SiteDataSection(props) {
 
     let [page_ref, setPageRef] = useState("/api/pages/5efd2911d231b04eecfcd282")
 
-    useEffect(() => {
-        //console.log("__SDKLLJJFKLALKFJAJFALJAFKLAJFLKAJFKALJFKALKJFKL")
-        //ReactDOM.unstable_batchedUpdates(() => {
-        loadSections(page_ref)
-        //})
-        //load sections for default page
-    }, [page_ref])
-
     const [ElementsInSection, setElementsInSection] = useState([])
 
     let counter = 10000
@@ -26,11 +18,12 @@ function SiteDataSection(props) {
         return counter - 1
     }
 
-    function reload() {
-        //ReactDOM.unstable_batchedUpdates(() => {
-        //setElementsInSection(()=>[])
+    useEffect(() => {
         loadSections(page_ref)
-        //})
+    }, [page_ref])
+
+    function reload() {
+        loadSections(page_ref)
     }
 
     function InputArea(props) {
@@ -47,22 +40,12 @@ function SiteDataSection(props) {
             marginLeft: props.margin
         }
 
-        const [inputText, setInputText] = useState(props.placeholder)
-
         return (
             <div>
             <textarea id={getNewId()} rows={1} placeholder={props.placeholder}
-                //autoFocus={true}
                       style={areaStyle} className={"form-control"}
-                // onKeyPress={props.action}
                       onKeyPress={(event => props.action(event, props.section_refs))
                       }
-                //   onKeyPress={(event)=> {
-                //       console.log(props)
-                //       props.action(event,props.section_refs)
-                //   }}
-                // section_ref={props.section_refs}
-                // onKeyPress={processKeyPress}
             />
             </div>
 
@@ -100,11 +83,9 @@ function SiteDataSection(props) {
 
                     //get sections_refs for page, add new ref, patch
                     Axios.get(page_ref).then(page => {
-                        //page.data.section_refs.push(postedSection.data._links.href)
-                        //add to beginning
 
+                        //add to beginning
                         page.data.section_refs.unshift(postedSection.data._links.self.href)
-                        //page.data.section_refs.unshift(postedSection.data._links.href)
                         return (page)
                     }).then((page) => {
                         Axios.patch(page_ref, {
@@ -162,7 +143,6 @@ function SiteDataSection(props) {
                     console.log("refer: " + refer)
                     console.log("replyingto: " + replyingTo.data.reply_refs)
                     replyingTo.data.reply_refs.push(postedContent.data._links.self.href)
-                    // replyingTo.data.reply_refs.unshift(postedContent.data._links.self.href)
                     Axios.patch(refer, {
                         reply_refs: replyingTo.data.reply_refs
                     })
@@ -179,47 +159,41 @@ function SiteDataSection(props) {
 
     function ReplyOptions(props) {
 
-        // const [upVotes, setUpVotes] = useState(props.upVotes)
-        // const [downVotes, setDownVotes] = useState(props.downVotes)
-
         useEffect(() => {
 
             console.log(props.src)
 
-            Axios.patch(props.src,{
+            Axios.patch(props.src, {
                 upVotes: props.upVotes
             }).catch(() => {
                     console.log("nothing to patch")
                 }
             )
 
-        }, [props.upVotes,props.src])
+        }, [props.upVotes, props.src])
 
         useEffect(() => {
 
-            Axios.patch(props.src,{
-                downVotes:props.downVotes
+            Axios.patch(props.src, {
+                downVotes: props.downVotes
             }).catch(() => {
                     console.log("nothing to patch")
                 }
             )
 
-        }, [props.downVotes,props.src])
+        }, [props.downVotes, props.src])
 
         return (
             <div>
                 <button id={getNewId()}
-                        // onClick={() => setUpVotes(x => x + 1)}
-                    onClick={()=> props.testUp(x=>x+1)}
+                        onClick={() => props.testUp(x => x + 1)}
                 >UpVote
                 </button>
 
-                {/*{upVotes - downVotes}*/}
                 {props.upVotes - props.downVotes}
 
                 <button id={getNewId()}
-                        // onClick={() => setDownVotes(x => x + 1)}
-                    onClick={()=>props.testDown(x=>x+1)}
+                        onClick={() => props.testDown(x => x + 1)}
                 >DownVote
                 </button>
             </div>
@@ -232,42 +206,33 @@ function SiteDataSection(props) {
 
         const [loadedReply, setLoadedReply] = useState("loading reply")
 
-        const [upVotes,setUpVotes] = useState()
-        const [downVotes,setDownVotes]=useState()
-        const [replyRes,setReplyRes]=useState(props.refer)
+        const [upVotes, setUpVotes] = useState()
+        const [downVotes, setDownVotes] = useState()
+        const [replyRes, setReplyRes] = useState(props.refer)
 
         let styleAs = {
             marginLeft: "6rem",
             width: "100%",
         }
 
-        useEffect(()=>{
+        useEffect(() => {
             Axios.get(props.refer).then(reply => {
                 console.log("getting replies")
 
                 setDownVotes(reply.data.downVotes)
                 setUpVotes(reply.data.upVotes)
                 setReplyRes(props.refer)
-        })},[])
+            })
+        }, [])
 
         useEffect(() => {
 
-            //for new
-            // if (props.new === true){
-            //     props.data.upVotes=0
-            //     props.data.downVotes=0
-            // }
-
             Axios.get(props.refer).then(reply => {
-                console.log("getting replies")
 
-                // setDownVotes(reply.data.downVotes)
-                // setUpVotes(reply.data.upVotes)
-                // setReplyRes(props.refer)
+                console.log("getting replies")
 
                 setLoadedReply(
                     <div>
-                        {/*<hr></hr>*/}
 
                         <div className={"card"} style={styleAs}>
                             <div className={"card-body"}>
@@ -280,23 +245,13 @@ function SiteDataSection(props) {
                                 upVotes={upVotes}
                                 downVotes={downVotes}
                                 testUp={(x) => setUpVotes(x)}
-                                testDown={(x)=>setDownVotes(x)}
-
-                                          />
-
-                            {/*<ReplyOptions upVotes={reply.data.upVotes}*/}
-                            {/*              downVotes={reply.data.downVotes}*/}
-                            {/*              src={props.refer}/>*/}
-
-                            {/*<ReplyOptions upVotes={(reply.data.upVotes===undefined)?0 : reply.data.upVotes}*/}
-                            {/*              downVotes={(reply.data.downVotes===undefined)?0:reply.data.downVotes}*/}
-                            {/*              src={props.refer}/>*/}
-
+                                testDown={(x) => setDownVotes(x)}
+                            />
                         </div>
                     </div>
                 )
             })
-        }, [upVotes,downVotes])
+        }, [upVotes, downVotes])
 
         return (
             <div>
@@ -308,25 +263,22 @@ function SiteDataSection(props) {
     //this renders
     function Answer(props) {
 
-        //console.log("getting answer: "+)
-
         const [loadedAnswer, setLoadedAnswer] = useState("loading answer")
         const [loadedReplies, setLoadedReplies] = useState([])
 
-        const [upVotes,setUpVotes] = useState()
-        const [downVotes,setDownVotes]=useState()
-        const [replyRes,setReplyRes]=useState(props.refer)
+        const [upVotes, setUpVotes] = useState()
+        const [downVotes, setDownVotes] = useState()
+        const [replyRes, setReplyRes] = useState(props.refer)
 
 
         ///annotated wrong, copy and paste
-        useEffect(()=>{
+        useEffect(() => {
             Axios.get(props.refer).then(reply => {
-                //console.log("getting replies")
-
                 setDownVotes(reply.data.downVotes)
                 setUpVotes(reply.data.upVotes)
                 setReplyRes(props.refer)
-            })},[])
+            })
+        }, [])
 
         useEffect(() => {
 
@@ -343,7 +295,7 @@ function SiteDataSection(props) {
                         answer.data.reply_refs.map(reply_ref => {
                             return (
                                 <div>
-                                    <Reply key={"rep"+getNewId()} refer={reply_ref}/>
+                                    <Reply key={"rep" + getNewId()} refer={reply_ref}/>
                                 </div>
                             )
                         })
@@ -355,26 +307,18 @@ function SiteDataSection(props) {
         return (
             <div>
 
-                <div className={"card"} >
+                <div className={"card"}>
                     <div className={"card-body"}>
-                <h4>{loadedAnswer}</h4>
+                        <h4>{loadedAnswer}</h4>
                         <ReplyOptions
                             src={replyRes}
                             upVotes={upVotes}
                             downVotes={downVotes}
                             testUp={(x) => setUpVotes(x)}
-                            testDown={(x)=>setDownVotes(x)}
+                            testDown={(x) => setDownVotes(x)}
                         />
                     </div>
                 </div>
-
-
-
-
-
-
-
-
 
                 {loadedReplies}
                 <InputArea placeholder={"Enter A New Reply"}
@@ -383,7 +327,6 @@ function SiteDataSection(props) {
                            }/>
             </div>
         )
-
     }
 
     //renders each question, and loads the questions comments, and the answers
@@ -395,8 +338,8 @@ function SiteDataSection(props) {
 
         const [replyRes, setReplyRse] = useState()
 
-        const [upVotes,setUpVotes] = useState()
-        const [downVotes,setDownVotes]=useState()
+        const [upVotes, setUpVotes] = useState()
+        const [downVotes, setDownVotes] = useState()
 
         //load section from reference
 
@@ -422,10 +365,7 @@ function SiteDataSection(props) {
                                     return (
                                         <div>
                                             <Reply key={"ia" + getNewId()}
-                                                   // upVotes={question.data.upVotes}
-                                                   // downVotes={question.data.downVotes}
                                                    refer={reply_ref}/>
-                                            {/*<Reply key={"ia" + getNewId()} refer={reply_ref}/>*/}
                                         </div>
                                     )
                                 })
@@ -450,18 +390,17 @@ function SiteDataSection(props) {
         return (
             <div>
 
-                <div className={"card"} >
+                <div className={"card"}>
                     <div className={"card-body"}>
-                <h2>{loadedQuestion}</h2>
+                        <h2>{loadedQuestion}</h2>
 
-{/*fix reply upvotes/downvotes*/}
-                <ReplyOptions
-                    src={replyRes}
-                    upVotes={upVotes}
-                    downVotes={downVotes}
-                    testUp={(x) => setUpVotes(x)}
-                    testDown={(x)=>setDownVotes(x)}
-                />
+                        <ReplyOptions
+                            src={replyRes}
+                            upVotes={upVotes}
+                            downVotes={downVotes}
+                            testUp={(x) => setUpVotes(x)}
+                            testDown={(x) => setDownVotes(x)}
+                        />
 
                     </div>
                 </div>
@@ -471,8 +410,6 @@ function SiteDataSection(props) {
 
                 {/*not really section_refs, but reply_ref*/}
                 <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Reply"}
-
-                    // section_refs={props.refer}
                            section_refs={replyRes}
                            action={replyToQuestionOrAnswer}/>
                 {loadedAnswers}
@@ -481,7 +418,6 @@ function SiteDataSection(props) {
         )
     }
 
-
     //this loads each section for the page
     function loadSections(page) {
         //get sections for page
@@ -489,24 +425,16 @@ function SiteDataSection(props) {
                 {
                     console.log("getting section refs")
 
-                    console.log(pageObject.data)
-                    console.log(pageObject.data.section_refs)
-
                     //pageObject.data.
                     setElementsInSection(
                         pageObject.data.section_refs.map(refer => {
 
-                            //console.log(refer)
-
                             return (
                                 <div key={"ia" + getNewId()}>
-                                    <Section key={"s"+getNewId()} refer={refer}/>
+                                    <Section key={"s" + getNewId()} refer={refer}/>
                                     <InputArea key={"ia" + getNewId()} placeholder={"Answer Question"}
-
-                                        // this is now being passed
                                                section_refs={refer}
                                                action={AnswerQuestion}
-                                        //action={(event,section_refs)=>{AnswerQuestion(event,section_refs)}}
                                     />
                                 </div>
                             )
@@ -519,9 +447,9 @@ function SiteDataSection(props) {
 
     //----------------------------------------------------------------------------
 
-    function CommentNav(props){
+    function CommentNav(props) {
 
-        return(
+        return (
             <nav aria-label="Page navigation example">
                 <ul className="pagination">
                     <li className="page-item"><a className="page-link" href="#">Previous</a></li>
@@ -543,7 +471,7 @@ function SiteDataSection(props) {
                 askNewQuestion(event)
             }}/>
             {ElementsInSection}
-            <CommentNav />
+            <CommentNav/>
         </div>
     )
 }
