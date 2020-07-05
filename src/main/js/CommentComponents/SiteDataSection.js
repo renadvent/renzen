@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import Axios from "axios";
 
 function SiteDataSection(props) {
@@ -175,39 +175,47 @@ function SiteDataSection(props) {
 
     function ReplyOptions(props) {
 
-        const [upVotes, setUpVotes] = useState(props.upVotes)
-        const [downVotes, setDownVotes] = useState(props.downVotes)
-
-        // const upRef = useRef(upVotes)
-        // const downRef = useRef(downVotes)
+        // const [upVotes, setUpVotes] = useState(props.upVotes)
+        // const [downVotes, setDownVotes] = useState(props.downVotes)
 
         useEffect(() => {
 
+            console.log(props.src)
+
             Axios.patch(props.src,{
-            //Axios.patch("/api/contents/" + props.src.id, {
-                downVotes: downVotes,
-                upVotes: upVotes,
-                //pageName: "default"
+                upVotes: props.upVotes
             }).catch(() => {
                     console.log("nothing to patch")
                 }
             )
 
-        }, [upVotes, downVotes])
+        }, [props.upVotes,props.src,])
+
+        useEffect(() => {
+
+            Axios.patch(props.src,{
+                downVotes:props.downVotes
+            }).catch(() => {
+                    console.log("nothing to patch")
+                }
+            )
+
+        }, [props.downVotes,props.src])
 
         return (
             <div>
-                <button id={getNewId()} onClick={(event) => replyToQuestionOrAnswer(event)}>Reply</button>
-
                 <button id={getNewId()}
-                        onClick={() => setUpVotes(x => x + 1)}
+                        // onClick={() => setUpVotes(x => x + 1)}
+                    onClick={()=> props.testUp(x=>x+1)}
                 >UpVote
                 </button>
 
-                {upVotes - downVotes}
+                {/*{upVotes - downVotes}*/}
+                {props.upVotes - props.downVotes}
 
                 <button id={getNewId()}
-                        onClick={() => setDownVotes(x => x + 1)}
+                        // onClick={() => setDownVotes(x => x + 1)}
+                    onClick={()=>props.testDown(x=>x+1)}
                 >DownVote
                 </button>
             </div>
@@ -227,11 +235,17 @@ function SiteDataSection(props) {
 
         useEffect(() => {
 
+            //for new
+            // if (props.new === true){
+            //     props.data.upVotes=0
+            //     props.data.downVotes=0
+            // }
+
             Axios.get(props.refer).then(reply => {
                 console.log("getting replies")
                 setLoadedReply(
                     <div>
-                        <hr></hr>
+                        {/*<hr></hr>*/}
 
                         <div className={"card"} style={styleAs}>
                             <div className={"card-body"}>
@@ -239,9 +253,13 @@ function SiteDataSection(props) {
 
                             </div>
 
+
                             <ReplyOptions upVotes={reply.data.upVotes}
                                           downVotes={reply.data.downVotes}
                                           src={props.refer}/>
+                            {/*<ReplyOptions upVotes={(reply.data.upVotes===undefined)?0 : reply.data.upVotes}*/}
+                            {/*              downVotes={(reply.data.downVotes===undefined)?0:reply.data.downVotes}*/}
+                            {/*              src={props.refer}/>*/}
 
                         </div>
                     </div>
@@ -290,8 +308,8 @@ function SiteDataSection(props) {
 
         return (
             <div>
-                <p>{loadedAnswer}</p>
-                <p>{loadedReplies}</p>
+                {loadedAnswer}
+                {loadedReplies}
                 <InputArea placeholder={"Enter A New Reply"}
                            section_refs={props.refer}
                            action={replyToQuestionOrAnswer
@@ -310,6 +328,9 @@ function SiteDataSection(props) {
 
         const [replyRes, setReplyRse] = useState()
 
+        const [upVotes,setUpVotes] = useState()
+        const [downVotes,setDownVotes]=useState()
+
         //load section from reference
 
         useEffect(() => {
@@ -324,12 +345,19 @@ function SiteDataSection(props) {
                     //load Question from reference
                     Axios.get(section.data.question_ref).then(question => {
                             setLoadedQuestion(question.data.content)
+
+                            setDownVotes(question.data.downVotes)
+                            setUpVotes(question.data.upVotes)
+
                             //create react objects from comment references
                             setLoadedReplies(
                                 question.data.reply_refs.map(reply_ref => {
                                     return (
                                         <div>
-                                            <Reply key={"ia" + getNewId()} refer={reply_ref}/>
+                                            <Reply key={"ia" + getNewId()}
+                                                   // upVotes={question.data.upVotes}
+                                                   // downVotes={question.data.downVotes}
+                                                   refer={reply_ref}/>
                                             {/*<Reply key={"ia" + getNewId()} refer={reply_ref}/>*/}
                                         </div>
                                     )
@@ -354,10 +382,21 @@ function SiteDataSection(props) {
 
         return (
             <div>
+
+                <div className={"card"} >
+                    <div className={"card-body"}>
                 <h2>{loadedQuestion}</h2>
 
 {/*fix reply upvotes/downvotes*/}
-                <ReplyOptions src={replyRes}/>
+                <ReplyOptions src={replyRes} upVotes={upVotes}
+                downVotes={downVotes}
+                testUp={(x) => setUpVotes(x)}
+
+                              testDown={(x)=>setDownVotes(x)}
+                />
+
+                    </div>
+                </div>
 
 
                 {loadedReplies}
