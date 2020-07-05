@@ -226,7 +226,7 @@ function SiteDataSection(props) {
             width: "100%",
         }
 
-        //useEffect(()=>{
+        useEffect(()=>{
 
         Axios.get(props.refer).then(reply => {
             console.log("getting replies")
@@ -240,13 +240,13 @@ function SiteDataSection(props) {
 
                         </div>
 
-                        {/*<ReplyOptions src={reply}/>*/}
+                        <ReplyOptions src={reply}/>
 
                     </div>
                 </div>
             )
         })
-        //},[loadedReply])
+        },[])
 
         return (
             <div>
@@ -316,7 +316,7 @@ function SiteDataSection(props) {
             Axios.get(props.refer).then(section => {
                     console.log("getting sections")
                     console.log(section.data)
-                
+
                 //console.log("Checking: "+question.data.question_ref)
 
                  setReplyRse(section.data.question_ref)
