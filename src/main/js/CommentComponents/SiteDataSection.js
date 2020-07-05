@@ -343,7 +343,7 @@ function SiteDataSection(props) {
                         answer.data.reply_refs.map(reply_ref => {
                             return (
                                 <div>
-                                    <Reply refer={reply_ref}/>
+                                    <Reply key={"rep"+getNewId()} refer={reply_ref}/>
                                 </div>
                             )
                         })
