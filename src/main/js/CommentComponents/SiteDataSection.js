@@ -3,6 +3,10 @@ import Axios from "axios";
 
 function SiteDataSection(props) {
 
+    //props.content
+    //props.sections
+    //props.pages
+
     let [page_ref, setPageRef] = useState("/api/pages/5efd2911d231b04eecfcd282")
 
     useEffect(() => {
@@ -189,7 +193,7 @@ function SiteDataSection(props) {
                 }
             )
 
-        }, [props.upVotes,props.src,])
+        }, [props.upVotes,props.src])
 
         useEffect(() => {
 
