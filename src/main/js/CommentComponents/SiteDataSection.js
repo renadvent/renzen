@@ -228,10 +228,23 @@ function SiteDataSection(props) {
 
         const [loadedReply, setLoadedReply] = useState("loading reply")
 
+        const [upVotes,setUpVotes] = useState()
+        const [downVotes,setDownVotes]=useState()
+        const [replyRes,setReplyRes]=useState(props.refer)
+
         let styleAs = {
             marginLeft: "6rem",
             width: "100%",
         }
+
+        useEffect(()=>{
+            Axios.get(props.refer).then(reply => {
+                console.log("getting replies")
+
+                setDownVotes(reply.data.downVotes)
+                setUpVotes(reply.data.upVotes)
+                setReplyRes(props.refer)
+        })},[])
 
         useEffect(() => {
 
@@ -243,6 +256,11 @@ function SiteDataSection(props) {
 
             Axios.get(props.refer).then(reply => {
                 console.log("getting replies")
+
+                // setDownVotes(reply.data.downVotes)
+                // setUpVotes(reply.data.upVotes)
+                // setReplyRes(props.refer)
+
                 setLoadedReply(
                     <div>
                         {/*<hr></hr>*/}
@@ -253,10 +271,19 @@ function SiteDataSection(props) {
 
                             </div>
 
+                            <ReplyOptions
+                                src={replyRes}
+                                upVotes={upVotes}
+                                downVotes={downVotes}
+                                testUp={(x) => setUpVotes(x)}
+                                testDown={(x)=>setDownVotes(x)}
 
-                            <ReplyOptions upVotes={reply.data.upVotes}
-                                          downVotes={reply.data.downVotes}
-                                          src={props.refer}/>
+                                          />
+
+                            {/*<ReplyOptions upVotes={reply.data.upVotes}*/}
+                            {/*              downVotes={reply.data.downVotes}*/}
+                            {/*              src={props.refer}/>*/}
+
                             {/*<ReplyOptions upVotes={(reply.data.upVotes===undefined)?0 : reply.data.upVotes}*/}
                             {/*              downVotes={(reply.data.downVotes===undefined)?0:reply.data.downVotes}*/}
                             {/*              src={props.refer}/>*/}
@@ -265,7 +292,7 @@ function SiteDataSection(props) {
                     </div>
                 )
             })
-        }, [])
+        }, [upVotes,downVotes])
 
         return (
             <div>
@@ -388,11 +415,12 @@ function SiteDataSection(props) {
                 <h2>{loadedQuestion}</h2>
 
 {/*fix reply upvotes/downvotes*/}
-                <ReplyOptions src={replyRes} upVotes={upVotes}
-                downVotes={downVotes}
-                testUp={(x) => setUpVotes(x)}
-
-                              testDown={(x)=>setDownVotes(x)}
+                <ReplyOptions
+                    src={replyRes}
+                    upVotes={upVotes}
+                    downVotes={downVotes}
+                    testUp={(x) => setUpVotes(x)}
+                    testDown={(x)=>setDownVotes(x)}
                 />
 
                     </div>
