@@ -309,6 +309,21 @@ function SiteDataSection(props) {
         const [loadedAnswer, setLoadedAnswer] = useState("loading answer")
         const [loadedReplies, setLoadedReplies] = useState([])
 
+        const [upVotes,setUpVotes] = useState()
+        const [downVotes,setDownVotes]=useState()
+        const [replyRes,setReplyRes]=useState(props.refer)
+
+
+        ///annotated wrong, copy and paste
+        useEffect(()=>{
+            Axios.get(props.refer).then(reply => {
+                //console.log("getting replies")
+
+                setDownVotes(reply.data.downVotes)
+                setUpVotes(reply.data.upVotes)
+                setReplyRes(props.refer)
+            })},[])
+
         useEffect(() => {
 
             //load answer from reference
@@ -335,7 +350,27 @@ function SiteDataSection(props) {
 
         return (
             <div>
-                {loadedAnswer}
+
+                <div className={"card"} >
+                    <div className={"card-body"}>
+                <h4>{loadedAnswer}</h4>
+                    </div>
+                </div>
+
+
+
+
+                <ReplyOptions
+                    src={replyRes}
+                    upVotes={upVotes}
+                    downVotes={downVotes}
+                    testUp={(x) => setUpVotes(x)}
+                    testDown={(x)=>setDownVotes(x)}
+                />
+
+
+
+
                 {loadedReplies}
                 <InputArea placeholder={"Enter A New Reply"}
                            section_refs={props.refer}
