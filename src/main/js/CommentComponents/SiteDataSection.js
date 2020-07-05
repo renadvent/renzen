@@ -11,7 +11,7 @@ function SiteDataSection(props) {
         loadSections(page_ref)
         //})
         //load sections for default page
-    }, [])
+    }, [page_ref])
 
     const [ElementsInSection, setElementsInSection] = useState([])
 
@@ -157,6 +157,7 @@ function SiteDataSection(props) {
             }).then(postedContent => {
                 Axios.get(refer).then(replyingTo => {
                     //post new content as an answer
+                    console.log("refer: "+refer)
                     console.log("replyingto: "+replyingTo.data.reply_refs)
                     replyingTo.data.reply_refs.unshift(postedContent.data._links.self.href)
                     Axios.patch(refer, {
@@ -239,7 +240,7 @@ function SiteDataSection(props) {
 
                         </div>
 
-                        <ReplyOptions src={reply}/>
+                        {/*<ReplyOptions src={reply}/>*/}
 
                     </div>
                 </div>
@@ -315,6 +316,10 @@ function SiteDataSection(props) {
             Axios.get(props.refer).then(section => {
                     console.log("getting sections")
                     console.log(section.data)
+                
+                //console.log("Checking: "+question.data.question_ref)
+
+                 setReplyRse(section.data.question_ref)
 
                     //load Question from reference
                     Axios.get(section.data.question_ref).then(question => {
@@ -325,7 +330,9 @@ function SiteDataSection(props) {
 
                             console.log("reply_refs: "+question.data.reply_refs)
 
-                            setReplyRse(question.data.reply_refs)
+
+                        // setReplyRse(question.data.reply_refs)
+                            // setReplyRse(question.data.reply_refs)
 
                             //create react objects from comment references
                             setLoadedReplies(
@@ -333,6 +340,7 @@ function SiteDataSection(props) {
                                     return (
                                         <div>
                                             <Reply key={"ia" + getNewId()} refer={reply_ref}/>
+                                            {/*<Reply key={"ia" + getNewId()} refer={reply_ref}/>*/}
                                         </div>
                                     )
                                 })
@@ -361,6 +369,8 @@ function SiteDataSection(props) {
 
                 {/*not really section_refs, but reply_ref*/}
                 <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Reply"}
+
+                           // section_refs={props.refer}
                            section_refs={replyRes}
                            action={replyToQuestionOrAnswer}/>
                 <h4>{loadedAnswers}</h4>
