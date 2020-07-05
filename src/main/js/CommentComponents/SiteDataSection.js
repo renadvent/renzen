@@ -354,19 +354,20 @@ function SiteDataSection(props) {
                 <div className={"card"} >
                     <div className={"card-body"}>
                 <h4>{loadedAnswer}</h4>
+                        <ReplyOptions
+                            src={replyRes}
+                            upVotes={upVotes}
+                            downVotes={downVotes}
+                            testUp={(x) => setUpVotes(x)}
+                            testDown={(x)=>setDownVotes(x)}
+                        />
                     </div>
                 </div>
 
 
 
 
-                <ReplyOptions
-                    src={replyRes}
-                    upVotes={upVotes}
-                    downVotes={downVotes}
-                    testUp={(x) => setUpVotes(x)}
-                    testDown={(x)=>setDownVotes(x)}
-                />
+
 
 
 
