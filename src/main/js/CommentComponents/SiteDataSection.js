@@ -341,13 +341,15 @@ function SiteDataSection(props) {
         const [upVotes, setUpVotes] = useState()
         const [downVotes, setDownVotes] = useState()
 
+
+        const [navLinks, setNavLinks] = setState()
+
         //load section from reference
 
         useEffect(() => {
 
             Axios.get(props.refer).then(section => {
-                    console.log("getting sections")
-                    console.log(section.data)
+                console.log("getting sections")
 
                     //what the input section attaches itself to when posting
                     setReplyRse(section.data.question_ref)
@@ -420,9 +422,35 @@ function SiteDataSection(props) {
 
     //this loads each section for the page
     function loadSections(page) {
+
+        const [navLinks, setNavLinks] =useState()
+
         //get sections for page
         Axios.get(page).then(pageObject => {
                 {
+
+
+                    //----------------------------------------
+
+                    //create sections for nav
+
+                    let ref_arr=pageObject.data.section_refs
+
+                    //first
+                    navLinks.push(ref_arr[0])
+
+
+                    //last
+                    navLinks.push(ref_arr[ref_arr.length-1])
+
+
+
+
+                        //----------------------------------------
+
+
+
+
                     console.log("getting section refs")
 
                     //pageObject.data.
