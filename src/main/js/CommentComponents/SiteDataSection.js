@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import Axios from "axios";
+import SaveToButton from "../old_components/SaveToButton";
 
 function SiteDataSection(props) {
 
@@ -7,7 +8,7 @@ function SiteDataSection(props) {
     //props.sections
     //props.pages
 
-    let [page_ref, setPageRef] = useState("/api/pages/5efd2911d231b04eecfcd282")
+    let [page_ref, setPageRef] = useState(props.page)
 
     const [ElementsInSection, setElementsInSection] = useState([])
 
@@ -36,7 +37,7 @@ function SiteDataSection(props) {
         }
 
         let areaStyle = {
-            width: "70%",
+            //width: "70%",
             marginLeft: props.margin
         }
 
@@ -166,7 +167,7 @@ function SiteDataSection(props) {
             Axios.patch(props.src, {
                 upVotes: props.upVotes
             }).catch(() => {
-                    console.log("nothing to patch")
+                    //console.log("nothing to patch")
                 }
             )
 
@@ -177,7 +178,7 @@ function SiteDataSection(props) {
             Axios.patch(props.src, {
                 downVotes: props.downVotes
             }).catch(() => {
-                    console.log("nothing to patch")
+                    //console.log("nothing to patch")
                 }
             )
 
@@ -212,7 +213,7 @@ function SiteDataSection(props) {
 
         let styleAs = {
             marginLeft: "6rem",
-            width: "100%",
+            //width: "100%",
         }
 
         useEffect(() => {
@@ -309,7 +310,9 @@ function SiteDataSection(props) {
 
                 <div className={"card"}>
                     <div className={"card-body"}>
-                        <h4>{loadedAnswer}</h4>
+                        <h4>
+                            {loadedAnswer}<SaveToButton/>
+                        </h4>
                         <ReplyOptions
                             src={replyRes}
                             upVotes={upVotes}
@@ -341,8 +344,8 @@ function SiteDataSection(props) {
         const [upVotes, setUpVotes] = useState()
         const [downVotes, setDownVotes] = useState()
 
-
-        const [navLinks, setNavLinks] = setState()
+        //
+        // const [navLinks, setNavLinks] = setState()
 
         //load section from reference
 
@@ -380,7 +383,11 @@ function SiteDataSection(props) {
                     setLoadedAnswers(
                         section.data.answer_refs.map(answer_ref => {
                                 return (
+                                    <div className={"card"}>
+                                        <div className={"card-body"}>
                                     <Answer key={"ia" + getNewId()} refer={answer_ref}/>
+                                        </div>
+                                    </div>
                                 )
                             }
                         ))
@@ -392,9 +399,15 @@ function SiteDataSection(props) {
         return (
             <div>
 
+                {/*<div className={"card"}>*/}
+                {/*    <div className={"card-body"}>*/}
+
                 <div className={"card"}>
                     <div className={"card-body"}>
-                        <h2>{loadedQuestion}</h2>
+                        <h2>
+                            {loadedQuestion}
+                            <SaveToButton/>
+                        </h2>
 
                         <ReplyOptions
                             src={replyRes}
@@ -404,8 +417,7 @@ function SiteDataSection(props) {
                             testDown={(x) => setDownVotes(x)}
                         />
 
-                    </div>
-                </div>
+
 
 
                 {loadedReplies}
@@ -415,7 +427,16 @@ function SiteDataSection(props) {
                            section_refs={replyRes}
                            action={replyToQuestionOrAnswer}/>
                 {loadedAnswers}
-                <hr/>
+                {/*<hr/>*/}
+
+                {/*    </div>*/}
+                {/*</div>*/}
+
+
+
+                    </div>
+                </div>
+
             </div>
         )
     }
@@ -423,7 +444,7 @@ function SiteDataSection(props) {
     //this loads each section for the page
     function loadSections(page) {
 
-        const [navLinks, setNavLinks] =useState()
+        // const [navLinks, setNavLinks] =useState()
 
         //get sections for page
         Axios.get(page).then(pageObject => {
@@ -433,15 +454,15 @@ function SiteDataSection(props) {
                     //----------------------------------------
 
                     //create sections for nav
-
-                    let ref_arr=pageObject.data.section_refs
-
-                    //first
-                    navLinks.push(ref_arr[0])
-
-
-                    //last
-                    navLinks.push(ref_arr[ref_arr.length-1])
+                    //
+                    // let ref_arr=pageObject.data.section_refs
+                    //
+                    // //first
+                    // navLinks.push(ref_arr[0])
+                    //
+                    //
+                    // //last
+                    // navLinks.push(ref_arr[ref_arr.length-1])
 
 
 
@@ -459,11 +480,19 @@ function SiteDataSection(props) {
 
                             return (
                                 <div key={"ia" + getNewId()}>
+
+
+                                    <div className={"card"}>
+                                        <div className={"card-body"}>
+
                                     <Section key={"s" + getNewId()} refer={refer}/>
                                     <InputArea key={"ia" + getNewId()} placeholder={"Answer Question"}
                                                section_refs={refer}
                                                action={AnswerQuestion}
                                     />
+
+                                        </div>
+                                    </div>
                                 </div>
                             )
                         })
@@ -495,7 +524,7 @@ function SiteDataSection(props) {
     return (
         <div>
             <h1>The Docs</h1>
-            <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Question"} action={(event) => {
+            <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Question or Note"} action={(event) => {
                 askNewQuestion(event)
             }}/>
             {ElementsInSection}

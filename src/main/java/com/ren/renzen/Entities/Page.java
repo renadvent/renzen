@@ -19,7 +19,9 @@ public class Page {
     private String id;
     private List<String> section_refs;
 
-    private Page(){}
+    private String pageType;//
+
+    public Page(){}
 
     public Page(String pageName){
         this.id=pageName;

@@ -13,6 +13,7 @@ public class Section {
     @Id
     private String id;
 
+    private String question_title; //just links to a content
     private String question_ref;
     private List<String> answer_refs;
 
