@@ -11,5 +11,8 @@ public class Home_Controller {
 		return "index";
 	}
 
+	@RequestMapping("/r")
+	public String communities () {return "communities";}
+
 }
 

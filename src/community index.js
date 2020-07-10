@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './main/js/App';
+//import App from './main/js/App';
 
 // import $ from 'jquery';
 // import Popper from 'popper.js';
@@ -14,6 +14,6 @@ ReactDOM.render(
 // ReactDOM.render(
 
     <App />
-,
-  document.getElementById('root')
+    ,
+    document.getElementById('root')
 );

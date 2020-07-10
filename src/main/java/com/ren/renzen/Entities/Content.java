@@ -21,10 +21,23 @@ public class Content {
     private String content;
     private String user;
 
+    private String contentName;
+
     private int upVotes;
     private int downVotes;
 
     List<String> reply_refs;
+
+    List<String> annotations;
+    List<String> annotationCommentSections;
+    List<String> highlights;
+    List<String> rewordings;
+
+    List<String> headings;//>
+
+    private int bookmarks;
+
+    private String forkedFrom; //href
 
     public Content() {}
 

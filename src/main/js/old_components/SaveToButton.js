@@ -34,12 +34,10 @@ function SaveToButton(props){
                 type="button"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
             >
-                Save to Study Guide
+                Save Question and Answer to Study Guide
             </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div className="dropdown-menu">
                 <a className="dropdown-item" href="#">
                     Your Study Guide
                 </a>

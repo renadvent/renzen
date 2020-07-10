@@ -8,7 +8,8 @@ function AnnotationBar() {
 
     return (
 
-        <div id="addTo" className="col-3">
+        <div id="addTo" >
+            {/*//className="col-3">*/}
 
 
             <ul className="nav nav-tabs">
