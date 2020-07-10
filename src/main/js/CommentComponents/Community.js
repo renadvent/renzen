@@ -12,7 +12,7 @@ function Community (props){
     return(
 <div>
 
-        <p>Articles in this community:</p>
+        <h2>Articles in this community:</h2>
     <button type="button" className="btn btn-secondary">+Write New Article</button>
     <ul>
         <li>
@@ -32,6 +32,14 @@ function Community (props){
         <li>Q&A</li>
         <li>Reference</li>
 
+    </ul>
+
+    <h2>Community Updates</h2>
+    <ul>
+        <li>New Articles</li>
+        <li>New Members</li>
+        <li>Unanswered Questions</li>
+        <li>Accepted Answers</li>
     </ul>
 
 

@@ -21,6 +21,7 @@ function App() {
 
         <div className="container-fluid">
             <Navbar/>
+            <h1 style={{textAlign:"center"}}>Community Homepage</h1>
             <div className="row">
                 <div className={"col"}>
                     <SiteDataSection title={"Community Discussion"} page={"/api/pages/5efd2911d231b04eecfcd282"}/>
