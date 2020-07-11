@@ -593,90 +593,109 @@ function SiteDataSection(props) {
             <h1>{props.title}</h1>
 
 
-            <div>
-                Question Type
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-secondary">How Do I...</button>
-                    <button type="button" className="btn btn-secondary">What is...</button>
-                    <button type="button" className="btn btn-secondary">When Do I...</button>
-                </div>
-            </div>
-
-            {/*            <div>*/}
-            {/*                Answer Type*/}
-            {/*                <div className="btn-group" role="group" aria-label="Basic example">*/}
-            {/*                    <button type="button" className="btn btn-secondary">What About When...</button>*/}
-            {/*                    <button type="button" className="btn btn-secondary">Does That Mean...</button>*/}
-            {/*                    <button type="button" className="btn btn-secondary">So Then How Does...</button>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-
-            <div>
-                Reply Type
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-secondary">I agree with...</button>
-                    <button type="button" className="btn btn-secondary">I disagree with...</button>
-                    <button type="button" className="btn btn-secondary">Thank you...</button>
-                    <button type="button" className="btn btn-secondary">I have a suggestion...</button>
-                </div>
-            </div>
-
-            <div>
-                Follow Up Question
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-secondary">What About When...</button>
-                    <button type="button" className="btn btn-secondary">Does That Mean...</button>
-                    <button type="button" className="btn btn-secondary">So Then How Does...</button>
-                </div>
-            </div>
-            <div>
-                Note Type
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-secondary">Definition...</button>
-                    <button type="button" className="btn btn-secondary">Background...</button>
-                    <button type="button" className="btn btn-secondary">Explanation...</button>
-                </div>
-            </div>
-
-            <div>Definition--Comparable Traits, Comparable Terms/Topics</div>
+            {/*<div>*/}
+            {/*    Question Type*/}
+            {/*    <div className="btn-group" role="group" aria-label="Basic example">*/}
+            {/*        <button type="button" className="btn btn-secondary">How Do I...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">What is...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">When Do I...</button>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
 
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-4">
+
+
+            {/*/!*            <div>*!/*/}
+            {/*/!*                Answer Type*!/*/}
+            {/*/!*                <div className="btn-group" role="group" aria-label="Basic example">*!/*/}
+            {/*/!*                    <button type="button" className="btn btn-secondary">What About When...</button>*!/*/}
+            {/*/!*                    <button type="button" className="btn btn-secondary">Does That Mean...</button>*!/*/}
+            {/*/!*                    <button type="button" className="btn btn-secondary">So Then How Does...</button>*!/*/}
+            {/*/!*                </div>*!/*/}
+            {/*/!*            </div>*!/*/}
+
+            {/*<div>*/}
+            {/*    Reply Type*/}
+            {/*    <div className="btn-group" role="group" aria-label="Basic example">*/}
+            {/*        <button type="button" className="btn btn-secondary">I agree with...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">I disagree with...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">Thank you...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">I have a suggestion...</button>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+
+            {/*<div>*/}
+            {/*    Follow Up Question*/}
+            {/*    <div className="btn-group" role="group" aria-label="Basic example">*/}
+            {/*        <button type="button" className="btn btn-secondary">What About When...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">Does That Mean...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">So Then How Does...</button>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*    Note Type*/}
+            {/*    <div className="btn-group" role="group" aria-label="Basic example">*/}
+            {/*        <button type="button" className="btn btn-secondary">Definition...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">Background...</button>*/}
+            {/*        <button type="button" className="btn btn-secondary">Explanation...</button>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+
+            {/*<div>Definition--Comparable Traits, Comparable Terms/Topics</div>*/}
+
+
+            {/*<div className="container-fluid">*/}
+            {/*    <div className="row">*/}
+            {/*        <div className="col-4">*/}
+            {/*            <select className="custom-select"*/}
+            {/*                // style="width:150px;"*/}
+            {/*            >*/}
+            {/*                <option>How Do I...</option>*/}
+            {/*                <option>What is...</option>*/}
+            {/*                <option>When Do I...</option>*/}
+            {/*            </select>*/}
+            {/*        </div>*/}
+            {/*        <div className="col-8">*/}
+            {/*            <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Question or Note"}*/}
+            {/*                       action={(event) => {*/}
+            {/*                           askNewQuestion(event)*/}
+            {/*                       }}/>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+
+
+
+
+
+            <div className="input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text">
                         <select className="custom-select"
                             // style="width:150px;"
                         >
-                            <option>How Do I...</option>
-                            <option>What is...</option>
-                            <option>When Do I...</option>
-                        </select>
-                    </div>
-                    <div className="col-8">
-                        <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Question or Note"}
-                                   action={(event) => {
-                                       askNewQuestion(event)
-                                   }}/>
-                    </div>
-                </div>
-            </div>
-
-            <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                    <select className="custom-select"
-                        // style="width:150px;"
-                    >
                         <option>How Do I...</option>
                         <option>What is...</option>
                         <option>When Do I...</option>
                     </select>
+                    </span>
                 </div>
-                <input type="text"
-                       rows={5}
-                       placeholder={"Enter a question"}
-                       className="form-control" aria-label="Enter question"/>
+                <textarea className="form-control" aria-label="With textarea"></textarea>
             </div>
-            <textarea/>
+
+
+
+
+            {/*<div className="input-group mb-3">*/}
+            {/*    <div className="input-group-prepend">*/}
+            {/*        */}
+            {/*    </div>*/}
+            {/*    <input type="text"*/}
+            {/*           rows={5}*/}
+            {/*           placeholder={"Enter a question"}*/}
+            {/*           className="form-control" aria-label="Enter question"/>*/}
+            {/*</div>*/}
+            {/*<textarea/>*/}
 
 
             {ElementsInSection}

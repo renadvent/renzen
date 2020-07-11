@@ -1,4 +1,6 @@
 import React from 'react'
+import SiteDataSection from "./SiteDataSection";
+import CreateArticleArea from "./Article";
 
 function CreateArticle(props){
 
@@ -13,11 +15,11 @@ function Community (props){
 <div>
 
         <h2>Articles in this community:</h2>
-    <button type="button" className="btn btn-secondary">+Write New Article</button>
+    {/*<button type="button" className="btn btn-secondary">+Write New Article</button>*/}
     <ul>
         <li>
             Community Info
-            <button type="button" className="btn-sm btn-secondary">+</button>
+            {/*<button type="button" className="btn-sm btn-secondary">+</button>*/}
         </li>
 
         <ul>
@@ -29,6 +31,7 @@ function Community (props){
         <li>Getting Started</li>
         <li>Main Concepts</li>
         <li>Walkthroughs</li>
+        <li>Study Guides</li>
         <li>Q&A</li>
         <li>Reference</li>
 
@@ -41,6 +44,18 @@ function Community (props){
         <li>Unanswered Questions</li>
         <li>Accepted Answers</li>
     </ul>
+
+    <div className={"card"}>
+        <div className={"card-body"}>
+
+    <CreateArticleArea title={"Add Article"}/>
+
+        </div>
+    </div>
+
+
+    {/*<SiteDataSection title={"Articles"} page={"/api/sections/5f09ecf5347a081bd0dec961"}/>*/}
+
 
 
 </div>

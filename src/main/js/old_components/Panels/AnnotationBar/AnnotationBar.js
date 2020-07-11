@@ -53,12 +53,15 @@ function AnnotationBar() {
                     {/* <h1>Community Annotations</h1> */}
                     <div className="btn-group-vertical">
                         <form>
-                            <button type="button" onClick={annotateSelection}>
+                            <button type="button" className="btn btn-secondary" onClick={annotateSelection}>
                                 Add Annotation
                             </button>
                         </form>
-                        <button type="button" onClick={highlightSelection}>
+                        <button type="button" className="btn btn-secondary" onClick={highlightSelection}>
                             Highlight
+                        </button>
+                        <button type="button" className="btn btn-secondary" onClick={highlightSelection}>
+                            Show Markup
                         </button>
                     </div>
                     <div id="annoBar">
