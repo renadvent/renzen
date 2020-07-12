@@ -35,6 +35,8 @@ public class Content {
 
     List<String> headings;//>
 
+    List<String> sections;
+
     private int bookmarks;
 
     private String forkedFrom; //href

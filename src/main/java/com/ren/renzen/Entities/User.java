@@ -21,4 +21,12 @@ public class User {
     private List<String> communities;
 
     private int reputation;
+
+    public User(String userName,String password){
+        this.userName=userName;
+        this.password=password;
+    }
+
+
+
 }

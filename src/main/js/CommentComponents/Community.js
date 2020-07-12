@@ -47,6 +47,12 @@ function Community (props){
         </div>
     </div>
 
+    <div className={"card"}>
+        <div className={"card-body"}>
+            <button type="button" className="btn btn-secondary">Ask Question</button>
+        </div>
+    </div>
+
 
     {/*<SiteDataSection title={"Articles"} page={"/api/sections/5f09ecf5347a081bd0dec961"}/>*/}
 

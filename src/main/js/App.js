@@ -6,6 +6,8 @@ import Community from "./CommentComponents/Community";
 import SiteDataSection from "./CommentComponents/SiteDataSection";
 import {annotateSelection, highlightSelection} from "./old_components/1stParty/functions";
 import AnnotationBar from "./old_components/Panels/AnnotationBar/AnnotationBar";
+import Home from "./Home";
+
 
 //Main JS file
 //sets up navbar, and columns for site
@@ -45,6 +47,17 @@ function App() {
                                        aria-controls="profile" aria-selected="false">Default Community</a>
                                 </li>
 
+
+                                <li className="nav-item">
+                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
+                                       aria-controls="profile" aria-selected="false">Default Article</a>
+                                </li>
+
+                                <li className="nav-item">
+                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
+                                       aria-controls="profile" aria-selected="false">Default Study Guide</a>
+                                </li>
+
                                 <li className="nav-item">
                                     <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
                                        aria-controls="profile" aria-selected="false">+</a>
@@ -55,7 +68,11 @@ function App() {
 
                             <div className="tab-content" id="myTabContent">
                                 <div className="tab-pane fade show active" id="home" role="tabpanel"
-                                     aria-labelledby="home-tab">...
+                                     aria-labelledby="home-tab">
+
+                                    <Home/>
+
+
                                 </div>
                                 <div className="tab-pane fade" id="com" role="tabpanel" aria-labelledby="profile-tab">
 

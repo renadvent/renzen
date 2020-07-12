@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {annotateSelection} from "../old_components/1stParty/functions";
 
 function CreateArticleArea(props) {
 
@@ -62,6 +63,11 @@ function CreateArticleArea(props) {
 
                 <CreateArticleArea title={"Add Section"}/>
 
+
+                <button type="button" className="btn btn-secondary"
+                >
+                    Add Image
+                </button>
 
                 <button type="button"
                         className="btn btn-secondary">Post Article
