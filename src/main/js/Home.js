@@ -17,6 +17,9 @@ function Home() {
             contentList :[]
         })
 
+        setPassword("")
+        setUserName("")
+
     }
 
     return(
@@ -53,7 +56,26 @@ function Home() {
                 <button  type="submit" className="btn btn-dark">Register</button>
             </form>
 
+
+            <div className="container-fluid">
+                <div className={"row"}>
+                    <div className={"col"}>
+                        <h4>All Users</h4>
+                    </div>
+                    <div className={"col"}>
+                        <h4>All Articles</h4>
+                    </div>
+                    <div className={"col"}>
+                        <h4>All Communities</h4>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
+
+
     )
 
 }

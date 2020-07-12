@@ -7,6 +7,7 @@ import SiteDataSection from "./CommentComponents/SiteDataSection";
 import {annotateSelection, highlightSelection} from "./old_components/1stParty/functions";
 import AnnotationBar from "./old_components/Panels/AnnotationBar/AnnotationBar";
 import Home from "./Home";
+import Profile from "./Profile";
 
 
 //Main JS file
@@ -38,7 +39,7 @@ function App() {
                                 </li>
 
                                 <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
+                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#yourprofile" role="tab"
                                        aria-controls="profile" aria-selected="false">Your Profile</a>
                                 </li>
 
@@ -74,6 +75,18 @@ function App() {
 
 
                                 </div>
+
+
+
+                                <div className="tab-pane fade show active" id="yourprofile" role="tabpanel"
+                                     aria-labelledby="home-tab">
+
+                                    <Profile/>
+
+
+                                </div>
+
+
                                 <div className="tab-pane fade" id="com" role="tabpanel" aria-labelledby="profile-tab">
 
 
@@ -99,7 +112,7 @@ function App() {
                                     <div className="row">
 
 
-                                        <div className={"col-4"}>
+                                        <div className={"col-5"}>
 
 
                                             {/*<div className={"stick-top"}>*/}
@@ -127,6 +140,8 @@ function App() {
                                                     <li>New Members</li>
                                                     <li>Unanswered Questions</li>
                                                     <li>Accepted Answers</li>
+                                                    <li>Events</li>
+                                                    <li>Questions about the Community</li>
                                                 </ul>
                                                 <SiteDataSection title={"Community Discussion"}
                                                                  page={"/api/pages/5efd2911d231b04eecfcd282"}/>
@@ -136,7 +151,7 @@ function App() {
 
 
                                         </div>
-                                        <div className={"col-8"}>
+                                        <div className={"col-7"}>
                                             <Community/>
                                         </div>
                                     </div>

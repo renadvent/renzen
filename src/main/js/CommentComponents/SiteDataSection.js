@@ -82,14 +82,13 @@ function SiteDataSection(props) {
         }
 
         return (
-            <div>
+
             <textarea id={getNewId()} rows={1} placeholder={props.placeholder}
                       style={areaStyle} className={"form-control"}
                       onKeyPress={(event => props.action(event, props.section_refs))
                       }
                 // cols={50} style={{height:auto}}
             />
-            </div>
 
         )
     }
@@ -259,9 +258,6 @@ function SiteDataSection(props) {
                         </a>
                     </div>
                 </div>
-
-
-
 
 
             </div>
@@ -603,8 +599,6 @@ function SiteDataSection(props) {
             {/*</div>*/}
 
 
-
-
             {/*/!*            <div>*!/*/}
             {/*/!*                Answer Type*!/*/}
             {/*/!*                <div className="btn-group" role="group" aria-label="Basic example">*!/*/}
@@ -665,9 +659,6 @@ function SiteDataSection(props) {
             {/*</div>*/}
 
 
-
-
-
             <div className="input-group">
                 <div className="input-group-prepend">
                     <span className="input-group-text">
@@ -680,10 +671,12 @@ function SiteDataSection(props) {
                     </select>
                     </span>
                 </div>
-                <textarea className="form-control" aria-label="With textarea"></textarea>
+                <InputArea key={"ia" + getNewId()} placeholder={"Enter A New Question or Note"}
+                           action={(event) => {
+                               askNewQuestion(event)
+                           }}/>
+
             </div>
-
-
 
 
             {/*<div className="input-group mb-3">*/}

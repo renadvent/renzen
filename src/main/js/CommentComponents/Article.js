@@ -1,16 +1,46 @@
-import React, {useState} from 'react'
-import {annotateSelection} from "../old_components/1stParty/functions";
+import React, {useState,useRef,useEffect} from 'react'
+import Axios from "axios";
+
+
 
 function CreateArticleArea(props) {
 
+
+let counter = 1000000
+
+    function getNewId() {
+        counter = counter + 1;
+        return counter - 1
+    }
+
+
     const [createState, setCreateState] = useState(false)
+
+    //used for saving
+    const [sectionData,setSectionData] = useState([])
+
+    //used for rendering
+    const [sectionsCreated, setSectionsCreated] = useState([<SectionArea update={setSectionData}/>])
+
+    //gets flipped when button clicked. doesn't matter value
+    const [post,setPost]=useState(false)
+
+    useEffect(()=>{
+        console.log(sectionData)
+    },[sectionData])
+
+    useEffect(()=>{
+        if (post){
+            console.log(sectionData)
+            setPost(false)
+        }
+    },[sectionData,post])
 
     if (createState === true) {
         return (
 
             <div>
                 <label htmlFor="basic-url">{props.title}</label>
-
 
 
                 <div className="input-group mb-3">
@@ -47,21 +77,23 @@ function CreateArticleArea(props) {
                 </div>
 
 
-
-
-                <ArticleCreateMode/>
+                {sectionsCreated}
+                {/*<ArticleCreateMode/>*/}
 
 
                 {/*input-group mb-3*/}
-                <div className="input-group">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">Content</span>
-                    </div>
-                    <textarea rows={10} className="form-control" aria-label="With textarea"></textarea>
-                </div>
 
 
-                <CreateArticleArea title={"Add Section"}/>
+                {/*<CreateArticleArea title={"Add Section"}/>*/}
+
+                <button type="button" className="btn btn-secondary"
+
+                        onClick={() => {
+                            setSectionsCreated(x => x.concat(<SectionArea update={setSectionData}/>))
+                        }}
+                >
+                    Add Section
+                </button>
 
 
                 <button type="button" className="btn btn-secondary"
@@ -69,10 +101,27 @@ function CreateArticleArea(props) {
                     Add Image
                 </button>
 
+
                 <button type="button"
-                        className="btn btn-secondary">Post Article
+                        className="btn btn-secondary"
+                        onClick={() => {
+                            setCreateState(false);
+                            setSectionsCreated(<SectionArea update={setSectionData}/>)
+                        }}
+                >Cancel Article
+
 
                 </button>
+
+
+                {/*<button type="button" onClick={}*/}
+                {/*        className="btn btn-secondary">Post Article*/}
+                {/*</button>*/}
+
+                <button type="button" onClick={()=>setPost(x=> {return !x})}
+                        className="btn btn-secondary">Post Article
+                </button>
+
 
             </div>
 
@@ -97,10 +146,34 @@ function CreateArticleArea(props) {
 
 }
 
-{/*<select className="custom-select"*/}
+{/*<select className="custom-select"*/
+}
+
 // style="width:150px;"y
 
-function ArticleCreateMode() {
+function SectionArea(props) {
+
+    const [info,setInfo]=useState({header:"",body:""})
+
+    //add this state to parent array
+    useEffect(()=>{
+        props.update(prevState => prevState.concat(info))
+    },[])
+
+    function handleChange(event){
+
+        const {value,name}=event.target
+
+        console.log(value)
+        console.log(name)
+
+        setInfo(prevState => {
+            return {
+                ...prevState,
+                [name]:value
+            }
+        })
+    }
 
     return (
         <div>
@@ -123,15 +196,25 @@ function ArticleCreateMode() {
                     </select>
                 </div>
                 <input type="text"
+                       name={"header"}
+                       value={info.header}
+                       onChange={handleChange}
                        rows={5}
                        placeholder={"Enter a Heading"}
-                       className="form-control" aria-label="Enter question"></input>
+                       className="form-control" aria-label="Enter question"/>
             </div>
 
-            <div>
-
-
+            <div className="input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text">Content</span>
+                </div>
+                <textarea
+                    name={"body"}
+                    value={info.body}
+                    onChange={handleChange}
+                    rows={10} className="form-control" aria-label="With textarea"/>
             </div>
+
         </div>
 
     )
