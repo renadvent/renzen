@@ -10,6 +10,8 @@ function CreateArticleArea(props) {
             <div>
                 <label htmlFor="basic-url">{props.title}</label>
 
+
+
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
                         <label className="input-group-text" htmlFor="inputGroupSelect01">Add To Section</label>
@@ -22,7 +24,19 @@ function CreateArticleArea(props) {
                     </select>
                 </div>
 
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon3">Tags</span>
+                    </div>
+                    <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                </div>
 
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon3">Description</span>
+                    </div>
+                    <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                </div>
 
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
@@ -32,9 +46,12 @@ function CreateArticleArea(props) {
                 </div>
 
 
+
+
                 <ArticleCreateMode/>
 
 
+                {/*input-group mb-3*/}
                 <div className="input-group">
                     <div className="input-group-prepend">
                         <span className="input-group-text">Content</span>
@@ -45,9 +62,9 @@ function CreateArticleArea(props) {
 
                 <CreateArticleArea title={"Add Section"}/>
 
-                Post Article
+
                 <button type="button"
-                        className="btn btn-secondary">
+                        className="btn btn-secondary">Post Article
 
                 </button>
 
@@ -74,6 +91,9 @@ function CreateArticleArea(props) {
 
 }
 
+{/*<select className="custom-select"*/}
+// style="width:150px;"y
+
 function ArticleCreateMode() {
 
     return (
@@ -81,8 +101,8 @@ function ArticleCreateMode() {
             <label>Heading</label>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                    <select className="custom-select"
-                        // style="width:150px;"
+                    <select className="input-group-text"
+
                     >
                         <option></option>
                         <option>Topic:</option>

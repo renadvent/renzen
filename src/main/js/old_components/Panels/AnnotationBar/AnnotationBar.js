@@ -14,7 +14,8 @@ function AnnotationBar() {
 
             <ul className="nav nav-tabs">
                 {/*<WebsiteTab name={"The Docs"} linkTo={"#DocSec"} active={"active"}/>*/}
-                <WebsiteTab name={"Annotations"} linkTo={"#AnnoSec"} active={"active"}/>
+                <WebsiteTab name={"Default Study Guide"} linkTo={"#AnnoSec"} active={"active"}/>
+                <WebsiteTab name={"+"} linkTo={""} active={""}/>
             </ul>
 
             {/*<div className="tab-content" id="myTabContent">*/}
@@ -51,19 +52,19 @@ function AnnotationBar() {
                      aria-labelledby="profile-tab">
 
                     {/* <h1>Community Annotations</h1> */}
-                    <div className="btn-group-vertical">
-                        <form>
-                            <button type="button" className="btn btn-secondary" onClick={annotateSelection}>
-                                Add Annotation
-                            </button>
-                        </form>
-                        <button type="button" className="btn btn-secondary" onClick={highlightSelection}>
-                            Highlight
-                        </button>
-                        <button type="button" className="btn btn-secondary" onClick={highlightSelection}>
-                            Show Markup
-                        </button>
-                    </div>
+                    {/*<div className="btn-group-vertical">*/}
+                    {/*    <form>*/}
+                    {/*        <button type="button" className="btn btn-secondary" onClick={annotateSelection}>*/}
+                    {/*            Add Annotation*/}
+                    {/*        </button>*/}
+                    {/*    </form>*/}
+                    {/*    <button type="button" className="btn btn-secondary" onClick={highlightSelection}>*/}
+                    {/*        Highlight*/}
+                    {/*    </button>*/}
+                    {/*    <button type="button" className="btn btn-secondary" onClick={highlightSelection}>*/}
+                    {/*        Show Markup*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
                     <div id="annoBar">
                         {defaultText}
                     </div>

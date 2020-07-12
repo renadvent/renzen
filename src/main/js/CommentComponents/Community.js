@@ -37,13 +37,7 @@ function Community (props){
 
     </ul>
 
-    <h2>Community Updates</h2>
-    <ul>
-        <li>New Articles</li>
-        <li>New Members</li>
-        <li>Unanswered Questions</li>
-        <li>Accepted Answers</li>
-    </ul>
+
 
     <div className={"card"}>
         <div className={"card-body"}>
