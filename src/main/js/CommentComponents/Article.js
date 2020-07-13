@@ -1,12 +1,11 @@
-import React, {useState,useRef,useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Axios from "axios";
-
 
 
 function CreateArticleArea(props) {
 
 
-let counter = 1000000
+    let counter = 1000000
 
     function getNewId() {
         counter = counter + 1;
@@ -17,24 +16,71 @@ let counter = 1000000
     const [createState, setCreateState] = useState(false)
 
     //used for saving
-    const [sectionData,setSectionData] = useState([])
+    const [sectionData, setSectionData] = useState([])
 
     //used for rendering
-    const [sectionsCreated, setSectionsCreated] = useState([<SectionArea update={setSectionData}/>])
+    const [sectionsCreated, setSectionsCreated] = useState([<SectionArea index={0} update={setSectionData}/>])
 
     //gets flipped when button clicked. doesn't matter value
-    const [post,setPost]=useState(false)
+    const [post, setPost] = useState(false)
 
-    useEffect(()=>{
-        console.log(sectionData)
-    },[sectionData])
+    //used to save get article information
+    const [articleData,setArticleData] = useState({
+        articleName:"",
+        articleDescription:"",
+        articleTags:"",
+        articleAddToSection:""
+    })
 
-    useEffect(()=>{
-        if (post){
+    function handleChange(event){
+        const {value,name} = event.target
+        setArticleData(prevState => {
+            return{
+                ...prevState,
+                [name]:value
+            }
+        })
+    }
+
+        // useEffect(() => {
+    //     console.log("in parent")
+    //     console.log(sectionData)
+    // }, [sectionData])
+
+    //when post is clicked
+    //to save
+    useEffect(() => {
+        if (post) {
+            console.log("in parent")
             console.log(sectionData)
+
+
+            //create content in database for each section
+
+            let contentArray = []
+
+             sectionData.map(section=>{
+                 Axios.post("/api/contents",{
+                     content:section.body,
+                     header:section.header
+                 }).then(x=>{
+                     console.log("link")
+                     console.log(x.data._links.self.href)
+                     return x.data._links.self.href
+                 })
+             })
+
+
+
+            // //post article
+            // Axios.post("/api/articles",{
+            //
+            // })
+
+
             setPost(false)
         }
-    },[sectionData,post])
+    }, [sectionData, post, articleData])
 
     if (createState === true) {
         return (
@@ -59,21 +105,35 @@ let counter = 1000000
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon3">Tags</span>
                     </div>
-                    <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                    <input
+                        name={"articleTags"}
+                        value={articleData.articleTags}
+                        onChange={handleChange}
+
+                        type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
                 </div>
 
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon3">Description</span>
                     </div>
-                    <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                    <input
+                        name={"articleDescription"}
+                        value={articleData.articleDescription}
+                        onChange={handleChange}
+
+                        type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
                 </div>
 
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon3">Article Name: </span>
                     </div>
-                    <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                    <input
+                        name={"articleName"}
+                        value={articleData.articleName}
+                        onChange={handleChange}
+                        type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
                 </div>
 
 
@@ -89,7 +149,8 @@ let counter = 1000000
                 <button type="button" className="btn btn-secondary"
 
                         onClick={() => {
-                            setSectionsCreated(x => x.concat(<SectionArea update={setSectionData}/>))
+                            setSectionsCreated(x => x.concat(<SectionArea index={sectionData.length}
+                                                                          update={setSectionData}/>))
                         }}
                 >
                     Add Section
@@ -102,11 +163,12 @@ let counter = 1000000
                 </button>
 
 
+                {/*reset*/}
                 <button type="button"
                         className="btn btn-secondary"
                         onClick={() => {
                             setCreateState(false);
-                            setSectionsCreated(<SectionArea update={setSectionData}/>)
+                            setSectionsCreated(<SectionArea index={sectionData.length} update={setSectionData}/>)
                         }}
                 >Cancel Article
 
@@ -118,7 +180,9 @@ let counter = 1000000
                 {/*        className="btn btn-secondary">Post Article*/}
                 {/*</button>*/}
 
-                <button type="button" onClick={()=>setPost(x=> {return !x})}
+                <button type="button" onClick={() => setPost(x => {
+                    return !x
+                })}
                         className="btn btn-secondary">Post Article
                 </button>
 
@@ -153,27 +217,34 @@ let counter = 1000000
 
 function SectionArea(props) {
 
-    const [info,setInfo]=useState({header:"",body:""})
+    const [info, setInfo] = useState({header: "", body: ""})
 
-    //add this state to parent array
-    useEffect(()=>{
+    //adds info state to parent state array on first render
+    useEffect(() => {
         props.update(prevState => prevState.concat(info))
-    },[])
+    }, [])
 
-    function handleChange(event){
-
-        const {value,name}=event.target
-
-        console.log(value)
-        console.log(name)
-
+    //links input forms to react states
+    //changes "info" which will trigger another effect
+    function handleChange(event) {
+        const {value, name} = event.target
         setInfo(prevState => {
             return {
                 ...prevState,
-                [name]:value
+                [name]: value
             }
         })
     }
+
+    //uses function from parent to update parent array of sections
+    //when info is updated
+    useEffect(() => {
+        props.update(x => {
+            let dup = x
+            dup[props.index] = info;
+            return dup
+        })
+    }, [info])
 
     return (
         <div>

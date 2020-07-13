@@ -23,6 +23,8 @@ public class Content {
 
     private String contentName;
 
+    private String header;
+
     private int upVotes;
     private int downVotes;
 
