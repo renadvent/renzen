@@ -53,6 +53,7 @@ function CreateArticleArea(props) {
         if (post) {
             console.log("in parent")
             console.log(sectionData)
+            console.log(articleData)
 
 
             //create content in database for each section
@@ -66,39 +67,36 @@ function CreateArticleArea(props) {
             }).
 
             //post contents and put links in array
-            then(postedArticle => {
-                return sectionData.map(section => {
-                    Axios.post("/api/contents", {
-                        header: section.header,
-                        content: section.body,
-                    }).
+                 then(postedArticle => {
 
-                    //get links
-                    then(x => {
-                        console.log("link")
-                        console.log(x.data._links.self.href)
-                        return x.data._links.self.href
-                    })
-                }).
+                     let contentArray = sectionData.map(section => {
+                         return Axios.post("/api/contents", {
+                             header: section.header,
+                             content: section.body,
+                         })
+                     })
+                     return Promise.all(contentArray).
 
-                //add link array to posted article
-                then(postedContentArray => {
-                    Axios.patch(postedArticle.data._links.self.href, {
-                        contentArray: postedContentArray
-                    })
-                })
-            })
+                     //add link array to posted article
+                                   then(postedContentArray => {
 
+                                       let linkArray = postedContentArray.map(content => {
+                                           console.log(content)
+                                           return content.data._links.self.href
+                                       })
 
-            // //post article
-            // Axios.post("/api/articles",{
-            //
-            // })
-
-
+                                       Axios.patch(postedArticle.data._links.self.href, {
+                                           contentArray: linkArray
+                                       })
+                                   })
+                 })
+            
             setPost(false)
         }
     }, [sectionData, post, articleData])
+
+    //     articleData.articleAddToSection,articleData.articleTags,
+    // articleData.articleDescription,articleData.articleName])
 
     if (createState === true) {
         return (
