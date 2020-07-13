@@ -90,7 +90,7 @@ function CreateArticleArea(props) {
                                        })
                                    })
                  })
-            
+
             setPost(false)
         }
     }, [sectionData, post, articleData])
