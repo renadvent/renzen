@@ -23,6 +23,8 @@ public class Community {
     List<String> comDiscussionSections;
     List<String> users;
 
+    List<String> ArticleSections;
+
     public Community(){}
 
 }

@@ -1,33 +1,32 @@
 import React, {useEffect, useState} from 'react'
 import Axios from "axios";
-
-
-
+import SiteDataSection from "./SiteDataSection";
+import SaveToButton from "../old_components/SaveToButton";
 
 
 function CreateArticleArea(props) {
 
     //should this be here?
     const [loadedArticles, setLoadedArticles] = useState([])
-    let [comRef,setComRef] = useState(props.page)
+    let [comRef, setComRef] = useState(props.page)
 
-    function loadArticles(communityURL){
+    function loadArticles(communityURL) {
 
-        Axios.get(communityURL).then(community=>{
+        Axios.get(communityURL).then(community => {
 
             let articleURLS = []
-            articleURLS = community.data.articles.map(article=>{
+            articleURLS = community.data.articles.map(article => {
                 return Axios.get(article)
             })
 
             return Promise.all(articleURLS)
-        }).then(articleObjects=>{
+        }).then(articleObjects => {
             //render Article
 
             //create articles from loaded
             setLoadedArticles(() => {
-                return articleObjects.map(articleObject=>{
-                    return(
+                return articleObjects.map(articleObject => {
+                    return (
                         <Article source={articleObject}/>
                         //prevState.concat(<Article source={}/>)
                     )
@@ -39,48 +38,108 @@ function CreateArticleArea(props) {
 
     }
 
-    function Article(props){
+    function Article(props) {
+        //
+        //
+        // class MyErrorBoundary extends Component {
+        //     state = {
+        //         error: null
+        //     }
+        //
+        //     static getDerivedStateFromError(error) {
+        //         // Update state so next render shows fallback UI.
+        //         return { error: error };
+        //     }
+        //
+        //     componentDidCatch(error, info) {
+        //         // Log the error to an error reporting service
+        //         //logErrorToMyService(error, info);
+        //     }
+        //
+        //     render() {
+        //         if (this.state.error) {
+        //             // You can render any custom fallback UI
+        //             return <p>Something broke</p>;
+        //         }
+        //         return this.props.children;
+        //     }
+        // };
 
 
-        const [loadedContent,setLoadedContent]=useState([])
+        const [loadedContent, setLoadedContent] = useState([])
+
+        function ArticleReplySection(props) {
+
+            const [showRep, setShowRep] = useState(false)
+
+            return (
+                <div>
+                    <button onClick={(e) => {
+                        setShowRep((prevState) => !prevState)
+                    }}
+
+                            type="submit" className="btn btn-dark">Show
+                        Discussion
+                    </button>
+
+                    {/*use bootstrap to hide*/}
+                    <div className={showRep ? 'd-block' : 'd-none'}>
+                        <SiteDataSection title={"Section Discussion"}
+                                         page={"/api/pages/5efd2911d231b04eecfcd282"}/> : null}
+                    </div>
+
+                </div>
+
+            )
+
+        }
 
 
-        useEffect(()=>{
+        useEffect(() => {
 
             let art = props.source
 
             console.log("art")
             console.log(art)
 
-            let contentURLS=art.data.contentArray.map(content=>{
+            let contentURLS = art.data.contentArray.map(content => {
                 return Axios.get(content)
             })
-            Promise.all(contentURLS).then(contentObjects=>{
+            Promise.all(contentURLS).then(contentObjects => {
 
                 console.log("CONTENT OBJECTS")
                 console.log(contentObjects)
 
                 setLoadedContent(() => {
 
-                    return(
-                    <div>
-                        <h3>{art.data.articleName}</h3>
+                    return (
+                        <div className={"card"}>
+                            <div className={"card-body"}>
+                                <h3>{art.data.articleName}</h3>
+                                <SaveToButton/>
+                                <hr/>
 
-                        <p>{contentObjects.map(contentObject=>{
-                        return(
+                                <p>{contentObjects.map(contentObject => {
+                                    return (
+                                        <div>
+                                            <h4>{contentObject.data.header}</h4>
+                                            <p>{contentObject.data.content}</p>
+                                        </div>
 
-                                <p>{contentObject.data.content}</p>
 
-                        )})}</p>
+                                    )
+                                })}</p>
+
+                                <ArticleReplySection/>
+
+
+                            </div>
 
                         </div>)
-                    })
                 })
+            })
 
-            },[])
-
-
-
+        }, [])
 
 
         return (
@@ -91,9 +150,9 @@ function CreateArticleArea(props) {
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         loadArticles(comRef)
-    },[comRef])
+    }, [comRef])
 
     let counter = 1000000
 
@@ -171,17 +230,17 @@ function CreateArticleArea(props) {
 
                                        //------------------
                                        //patches community with article
-                                       Axios.get(comRef).then(com=>{
-                                           let newArticles=[]
-                                           newArticles=com.data.articles.concat(postedArticle.data._links.self.href)
+                                       Axios.get(comRef).then(com => {
+                                           let newArticles = []
+                                           newArticles = com.data.articles.concat(postedArticle.data._links.self.href)
                                            console.log("before patch")
                                            console.log(newArticles)
-                                           Axios.patch(comRef,{articles:newArticles})
+                                           Axios.patch(comRef, {articles: newArticles})
                                        })
 
 
-                                       })
                                    })
+                 })
 
 
             setPost(false)

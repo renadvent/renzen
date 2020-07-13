@@ -49,15 +49,15 @@ function App() {
                                 </li>
 
 
-                                <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
-                                       aria-controls="profile" aria-selected="false">Default Article</a>
-                                </li>
+                                {/*<li className="nav-item">*/}
+                                {/*    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"*/}
+                                {/*       aria-controls="profile" aria-selected="false">Default Article</a>*/}
+                                {/*</li>*/}
 
-                                <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
-                                       aria-controls="profile" aria-selected="false">Default Study Guide</a>
-                                </li>
+                                {/*<li className="nav-item">*/}
+                                {/*    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"*/}
+                                {/*       aria-controls="profile" aria-selected="false">Default Study Guide</a>*/}
+                                {/*</li>*/}
 
                                 <li className="nav-item">
                                     <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"

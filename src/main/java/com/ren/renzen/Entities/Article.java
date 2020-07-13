@@ -18,7 +18,9 @@ public class Article {
     private String articleDescription;
     private String articleTags;
     private String articleAddToSection;
+
     private List<String> contentArray;
+    private List<String> pageArray;//page for q&a for each section of article
 
     public Article(){}
 
