@@ -2,8 +2,91 @@ import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 
 
+
+
+
 function CreateArticleArea(props) {
 
+    //should this be here?
+    const [loadedArticles, setLoadedArticles] = useState([])
+    let [comRef,setComRef] = useState(props.page)
+
+    function loadArticles(communityURL){
+
+        Axios.get(communityURL).then(community=>{
+
+            let articleURLS = []
+            articleURLS = community.data.articles.map(article=>{
+                return Axios.get(article)
+            })
+
+            return Promise.all(articleURLS)
+        }).then(articleObjects=>{
+            //render Article
+
+            //create articles from loaded
+            setLoadedArticles(prevState => {
+                return articleObjects.map(articleObject=>{
+                    return(
+                        <Article source={articleObject}/>
+                        //prevState.concat(<Article source={}/>)
+                    )
+                })
+
+            })
+
+        })
+
+    }
+
+    function Article(props){
+
+
+        const [loadedContent,setLoadedContent]=useState([])
+
+
+        useEffect(()=>{
+
+            let art = props.source
+
+            console.log("art")
+            console.log(art)
+
+            let contentURLS=art.data.contentArray.map(content=>{
+                return Axios.get(content)
+            })
+            Promise.all(contentURLS).then(contentObjects=>{
+
+                console.log(contentObjects)
+
+                setLoadedContent(() => {
+                    return contentObjects.map(contentObject=>{
+                        return(
+                            <div>
+                                <h3>{art.data.articleName}</h3>
+                                <p>{contentObject.data.content}</p>
+                            </div>
+                        )
+                    })
+                })
+
+            })
+
+        },[])
+
+
+
+        return (
+            <div>
+                {loadedContent}
+            </div>
+        )
+    }
+
+
+    useEffect(()=>{
+        loadArticles(comRef)
+    },[comRef])
 
     let counter = 1000000
 
@@ -42,20 +125,10 @@ function CreateArticleArea(props) {
         })
     }
 
-    // useEffect(() => {
-    //     console.log("in parent")
-    //     console.log(sectionData)
-    // }, [sectionData])
-
     //when post is clicked
     //to save
     useEffect(() => {
         if (post) {
-            console.log("in parent")
-            console.log(sectionData)
-            console.log(articleData)
-
-
             //create content in database for each section
 
             //post article
@@ -94,9 +167,6 @@ function CreateArticleArea(props) {
             setPost(false)
         }
     }, [sectionData, post, articleData])
-
-    //     articleData.articleAddToSection,articleData.articleTags,
-    // articleData.articleDescription,articleData.articleName])
 
     if (createState === true) {
         return (
@@ -213,6 +283,8 @@ function CreateArticleArea(props) {
         return (
             <div>
 
+                {loadedArticles}
+
                 <button type="button"
                         className="btn btn-secondary"
                         onClick={() => setCreateState(true)}>{props.title}</button>
@@ -264,6 +336,7 @@ function SectionArea(props) {
 
     return (
         <div>
+
             <label>Heading</label>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">

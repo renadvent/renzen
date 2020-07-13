@@ -5,42 +5,6 @@ import SaveToButton from "../old_components/SaveToButton";
 
 //Site wide Docs--Community Docs--Personal Docs
 
-
-function Template(props) {
-
-    //create content in templates to promote uniformity and consistency
-
-    //response/article templates
-    //community/book templates
-
-    const templateTypes = {}
-
-    /*
-
-
-
-    Who, What, Where, When, Why, How
-
-    How to....
-
-    What is...
-
-    When do I...
-
-    What about when...
-
-    Why do/is...
-
-    How is...
-
-    ____: How and Why
-
-    */
-
-
-}
-
-
 function SiteDataSection(props) {
 
     //props.content
