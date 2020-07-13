@@ -6,6 +6,8 @@ function Home() {
     const [userName,setUserName] = useState()
     const [password,setPassword] = useState()
 
+    const [createCom,setCreateCom] = useState(false)
+
 
     function handleRegister(props){
         props.preventDefault();
@@ -22,41 +24,115 @@ function Home() {
 
     }
 
+    function handleNewCommunity(props){
+
+        Axios.post("/api/communities",{
+
+        })
+
+    }
+
+    function handleCreateComClick(){
+        setCreateCom(prevState => !prevState)
+    }
+
     return(
         <div>
 
+            <button onClick={handleCreateComClick}
+                //onClick={handleNewCommunity}
+                    type="submit" className="btn btn-dark">Create New Community +</button>
 
-            {/*<form action="/login" method="POST">*/}
-            {/*    <div className="form-group">*/}
-            {/*        <label htmlFor="email">Email</label>*/}
-            {/*        <input type="email" className="form-control" name="username"/>*/}
-            {/*    </div>*/}
-            {/*    <div className="form-group">*/}
-            {/*        <label htmlFor="password">Password</label>*/}
-            {/*        <input type="password" className="form-control" name="password"/>*/}
-            {/*    </div>*/}
-            {/*    <button type="submit" className="btn btn-dark">Login</button>*/}
-            {/*</form>*/}
+            <div className={createCom ? 'd-block' : 'd-none'}>
 
-            <hr/>
+                <CreateCommunitySection/>
 
+            </div>
+
+            <LoginRegisterSection/>
+
+            <ListSection/>
 
 
-            <form onSubmit={event => handleRegister(event)}>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input value={userName} onChange={(event => setUserName(event.target.value))}
-                           type="username" className="form-control" name="username"/>
+
+        </div>
+    )
+
+
+
+    function CreateCommunitySection(){
+
+        const [comData,setcomData] = useState({
+            name:"",
+            description:""
+            //articles:[],
+            //comDiscussionSections:"",
+            //users:"default",
+        })
+
+        function handleChange(event) {
+            const {value, name} = event.target
+            setcomData(prevState => {
+                return {
+                    ...prevState,
+                    [name]: value
+                }
+            })
+        }
+
+        function handleSubmit(event){
+
+            Axios.post("/api/communities",{
+                name:comData.name,
+                description:comData.description
+
+                //create other fields in server
+
+            })
+
+
+        }
+
+
+        return(
+            <div>
+
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon3">Community Name</span>
+                    </div>
+                    <input
+                        name={"name"}
+                        value={comData.name}
+                        onChange={handleChange}
+                        type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input value={password} onChange={(event => setPassword(event.target.value))}
-                           type="password" className="form-control" name="password"/>
+
+
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon3">Description</span>
+                    </div>
+                    <input
+                        name={"description"}
+                             value={comData.description}
+                             onChange={handleChange}
+
+
+                        type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
                 </div>
-                <button  type="submit" className="btn btn-dark">Register</button>
-            </form>
 
+                <button onClick={handleSubmit}
+                    type="submit" className="btn btn-dark">Add Community</button>
 
+                <hr/>
+
+            </div>
+        )
+    }
+
+    function ListSection(){
+        return(
             <div className="container-fluid">
                 <div className={"row"}>
                     <div className={"col"}>
@@ -70,13 +146,49 @@ function Home() {
                     </div>
                 </div>
             </div>
+        )
+    }
 
-        </div>
+    function LoginRegisterSection(){
+        return(
+
+            <div>
 
 
 
+        <form action="/login" method="POST">
+            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input type="email" className="form-control" name="username"/>
+            </div>
+            <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input type="password" className="form-control" name="password"/>
+            </div>
+            <button type="submit" className="btn btn-dark">Login</button>
+        </form>
 
-    )
+        <hr/>
+
+        <form onSubmit={event => handleRegister(event)}>
+            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input value={userName} onChange={(event => setUserName(event.target.value))}
+                       type="username" className="form-control" name="username"/>
+            </div>
+            <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input value={password} onChange={(event => setPassword(event.target.value))}
+                       type="password" className="form-control" name="password"/>
+            </div>
+            <button  type="submit" className="btn btn-dark">Register</button>
+        </form>
+
+            </div>
+        )
+    }
+
+
 
 }
 

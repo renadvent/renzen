@@ -23,8 +23,21 @@ public class Community {
     List<String> comDiscussionSections;
     List<String> users;
 
-    List<String> ArticleSections;
+    List<String> articleSections;
 
-    public Community(){}
+    public Community(String name, String description) {
+
+        this.name=name;
+        this.description=description;
+
+        //new com section
+        Page page = new Page();
+        this.comDiscussionSections.add(page.getId());
+
+        //
+
+
+
+    }
 
 }

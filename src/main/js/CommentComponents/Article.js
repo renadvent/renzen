@@ -10,6 +10,12 @@ function CreateArticleArea(props) {
     const [loadedArticles, setLoadedArticles] = useState([])
     let [comRef, setComRef] = useState(props.page)
 
+    const [numOfArticles, setNumOfArticles] = useState(0)
+
+
+
+
+
     function loadArticles(communityURL) {
 
         Axios.get(communityURL).then(community => {
@@ -22,6 +28,8 @@ function CreateArticleArea(props) {
             return Promise.all(articleURLS)
         }).then(articleObjects => {
             //render Article
+
+            setNumOfArticles(articleObjects.length)
 
             //create articles from loaded
             setLoadedArticles(() => {
@@ -39,32 +47,6 @@ function CreateArticleArea(props) {
     }
 
     function Article(props) {
-        //
-        //
-        // class MyErrorBoundary extends Component {
-        //     state = {
-        //         error: null
-        //     }
-        //
-        //     static getDerivedStateFromError(error) {
-        //         // Update state so next render shows fallback UI.
-        //         return { error: error };
-        //     }
-        //
-        //     componentDidCatch(error, info) {
-        //         // Log the error to an error reporting service
-        //         //logErrorToMyService(error, info);
-        //     }
-        //
-        //     render() {
-        //         if (this.state.error) {
-        //             // You can render any custom fallback UI
-        //             return <p>Something broke</p>;
-        //         }
-        //         return this.props.children;
-        //     }
-        // };
-
 
         const [loadedContent, setLoadedContent] = useState([])
 
@@ -95,6 +77,14 @@ function CreateArticleArea(props) {
         }
 
 
+        //open tab
+        function openTab(event){
+
+        }
+
+
+        //creates new article
+        //also needs to create new PAGE for reply section
         useEffect(() => {
 
             let art = props.source
@@ -115,8 +105,27 @@ function CreateArticleArea(props) {
                     return (
                         <div className={"card"}>
                             <div className={"card-body"}>
-                                <h3>{art.data.articleName}</h3>
+                                <h3>{art.data.articleName}
+
+                                <span>
+
+                                <div className={"text-right"}>
+
+                                                  <button
+                                                      onClick={openTab}
+                                                      type="button" className="btn btn-secondary text-right"
+                                                  >
+                                    Open in Another Tab
+                                </button>
+                            </div>
+
+                                    </span>
+
+
+                                </h3>
+
                                 <SaveToButton/>
+
                                 <hr/>
 
                                 <p>{contentObjects.map(contentObject => {
@@ -251,6 +260,7 @@ function CreateArticleArea(props) {
         return (
 
             <div>
+
                 <label htmlFor="basic-url">{props.title}</label>
 
 
@@ -361,6 +371,8 @@ function CreateArticleArea(props) {
     if (createState === false) {
         return (
             <div>
+
+                <p>Number of Articles {numOfArticles}</p>
 
                 {loadedArticles}
 
