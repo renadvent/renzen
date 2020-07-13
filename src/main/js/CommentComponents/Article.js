@@ -25,7 +25,7 @@ function CreateArticleArea(props) {
             //render Article
 
             //create articles from loaded
-            setLoadedArticles(prevState => {
+            setLoadedArticles(() => {
                 return articleObjects.map(articleObject=>{
                     return(
                         <Article source={articleObject}/>
@@ -57,6 +57,7 @@ function CreateArticleArea(props) {
             })
             Promise.all(contentURLS).then(contentObjects=>{
 
+                console.log("CONTENT OBJECTS")
                 console.log(contentObjects)
 
                 setLoadedContent(() => {
@@ -161,8 +162,21 @@ function CreateArticleArea(props) {
                                        Axios.patch(postedArticle.data._links.self.href, {
                                            contentArray: linkArray
                                        })
+
+                                       //------------------
+                                       //patches community with article
+                                       Axios.get(comRef).then(com=>{
+                                           let newArticles=[]
+                                           newArticles=com.data.articles.concat(postedArticle.data._links.self.href)
+                                           console.log("before patch")
+                                           console.log(newArticles)
+                                           Axios.patch(comRef,{articles:newArticles})
+                                       })
+
+
+                                       })
                                    })
-                 })
+
 
             setPost(false)
         }

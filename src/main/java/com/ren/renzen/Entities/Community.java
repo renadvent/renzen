@@ -19,8 +19,10 @@ public class Community {
     String name;
     String description;
 
-    List<String> articles; //links to content //used to render hierarchy
+    private List<String> articles; //links to content //used to render hierarchy
     List<String> comDiscussionSections;
     List<String> users;
+
+    public Community(){}
 
 }
