@@ -61,19 +61,25 @@ function CreateArticleArea(props) {
                 console.log(contentObjects)
 
                 setLoadedContent(() => {
-                    return contentObjects.map(contentObject=>{
+
+                    return(
+                    <div>
+                        <h3>{art.data.articleName}</h3>
+
+                        <p>{contentObjects.map(contentObject=>{
                         return(
-                            <div>
-                                <h3>{art.data.articleName}</h3>
+
                                 <p>{contentObject.data.content}</p>
-                            </div>
-                        )
+
+                        )})}</p>
+
+                        </div>)
                     })
                 })
 
-            })
+            },[])
 
-        },[])
+
 
 
 
