@@ -15,7 +15,7 @@ function CreateArticleArea(props) {
 
 
 
-
+    //load articles from community
     function loadArticles(communityURL) {
 
         Axios.get(communityURL).then(community => {
