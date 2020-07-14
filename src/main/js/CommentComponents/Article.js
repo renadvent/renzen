@@ -115,6 +115,15 @@ function CreateArticleArea(props) {
                                                   >
                                     Open in Another Tab
                                 </button>
+
+                                                                                      <button
+                                                                                          //onClick={openTab}
+                                                                                          type="button" className="btn btn-secondary text-right"
+                                                                                      >
+                                    Edit Article
+                                </button>
+
+
                             </div>
 
                                     </span>
