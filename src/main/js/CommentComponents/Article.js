@@ -13,8 +13,6 @@ function CreateArticleArea(props) {
     const [numOfArticles, setNumOfArticles] = useState(0)
 
 
-
-
     //load articles from community
     function loadArticles(communityURL) {
 
@@ -78,7 +76,7 @@ function CreateArticleArea(props) {
 
 
         //open tab
-        function openTab(event){
+        function openTab(event) {
 
         }
 
@@ -89,16 +87,16 @@ function CreateArticleArea(props) {
 
             let art = props.source
 
-            console.log("art")
-            console.log(art)
+            // console.log("art")
+            // console.log(art)
 
             let contentURLS = art.data.contentArray.map(content => {
                 return Axios.get(content)
             })
             Promise.all(contentURLS).then(contentObjects => {
 
-                console.log("CONTENT OBJECTS")
-                console.log(contentObjects)
+                // console.log("CONTENT OBJECTS")
+                // console.log(contentObjects)
 
                 setLoadedContent(() => {
 
@@ -107,12 +105,12 @@ function CreateArticleArea(props) {
                             <div className={"card-body"}>
                                 <h3>{art.data.articleName}
 
-                                <span>
+                                    <span>
 
                                 <div className={"text-right"}>
 
                                                   <button
-                                                      onClick={openTab}
+                                                      //onClick={openTab}
                                                       type="button" className="btn btn-secondary text-right"
                                                   >
                                     Open in Another Tab
@@ -190,75 +188,8 @@ function CreateArticleArea(props) {
         articleAddToSection: ""
     })
 
-    function handleChange(event) {
-        const {value, name} = event.target
-        setArticleData(prevState => {
-            return {
-                ...prevState,
-                [name]: value
-            }
-        })
-    }
-
-    //when post is clicked
-    //to save
-    useEffect(() => {
-        if (post) {
-            //create content in database for each section
-
-            //post article
-            Axios.post("/api/articles", {
-                articleName: articleData.articleName,
-                articleDescription: articleData.articleDescription,
-                articleTags: articleData.articleTags,
-                articleAddToSection: articleData.articleAddToSection
-            }).
-
-            //post contents and put links in array
-                 then(postedArticle => {
-
-                     let contentArray = sectionData.map(section => {
-                         return Axios.post("/api/contents", {
-                             header: section.header,
-                             content: section.body,
-                         })
-                     })
-                     return Promise.all(contentArray).
-
-                     //add link array to posted article
-                                   then(postedContentArray => {
-
-                                       let linkArray = postedContentArray.map(content => {
-                                           console.log(content)
-                                           return content.data._links.self.href
-                                       })
-
-                                       Axios.patch(postedArticle.data._links.self.href, {
-                                           contentArray: linkArray
-                                       })
-
-                                       //------------------
-                                       //patches community with article
-                                       Axios.get(comRef).then(com => {
-                                           let newArticles = []
-                                           newArticles = com.data.articles.concat(postedArticle.data._links.self.href)
-                                           console.log("before patch")
-                                           console.log(newArticles)
-                                           Axios.patch(comRef, {articles: newArticles})
-                                       })
-
-
-                                   })
-                 })
-
-
-            setPost(false)
-        }
-    }, [sectionData, post, articleData])
-
-    if (createState === true) {
+    function CreateArticleToolbox() {
         return (
-
             <div>
 
                 <label htmlFor="basic-url">{props.title}</label>
@@ -311,15 +242,7 @@ function CreateArticleArea(props) {
                         type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
                 </div>
 
-
                 {sectionsCreated}
-                {/*<ArticleCreateMode/>*/}
-
-
-                {/*input-group mb-3*/}
-
-
-                {/*<CreateArticleArea title={"Add Section"}/>*/}
 
                 <button type="button" className="btn btn-secondary"
 
@@ -337,8 +260,6 @@ function CreateArticleArea(props) {
                     Add Image
                 </button>
 
-
-                {/*reset*/}
                 <button type="button"
                         className="btn btn-secondary"
                         onClick={() => {
@@ -350,11 +271,6 @@ function CreateArticleArea(props) {
 
                 </button>
 
-
-                {/*<button type="button" onClick={}*/}
-                {/*        className="btn btn-secondary">Post Article*/}
-                {/*</button>*/}
-
                 <button type="button" onClick={() => setPost(x => {
                     return !x
                 })}
@@ -363,30 +279,197 @@ function CreateArticleArea(props) {
 
 
             </div>
-
-
         )
     }
 
-    if (createState === false) {
-        return (
-            <div>
+    function handleChange(event) {
+        const {value, name} = event.target
+        setArticleData(prevState => {
+            return {
+                ...prevState,
+                [name]: value
+            }
+        })
+    }
 
-                <p>Number of Articles {numOfArticles}</p>
-                <button type="button"
-                        className="btn btn-secondary"
-                        onClick={() => setCreateState(true)}>{props.title}</button>
+    //when post is clicked
+    //to save
+    useEffect(() => {
+        if (post) {
+            //create content in database for each section
 
-                {loadedArticles}
+            //post article
+            Axios.post("/api/articles", {
+                articleName: articleData.articleName,
+                articleDescription: articleData.articleDescription,
+                articleTags: articleData.articleTags,
+                articleAddToSection: articleData.articleAddToSection
+            }).
+
+            //post contents and put links in array
+                 then(postedArticle => {
+
+                     let contentArray = sectionData.map(section => {
+                         return Axios.post("/api/contents", {
+                             header: section.header,
+                             content: section.body,
+                         })
+                     })
+                     return Promise.all(contentArray).
+
+                     //add link array to posted article
+                                   then(postedContentArray => {
+
+                                       let linkArray = postedContentArray.map(content => {
+                                           // console.log(content)
+                                           return content.data._links.self.href
+                                       })
+
+                                       Axios.patch(postedArticle.data._links.self.href, {
+                                           contentArray: linkArray
+                                       })
+
+                                       //------------------
+                                       //patches community with article
+                                       Axios.get(comRef).then(com => {
+                                           let newArticles = []
+                                           newArticles = com.data.articles.concat(postedArticle.data._links.self.href)
+                                           // console.log("before patch")
+                                           // console.log(newArticles)
+                                           Axios.patch(comRef, {articles: newArticles})
+                                       })
 
 
+                                   })
+                 })
 
-                {/*<CreateArticleArea/>*/}
 
+            setPost(false)
+        }
+    }, [sectionData, post, articleData])
+
+    // if (createState === true) {
+    //     return (
+    //
+    //
+    //
+    //
+    //     )
+    // }
+
+    // if (createState === false) {
+    return (
+        <div>
+
+            <div className={createState ? 'd-block' : 'd-none'}>
+                {/*<CreateArticleToolbox/>*/}
+                <div>
+
+                    <label htmlFor="basic-url">{props.title}</label>
+
+
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <label className="input-group-text" htmlFor="inputGroupSelect01">Add To Section</label>
+                        </div>
+                        <select className="custom-select" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon3">Tags</span>
+                        </div>
+                        <input
+                            name={"articleTags"}
+                            value={articleData.articleTags}
+                            onChange={handleChange}
+
+                            type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                    </div>
+
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon3">Description</span>
+                        </div>
+                        <input
+                            name={"articleDescription"}
+                            value={articleData.articleDescription}
+                            onChange={handleChange}
+
+                            type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                    </div>
+
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon3">Article Name: </span>
+                        </div>
+                        <input
+                            name={"articleName"}
+                            value={articleData.articleName}
+                            onChange={handleChange}
+                            type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                    </div>
+
+                    {sectionsCreated}
+
+                    <button type="button" className="btn btn-secondary"
+
+                            onClick={() => {
+                                setSectionsCreated(x => x.concat(<SectionArea index={sectionData.length}
+                                                                              update={setSectionData}/>))
+                            }}
+                    >
+                        Add Section
+                    </button>
+
+
+                    <button type="button" className="btn btn-secondary"
+                    >
+                        Add Image
+                    </button>
+
+                    <button type="button"
+                            className="btn btn-secondary"
+                            onClick={() => {
+                                setCreateState(false);
+                                setSectionsCreated(<SectionArea index={sectionData.length} update={setSectionData}/>)
+                            }}
+                    >Cancel Article
+
+
+                    </button>
+
+                    <button type="button" onClick={() => setPost(x => {
+                        return !x
+                    })}
+                            className="btn btn-secondary">Post Article
+                    </button>
+
+
+                </div>
             </div>
-        )
 
-    }
+
+
+            <p>Number of Articles {numOfArticles}</p>
+            <button type="button"
+                    className="btn btn-secondary"
+                    onClick={() => setCreateState(prevState => !prevState)}>{props.title}</button>
+
+            {loadedArticles}
+
+
+            {/*<CreateArticleArea/>*/}
+
+        </div>
+    )
+
+    // }
 
 }
 

@@ -145,8 +145,8 @@ function SiteDataSection(props) {
             }).then(postedContent => {
                 Axios.get(refer).then(replyingTo => {
                     //post new content as an answer
-                    console.log("refer: " + refer)
-                    console.log("replyingto: " + replyingTo.data.reply_refs)
+                    // console.log("refer: " + refer)
+                    // console.log("replyingto: " + replyingTo.data.reply_refs)
                     replyingTo.data.reply_refs.push(postedContent.data._links.self.href)
                     Axios.patch(refer, {
                         reply_refs: replyingTo.data.reply_refs
@@ -166,7 +166,7 @@ function SiteDataSection(props) {
 
         useEffect(() => {
 
-            console.log(props.src)
+            // console.log(props.src)
 
             Axios.patch(props.src, {
                 upVotes: props.upVotes
@@ -245,7 +245,7 @@ function SiteDataSection(props) {
 
         useEffect(() => {
             Axios.get(props.refer).then(reply => {
-                console.log("getting replies")
+                // console.log("getting replies")
 
                 setDownVotes(reply.data.downVotes)
                 setUpVotes(reply.data.upVotes)
@@ -257,7 +257,7 @@ function SiteDataSection(props) {
 
             Axios.get(props.refer).then(reply => {
 
-                console.log("getting replies")
+                // console.log("getting replies")
 
                 setLoadedReply(
                     <div>
@@ -312,9 +312,9 @@ function SiteDataSection(props) {
 
             //load answer from reference
             Axios.get(props.refer).then(answer => {
-                    console.log("getting answers")
-                    console.log(answer.data.content)
-                    console.log(answer.data.reply_refs)
+                    // console.log("getting answers")
+                    // console.log(answer.data.content)
+                    // console.log(answer.data.reply_refs)
 
                     setLoadedAnswer(answer.data.content)
 
@@ -379,7 +379,7 @@ function SiteDataSection(props) {
         useEffect(() => {
 
             Axios.get(props.refer).then(section => {
-                    console.log("getting sections")
+                    // console.log("getting sections")
 
                     //what the input section attaches itself to when posting
                     setReplyRse(section.data.question_ref)
@@ -494,7 +494,7 @@ function SiteDataSection(props) {
                     //----------------------------------------
 
 
-                    console.log("getting section refs")
+                    // console.log("getting section refs")
 
                     //pageObject.data.
                     setElementsInSection(

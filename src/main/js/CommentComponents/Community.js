@@ -42,7 +42,7 @@ function Community (props){
     <div className={"card"}>
         <div className={"card-body"}>
 
-    <CreateArticleArea page={"http://localhost:8001/api/communities/5f0c01b2d552840570235567"} title={"Add Article"}/>
+    <CreateArticleArea page={"http://localhost:8001/api/communities/5f0c01b2d552840570235567"} title={"Show Add Article"}/>
 
         </div>
     </div>

@@ -210,7 +210,7 @@ function Home(props) {
                             console.log(comObject)
                             return(<div>
                                 <a
-                                    onClick={(event => handleSelectArticle(event,comObject._links.self.href))}
+                                    onClick={(event) => handleSelectArticle(event,comObject._links.self.href)}
                                 >
 
                                     {/*href={comObject._links.self.href} >*/}
@@ -230,7 +230,7 @@ function Home(props) {
                 console.log(comObjects)
                 setAllUsers( ()=> {
                         return comObjects.data._embedded.users.map(comObject=>{
-                            console.log(comObject)
+                            //console.log(comObject)
                             return(<div><a href={comObject._links.self.href} >{comObject.userName}</a></div>)
                             // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
                         })

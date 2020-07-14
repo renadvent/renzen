@@ -8,7 +8,7 @@ function SaveToButton(props){
     useEffect(()=>{
         return Axios.get("/api/pages").then(all_pages => {
 
-            console.log(all_pages)
+            // console.log(all_pages)
 
             return all_pages.data._embedded.pages.map(page=>{
                 return (
