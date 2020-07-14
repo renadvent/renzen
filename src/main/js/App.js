@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import Navbar from "./old_components/Panels/NavBar/nav";
 import themeContext from "./CommentComponents/context";
 import Community from "./CommentComponents/Community";
 
 import SiteDataSection from "./CommentComponents/SiteDataSection";
-import {annotateSelection, highlightSelection} from "./old_components/1stParty/functions";
+import {annotateSelection} from "./old_components/1stParty/functions";
 import AnnotationBar from "./old_components/Panels/AnnotationBar/AnnotationBar";
 import Home from "./Home";
 import Profile from "./Profile";
@@ -19,6 +19,9 @@ function App() {
 
     const context = useContext(themeContext)
 
+
+    const [tabs, setTabs] = useState([])
+    const [tabContent, setTabContent] = useState([])
 
     return (
 
@@ -39,7 +42,8 @@ function App() {
                                 </li>
 
                                 <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#yourprofile" role="tab"
+                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#yourprofile"
+                                       role="tab"
                                        aria-controls="profile" aria-selected="false">Your Profile</a>
                                 </li>
 
@@ -48,16 +52,7 @@ function App() {
                                        aria-controls="profile" aria-selected="false">Default Community</a>
                                 </li>
 
-
-                                {/*<li className="nav-item">*/}
-                                {/*    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"*/}
-                                {/*       aria-controls="profile" aria-selected="false">Default Article</a>*/}
-                                {/*</li>*/}
-
-                                {/*<li className="nav-item">*/}
-                                {/*    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"*/}
-                                {/*       aria-controls="profile" aria-selected="false">Default Study Guide</a>*/}
-                                {/*</li>*/}
+                                {tabs}
 
                                 <li className="nav-item">
                                     <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
@@ -68,14 +63,16 @@ function App() {
                             </ul>
 
                             <div className="tab-content" id="myTabContent">
+
+                                {tabContent}
+
                                 <div className="tab-pane fade show active" id="home" role="tabpanel"
                                      aria-labelledby="home-tab">
 
-                                    <Home/>
+                                    <Home setTabContent={setTabContent} setTabs={setTabs}/>
 
 
                                 </div>
-
 
 
                                 <div className="tab-pane fade show active" id="yourprofile" role="tabpanel"
@@ -118,33 +115,33 @@ function App() {
                                             {/*<div className={"stick-top"}>*/}
 
 
-                                                <div className="btn-group-vertical">
-                                                    <form>
-                                                        <button type="button" className="btn btn-secondary"
-                                                                onClick={annotateSelection}>
-                                                            Add Annotation
-                                                        </button>
-                                                    </form>
-                                                    {/*<button type="button" className="btn btn-secondary"*/}
-                                                    {/*        onClick={highlightSelection}>*/}
-                                                    {/*    Highlight*/}
-                                                    {/*</button>*/}
-                                                    {/*<button type="button" className="btn btn-secondary"*/}
-                                                    {/*        onClick={highlightSelection}>*/}
-                                                    {/*    Show Markup*/}
-                                                    {/*</button>*/}
-                                                </div>
-                                                <h2>Community Updates</h2>
-                                                <ul>
-                                                    <li>New Articles</li>
-                                                    <li>New Members</li>
-                                                    <li>Unanswered Questions</li>
-                                                    <li>Accepted Answers</li>
-                                                    <li>Events</li>
-                                                    <li>Questions about the Community</li>
-                                                </ul>
-                                                <SiteDataSection title={"Community Discussion"}
-                                                                 page={"/api/pages/5efd2911d231b04eecfcd282"}/>
+                                            <div className="btn-group-vertical">
+                                                <form>
+                                                    <button type="button" className="btn btn-secondary"
+                                                            onClick={annotateSelection}>
+                                                        Add Annotation
+                                                    </button>
+                                                </form>
+                                                {/*<button type="button" className="btn btn-secondary"*/}
+                                                {/*        onClick={highlightSelection}>*/}
+                                                {/*    Highlight*/}
+                                                {/*</button>*/}
+                                                {/*<button type="button" className="btn btn-secondary"*/}
+                                                {/*        onClick={highlightSelection}>*/}
+                                                {/*    Show Markup*/}
+                                                {/*</button>*/}
+                                            </div>
+                                            <h2>Community Updates</h2>
+                                            <ul>
+                                                <li>New Articles</li>
+                                                <li>New Members</li>
+                                                <li>Unanswered Questions</li>
+                                                <li>Accepted Answers</li>
+                                                <li>Events</li>
+                                                <li>Questions about the Community</li>
+                                            </ul>
+                                            <SiteDataSection title={"Community Discussion"}
+                                                             page={"/api/pages/5efd2911d231b04eecfcd282"}/>
 
 
                                             {/*</div>*/}

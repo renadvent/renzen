@@ -1,7 +1,8 @@
 import React, {useState,useEffect} from "react"
 import Axios from "axios"
+import CreateArticleArea from "./CommentComponents/Article";
 
-function Home() {
+function Home(props) {
 
     const [userName,setUserName] = useState()
     const [password,setPassword] = useState()
@@ -141,13 +142,63 @@ function Home() {
                 setAllCommunities( ()=> {
                     return comObjects.data._embedded.communities.map(comObject=>{
                         console.log(comObject)
-                        return(<div><a href={comObject._links.self.href} >{comObject._links.self.href}</a></div>)
+                        return(<div><a href={comObject._links.self.href} >+{comObject.name}</a></div>)
                         // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
                     })
                     }
                 )
             })
         },[])
+
+        //const setTabs=props.setTan
+
+        let counter =1
+
+        function getNewId() {
+            counter = counter + 1;
+            return counter - 1
+        }
+
+
+        function handleSelectArticle(event,url){
+
+            //create a new tab
+
+            event.preventDefault()
+
+
+            let id="C"+getNewId()
+
+            props.setTabs(prevState=>{
+
+                return prevState.concat(
+
+                    <li className="nav-item">
+                        <a className="nav-link" id={"T"+getNewId()} data-toggle="tab" href={"#"+id} role="tab"
+                           aria-controls="profile" aria-selected="false">url</a>
+                    </li>
+
+
+                )
+
+
+            })
+
+            props.setTabContent(prevState=>{
+                return prevState.concat(
+
+                    <div className="tab-pane fade" id={id} role="tabpanel"
+                         aria-labelledby="home-tab">
+                    <CreateArticleArea page={url} title={"Add Article"}/>
+                    </div>)
+            })
+
+            // event.preventDefault()
+            // event.stopImmediatePropagation()
+
+            //<CreateArticleArea page={"url"} title={"Add Article"}/>
+
+        }
 
         //load articles
         const [allArticles,setAllArticles] = useState([])
@@ -157,7 +208,14 @@ function Home() {
                 setAllArticles( ()=> {
                         return comObjects.data._embedded.articles.map(comObject=>{
                             console.log(comObject)
-                            return(<div><a href={comObject._links.self.href} >{comObject._links.self.href}</a></div>)
+                            return(<div>
+                                <a
+                                    onClick={(event => handleSelectArticle(event,comObject._links.self.href))}
+                                >
+
+                                    {/*href={comObject._links.self.href} >*/}
+                                +{comObject.articleName}</a>
+                            </div>)
                             // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
                         })
                     }
@@ -173,7 +231,7 @@ function Home() {
                 setAllUsers( ()=> {
                         return comObjects.data._embedded.users.map(comObject=>{
                             console.log(comObject)
-                            return(<div><a href={comObject._links.self.href} >{comObject._links.self.href}</a></div>)
+                            return(<div><a href={comObject._links.self.href} >{comObject.userName}</a></div>)
                             // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
                         })
                     }
