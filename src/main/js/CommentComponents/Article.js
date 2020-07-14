@@ -373,12 +373,13 @@ function CreateArticleArea(props) {
             <div>
 
                 <p>Number of Articles {numOfArticles}</p>
-
-                {loadedArticles}
-
                 <button type="button"
                         className="btn btn-secondary"
                         onClick={() => setCreateState(true)}>{props.title}</button>
+
+                {loadedArticles}
+
+
 
                 {/*<CreateArticleArea/>*/}
 

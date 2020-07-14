@@ -132,17 +132,72 @@ function Home() {
     }
 
     function ListSection(){
+
+        //load communities
+        const [allCommunities,setAllCommunities] = useState([])
+        useEffect(()=>{
+            Axios.get("/api/communities").then(comObjects=>{
+                console.log(comObjects)
+                setAllCommunities( ()=> {
+                    return comObjects.data._embedded.communities.map(comObject=>{
+                        console.log(comObject)
+                        return(<div><a href={comObject._links.self.href} >{comObject._links.self.href}</a></div>)
+                        // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
+                    })
+                    }
+                )
+            })
+        },[])
+
+        //load articles
+        const [allArticles,setAllArticles] = useState([])
+        useEffect(()=>{
+            Axios.get("/api/articles").then(comObjects=>{
+                console.log(comObjects)
+                setAllArticles( ()=> {
+                        return comObjects.data._embedded.articles.map(comObject=>{
+                            console.log(comObject)
+                            return(<div><a href={comObject._links.self.href} >{comObject._links.self.href}</a></div>)
+                            // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
+                        })
+                    }
+                )
+            })
+        },[])
+
+        //load users
+        const [allUsers,setAllUsers] = useState([])
+        useEffect(()=>{
+            Axios.get("/api/users").then(comObjects=>{
+                console.log(comObjects)
+                setAllUsers( ()=> {
+                        return comObjects.data._embedded.users.map(comObject=>{
+                            console.log(comObject)
+                            return(<div><a href={comObject._links.self.href} >{comObject._links.self.href}</a></div>)
+                            // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
+                        })
+                    }
+                )
+            })
+        },[])
+
+
+
+
         return(
             <div className="container-fluid">
                 <div className={"row"}>
                     <div className={"col"}>
                         <h4>All Users</h4>
+                        {allUsers}
                     </div>
                     <div className={"col"}>
                         <h4>All Articles</h4>
+                        {allArticles}
                     </div>
                     <div className={"col"}>
                         <h4>All Communities</h4>
+                        {allCommunities}
                     </div>
                 </div>
             </div>
