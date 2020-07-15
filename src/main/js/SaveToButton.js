@@ -6,14 +6,14 @@ function SaveToButton(props){
     const [savePages,setSavePages] = useState()
 
     useEffect(()=>{
-        return Axios.get("/api/pages").then(all_pages => {
+        Axios.get("/api/pages").then(all_pages => {
 
             // console.log(all_pages)
 
             return all_pages.data._embedded.pages.map(page=>{
                 return (
                     <a className="dropdown-item" href="#">
-                        {console.log("page: "+page._links.self.href)}
+                        {/*{console.log("page: "+page._links.self.href)}*/}
                         {page._links.self.href}
                     </a>)
             })

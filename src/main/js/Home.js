@@ -1,8 +1,23 @@
 import React, {useState,useEffect} from "react"
 import Axios from "axios"
 import CreateArticleArea from "./Article";
+import * as actionTypes from "./actions"
+import {log_in} from "./actions";
 
 import {connect} from 'react-redux'
+
+
+const mapDispatchToProps = dispatch =>{
+    return {
+        onChangeName: ()=> dispatch({type:'CHANGE_NAME'}),
+        onFakeLogin: ()=> dispatch({type:'FAKE_LOGIN', userURL:"http://localhost:8001/api/users/5f0aba93ba913107ab69627c"}),
+        onLogin: () => dispatch(log_in())
+    }
+}
+
+// function mapDispatchToProps = dispatch => {
+//
+// }
 
 function Home(props) {
 
@@ -42,7 +57,10 @@ function Home(props) {
     return(
         <div>
             <p>Redux Value:{props.userName}</p>
-            <button onClick={props.onChangeName}>Fake Login by Redux</button>
+            <button onClick={()=>{
+                props.onChangeName();
+                props.onFakeLogin();
+            }}>Fake Login by Redux</button>
 
             <button onClick={handleCreateComClick}
                 //onClick={handleNewCommunity}
@@ -142,10 +160,10 @@ function Home(props) {
         const [allCommunities,setAllCommunities] = useState([])
         useEffect(()=>{
             Axios.get("/api/communities").then(comObjects=>{
-                console.log(comObjects)
+                // console.log(comObjects)
                 setAllCommunities( ()=> {
                     return comObjects.data._embedded.communities.map(comObject=>{
-                        console.log(comObject)
+                        // console.log(comObject)
                         return(<div><a href={comObject._links.self.href} >+{comObject.name}</a></div>)
                         // return(<a href={comObject.data._links.self.href}>{comObject.data.name}</a>)
                     })
@@ -208,10 +226,10 @@ function Home(props) {
         const [allArticles,setAllArticles] = useState([])
         useEffect(()=>{
             Axios.get("/api/articles").then(comObjects=>{
-                console.log(comObjects)
+                // console.log(comObjects)
                 setAllArticles( ()=> {
                         return comObjects.data._embedded.articles.map(comObject=>{
-                            console.log(comObject)
+                            // console.log(comObject)
                             return(<div>
                                 <a
                                     onClick={(event) => handleSelectArticle(event,comObject._links.self.href)}
@@ -231,7 +249,7 @@ function Home(props) {
         const [allUsers,setAllUsers] = useState([])
         useEffect(()=>{
             Axios.get("/api/users").then(comObjects=>{
-                console.log(comObjects)
+                // console.log(comObjects)
                 setAllUsers( ()=> {
                         return comObjects.data._embedded.users.map(comObject=>{
                             //console.log(comObject)
@@ -304,23 +322,17 @@ function Home(props) {
             </div>
         )
     }
-
-
-
 }
 
 //export default Home
 
 const mapStateToProps = state => {
     return{
-        userName: state.userName
+        userName: state.userName,
+        userURL: state.userURL
     }
 }
 
-const mapDispatchToProps = dispatch =>{
-    return {
-        onChangeName: ()=> dispatch({type:'CHANGE_NAME'})
-    }
-}
+
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home)

@@ -8,6 +8,10 @@ import {annotateSelection} from "./old_components/1stParty/functions";
 import AnnotationBar from "./old_components/Panels/AnnotationBar/AnnotationBar";
 import Home from "./Home";
 import Profile from "./Profile";
+import {connect} from "react-redux";
+
+
+import * as actionCreators from "./actions"
 
 
 //Main JS file
@@ -22,6 +26,17 @@ function App() {
 
     const [tabs, setTabs] = useState([])
     const [tabContent, setTabContent] = useState([])
+    //const [Join_State,setJoinState] = useState(false);
+
+
+    // useEffect(()=>{
+    //
+    //     if (props.userNameObject.)
+    //
+    //
+    // })
+
+
 
     return (
 
@@ -35,28 +50,29 @@ function App() {
                         <div className={"col-9"}>
 
                             <ul className="nav nav-tabs" id="myTab" role="tablist">
+
                                 <li className="nav-item">
                                     <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home"
                                        role="tab"
-                                       aria-controls="home" aria-selected="true">Home</a>
+                                       >Home</a>
                                 </li>
 
                                 <li className="nav-item">
                                     <a className="nav-link" id="profile-tab" data-toggle="tab" href="#yourprofile"
                                        role="tab"
-                                       aria-controls="profile" aria-selected="false">Your Profile</a>
+                                       >Your Profile</a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#com" role="tab"
-                                       aria-controls="profile" aria-selected="false">Default Community</a>
+                                    <a className="nav-link" id="default-com" data-toggle="tab" href="#com" role="tab"
+                                       >Default Community</a>
                                 </li>
 
                                 {tabs}
 
                                 <li className="nav-item">
-                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#" role="tab"
-                                       aria-controls="profile" aria-selected="false">+</a>
+                                    <a className="nav-link" id="add-tab" data-toggle="tab" href="#" role="tab"
+                                       >+</a>
                                 </li>
 
 
@@ -74,9 +90,8 @@ function App() {
 
                                 </div>
 
-
-                                <div className="tab-pane fade show active" id="yourprofile" role="tabpanel"
-                                     aria-labelledby="home-tab">
+                                <div className="tab-pane fade" id="yourprofile" role="tabpanel"
+                                     >
 
                                     <Profile/>
 
@@ -88,7 +103,11 @@ function App() {
 
 
                                     {/*<h1 style={{textAlign: "center"}} className={"sticky-top"}>Community Homepage</h1>*/}
-                                    <h1 style={{textAlign: "center"}}>Community Homepage</h1>
+                                    <h1 style={{textAlign: "center"}}>Community Homepage
+
+                                    </h1>
+
+                                    {/*<button style={{textAlign: "center"}}>{Join_State}</button>*/}
 
 
                                     {/*<form className="form-inline my-2 my-lg-0">*/}
@@ -220,4 +239,24 @@ function App() {
     )
 }
 
-export default App;
+// export default App;
+
+
+const mapStateToProps = state => {
+    return{
+        userName: state.userName,
+        userURL: state.userURL,
+        userNameObject: state.userNameObject
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+    return {
+        onChangeName: ()=> dispatch({type:'CHANGE_NAME'}),
+        onFakeLogin: ()=> dispatch({type:'FAKE_LOGIN', URL:"http://localhost:8001/api/users/5f0aba93ba913107ab69627c"}),
+
+        onLogin:()=>dispatch(actionCreators.log_in("http://localhost:8001/api/users/5f0aba93ba913107ab69627c"))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App)
