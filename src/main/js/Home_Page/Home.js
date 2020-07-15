@@ -1,11 +1,10 @@
 import React, {useState,useEffect} from "react"
 import Axios from "axios"
-import CreateArticleArea from "./Article";
-import * as actionTypes from "./actions"
-import {log_in} from "./actions";
+import CreateArticleArea from "../Community_Page/Article";
+import * as actionTypes from "../actions"
+import {log_in} from "../actions";
 
 import {connect} from 'react-redux'
-
 
 const mapDispatchToProps = dispatch =>{
     return {
@@ -15,17 +14,12 @@ const mapDispatchToProps = dispatch =>{
     }
 }
 
-// function mapDispatchToProps = dispatch => {
-//
-// }
-
 function Home(props) {
 
     const [userName,setUserName] = useState()
     const [password,setPassword] = useState()
 
     const [createCom,setCreateCom] = useState(false)
-
 
     function handleRegister(props){
         props.preventDefault();
@@ -36,18 +30,13 @@ function Home(props) {
             communities: ["default"],
             contentList :[]
         })
-
         setPassword("")
         setUserName("")
-
     }
 
     function handleNewCommunity(props){
-
         Axios.post("/api/communities",{
-
         })
-
     }
 
     function handleCreateComClick(){
@@ -65,23 +54,13 @@ function Home(props) {
             <button onClick={handleCreateComClick}
                 //onClick={handleNewCommunity}
                     type="submit" className="btn btn-dark">Create New Community +</button>
-
             <div className={createCom ? 'd-block' : 'd-none'}>
-
                 <CreateCommunitySection/>
-
             </div>
-
             <LoginRegisterSection/>
-
             <ListSection/>
-
-
-
         </div>
     )
-
-
 
     function CreateCommunitySection(){
 
@@ -112,10 +91,7 @@ function Home(props) {
                 //create other fields in server
 
             })
-
-
         }
-
 
         return(
             <div>
@@ -172,8 +148,6 @@ function Home(props) {
             })
         },[])
 
-        //const setTabs=props.setTan
-
         let counter =1
 
         function getNewId() {
@@ -181,29 +155,18 @@ function Home(props) {
             return counter - 1
         }
 
-
         function handleSelectArticle(event,url){
 
             //create a new tab
-
             event.preventDefault()
-
-
             let id="C"+getNewId()
-
             props.setTabs(prevState=>{
-
                 return prevState.concat(
-
                     <li className="nav-item">
                         <a className="nav-link" id={"T"+getNewId()} data-toggle="tab" href={"#"+id} role="tab"
                            aria-controls="profile" aria-selected="false">url</a>
                     </li>
-
-
                 )
-
-
             })
 
             props.setTabContent(prevState=>{
@@ -214,13 +177,7 @@ function Home(props) {
                     <CreateArticleArea page={url} title={"Add Article"}/>
                     </div>)
             })
-
-            // event.preventDefault()
-            // event.stopImmediatePropagation()
-
-            //<CreateArticleArea page={"url"} title={"Add Article"}/>
-
-        }
+                    }
 
         //load articles
         const [allArticles,setAllArticles] = useState([])
@@ -261,9 +218,6 @@ function Home(props) {
             })
         },[])
 
-
-
-
         return(
             <div className="container-fluid">
                 <div className={"row"}>
@@ -286,11 +240,7 @@ function Home(props) {
 
     function LoginRegisterSection(){
         return(
-
             <div>
-
-
-
         <form action="/login" method="POST">
             <div className="form-group">
                 <label htmlFor="email">Email</label>
@@ -318,13 +268,10 @@ function Home(props) {
             </div>
             <button  type="submit" className="btn btn-dark">Register</button>
         </form>
-
             </div>
         )
     }
 }
-
-//export default Home
 
 const mapStateToProps = state => {
     return{
@@ -332,7 +279,5 @@ const mapStateToProps = state => {
         userURL: state.userURL
     }
 }
-
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home)

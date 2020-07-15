@@ -1,5 +1,5 @@
 import React from "react"
-import SiteDataSection from "../../SiteDataSection";
+import SiteDataSection from "../js/Community_Page/SiteDataSection";
 
 function MainTab(props) {
 

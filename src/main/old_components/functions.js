@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import {replaceSelection} from "../3rdParty/replaceSelection";
+import {replaceSelection} from "./replaceSelection";
 
 
 function aClick() {

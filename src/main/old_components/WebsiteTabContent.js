@@ -1,9 +1,9 @@
 import React from "react"
 
-function WebsiteTabContent(props){
+function WebsiteTabContent(props) {
 
 
-    return(
+    return (
 
         <div
             className="tab-pane fade"

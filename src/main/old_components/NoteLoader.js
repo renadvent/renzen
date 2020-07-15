@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {JSONLoader} from "../../../1stParty/JSONLoader";
+import {JSONLoader} from "./JSONLoader";
 
 
 function NoteLoader(props) {
