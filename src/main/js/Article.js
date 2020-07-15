@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 import SiteDataSection from "./SiteDataSection";
-import SaveToButton from "./old_components/SaveToButton";
+import SaveToButton from "./SaveToButton";
 
 
 function CreateArticleArea(props) {

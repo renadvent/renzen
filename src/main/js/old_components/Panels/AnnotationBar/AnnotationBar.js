@@ -66,6 +66,7 @@ function AnnotationBar() {
                     {/*    </button>*/}
                     {/*</div>*/}
                     <div id="annoBar">
+                        <button>Add Note</button>
                         {defaultText}
                     </div>
 

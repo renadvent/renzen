@@ -7,6 +7,9 @@ import {createStore} from "redux";
 import reducer from "./main/js/reducer";
 import {Provider} from "react-redux"
 
+import * as actionTypes from "../src/main/js/actions"
+
+
 const store=createStore(reducer)
 
 ReactDOM.render(

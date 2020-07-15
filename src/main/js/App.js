@@ -129,7 +129,7 @@ function App() {
                                                        href="#artDisc"
                                                        role="tab"
                                                        aria-controls="profile" aria-selected="false">Article
-                                                        Discussion</a>
+                                                        Annotations</a>
                                                 </li>
                                             </ul>
 
@@ -140,22 +140,7 @@ function App() {
                                                 <div className="tab-pane fade show active" id="comDisc" role="tabpanel"
                                                      aria-labelledby="home-tab">
 
-                                                    <div className="btn-group-vertical">
-                                                        <form>
-                                                            <button type="button" className="btn btn-secondary"
-                                                                    onClick={annotateSelection}>
-                                                                Add Annotation
-                                                            </button>
-                                                        </form>
-                                                        {/*<button type="button" className="btn btn-secondary"*/}
-                                                        {/*        onClick={highlightSelection}>*/}
-                                                        {/*    Highlight*/}
-                                                        {/*</button>*/}
-                                                        {/*<button type="button" className="btn btn-secondary"*/}
-                                                        {/*        onClick={highlightSelection}>*/}
-                                                        {/*    Show Markup*/}
-                                                        {/*</button>*/}
-                                                    </div>
+
                                                     <h2>Community Updates</h2>
                                                     <ul>
                                                         <li>New Articles</li>
@@ -174,6 +159,24 @@ function App() {
 
                                                 <div className="tab-pane fade show active" id="artDisc" role="tabpanel"
                                                      aria-labelledby="home-tab">
+
+
+                                                    <div className="btn-group-vertical">
+                                                        <form>
+                                                            <button type="button" className="btn btn-secondary"
+                                                                    onClick={annotateSelection}>
+                                                                Add Annotation
+                                                            </button>
+                                                        </form>
+                                                        {/*<button type="button" className="btn btn-secondary"*/}
+                                                        {/*        onClick={highlightSelection}>*/}
+                                                        {/*    Highlight*/}
+                                                        {/*</button>*/}
+                                                        {/*<button type="button" className="btn btn-secondary"*/}
+                                                        {/*        onClick={highlightSelection}>*/}
+                                                        {/*    Show Markup*/}
+                                                        {/*</button>*/}
+                                                    </div>
 
                                                     None Yet
 

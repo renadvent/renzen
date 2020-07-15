@@ -1,3 +1,5 @@
+import * as actionTypes from "./actions"
+
 const initialState={
     userName:"not logged in",
     userNameObject: null,

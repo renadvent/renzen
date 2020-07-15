@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import Axios from "axios";
-import SaveToButton from "./old_components/SaveToButton";
+import SaveToButton from "./SaveToButton";
 
 
 //Site wide Docs--Community Docs--Personal Docs
