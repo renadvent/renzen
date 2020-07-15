@@ -1,6 +1,8 @@
 import React, {useState,useEffect} from "react"
 import Axios from "axios"
-import CreateArticleArea from "./CommentComponents/Article";
+import CreateArticleArea from "./Article";
+
+import {connect} from 'react-redux'
 
 function Home(props) {
 
@@ -39,6 +41,7 @@ function Home(props) {
 
     return(
         <div>
+            <p>Redux Value:{props.userName}</p>
 
             <button onClick={handleCreateComClick}
                 //onClick={handleNewCommunity}
@@ -305,4 +308,12 @@ function Home(props) {
 
 }
 
-export default Home
+//export default Home
+
+const mapStateToProps = state => {
+    return{
+        userName: state.userName
+    }
+}
+
+export default connect(mapStateToProps)(Home)

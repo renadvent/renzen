@@ -1,9 +1,9 @@
 import React, {useContext, useState} from "react";
-import Navbar from "./old_components/Panels/NavBar/nav";
-import themeContext from "./CommentComponents/context";
-import Community from "./CommentComponents/Community";
+import Navbar from "./nav";
+import themeContext from "./context";
+import Community from "./Community";
 
-import SiteDataSection from "./CommentComponents/SiteDataSection";
+import SiteDataSection from "./SiteDataSection";
 import {annotateSelection} from "./old_components/1stParty/functions";
 import AnnotationBar from "./old_components/Panels/AnnotationBar/AnnotationBar";
 import Home from "./Home";

@@ -1,5 +1,5 @@
 import React from "react"
-import SiteDataSection from "../../CommentComponents/SiteDataSection";
+import SiteDataSection from "../../SiteDataSection";
 
 function MainTab(props) {
 
