@@ -42,6 +42,7 @@ function Home(props) {
     return(
         <div>
             <p>Redux Value:{props.userName}</p>
+            <button onClick={props.onChangeName}>Fake Login by Redux</button>
 
             <button onClick={handleCreateComClick}
                 //onClick={handleNewCommunity}
@@ -316,4 +317,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Home)
+const mapDispatchToProps = dispatch =>{
+    return {
+        onChangeName: ()=> dispatch({type:'CHANGE_NAME'})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home)
