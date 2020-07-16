@@ -1,5 +1,5 @@
 import React from "react"
-import SiteDataSection from "../js/Community_Page/SiteDataSection";
+import DiscussionSection from "../js/Community_Page/DiscussionSection";
 
 function MainTab(props) {
 
@@ -30,7 +30,7 @@ function MainTab(props) {
             </div>
             <p></p>
             <hr></hr>
-            <SiteDataSection/>
+            <DiscussionSection/>
 
         </div>
     )

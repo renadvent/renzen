@@ -1,5 +1,5 @@
 import React from "react"
-import SiteDataSection from "./SiteDataSection";
+import DiscussionSection from "./DiscussionSection";
 import {annotateSelection} from "../../old_components/functions";
 import Community from "./Community";
 
@@ -34,6 +34,7 @@ function CommunityLayout(props){
                             <div>
                                 <h2>Community Updates</h2>
                                 <ul>
+                                    <li>Article Requests</li>
                                     <li>New Articles</li>
                                     <li>New Members</li>
                                     <li>Unanswered Questions</li>
@@ -41,8 +42,8 @@ function CommunityLayout(props){
                                     <li>Events</li>
                                     <li>Questions about the Community</li>
                                 </ul>
-                                <SiteDataSection title={"Community Discussion"}
-                                                 page={"/api/pages/5efd2911d231b04eecfcd282"}/>
+                                <DiscussionSection title={"Community Discussion"}
+                                                   page={"/api/pages/5efd2911d231b04eecfcd282"}/>
                             </div>
                             <div className="tab-pane fade show active" id="artDisc"
                                  role="tabpanel"

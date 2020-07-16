@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from "react"
 import Axios from "axios";
-import CreateArticleArea from "../Community_Page/Article";
+import ArticleArea from "../Community_Page/ArticleArea";
 
 function ListSection(props){
 
@@ -43,7 +43,7 @@ function ListSection(props){
                 return prevState.concat(
                     <div className="tab-pane fade" id={id} role="tabpanel"
                          aria-labelledby="home-tab">
-                        <CreateArticleArea page={url} title={"Add Article"}/>
+                        <ArticleArea page={url} title={"Add Article"}/>
                     </div>)
             })
         }

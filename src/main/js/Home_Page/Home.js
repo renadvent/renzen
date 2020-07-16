@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react"
 import Axios from "axios"
-import CreateArticleArea from "../Community_Page/Article";
+import ArticleArea from "../Community_Page/ArticleArea";
 import * as actionTypes from "../Store/actions"
 import {fake_login, fake_login_helper, log_in} from "../Store/actions";
 

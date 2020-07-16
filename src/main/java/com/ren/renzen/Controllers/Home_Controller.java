@@ -5,14 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Home_Controller {
-
 	@RequestMapping()
 	public String index() {
 		return "index";
 	}
-
-	@RequestMapping("/r")
-	public String communities () {return "communities";}
-
 }
 

@@ -12,6 +12,8 @@ function Profile(props){
             <p>Your Comments</p>
             <p>Your Study Guides</p>
             <hr/>
+            <p>Activity from Communities</p>
+            <hr/>
             <p>Your Friends</p>
             <p>Your Messages</p>
         </div>

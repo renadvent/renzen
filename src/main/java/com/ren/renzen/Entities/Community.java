@@ -21,7 +21,9 @@ public class Community {
 
     private List<String> articles; //links to content //used to render hierarchy
     List<String> comDiscussionSections;
+
     List<String> users;
+    List<String> moderators;
 
     List<String> articleSections;
 

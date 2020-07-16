@@ -1,14 +1,9 @@
 import React, {useState} from "react";
 import Navbar from "./nav";
-import Community from "./Community_Page/Community";
-
-import SiteDataSection from "./Community_Page/SiteDataSection";
-import {annotateSelection} from "../old_components/functions";
 import StudyGuidePanel from "./StudyGuide_Panel/StudyGuidePanel";
 import Home from "./Home_Page/Home";
 import Profile from "./Profile_Page/Profile";
 import {connect} from "react-redux";
-import * as actionCreators from "./Store/actions"
 import CommunityLayout from "./Community_Page/CommunityLayout";
 
 /*
