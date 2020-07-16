@@ -36,8 +36,10 @@ function ListSection(props){
                 setAllCommunities( ()=> {
                         return comObjects.data._embedded.communities.map(comObject=>{
                             return(<div
-                                onClick={props.onOpenCommunity(comObject._links.self.href)}>
-                                <a href={comObject._links.self.href} >+{comObject.name}</a>
+                                onClick={()=>props.onOpenCommunity(comObject._links.self.href)}>
+                                <a
+                                    // href={comObject._links.self.href}
+                                >+{comObject.name}</a>
                             </div>)
                         })
                     }
