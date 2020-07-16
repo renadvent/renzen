@@ -1,8 +1,8 @@
 import React, {useState,useEffect} from "react"
 import Axios from "axios"
 import CreateArticleArea from "../Community_Page/Article";
-import * as actionTypes from "../actions"
-import {fake_login, fake_login_helper, log_in} from "../actions";
+import * as actionTypes from "../Store/actions"
+import {fake_login, fake_login_helper, log_in} from "../Store/actions";
 
 import {connect} from 'react-redux'
 import ListSection from "./ListSection";

@@ -8,7 +8,7 @@ import StudyGuidePanel from "./StudyGuide_Panel/StudyGuidePanel";
 import Home from "./Home_Page/Home";
 import Profile from "./Profile_Page/Profile";
 import {connect} from "react-redux";
-import * as actionCreators from "./actions"
+import * as actionCreators from "./Store/actions"
 import CommunityLayout from "./Community_Page/CommunityLayout";
 
 /*
