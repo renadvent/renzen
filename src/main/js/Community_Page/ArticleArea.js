@@ -238,8 +238,6 @@ function ArticleArea(props) {
                 </div>
             </div>
 
-
-
             <p>Number of Articles {numOfArticles}</p>
             <button type="button"
                     className="btn btn-secondary"

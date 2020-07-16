@@ -7,6 +7,7 @@ function Profile(props){
             This is a profile page
             <p>Username: {props.userName}</p>
             <hr/>
+            <p>Your Communities</p>
             <p>Your Articles</p>
             <p>Your Questions</p>
             <p>Your Comments</p>

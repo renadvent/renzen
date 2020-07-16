@@ -1,41 +1,26 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import ArticleArea from "./ArticleArea";
 import {connect, useSelector} from "react-redux";
-
-function CreateArticle(props) {
-
-}
-
-// <button type="button" className="btn btn-secondary">+</div>
 
 function Community(props) {
 
 
     const [joinStatus, setJoinStatus] = useState(false)
 
-    const member = useSelector(state => state.userNameObject)
-
-    function checkIfMember(event, props2) {
-
-        console.log("CHECKING COMMUNITY LOGIN STATUS COMMM: " + JSON.stringify(props2.userNameCom))
-
-            console.log("Included? " + props2.userNameCom.includes("http://localhost:8001/api/communities/5f0c01b2d552840570235567"))
-
-            setJoinStatus(
-                props2.userNameCom.includes("http://localhost:8001/api/communities/5f0c01b2d552840570235567")
-            )
-    }
+    //determine if user is a member of the community
+    useEffect(()=>{
+        setJoinStatus(
+            props.userNameCom.includes("http://localhost:8001/api/communities/5f0c01b2d552840570235567")
+        )
+    },[props.userNameCom])
 
     return (
         <div>
 
-            {/*<button style={{textAlign: "center"}}*/}
+            <button style={{textAlign: "center"}}
+            >{joinStatus ? "You Are a Member" : "Join Community!"}</button>
 
-            {/*        onClick={event => checkIfMember(event, props.userNameCom)}*/}
-
-            {/*>{joinStatus ? "You Are a Member" : "Join Community!"}</button>*/}
-
-            <p>{props.userNameObject ? props.userName : "nothing"}</p>
+            <p>{props.userNameObject ? props.userName : "not logged in"}</p>
             <p>{props.userNameCom}</p>
             <p>{props.userURL}</p>
             <h2>Articles in this community:</h2>
