@@ -15,7 +15,8 @@ public class StudyGuide {
     private String id;
     private List<String> content_refs;
 
-    public StudyGuide() {};
+    public StudyGuide() {}
+
     public StudyGuide(String href){
         this.content_refs.add(href);
     }

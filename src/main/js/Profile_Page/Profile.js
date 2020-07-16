@@ -6,10 +6,14 @@ function Profile(props){
         <div>
             This is a profile page
             <p>Username: {props.userName}</p>
+            <hr/>
             <p>Your Articles</p>
             <p>Your Questions</p>
             <p>Your Comments</p>
             <p>Your Study Guides</p>
+            <hr/>
+            <p>Your Friends</p>
+            <p>Your Messages</p>
         </div>
     )
 }

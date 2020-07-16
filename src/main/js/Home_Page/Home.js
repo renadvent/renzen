@@ -11,7 +11,7 @@ import CreateCommunitySection from "./CreateCommunitySection";
 
 const mapDispatchToProps = dispatch =>{
     return {
-        onChangeName: ()=> dispatch({type:'CHANGE_NAME'}),
+        // onChangeName: ()=> dispatch({type:'CHANGE_NAME'}),
         //onFakeLogin: ()=> dispatch({type:'FAKE_LOGIN', userURL:"http://localhost:8001/api/users/5f0aba93ba913107ab69627c"}),
         onFakeLogin: () => dispatch(fake_login("http://localhost:8001/api/users/5f0aba93ba913107ab69627c"))
     }
@@ -41,7 +41,7 @@ function Home(props) {
         <div>
             <p>Redux Value:{props.userName}</p>
             <button onClick={()=>{
-                props.onChangeName();
+                // props.onChangeName();
                 props.onFakeLogin();
             }}>Fake Login by Redux</button>
 

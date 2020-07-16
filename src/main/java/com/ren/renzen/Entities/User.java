@@ -27,6 +27,9 @@ public class User {
         this.password=password;
     }
 
+    private List<String> friends;
+    private List<String> conversations;
+
 
 
 }
