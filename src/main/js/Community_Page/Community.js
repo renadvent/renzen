@@ -35,16 +35,13 @@ function Community(props) {
 
             {/*>{joinStatus ? "You Are a Member" : "Join Community!"}</button>*/}
 
-            <p>{props.userNameObject ? props.userNameObject.userName : "nothing"}</p>
+            <p>{props.userNameObject ? props.userName : "nothing"}</p>
             <p>{props.userNameCom}</p>
             <p>{props.userURL}</p>
-
             <h2>Articles in this community:</h2>
-            {/*<button type="button" className="btn btn-secondary">+Write New Article</button>*/}
             <ul>
                 <li>
                     Community Info
-                    {/*<button type="button" className="btn-sm btn-secondary">+</button>*/}
                 </li>
 
                 <ul>
@@ -59,16 +56,12 @@ function Community(props) {
                 <li>Study Guides</li>
                 <li>Q&A</li>
                 <li>Reference</li>
-
             </ul>
-
-
             <div className={"card"}>
                 <div className={"card-body"}>
 
                     <CreateArticleArea page={"http://localhost:8001/api/communities/5f0c01b2d552840570235567"}
                                        title={"Show Add Article"}/>
-
                 </div>
             </div>
 
@@ -77,20 +70,9 @@ function Community(props) {
                     <button type="button" className="btn btn-secondary">Ask Question</button>
                 </div>
             </div>
-
-
-            {/*<SiteDataSection title={"Articles"} page={"/api/sections/5f09ecf5347a081bd0dec961"}/>*/}
-
-
         </div>
-
-
     )
-
 }
-
-// export default Community
-
 
 const mapStateToProps = state => {
     return {
@@ -103,11 +85,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onChangeName: () => dispatch({type: 'CHANGE_NAME'}),
-        onFakeLogin: () => dispatch({
-            type: 'FAKE_LOGIN',
-            userURL: "http://localhost:8001/api/users/5f0aba93ba913107ab69627c"
-        })
+        // onChangeName: () => dispatch({type: 'CHANGE_NAME'}),
+        // onFakeLogin: () => dispatch({
+        //     type: 'FAKE_LOGIN',
+        //     userURL: "http://localhost:8001/api/users/5f0aba93ba913107ab69627c"
+        // })
     }
 }
 

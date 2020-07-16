@@ -2,7 +2,7 @@ import React, {useState,useEffect} from "react"
 import Axios from "axios"
 import CreateArticleArea from "../Community_Page/Article";
 import * as actionTypes from "../actions"
-import {log_in} from "../actions";
+import {fake_login, fake_login_helper, log_in} from "../actions";
 
 import {connect} from 'react-redux'
 import ListSection from "./ListSection";
@@ -12,8 +12,8 @@ import CreateCommunitySection from "./CreateCommunitySection";
 const mapDispatchToProps = dispatch =>{
     return {
         onChangeName: ()=> dispatch({type:'CHANGE_NAME'}),
-        onFakeLogin: ()=> dispatch({type:'FAKE_LOGIN', userURL:"http://localhost:8001/api/users/5f0aba93ba913107ab69627c"}),
-        onLogin: () => dispatch(log_in())
+        //onFakeLogin: ()=> dispatch({type:'FAKE_LOGIN', userURL:"http://localhost:8001/api/users/5f0aba93ba913107ab69627c"}),
+        onFakeLogin: () => dispatch(fake_login("http://localhost:8001/api/users/5f0aba93ba913107ab69627c"))
     }
 }
 

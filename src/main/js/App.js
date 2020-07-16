@@ -90,13 +90,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onChangeName: () => dispatch({type: 'CHANGE_NAME'}),
-        onFakeLogin: () => dispatch({
-            type: 'FAKE_LOGIN',
-            URL: "http://localhost:8001/api/users/5f0aba93ba913107ab69627c"
-        }),
 
-        onLogin: () => dispatch(actionCreators.log_in("http://localhost:8001/api/users/5f0aba93ba913107ab69627c"))
     }
 }
 

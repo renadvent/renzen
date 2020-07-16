@@ -6,10 +6,27 @@ const initialState={
     userURL:"",
     userNameObject: null,
     loggedIn:false,
-    userNameCom:[]
+    userNameCom:[],
+
+
+
+
 }
 
 const reducer = (state = initialState,action) => {
+
+    if (action.type===actionTypes.FAKE_LOG_IN){
+
+        console.log(JSON.stringify(action))
+
+        return{
+            ...state,
+            userNameObject: action.userNameObject,
+            userNameCom: action.userNameObject.data.communities,
+            userName: action.userNameObject.data.userName
+            // userURL: action.
+        }
+    }
 
     if(action.type==="CHANGE_NAME"){
         console.log("CHANGE NAME")

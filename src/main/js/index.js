@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './main/js/App';
+import App from './App';
 import './index.css'
 
 import {applyMiddleware, createStore,compose} from "redux";
-import reducer from "./main/js/reducer";
+import reducer from "./reducer";
 import {Provider,} from "react-redux"
 
 import thunk from 'redux-thunk'
 
-import * as actionTypes from "../src/main/js/actions"
+import * as actionTypes from "./actions"
 
 
 const store=createStore(reducer,compose(applyMiddleware(thunk)))
