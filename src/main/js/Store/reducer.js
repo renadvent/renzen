@@ -1,5 +1,7 @@
 import * as actionTypes from "./actions"
 import Axios from "axios";
+import {open_community} from "./actions";
+import CommunityLayout from "../Community_Page/CommunityLayout";
 
 const initialState={
     userName:"not logged in",
@@ -13,7 +15,8 @@ const initialState={
     openStudyGuides:[],
     activeStudyGuide: null,
 
-    openCommunities:[],
+    openCommunitiesTab:[],
+    openCommunitiesContent:[],
     activeCommunity:null,
 
     openArticles:[],
@@ -21,6 +24,20 @@ const initialState={
 }
 //
 const reducer = (state = initialState,action) => {
+
+    if (action.type===actionTypes.OPEN_COMMUNITY){
+
+        console.log("DISPATCH OPEN COMMUNITY")
+        // state.openCommunities.concat(
+        //     <CommunityLayout
+        // )
+
+        //open community
+
+        //add community to open communities
+        //so will have to do something with tabs state
+
+    }
 
     if (action.type===actionTypes.OPEN_ARTICLE){
         return {

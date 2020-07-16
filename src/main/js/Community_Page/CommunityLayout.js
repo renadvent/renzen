@@ -62,7 +62,7 @@ function CommunityLayout(props){
                     </div>
                 </div>
                 <div className={"col-7"}>
-                    <Community/>
+                    <Community comURL={props.comURL}/>
                 </div>
             </div>
             <div className="tab-pane fade" id="contact" role="tabpanel"

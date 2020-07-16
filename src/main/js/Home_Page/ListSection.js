@@ -1,8 +1,32 @@
 import React, {useEffect,useState} from "react"
 import Axios from "axios";
 import ArticleArea from "../Community_Page/ArticleArea";
+import {useSelector} from "react-redux";
+import {connect} from "react-redux"
+import * as actionTypes from "../Store/actions"
+import {open_community} from "../Store/actions";
+
+const mapStateToProps = state => {
+    return{
+
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onOpenCommunity:(comURL)=>dispatch(open_community((comURL)))
+        // onChangeName: () => dispatch({type: 'CHANGE_NAME'}),
+        // onFakeLogin: () => dispatch({
+        //     type: 'FAKE_LOGIN',
+        //     userURL: "http://localhost:8001/api/users/5f0aba93ba913107ab69627c"
+        // })
+    }
+}
 
 function ListSection(props){
+
+    //took away set tab content... is a problem.
+    //have to change it to dispatch
 
 
         //load communities
@@ -11,7 +35,10 @@ function ListSection(props){
             Axios.get("/api/communities").then(comObjects=>{
                 setAllCommunities( ()=> {
                         return comObjects.data._embedded.communities.map(comObject=>{
-                            return(<div><a href={comObject._links.self.href} >+{comObject.name}</a></div>)
+                            return(<div
+                                onClick={props.onOpenCommunity(comObject._links.self.href)}>
+                                <a href={comObject._links.self.href} >+{comObject.name}</a>
+                            </div>)
                         })
                     }
                 )
@@ -72,7 +99,9 @@ function ListSection(props){
             Axios.get("/api/users").then(comObjects=>{
                 setAllUsers( ()=> {
                         return comObjects.data._embedded.users.map(comObject=>{
-                            return(<div><a href={comObject._links.self.href} >{comObject.userName}</a></div>)
+                            return(<div><a
+                                href={comObject._links.self.href}
+                            >{comObject.userName}</a></div>)
                         })
                     }
                 )
@@ -97,7 +126,6 @@ function ListSection(props){
                 </div>
             </div>
         )
-
 }
 
-export default ListSection
+export default connect(mapStateToProps, mapDispatchToProps)(ListSection)

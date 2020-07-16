@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import Navbar from "./nav";
 import StudyGuidePanel from "./StudyGuide_Panel/StudyGuidePanel";
 import Home from "./Home_Page/Home";
@@ -10,10 +10,14 @@ import CommunityLayout from "./Community_Page/CommunityLayout";
 lays out the single page web-app
  */
 
-function App() {
+function App(props) {
 
     const [tabs, setTabs] = useState([])
     const [tabContent, setTabContent] = useState([])
+
+    useEffect(()=>{
+
+    },[tabs,tabContent,props.openCommunities])
 
     return (
         <div className="container-fluid">
@@ -37,17 +41,27 @@ function App() {
                                     <a className="nav-link" id="default-com" data-toggle="tab" href="#com" role="tab"
                                     >Default Community</a>
                                 </li>
-                                {tabs}
+
+
+                                {/*{tabs}*/}
+                                {props.openCommunitiesTab}
+
+
                                 <li className="nav-item">
                                     <a className="nav-link" id="add-tab" data-toggle="tab" href="#" role="tab"
                                     >+</a>
                                 </li>
                             </ul>
                             <div className="tab-content" id="myTabContent">
-                                {tabContent}
+
+
+                                {/*{tabContent}*/}
+                                {props.openCommunitiesContent}
+
                                 <div className="tab-pane fade show active" id="home" role="tabpanel"
                                      aria-labelledby="home-tab">
-                                    <Home setTabContent={setTabContent} setTabs={setTabs}/>
+                                    {/*<Home setTabContent={setTabContent} setTabs={setTabs}/>*/}
+                                    <Home/>
                                 </div>
                                 <div className="tab-pane fade" id="yourprofile" role="tabpanel">
                                     <Profile/>
@@ -56,7 +70,7 @@ function App() {
 
 
 
-                                <CommunityLayout/>
+                                <CommunityLayout comURL={"http://localhost:8001/api/communities/5f0c01b2d552840570235567"}/>
 
 
                             </div>
@@ -79,7 +93,10 @@ const mapStateToProps = state => {
     return {
         userName: state.userName,
         userURL: state.userURL,
-        userNameObject: state.userNameObject
+        userNameObject: state.userNameObject,
+
+        openCommunitiesTab:state.openCommunitiesTab,
+        openCommunitiesContent:state.openCommunitiesContent,
     }
 }
 

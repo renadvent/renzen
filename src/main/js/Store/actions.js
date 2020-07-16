@@ -21,6 +21,13 @@ export const CREATE_ANNOTATION="CREATE_ANNOTATION"
 action creators for redux
  */
 
+export const open_community = (comURL)=>{
+    return{
+        type:OPEN_COMMUNITY,
+        comURL:comURL
+    }
+}
+
 //--------------------------------------------------------------
 
 export const open_article_helper = (articleObject)=>{

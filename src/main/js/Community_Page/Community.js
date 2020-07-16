@@ -1,28 +1,28 @@
 import React, {useState,useEffect} from 'react'
 import ArticleArea from "./ArticleArea";
-import {connect, useSelector} from "react-redux";
+import {connect} from "react-redux";
 
 function Community(props) {
-
 
     const [joinStatus, setJoinStatus] = useState(false)
 
     //determine if user is a member of the community
     useEffect(()=>{
         setJoinStatus(
-            props.userNameCom.includes("http://localhost:8001/api/communities/5f0c01b2d552840570235567")
+            props.userNameCom.includes(props.comURL)
         )
     },[props.userNameCom])
 
     return (
         <div>
 
-            <button style={{textAlign: "center"}}
-            >{joinStatus ? "You Are a Member" : "Join Community!"}</button>
+            <button style={{textAlign: "center"}}>
+                {joinStatus ? "You Are a Member" : "Join Community!"}
+            </button>
 
             <p>{props.userNameObject ? props.userName : "not logged in"}</p>
-            <p>{props.userNameCom}</p>
-            <p>{props.userURL}</p>
+            {/*<p>{props.userNameCom}</p>*/}
+            {/*<p>{props.userURL}</p>*/}
             <h2>Articles in this community:</h2>
             <ul>
                 <li>
@@ -45,7 +45,7 @@ function Community(props) {
             <div className={"card"}>
                 <div className={"card-body"}>
 
-                    <ArticleArea page={"http://localhost:8001/api/communities/5f0c01b2d552840570235567"}
+                    <ArticleArea page={props.comURL}
                                  title={"Show Add Article"}/>
                 </div>
             </div>
