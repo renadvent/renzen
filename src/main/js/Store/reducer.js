@@ -8,8 +8,8 @@ const initialState={
     userURL:"",
     userNameObject: null,
 
-
     loggedIn:false,
+
     userNameCom:[],
 
     openStudyGuides:[],
@@ -21,6 +21,8 @@ const initialState={
 
     openArticles:[],
     activeArticle:null,
+
+    userArticles:[]
 }
 //
 const reducer = (state = initialState,action) => {
@@ -57,7 +59,9 @@ const reducer = (state = initialState,action) => {
             ...state,
             userNameObject: action.userNameObject,
             userNameCom: action.userNameObject.data.communities,
-            userName: action.userNameObject.data.userName
+            userName: action.userNameObject.data.userName,
+            userArticles: action.userNameObject.data.articles
+
             // userURL: action.
         }
     }

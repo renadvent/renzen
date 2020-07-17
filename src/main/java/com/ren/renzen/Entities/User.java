@@ -30,6 +30,10 @@ public class User {
     private List<String> friends;
     private List<String> conversations;
 
+    private List<String> articles;
+    private List<String> questions;
+    private List<String> studyGuides;
+
 
 
 }

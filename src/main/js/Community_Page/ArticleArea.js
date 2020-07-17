@@ -13,12 +13,17 @@ function ArticleArea(props) {
     let [comRef, setComRef] = useState(props.page)
 
     const [numOfArticles, setNumOfArticles] = useState(0)
+    // const [communitySections, setCommunitySections] = useState([])
+    // const [numOfSections,setNumOfSections] = useState(0)
 
 
     //load articles from community
     function loadArticles(communityURL) {
 
         Axios.get(communityURL).then(community => {
+
+            // setCommunitySections(community.data.articles)
+            // setCommunitySections(community.data.articles.length)
 
             let articleURLS = []
             articleURLS = community.data.articles.map(article => {

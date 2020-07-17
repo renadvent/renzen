@@ -27,6 +27,8 @@ public class Community {
 
     List<String> articleSections;
 
+    private List<String> topics;
+
     public Community(){}
 
     public Community(String name, String description) {

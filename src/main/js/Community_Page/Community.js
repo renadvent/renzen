@@ -1,16 +1,27 @@
 import React, {useState,useEffect} from 'react'
 import ArticleArea from "./ArticleArea";
 import {connect} from "react-redux";
+import Axios from "axios";
 
 function Community(props) {
 
     const [joinStatus, setJoinStatus] = useState(false)
+    const [communitySections, setCommunitySections] = useState([])
+    const [numOfSections,setNumOfSections] = useState(0)
 
     //determine if user is a member of the community
     useEffect(()=>{
         setJoinStatus(
             props.userNameCom.includes(props.comURL)
         )
+
+        Axios.get(props.comURL).then(community => {
+
+            setCommunitySections(community.data.topics)
+            setNumOfSections(community.data.topics.length)
+        })
+
+
     },[props.userNameCom])
 
     return (
@@ -24,6 +35,7 @@ function Community(props) {
             {/*<p>{props.userNameCom}</p>*/}
             {/*<p>{props.userURL}</p>*/}
             <h2>Articles in this community:</h2>
+            <p>Number of Sections in community: {numOfSections}</p>
             <ul>
                 <li>
                     Community Info
