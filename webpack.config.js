@@ -9,7 +9,9 @@ module.exports = {
     output: {
         path: __dirname,
         filename: './src/main/resources/static/built/bundle.js'
+
     },
+
     module: {
         rules: [
             {
@@ -18,7 +20,8 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader',
                     options: {
-                        presets: ["@babel/preset-env", "@babel/preset-react"]
+                        presets: ["@babel/preset-env",  "@babel/preset-react"],
+                        plugins: ["@babel/plugin-transform-runtime", "@babel/plugin-transform-async-to-generator"]
                     }
                 }]
             },
