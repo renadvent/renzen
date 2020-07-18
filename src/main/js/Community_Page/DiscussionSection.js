@@ -3,8 +3,8 @@ import Axios from "axios";
 import SaveToButton from "./SaveToButton";
 import DiscussionReplyOptions from "./DiscussionReplyOptions";
 import DiscussionInputArea from "./DiscussionInputArea";
-import replyToQuestionOrAnswer from "./DiscussionAnswer";
-import DiscussionAnswer from "./DiscussionAnswer";
+import {replyToQuestionOrAnswer} from "./DiscussionAnswer";
+import {DiscussionAnswer} from "./DiscussionAnswer";
 import DiscussionReply from "./DiscussionReply";
 
 function DiscussionSection(props) {
@@ -27,6 +27,8 @@ function DiscussionSection(props) {
 
 
     useEffect(() => {
+
+        //console.log("REFER:" + props.refer)
 
         Axios.get(props.refer).then(section => {
                 //what the input section attaches itself to when posting
@@ -54,10 +56,12 @@ function DiscussionSection(props) {
                             })
                         )
                     }
-                )
+                )//.then(()=>{console.log(loadedQuestion);console.log(loadedReplies)})
+
 
                 setLoadedAnswers(
                     section.data.answer_refs.map(answer_ref => {
+                        //console.log("answer ref: "+answer_ref)
                             return (
                                 <div className={"card"}>
                                     <div className={"card-body"}>
@@ -79,7 +83,7 @@ function DiscussionSection(props) {
             <div className={"card"}>
                 <div className={"card-body"}>
                     <h2>
-                        {/*{loadedQuestion}*/}
+                        {loadedQuestion}
                         <SaveToButton/>
                     </h2>
 
@@ -92,13 +96,13 @@ function DiscussionSection(props) {
                     />
 
 
-                    {/*{loadedReplies}*/}
+                    {loadedReplies}
 
                     {/*not really section_refs, but reply_ref*/}
                     <DiscussionInputArea key={"ia" + getNewId()} placeholder={"Enter A New Reply"}
                                section_refs={replyRes}
                                action={replyToQuestionOrAnswer}/>
-                    {/*{loadedAnswers}*/}
+                    {loadedAnswers}
 
                 </div>
             </div>

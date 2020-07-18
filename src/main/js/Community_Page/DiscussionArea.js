@@ -106,7 +106,7 @@ function DiscussionArea(props) {
                 {
                     setElementsInSection(
                         pageObject.data.section_refs.map(refer => {
-                            console.log("refer: "+refer)
+                            //console.log("refer: "+refer)
                             return (
                                 <div key={"ia" + getNewId()}>
                                     <div className={"card"}>

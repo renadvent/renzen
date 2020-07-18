@@ -3,7 +3,6 @@ import DiscussionReply from "./DiscussionReply";
 import SaveToButton from "./SaveToButton";
 import DiscussionReplyOptions from "./DiscussionReplyOptions";
 import React, {useState,useEffect} from "react"
-import Discussion from "../../old_components/Discussion";
 import DiscussionInputArea from "./DiscussionInputArea";
 
 
@@ -15,6 +14,13 @@ function DiscussionAnswer(props) {
     const [upVotes, setUpVotes] = useState()
     const [downVotes, setDownVotes] = useState()
     const [replyRes, setReplyRes] = useState(props.refer)
+
+    let counter = 10202020
+
+    function getNewId() {
+        counter = counter + 1;
+        return counter - 1
+    }
 
     ///annotated wrong, copy and paste
     useEffect(() => {
@@ -95,10 +101,10 @@ function replyToQuestionOrAnswer(e, refer) {
             })
 
         }).then(() => {
-            reload()
+            //reload()
         })
     }
 
 }
 
-export default {DiscussionAnswer,replyToQuestionOrAnswer}
+export {DiscussionAnswer,replyToQuestionOrAnswer}
