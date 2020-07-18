@@ -5,6 +5,7 @@ import Home from "./Home_Page/Home";
 import Profile from "./Profile_Page/Profile";
 import {connect} from "react-redux";
 import CommunityLayout from "./Community_Page/CommunityLayout";
+import Axios from "axios";
 
 /*
 lays out the single page web-app
@@ -18,6 +19,21 @@ function App(props) {
     useEffect(()=>{
 
     },[tabs,tabContent,props.openCommunities])
+
+    useEffect(()=>{
+
+        async function foo(){
+
+            function doSomething(){
+                return Axios.get("/api/users")
+            }
+
+            let x= await doSomething()
+            console.log(x)
+        }
+
+        foo()
+    })
 
     return (
         <div className="container-fluid">

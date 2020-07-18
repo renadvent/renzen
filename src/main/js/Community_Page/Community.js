@@ -2,10 +2,14 @@ import React, {useState,useEffect} from 'react'
 import ArticleArea from "./ArticleArea";
 import {connect} from "react-redux";
 import Axios from "axios";
+import ArticleSection from "./ArticleSection";
+import CreateTopicArea from "./CreateTopicArea";
 
 function Community(props) {
 
     const [joinStatus, setJoinStatus] = useState(false)
+    const [showCreateTopic,setShowCreateTopic] = useState(false)
+
     const [communitySections, setCommunitySections] = useState([])
     const [numOfSections,setNumOfSections] = useState(0)
 
@@ -36,6 +40,23 @@ function Community(props) {
             {/*<p>{props.userURL}</p>*/}
             <h2>Articles in this community:</h2>
             <p>Number of Sections in community: {numOfSections}</p>
+
+
+
+
+            <button type="button"
+                    className="btn btn-secondary"
+                    onClick={() => setShowCreateTopic(prevState => !prevState)}>
+                Add Topic to Community+
+            </button>
+
+
+            <div className={showCreateTopic ? 'd-block' : 'd-none'}>
+                <CreateTopicArea/>
+            </div>
+
+
+
             <ul>
                 <li>
                     Community Info
@@ -58,7 +79,7 @@ function Community(props) {
                 <div className={"card-body"}>
 
                     <ArticleArea page={props.comURL}
-                                 title={"Show Add Article"}/>
+                                 title={"Add Article to Community+"}/>
                 </div>
             </div>
 

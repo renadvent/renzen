@@ -2,14 +2,7 @@ import React, {useEffect, useState} from "react"
 import Axios from "axios";
 import SaveToButton from "./SaveToButton";
 
-
-//Site wide Docs--Community Docs--Personal Docs
-
 function DiscussionSection(props) {
-
-    //props.content
-    //props.sections
-    //props.pages
 
     let [page_ref, setPageRef] = useState(props.page)
 
@@ -51,7 +44,6 @@ function DiscussionSection(props) {
                       style={areaStyle} className={"form-control"}
                       onKeyPress={(event => props.action(event, props.section_refs))
                       }
-                // cols={50} style={{height:auto}}
             />
 
         )
@@ -63,8 +55,6 @@ function DiscussionSection(props) {
 
         //on "enter", POST text as new CONTENT, add href to content to new SECTION,
         //add href to section to Page
-
-        //SPRING IS STRIPPING ID FIELD FOR SOME REASON
 
         if (e.key === "Enter") {
 
