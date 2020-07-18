@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import DiscussionSection from "./DiscussionSection";
+import DiscussionArea from "./DiscussionArea";
 import Axios from "axios";
 import SaveToButton from "./SaveToButton";
 
@@ -17,8 +17,8 @@ function Article(props) {
                     Discussion
                 </button>
                 <div className={showRep ? 'd-block' : 'd-none'}>
-                    <DiscussionSection title={"Section Discussion"}
-                                       page={"/api/pages/5efd2911d231b04eecfcd282"}/> : null}
+                    <DiscussionArea title={"Section Discussion"}
+                                    page={"/api/pages/5efd2911d231b04eecfcd282"}/> : null}
                 </div>
             </div>
         )

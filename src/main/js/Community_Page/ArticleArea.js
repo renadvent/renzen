@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Axios from "axios";
-import DiscussionSection from "./DiscussionSection";
+import DiscussionArea from "./DiscussionArea";
 import SaveToButton from "./SaveToButton";
 import ArticleSection from "./ArticleSection";
 import Article from "./Article";
