@@ -135,8 +135,6 @@ function DiscussionSection(props) {
             }).then(postedContent => {
                 Axios.get(refer).then(replyingTo => {
                     //post new content as an answer
-                    // console.log("refer: " + refer)
-                    // console.log("replyingto: " + replyingTo.data.reply_refs)
                     replyingTo.data.reply_refs.push(postedContent.data._links.self.href)
                     Axios.patch(refer, {
                         reply_refs: replyingTo.data.reply_refs

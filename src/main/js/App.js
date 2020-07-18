@@ -18,10 +18,6 @@ function App(props) {
 
     useEffect(()=>{
 
-    },[tabs,tabContent,props.openCommunities])
-
-    useEffect(()=>{
-
         async function foo(){
 
             function doSomething(){
@@ -29,6 +25,7 @@ function App(props) {
             }
 
             let x= await doSomething()
+            console.log("async test")
             console.log(x)
         }
 
