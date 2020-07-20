@@ -1,99 +1,95 @@
-import * as actionTypes from "./actions"
+import * as actionTypes from "./actions";
 import Axios from "axios";
-import {open_community} from "./actions";
+import { open_community } from "./actions";
 import CommunityLayout from "../Community_Page/CommunityLayout";
 
-const initialState={
-    userName:"not logged in",
-    userURL:"",
-    userNameObject: null,
+const initialState = {
+  userName: "not logged in",
+  userURL: "",
+  userNameObject: null,
 
-    loggedIn:false,
+  loggedIn: false,
 
-    userNameCom:[],
+  userNameCom: [],
 
-    openStudyGuides:[],
-    activeStudyGuide: null,
+  openStudyGuides: [],
+  activeStudyGuide: null,
 
-    openCommunitiesTab:[],
-    openCommunitiesContent:[],
-    activeCommunity:null,
+  openCommunitiesTab: [],
+  openCommunitiesContent: [],
+  activeCommunity: null,
 
-    openArticles:[],
-    activeArticle:null,
+  openArticles: [],
+  activeArticle: null,
 
-    userArticles:[]
-}
+  userArticles: [],
+};
 //
-const reducer = (state = initialState,action) => {
+const reducer = (state = initialState, action) => {
+  if (action.type === actionTypes.OPEN_COMMUNITY) {
+    console.log("DISPATCH OPEN COMMUNITY");
+    // state.openCommunities.concat(
+    //     <CommunityLayout
+    // )
 
-    if (action.type===actionTypes.OPEN_COMMUNITY){
+    //open community
 
-        console.log("DISPATCH OPEN COMMUNITY")
-        // state.openCommunities.concat(
-        //     <CommunityLayout
-        // )
+    //add community to open communities
+    //so will have to do something with tabs state
+  }
 
-        //open community
+  if (action.type === actionTypes.OPEN_ARTICLE) {
+    return {
+      ...state,
+      activeArticle: action.activeArticle,
+      openArticles: state.openArticles.concat(action.activeArticle),
+    };
+  }
 
-        //add community to open communities
-        //so will have to do something with tabs state
+  //------------------------------------------------------------
 
-    }
+  if (action.type === actionTypes.FAKE_LOG_IN) {
+    console.log(JSON.stringify(action));
 
-    if (action.type===actionTypes.OPEN_ARTICLE){
-        return {
-            ...state,
-            activeArticle: action.activeArticle,
-            openArticles: state.openArticles.concat(action.activeArticle)
-        }
-    }
+    return {
+      ...state,
+      userNameObject: action.userNameObject,
+      userNameCom: action.userNameObject.data.communities,
+      userName: action.userNameObject.data.userName,
+      userArticles: action.userNameObject.data.articles,
 
-    //------------------------------------------------------------
+      // userURL: action.
+    };
+  }
 
-    if (action.type===actionTypes.FAKE_LOG_IN){
+  if (action.type === "CHANGE_NAME") {
+    console.log("CHANGE NAME");
+    return {
+      ...state,
+      userName: "REDUX_LOGIN",
+    };
+  }
 
-        console.log(JSON.stringify(action))
+  //------------------------------------------------------------
 
-        return{
-            ...state,
-            userNameObject: action.userNameObject,
-            userNameCom: action.userNameObject.data.communities,
-            userName: action.userNameObject.data.userName,
-            userArticles: action.userNameObject.data.articles
+  // if (action.type==="FAKE_LOGIN"){
+  //
+  //     console.log("FAKE_LOGIN:"+JSON.stringify(action))
+  //
+  //     Axios.get(action.userURL).then(userResponse=>{
+  //
+  //
+  //         console.log("FAKE_LOGIN:"+JSON.stringify(userResponse.data))
+  //         return{
+  //             ...state,
+  //             userURL: action.userURL,
+  //             userNameObject:userResponse.data,
+  //             userNameCom:userResponse.data.communities
+  //         }
+  //     })
+  // }
 
-            // userURL: action.
-        }
-    }
+  return state;
+};
 
-    if(action.type==="CHANGE_NAME"){
-        console.log("CHANGE NAME")
-        return{
-            ...state,
-            userName: "REDUX_LOGIN"
-        }
-    }
-
-    //------------------------------------------------------------
-
-    // if (action.type==="FAKE_LOGIN"){
-    //
-    //     console.log("FAKE_LOGIN:"+JSON.stringify(action))
-    //
-    //     Axios.get(action.userURL).then(userResponse=>{
-    //
-    //
-    //         console.log("FAKE_LOGIN:"+JSON.stringify(userResponse.data))
-    //         return{
-    //             ...state,
-    //             userURL: action.userURL,
-    //             userNameObject:userResponse.data,
-    //             userNameCom:userResponse.data.communities
-    //         }
-    //     })
-    // }
-
-    return state;
-}
-
-export default  reducer
+export default reducer;

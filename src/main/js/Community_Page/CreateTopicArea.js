@@ -1,15 +1,10 @@
-import React, {useState,useEffect} from "react"
+import React, { useState, useEffect } from "react";
 
-function CreateTopicArea(props){
+function CreateTopicArea(props) {
+  const [topicName, setTopicName] = useState("");
+  const [topicDescription, setTopicDescription] = useState("");
 
-    const [topicName,setTopicName] = useState("")
-    const [topicDescription,setTopicDescription] = useState("")
-
-    return(
-        <div>
-            this is where you create a new topic
-        </div>
-    )
+  return <div>this is where you create a new topic</div>;
 }
 
-export default CreateTopicArea
+export default CreateTopicArea;
