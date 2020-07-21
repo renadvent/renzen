@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import ArticleArea from "../Community_Page/ArticleArea";
+import Articles from "../Article/Articles";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import * as actionTypes from "../Store/actions";
@@ -84,7 +84,7 @@ function ListSection(props) {
           role="tabpanel"
           aria-labelledby="home-tab"
         >
-          <ArticleArea page={url} title={"Add Article"} />
+          <Articles page={url} title={"Add Article"} />
         </div>
       );
     });

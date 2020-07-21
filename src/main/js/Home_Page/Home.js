@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import ArticleArea from "../Community_Page/ArticleArea";
+import Articles from "../Article/Articles";
 import * as actionTypes from "../Store/actions";
-import { fake_login, fake_login_synchronous, log_in } from "../Store/actions";
+import {fake_login, fake_login_synchronous, log_in, post_new_community} from "../Store/actions";
 
-import { connect } from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import ListSection from "./ListSection";
 import LoginRegisterSection from "./LoginRegistrationSection";
 import CreateCommunitySection from "./CreateCommunitySection";
@@ -17,6 +17,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(
         fake_login("http://localhost:8001/api/users/5f0aba93ba913107ab69627c")
       ),
+      onPostNewCommunity: () =>
+          dispatch(post_new_community()),
   };
 };
 
@@ -28,10 +30,13 @@ const mapStateToProps = (state) => {
 };
 
 function Home(props) {
+
+    const dispatch = useDispatch();
+
   const [createCom, setCreateCom] = useState(false);
 
   function handleNewCommunity(props) {
-    Axios.post("/api/communities", {});
+      props.onPostNewCommunity({name:props.userName,});
   }
 
   function handleCreateComClick() {

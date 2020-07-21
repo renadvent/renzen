@@ -1,5 +1,5 @@
 import React from "react"
-import DiscussionArea from "../js/Community_Page/DiscussionArea";
+import DiscussionArea from "../js/Discussion/DiscussionArea";
 
 function MainTab(props) {
 

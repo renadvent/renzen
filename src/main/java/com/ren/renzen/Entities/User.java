@@ -18,7 +18,7 @@ public class User {
     private String password;
 
     private List<String> contentList;
-    private List<String> communities;
+    public List<String> communities;
 
     private int reputation;
 

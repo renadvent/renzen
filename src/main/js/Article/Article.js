@@ -1,35 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DiscussionArea from "./DiscussionArea";
+import DiscussionArea from "../Discussion/DiscussionArea";
 import Axios from "axios";
-import SaveToButton from "./SaveToButton";
+import SaveToButton from "../Community_Page/SaveToButton";
+import ArticleReplySection from "./ArticleReplySection";
 
 function Article(props) {
   const [loadedContent, setLoadedContent] = useState([]);
-
-  function ArticleReplySection(props) {
-    const [showRep, setShowRep] = useState(false);
-    return (
-      <div>
-        <button
-          onClick={(e) => {
-            setShowRep((prevState) => !prevState);
-          }}
-          type="submit"
-          className="btn btn-dark"
-        >
-          Show Discussion
-        </button>
-        <div className={showRep ? "d-block" : "d-none"}>
-          {/* <DiscussionArea title={"Section Discussion"}
-                                    page={"/api/pages/5efd2911d231b04eecfcd282"}/> : null} */}
-          <DiscussionArea
-            title={"Section Discussion"}
-            page={"/api/pages/5efd2911d231b04eecfcd282"}
-          />
-        </div>
-      </div>
-    );
-  }
 
   //creates new article
   //also needs to create new PAGE for reply section
@@ -46,7 +22,8 @@ function Article(props) {
               <h3>
                 {art.data.articleName}
                 <span>
-                  <div className={"text-right"}>
+                  {/*<div className={"text-right"}>*/}
+                  <div>
                     <button
                       type="button"
                       className="btn btn-secondary text-right"
@@ -59,6 +36,14 @@ function Article(props) {
                     >
                       Edit Article
                     </button>
+
+                    <button
+                        type="button"
+                        className="btn btn-secondary text-right"
+                    >
+                      Show Annotations
+                    </button>
+
                   </div>
                 </span>
               </h3>

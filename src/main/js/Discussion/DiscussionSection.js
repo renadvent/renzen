@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import SaveToButton from "./SaveToButton";
+import SaveToButton from "../Community_Page/SaveToButton";
 import DiscussionReplyOptions from "./DiscussionReplyOptions";
 import DiscussionInputArea from "./DiscussionInputArea";
 import { replyToQuestionOrAnswer } from "./DiscussionAnswer";

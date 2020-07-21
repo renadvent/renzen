@@ -4,7 +4,7 @@ import StudyGuidePanel from "./StudyGuide_Panel/StudyGuidePanel";
 import Home from "./Home_Page/Home";
 import Profile from "./Profile_Page/Profile";
 import { connect } from "react-redux";
-import CommunityLayout from "./Community_Page/CommunityLayout";
+import CommunityLayout from "./Community_Page/Community/CommunityLayout";
 import Axios from "axios";
 import Dropzone from "./Community_Page/Helpers/DropZone-hook";
 
@@ -13,22 +13,6 @@ lays out the single page web-app
  */
 
 function App(props) {
-  const [tabs, setTabs] = useState([]);
-  const [tabContent, setTabContent] = useState([]);
-
-  useEffect(() => {
-    async function foo() {
-      function doSomething() {
-        return Axios.get("/api/users");
-      }
-
-      let x = await doSomething();
-      console.log("async test");
-      console.log(x);
-    }
-
-    foo();
-  });
 
   return (
     <div className="container-fluid">

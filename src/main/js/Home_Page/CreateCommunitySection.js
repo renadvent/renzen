@@ -1,5 +1,26 @@
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
+import {fake_login, post_new_community} from "../Store/actions";
+
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPostNewCommunity: (props) =>
+        dispatch(post_new_community(props)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    userName: state.userName,
+    userURL: state.userURL,
+  };
+};
+
+
+
+
 
 function CreateCommunitySection() {
   const [comData, setcomData] = useState({
@@ -21,12 +42,17 @@ function CreateCommunitySection() {
   }
 
   function handleSubmit(event) {
-    Axios.post("/api/communities", {
-      name: comData.name,
-      description: comData.description,
 
-      //create other fields in server
-    });
+
+
+
+
+    // Axios.post("/api/communities", {
+    //   name: comData.name,
+    //   description: comData.description,
+    //
+    //   //create other fields in server
+    // });
   }
 
   return (

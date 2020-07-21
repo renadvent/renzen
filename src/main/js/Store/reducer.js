@@ -1,9 +1,26 @@
 import * as actionTypes from "./actions";
 import Axios from "axios";
 import { open_community } from "./actions";
-import CommunityLayout from "../Community_Page/CommunityLayout";
+import CommunityLayout from "../Community_Page/Community/CommunityLayout";
 
 const initialState = {
+
+  //set this data when user logs in
+
+  logged_in:false,
+  logged_in_user_name: "not logged in",
+  logged_in_user_URL: "",
+  logged_in_user_object:null,
+
+  logged_in_user_community_URLS:[],
+  logged_in_user_article_URLS:[],
+  logged_in_user_study_guides_URLS:[],
+
+  open_study_guides:[],
+  open_communities:[],
+
+  //------------------------------------
+
   userName: "not logged in",
   userURL: "",
   userNameObject: null,

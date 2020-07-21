@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ArticleArea from "./ArticleArea";
+import Articles from "../../Article/Articles";
 import { connect } from "react-redux";
 import Axios from "axios";
-import ArticleSection from "./ArticleSection";
-import CreateTopicArea from "./CreateTopicArea";
+import CreateArticle from "../../Article/CreateArticle";
+import CreateTopicArea from "../CreateTopicArea";
 
 function Community(props) {
   const [joinStatus, setJoinStatus] = useState(false);
@@ -29,8 +29,6 @@ function Community(props) {
       </button>
 
       <p>{props.userNameObject ? props.userName : "not logged in"}</p>
-      {/*<p>{props.userNameCom}</p>*/}
-      {/*<p>{props.userURL}</p>*/}
       <h2>Articles in this community:</h2>
       <p>Number of Sections in community: {numOfSections}</p>
 
@@ -64,7 +62,7 @@ function Community(props) {
       </ul>
       <div className={"card"}>
         <div className={"card-body"}>
-          <ArticleArea
+          <Articles
             page={props.comURL}
             title={"Add Article to Community+"}
           />

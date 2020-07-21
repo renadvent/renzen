@@ -1,6 +1,6 @@
 import React from "react";
-import DiscussionArea from "./DiscussionArea";
-import { annotateSelection } from "../../old_components/functions";
+import DiscussionArea from "../../Discussion/DiscussionArea";
+import { annotateSelection } from "../../../old_components/functions";
 import Community from "./Community";
 
 function CommunityLayout(props) {

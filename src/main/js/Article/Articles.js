@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import DiscussionArea from "./DiscussionArea";
-import SaveToButton from "./SaveToButton";
-import ArticleSection from "./ArticleSection";
+import DiscussionArea from "../Discussion/DiscussionArea";
+import SaveToButton from "../Community_Page/SaveToButton";
+import CreateArticle from "./CreateArticle";
 import Article from "./Article";
 
-function ArticleArea(props) {
+function Articles(props) {
   //should this be here?
   const [loadedArticles, setLoadedArticles] = useState([]);
   let [comRef, setComRef] = useState(props.page);
 
   const [numOfArticles, setNumOfArticles] = useState(0);
-  // const [communitySections, setCommunitySections] = useState([])
-  // const [numOfSections,setNumOfSections] = useState(0)
 
   //load articles from community
   function loadArticles(communityURL) {
     Axios.get(communityURL)
       .then((community) => {
-        // setCommunitySections(community.data.articles)
-        // setCommunitySections(community.data.articles.length)
 
         let articleURLS = [];
         articleURLS = community.data.articles.map((article) => {
@@ -38,7 +34,6 @@ function ArticleArea(props) {
           return articleObjects.map((articleObject) => {
             return (
               <Article source={articleObject} />
-              //prevState.concat(<Article source={}/>)
             );
           });
         });
@@ -63,7 +58,7 @@ function ArticleArea(props) {
 
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
-    <ArticleSection index={0} update={setSectionData} />,
+    <CreateArticle index={0} update={setSectionData} />,
   ]);
 
   //gets flipped when button clicked. doesn't matter value
@@ -128,8 +123,6 @@ function ArticleArea(props) {
                   newArticles = com.data.articles.concat(
                     postedArticle.data._links.self.href
                   );
-                  // console.log("before patch")
-                  // console.log(newArticles)
                   Axios.patch(comRef, { articles: newArticles });
                 });
               })
@@ -219,7 +212,7 @@ function ArticleArea(props) {
             onClick={() => {
               setSectionsCreated((x) =>
                 x.concat(
-                  <ArticleSection
+                  <CreateArticle
                     index={sectionData.length}
                     update={setSectionData}
                   />
@@ -240,7 +233,7 @@ function ArticleArea(props) {
             onClick={() => {
               setCreateState(false);
               setSectionsCreated(
-                <ArticleSection
+                <CreateArticle
                   index={sectionData.length}
                   update={setSectionData}
                 />
@@ -278,4 +271,4 @@ function ArticleArea(props) {
   );
 }
 
-export default ArticleArea;
+export default Articles;
