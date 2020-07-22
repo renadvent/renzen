@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-public class Home_Controller {
+public class Site_Controller {
 
 	final User_Repository user_repository;
 	final Community_Repository community_repository;
 	final Article_Repository article_repository;
 
-	public Home_Controller(User_Repository user_repository, Community_Repository community_repository, Article_Repository article_repository) {
+	public Site_Controller(User_Repository user_repository, Community_Repository community_repository, Article_Repository article_repository) {
 		this.user_repository = user_repository;
 		this.community_repository=community_repository;
 		this.article_repository = article_repository;
@@ -121,3 +121,98 @@ public class Home_Controller {
 //	}
 }
 
+
+
+//---------------------------------
+
+//old stuff
+
+//public class Content_Controller {
+//
+////    private Content_Repository mongoRepo;
+////
+////    public Content_Controller(Content_Repository mongoRepo){
+////        this.mongoRepo=mongoRepo;
+////    }
+//
+////    @GetMapping//(path="/Notes")
+////    public Iterable<X_Note> getNotes(){
+////        return this.mongoRepo.findAll();
+////    }
+//
+////    @RequestMapping(value="/pageName")
+////    public List<X_Note> getNotesByPage(@RequestParam("pageName") String pageName){
+////        System.out.println("proc");
+////        return this.mongoRepo.findX_NotesByPageSource(pageName);
+////    }
+////
+////    @GetMapping( value="/a")
+////    public @ResponseBody Iterable<Content> getNotesByPage(){
+////
+////        //return ("hi");
+////        return mongoRepo.findAll();
+////
+////    }
+////
+////    @GetMapping(value="/pageSource")
+////    public @ResponseBody Iterable<Content> getNotesByPage(@RequestParam("pageSource") String pageSource){
+////        System.out.println("proc");
+////        //return ("HI");
+////        return this.mongoRepo.findX_NotesByPageSource(pageSource);
+////    }
+////
+////    @GetMapping(value="/section")
+////    public @ResponseBody Iterable<Content> getNotesByPage(
+////            @RequestParam("pageSource") String pageSource,
+////            @RequestParam("noteType") String noteType ){
+////        System.out.println("proc");
+////        //return ("HI");
+////        return this.mongoRepo.findX_NotesByPageSourceAndNoteType(pageSource,noteType);
+////    }
+////
+////    @GetMapping(value="/getChildren")
+////    public @ResponseBody Iterable<Content> getByParent(
+////            @RequestParam("parent") String parent){
+////        return this.mongoRepo.findX_NotesByParentNote(parent);
+////    }
+////
+//
+//    //mapping to retrieve user content on page
+//    //@GetMapping(path="x_Notes/{id}")
+////    @RestResource(path="notes")
+////    public List<X_Note> getSelectNotes(@Param("name") String pageId){
+////        System.out.println("retrieving notes by page id");
+////        return this.mongoRepo.findX_NotesByPageSource(pageId);
+////    }
+//
+////    @PatchMapping(path="/{id}")
+////    public X_Note updateNote(@PathVariable(value="id") String noteID){
+////        mongoRepo.save(mongoRepo.findX_NoteById(noteID));
+////        return mongoRepo.findX_NoteById(noteID);
+////    }
+//
+//
+////    @PatchMapping(path="/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+////    public void updateNote(
+////            @RequestBody Map<String,X_Note> updates,
+////            @PathVariable(value = "id") String id){
+////
+////        mongoRepo.
+////
+////        this.mongoRepo.save(updates,id);
+////        //X_Note n = mongoRepo.findX_NoteById(id);
+////        //mongoRepo.save(note);
+////    }
+//
+////    @PostMapping()
+////    public String postNote(@RequestBody X_Note note){
+////
+////        X_Note x = mongoRepo.save(note);
+////
+////        x.getContent();
+////
+////        return ("Note Content: "+x.getContent());
+////    }
+//
+//
+//}
