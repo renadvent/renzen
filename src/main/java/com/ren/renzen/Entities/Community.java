@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,21 +16,22 @@ public class Community {
 
     @Id
     String id;
+    //String _id;
 
-    String name;
-    String description;
+    String name="";
+    String description="";
 
-    String creator;
+    String creator="";
 
-    private List<String> articles; //links to content //used to render hierarchy
-    List<String> comDiscussionSections;
+    private List<String> articles = new ArrayList<>(); //links to content //used to render hierarchy
+    List<String> comDiscussionSections = new ArrayList<>();
 
-    List<String> users;
-    List<String> moderators;
+    List<String> users = new ArrayList<>();
+    List<String> moderators = new ArrayList<>();
 
-    List<String> articleSections;
+    List<String> articleSections = new ArrayList<>();
 
-    private List<String> topics;
+    private List<String> topics = new ArrayList<>();
 
     public Community(){}
 

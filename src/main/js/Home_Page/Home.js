@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(
         fake_login("http://localhost:8001/api/users/5f0aba93ba913107ab69627c")
       ),
-      onPostNewCommunity: () =>
-          dispatch(post_new_community()),
+      onPostNewCommunity: (payload) =>
+          dispatch(post_new_community(payload)),
   };
 };
 
@@ -36,7 +36,7 @@ function Home(props) {
   const [createCom, setCreateCom] = useState(false);
 
   function handleNewCommunity(props) {
-      props.onPostNewCommunity({name:props.userName,});
+      props.onPostNewCommunity({creatorName:props.userName,comName});
   }
 
   function handleCreateComClick() {

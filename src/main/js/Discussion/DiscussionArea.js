@@ -110,7 +110,10 @@ function DiscussionArea(props) {
               <div key={"ia" + getNewId()}>
                 <div className={"card"}>
                   <div className={"card-body"}>
-                    <DiscussionSection key={"s" + getNewId()} refer={refer} />
+                  
+                    <DiscussionSection key={"s" + getNewId()} refer={refer}
+                    sharable={props.sharable} />
+
                     <DiscussionInputArea
                       key={"ia" + getNewId()}
                       placeholder={"Answer Question"}

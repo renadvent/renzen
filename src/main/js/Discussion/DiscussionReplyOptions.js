@@ -45,6 +45,8 @@ function DiscussionReplyOptions(props) {
       </button>
       {/*<button id={getNewId()}>Share with another community</button>*/}
 
+      <div className={props.sharable ? "d-block" : "d-none"}>
+
       <div id={getNewId()} className="dropdown d-inline-block">
         <button
           className="x btn btn-secondary dropdown-toggle"
@@ -64,6 +66,11 @@ function DiscussionReplyOptions(props) {
         </div>
       </div>
     </div>
+
+    </div>
+
+
+
   );
 }
 

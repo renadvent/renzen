@@ -59,6 +59,7 @@ function CommunityLayout(props) {
                 <DiscussionArea
                   title={"Community Discussion"}
                   page={"/api/pages/5efd2911d231b04eecfcd282"}
+                  sharable={false}
                 />
               </div>
               <div

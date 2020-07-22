@@ -3,6 +3,8 @@ import Axios from "axios";
 import {Provider, useDispatch} from "react-redux";
 import { applyMiddleware, createStore, compose } from "redux";
 
+
+
 export const FAKE_LOG_IN = "FAKE_LOG_IN";
 
 export const LOG_IN = "LOG_IN"
@@ -18,10 +20,18 @@ export const SEND_FRIEND_REQUEST = "SEND_FRIEND_REQUEST";
 
 export const ADD_CONTENT_TO_STUDY_GUIDE = "ADD_CONTENT_TO_STUDY_GUIDE";
 
-export const POST_NEW_USER = "POST_NEW_USER"
-export const POST_NEW_COMMUNITY = "POST_NEW_COMMUNITY"
-export const POST_NEW_ARTICLE = "POST_NEW_ARTICLE"
-export const POST_NEW_ANNOTATION = "POST_NEW_ANNOTATION";
+//have corresponding url paths
+//are case sensitive
+
+export const BASE_URL="/api/"
+
+export const POST_NEW_USER = "post_new_user"
+export const POST_NEW_COMMUNITY = "post_new_community"
+export const POST_NEW_ARTICLE = "post_new_article"
+export const POST_NEW_ANNOTATION = "post_new_annotation";
+
+export const POST_NEW_REPLY = "post_new_reply"
+export const POST_NEW_DISCUSSION = "post_new_discussion"
 
 
 //export const POST_NEW_
@@ -45,21 +55,25 @@ export const post_new_community = (info) => {
 
     //Axios.post(/api/post_new_community
 
-
-    Axios.post("/api/communities", {
+    Axios.post(BASE_URL+POST_NEW_COMMUNITY+info.userID,{
       name:info.name,
-      creator:getState().logged_in_user_name,
-      users:[],
-      moderators:[],
-      description: info.description,
-      articles:[],
-      topics:[]
-    }).then((res)=>{
-      dispatch({
-        type:POST_NEW_COMMUNITY,
-        res:res
-      })
-    });
+    })
+
+
+    // Axios.post("/api/communities", {
+    //   name:info.name,
+    //   creator:getState().logged_in_user_name,
+    //   users:[],
+    //   moderators:[],
+    //   description: info.description,
+    //   articles:[],
+    //   topics:[]
+    // }).then((res)=>{
+    //   dispatch({
+    //     type:POST_NEW_COMMUNITY,
+    //     res:res
+    //   })
+    // });
   }
 }
 

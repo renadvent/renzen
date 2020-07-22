@@ -1,5 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { connect } from "react-redux";
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onPostNewCommunity: (payload) =>
+          dispatch(post_new_community(payload)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    userName: state.userName,
+    userURL: state.userURL,
+  };
+};
+
+
 
 function LoginRegisterSection(props) {
   const [userName, setUserName] = useState();
@@ -65,4 +82,4 @@ function LoginRegisterSection(props) {
   );
 }
 
-export default LoginRegisterSection;
+export default connect(mapStateToProps, mapDispatchToProps) (LoginRegisterSection);

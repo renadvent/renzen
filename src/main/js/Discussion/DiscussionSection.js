@@ -74,7 +74,10 @@ function DiscussionSection(props) {
         <div className={"card-body"}>
           <h2>
             {loadedQuestion}
-            <SaveToButton />
+
+            <div className={props.sharable ? "d-block" : "d-none"}>
+              <SaveToButton />
+            </div>
           </h2>
 
           <DiscussionReplyOptions
@@ -83,6 +86,7 @@ function DiscussionSection(props) {
             downVotes={downVotes}
             testUp={(x) => setUpVotes(x)}
             testDown={(x) => setDownVotes(x)}
+            sharable={props.sharable}
           />
 
           {loadedReplies}

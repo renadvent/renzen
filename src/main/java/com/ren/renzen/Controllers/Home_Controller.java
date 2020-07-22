@@ -2,26 +2,27 @@ package com.ren.renzen.Controllers;
 
 import com.ren.renzen.Entities.Article;
 import com.ren.renzen.Entities.Community;
+import com.ren.renzen.Entities.Content;
 import com.ren.renzen.Entities.User;
+import com.ren.renzen.Repos.Article_Repository;
 import com.ren.renzen.Repos.Community_Repository;
 import com.ren.renzen.Repos.User_Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
-@Controller
+@RestController
 @CrossOrigin("*")
 public class Home_Controller {
 
 	final User_Repository user_repository;
 	final Community_Repository community_repository;
+	final Article_Repository article_repository;
 
-	public Home_Controller(User_Repository user_repository,Community_Repository community_repository) {
+	public Home_Controller(User_Repository user_repository, Community_Repository community_repository, Article_Repository article_repository) {
 		this.user_repository = user_repository;
 		this.community_repository=community_repository;
+		this.article_repository = article_repository;
 	}
 
 	@RequestMapping()
@@ -33,6 +34,7 @@ public class Home_Controller {
 
 
 
+	//COMMUNITY
 	//creates community
 	//RequestParam is the User creating the community
 	//RequestBody is a new community
@@ -40,7 +42,6 @@ public class Home_Controller {
 			path="/api/post_new_community",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	public Community post_new_community(
 			@RequestParam String createdByUserID,
 			@RequestBody Community new_community){
@@ -55,23 +56,45 @@ public class Home_Controller {
 		return new_community;
 	}
 
+	//ARTICLE
 	//creates article
 	//RequestParam user who created article, community of article
 	@PostMapping(
 			path="/api/post_new_article",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	public Article post_new_article(
 			@RequestParam String createdByUserID,
-			@RequestParam String createdInCommunity,
+			@RequestParam String createdInCommunityID,
 			@RequestBody Article new_article)
 	{
 
+		//needs to create a content for each section
 
 
-		return null;
+		//article additions
+		new_article.setAuthor(createdByUserID);
+		new_article.setCommunity(createdInCommunityID);
+		new_article = article_repository.save(new_article);
 
+		User found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
+		Community found_community = community_repository.findById(createdInCommunityID).orElseThrow(IllegalStateException::new);
+
+		//add article to creating user and host community
+		found_user.getArticles().add(new_article.getId());
+		found_community.getArticles().add(new_article.getId());
+
+		return new_article;
+	}
+
+	//USER
+	@PostMapping(
+			path="/api/post_new_user",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public User post_new_user(@RequestBody User user){
+		user = user_repository.save(user);
+		return user;
 	}
 
 

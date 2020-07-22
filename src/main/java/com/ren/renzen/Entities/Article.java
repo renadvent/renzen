@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter@Setter
@@ -14,13 +15,16 @@ public class Article {
     @Id
     private String id;
 
+    private String author;
+    private String community;
+
     private String articleName;
     private String articleDescription;
     private String articleTags;
     private String articleAddToSection;
 
-    private List<String> contentArray;
-    private List<String> pageArray;//page for q&a for each section of article
+    private List<String> contentArray = new ArrayList<>();
+    private List<String> pageArray = new ArrayList<>();//page for q&a for each section of article
 
     public Article(){}
 

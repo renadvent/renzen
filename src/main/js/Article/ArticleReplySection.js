@@ -20,6 +20,7 @@ function ArticleReplySection(props) {
                 <DiscussionArea
                     title={"Section Discussion"}
                     page={"/api/pages/5efd2911d231b04eecfcd282"}
+                    sharable={true}
                 />
             </div>
         </div>
