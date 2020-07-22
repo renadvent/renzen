@@ -1,7 +1,19 @@
-import React from "react"
+import React, {useState,useEffect} from "react"
+import Axios from "axios";
 import Community from "../js/Community_Page/Community/Community";
 
 function Community_Container(props){
+
+    const [data,setData]=useState()
+
+    useEffect(()=>{
+        loadCommunity()
+    })
+
+    async function loadCommunity() {
+        let temp = await Axios.get(props.source)
+        setData(temp.data)
+    }
 
     return(
         <div id={"community-container"} className="tab-pane fade" role="tabpanel">
@@ -9,12 +21,14 @@ function Community_Container(props){
             <hr></hr>
             <div className="row">
                 <div id={"left-side-bar"} className={"col-5"}>
-                    <CommunitySidebar/>
+                    <CommunitySidebar data={data}/>
                 </div>
                 <div id={"main-content"} className={"col-7"}>
-                    <CommunityContent/>
+                    <CommunityContent data={data}/>
                 </div>
             </div>
         </div>
     )
 }
+
+export default Community_Container
