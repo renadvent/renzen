@@ -1,4 +1,16 @@
-//literals
+//Object literals
+
+const new_Article = function(){
+    return{
+        id:"",
+        name:"",
+
+        author:"",
+        community:"",
+
+        description:""
+    }
+}
 
 const new_Community = function(){
     return{
@@ -10,8 +22,27 @@ const new_Community = function(){
         topics:[],
         articles:[],
         questions:[],
+
         users:[],
         moderators:[],
+    }
+}
+
+const new_Content = function(){
+    return{
+        id:"",
+        creator:"",
+
+        content:"",
+
+        upVotes:"",
+        downVotes:"",
+
+        header:"",
+        description:"",
+        tags:[],
+
+        discussion:""
     }
 }
 
@@ -28,21 +59,9 @@ const new_User = function(){
     }
 }
 
-const new_Content = function(){
+const new_StudyGuide = function(){
     return{
-        id:"",
-
-        content:"",
-
-        upVotes:"",
-        downVotes:"",
-
-        heading:"",
-        description:"",
-        tags:[],
-
-        discussion:""
-
-
+        id:""
     }
 }
+

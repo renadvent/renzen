@@ -18,40 +18,23 @@ public class Content {
     @Id
     private String id;
 
+    //data
     private String content;
-    private String user;
-
-    private String contentName;
-
     private String header;
-
     private int upVotes;
     private int downVotes;
 
-    List<String> reply_refs;
-
-    List<String> annotations;
-    List<String> annotationCommentSections;
-    List<String> highlights;
-    List<String> rewordings;
-
-    List<String> headings;//>
+    //ids
+    private String author;
 
     List<String> sections;
 
-    private int bookmarks;
-
-    private String forkedFrom; //href
-
+    //constructors
     public Content() {}
 
-    public Content(String content) {
+    public Content(String content, String author) {
         this.content = content;
-    }
-
-    public Content(String content, String user) {
-        this.content = content;
-        this.user= user;
+        this.author= author;
     }
 
 }
