@@ -34,26 +34,75 @@ public class Site_Controller {
 
 
 
+	static class UserNamePassword{
+		String username;
+		String password;
+
+		//public UserNamePassword(){};
+		public UserNamePassword(String username,String password){
+			this.username=username;
+			this.password=password;
+		}
+
+	}
+
+	@PostMapping(path="/register")
+	@ResponseBody
+	public User Register(@RequestBody UserNamePassword payload){
+
+		if (user_repository.findByUserName(payload.username)!=null){
+			return null;
+		}
+
+		User user = new User(payload.username,payload.password);
+		user_repository.save(user);
+
+		return user;
+	}
+
+	@PostMapping(path="/login")
+	@ResponseBody
+	public User Login(@RequestBody UserNamePassword payload){
+
+		User user=user_repository.findByUserName(payload.username);
+
+		if (user!=null){
+			String pass = user.getPassword();
+			if (payload.password.equals(user.getPassword())){
+				return user; //is returning password... need DTO
+			}
+		}
+
+		return null;
+
+	}
+
 	//COMMUNITY
 	//creates community
 	//RequestParam is the User creating the community
 	//RequestBody is a new community
 	@PostMapping(
-			path="/api/post_new_community",
+			path="/createCommunity",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+			produces = MediaType.APPLICATION_JSON_VALUE
+	)
 	public Community post_new_community(
 			@RequestParam String createdByUserID,
-			@RequestBody Community new_community){
+			@RequestBody Community community){
 
-		new_community.setCreator(createdByUserID);
-		new_community = community_repository.save(new_community);
+		//check if it already exists
+		if (community_repository.findByName(community.getName())!=null){
+			return null;
+		}
+
+		community.setCreator(createdByUserID);
+		community = community_repository.save(community);
 
 		User found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
-		found_user.getCommunities().add("/api/users/"+new_community.getId()); //hardcoded
+		found_user.getCommunities().add("/api/users/"+community.getId()); //hardcoded
 		user_repository.save(found_user);
 
-		return new_community;
+		return community;
 	}
 
 	//ARTICLE
@@ -92,6 +141,7 @@ public class Site_Controller {
 			path="/api/post_new_user",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	public User post_new_user(@RequestBody User user){
 		user = user_repository.save(user);
 		return user;

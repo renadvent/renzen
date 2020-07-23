@@ -1,6 +1,8 @@
 import React, {useState,useEffect} from "react"
 import Axios from "axios";
 import Community from "../js/Community_Page/Community/Community";
+import CommunityContent from "./CommunityContent";
+import CommunitySidebar from "./CommunitySidebar";
 
 function Community_Container(props){
 
@@ -21,7 +23,7 @@ function Community_Container(props){
             <hr></hr>
             <div className="row">
                 <div id={"left-side-bar"} className={"col-5"}>
-                    <CommunitySidebar data={data}/>
+                    {/*<CommunitySidebar data={data}/>*/}
                 </div>
                 <div id={"main-content"} className={"col-7"}>
                     <CommunityContent data={data}/>

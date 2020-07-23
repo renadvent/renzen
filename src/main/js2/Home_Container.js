@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {connect} from "react-redux";
 import Profile_Container from "./Profile_Container";
+import * as store from "./Store_Actions"
 
 const mapStateToProps = (state) => {
     return {
@@ -12,21 +13,23 @@ const mapStateToProps = (state) => {
         loadedUsers:state.homeTabData.users,
 
         user:state.user
-
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        DispatchOpenCommunity: () => dispatch(),
-        DispatchOpenUser: () => dispatch(),
-        DispatchOpenArticle: () => dispatch(),
+        DISPATCH_openCommunity: () => dispatch(store.DISPATCH_openCommunity()),
+        DISPATCH_openUser: () => dispatch(store.DISPATCH_openUser()),
+        DISPATCH_openArticle: () => dispatch(store.DISPATCH_openArticle()),
 
-        DispatchLogin: (username, password) => dispatch(),
-        DispatchRegister: (username, password) => dispatch(),
+        DISPATCH_logIn: (username, password) =>
+            dispatch(store.DISPATCH_logIn({username:username,password:password})),
+        DISPATCH_register: (username, password) =>
+            dispatch(store.DISPATCH_register({username:username,password:password})),
 
-        DispatchCreateCommunity: () => dispatch()
+        DISPATCH_createCommunity: (user,payload) => dispatch(store.DISPATCH_createCommunity(user,payload))
+
     }
 }
 
@@ -43,7 +46,7 @@ function Home_Container(props) {
     return (
         <div>
             <div className={props.isLoggedIn ? "d-block" : "d-none"}>
-                <InLine_NewCommunity action={props.DispatchCreateCommunity}/>
+                <InLine_NewCommunity/>
                 <Profile_Container/>
             </div>
 
@@ -56,15 +59,15 @@ function Home_Container(props) {
                 <div className={"row"}>
                     <div className={"col"}>
                         <h4>All Users</h4>
-                        <Stream source={props.loadedUsers} dispatch={props.DispatchOpenUser}/>
+                        <Stream source={props.loadedUsers} dispatch={props.DISPATCH_openUser}/>
                     </div>
                     <div className={"col"}>
                         <h4>All Articles</h4>
-                        <Stream source={props.loadedArticles} dispatch={props.DispatchOpenArticle}/>
+                        <Stream source={props.loadedArticles} dispatch={props.DISPATCH_openArticle}/>
                     </div>
                     <div className={"col"}>
                         <h4>All Communities</h4>
-                        <Stream source={props.loadedCommunities} dispatch={props.DispatchOpenCommunity}/>
+                        <Stream source={props.loadedCommunities} dispatch={props.DISPATCH_openCommunity}/>
                     </div>
                 </div>
             </div>
@@ -77,7 +80,7 @@ function Stream(props){
         <div>
             {props.source.map(single=>{
                 return(
-                    <div onClick={props.DispatchOpenUser(single.link)}>
+                    <div onClick={props.dispatch(single.link)}>
                         {single.name}
                     </div>
                 )
@@ -117,7 +120,7 @@ function LoginRegister_Container(props) {
             <div className="tab-content" id="myLoginContent">
 
                 <div className="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="home-tab">
-                    <form onSubmit={props.DispatchLogin(userName,password)}>
+                    <form onSubmit={props.DISPATCH_logIn(userName,password)}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input type="email" className="form-control" name="username"/>
@@ -135,7 +138,7 @@ function LoginRegister_Container(props) {
                 </div>
 
                 <div className="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="profile-tab">
-                    <form onSubmit={props.DispatchRegister(userName,password)}>
+                    <form onSubmit={props.DISPATCH_register(userName,password)}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input
@@ -167,4 +170,4 @@ function LoginRegister_Container(props) {
 }
 
 //not sure if correct...
-export default connect(mapStateToProps, mapDispatchToProps)(Home_Container, Login_Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Home_Container, LoginRegister_Container);

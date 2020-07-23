@@ -3,6 +3,7 @@ import {connect} from "react-redux"
 import Axios from "axios";
 import Header_Container from "./Header_Container";
 import TabPane_Container from "./TabPane_Container";
+import Footer_Container from "./Footer_Container";
 
 /*
 sets up page and divisions
@@ -19,11 +20,11 @@ function App2(props) {
                             <TabPane_Container/>
                         </div>
                         <div id={"study-guide-area"} className={"col-3"}>
-                            <StudyGuide_Container/>
+                            {/*<StudyGuide_Container/>*/}
                         </div>
                     </div>
                 </div>
-                <Footer key={"app-footer"}/>
+                <Footer_Container key={"app-footer"}/>
             </div>
     )
 }

@@ -1,6 +1,7 @@
 import React from "react"
 import Home from "../js/Home_Page/Home";
 import {connect} from "react-redux";
+import Home_Container from "./Home_Container";
 
 /*
 sets up main tab (HOME) and content
@@ -47,7 +48,7 @@ function TabPane_Container(props) {
                     role="tabpanel"
                     aria-labelledby="home-tab"
                 >
-                    <HomeContainer/>
+                    <Home_Container/>
                 </div>
 
             </div>

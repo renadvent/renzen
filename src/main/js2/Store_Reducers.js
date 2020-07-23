@@ -6,8 +6,9 @@ const initialState={
 
     user:{
         logged_in:false,
-        user_name:"",
-        user_url:"",
+        name:"",
+        id:"",
+        //url:"",
         communities:[], //array of objects containing: name,link
         articles:[],
         study_guides:[],
@@ -33,10 +34,54 @@ const reducer = (state=initialState,action)=>{
 
         case at.ACTION_openCommunity:
             break
+
         case at.ACTION_openUser:
             break
+
         case at.ACTION_openArticle:
             break
 
+        case at.ACTION_register:
+
+
+        case at.ACTION_logOut:
+            return{
+                ...state,
+                user:{
+                    logged_in:false,
+                    name:"",
+                    id:"",
+                    //url:"",
+                    communities:[], //array of objects containing: name,link
+                    articles:[],
+                    study_guides:[],
+
+                    user_data:{}
+                },
+            }
+
+        case at.ACTION_logIn:
+
+        if (action.payload){
+            return{
+                ...state,
+                user:{
+                    ...state.user,
+                    logged_in:true,
+                    name:action.payload.username,
+                    id:action.payload.id,
+                    //url:action.payload.url,
+                    communities:action.payload.communities,//a dual name, link object
+                    articles:action.payload.articles,
+                    study_guides:action.payload.studyGuides,
+
+                    user_data:action.payload
+                }
+            }
+        }
+
+        case at.ACTION_createCommunity:
+
+            break
     }
 }

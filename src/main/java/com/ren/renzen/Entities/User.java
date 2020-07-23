@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter@Setter
@@ -17,8 +18,8 @@ public class User {
     private String userName;
     private String password;
 
-    private List<String> contentList;
-    public List<String> communities;
+    private List<String> contentList=new ArrayList<>();
+    public List<String> communities=new ArrayList<>();
 
     private int reputation;
 
@@ -30,9 +31,9 @@ public class User {
     private List<String> friends;
     private List<String> conversations;
 
-    private List<String> articles;
-    private List<String> questions;
-    private List<String> studyGuides;
+    private List<String> articles=new ArrayList<>();
+    private List<String> questions=new ArrayList<>();
+    private List<String> studyGuides=new ArrayList<>();
 
 
 
