@@ -36,7 +36,12 @@ function TabPane_Container(props) {
                             Home
                         </a>
                     </li>
-                    {props.open_communities}
+
+
+                    {/*gets component from component portion of coummunity object*/}
+                    {props.open_communities.map(community=>{
+                        return(community.tab)
+                    })}
                 </ul>
             </div>
 

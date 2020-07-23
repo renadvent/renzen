@@ -96,8 +96,6 @@ export function DISPATCH_createCommunity(user, payload) {
             })
         })
     }
-
-
 }
 
 //COMMUNITY-PAGE ACTION DISPATCHES
