@@ -1,6 +1,5 @@
 package com.ren.renzen;
 
-import com.ren.renzen.Entities.Content;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

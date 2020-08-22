@@ -1,8 +1,8 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.Entities.Article;
-import com.ren.renzen.Entities.Community;
-import com.ren.renzen.Entities.User;
+import com.ren.renzen.DomainObjects.ArticleDomainObject;
+import com.ren.renzen.DomainObjects.Community;
+import com.ren.renzen.DomainObjects.UserDomainObject;
 import com.ren.renzen.Repos.Article_Repository;
 import com.ren.renzen.Repos.Community_Repository;
 import com.ren.renzen.Repos.User_Repository;
@@ -35,12 +35,12 @@ public class Site_Controller {
 	//allows register
 	@PostMapping(path="/register")
 	@ResponseBody
-	public User Register(@RequestBody UserNamePassword payload){
+	public UserDomainObject Register(@RequestBody UserNamePassword payload){
 		if (user_repository.findByUserName(payload.username)!=null){
 			throw new ResponseStatusException(
 					HttpStatus.NOT_FOUND, "username is taken");
 		}
-		User user = new User(payload.username,payload.password);
+		UserDomainObject user = new UserDomainObject(payload.username,payload.password);
 		user_repository.save(user);
 		return user;
 	}
@@ -48,9 +48,9 @@ public class Site_Controller {
 	//allows login
 	@PostMapping(path="/login")
 	@ResponseBody
-	public User Login(@RequestBody UserNamePassword payload){
+	public UserDomainObject Login(@RequestBody UserNamePassword payload){
 
-		User user=user_repository.findByUserName(payload.username);
+		UserDomainObject user=user_repository.findByUserName(payload.username);
 
 		if (user!=null){
 			String pass = user.getPassword();
@@ -82,7 +82,7 @@ public class Site_Controller {
 		community.setCreator(createdByUserID);
 		community = community_repository.save(community);
 
-		User found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
+		UserDomainObject found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
 		found_user.getCommunities().add("/api/users/"+community.getId()); //hardcoded
 		user_repository.save(found_user);
 
@@ -96,10 +96,10 @@ public class Site_Controller {
 			path="/createArticle",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Article post_new_article(
+	public ArticleDomainObject post_new_article(
 			@RequestParam String createdByUserID,
 			@RequestParam String createdInCommunityID,
-			@RequestBody Article new_article)
+			@RequestBody ArticleDomainObject new_article)
 	{
 		//needs to create a content for each section
 
@@ -108,7 +108,7 @@ public class Site_Controller {
 		new_article.setCommunity(createdInCommunityID);
 		new_article = article_repository.save(new_article);
 
-		User found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
+		UserDomainObject found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
 		Community found_community = community_repository.findById(createdInCommunityID).orElseThrow(IllegalStateException::new);
 
 		//add article to creating user and host community
@@ -130,18 +130,6 @@ public class Site_Controller {
 			this.password=password;
 		}
 	}
-
-
-	class Hydrate {
-		Article article (Article article){
-			//article.getHydrate().setA
-			return article;
-		}
-	}
-
-
-
-
 
 
 }
