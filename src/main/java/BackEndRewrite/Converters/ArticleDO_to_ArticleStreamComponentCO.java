@@ -33,9 +33,8 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         co.setId(source.getId());
         co.setUserID(source.getUserID());
 
-        ProfileDO_to_ProfileStreamComponentCO converter = new ProfileDO_to_ProfileStreamComponentCO();
-
         //converts profile DO to CO
+        ProfileDO_to_ProfileStreamComponentCO converter = new ProfileDO_to_ProfileStreamComponentCO();
         repo.findById(source.getUserID()).ifPresent(user->co.setUserIndexPageCO(converter.convert(user)));
 
         return co;
