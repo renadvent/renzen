@@ -13,6 +13,6 @@ import java.util.List;
 @Getter@Setter
 @Document(collection = "Communities")
 public class CommunityDO extends BaseEntity {
-    List<UserDO> userDOList;
+    List<ProfileDO> profileDOList;
     List<ArticleDO> articleDOList;
 }

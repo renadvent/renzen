@@ -1,13 +1,15 @@
-package BackEndRewrite.CommandObjects;
+package BackEndRewrite.CommandObjects.StreamComponentCOs;
 
 import BackEndRewrite.DomainObjectBaseClasses.BaseEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter@Setter
-public class User_StreamComponentCO extends BaseEntity {
+@NoArgsConstructor
+public class ProfileStreamComponentCO extends BaseEntity {
     String username;
 
     Integer numberOfArticles;

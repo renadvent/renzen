@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Getter@Setter
 @Document(collection="Users")
-public class UserDO extends BaseEntity {
+public class ProfileDO extends BaseEntity {
     String username;
     String password;
 

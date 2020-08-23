@@ -1,8 +1,8 @@
 package BackEndRewrite.Repositories;
 
-import BackEndRewrite.DomainObjects.UserDO;
+import BackEndRewrite.DomainObjects.ProfileDO;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<UserDO,String> {
-    UserDO findByUsername(String username);
+public interface UserRepository extends CrudRepository<ProfileDO,String> {
+    ProfileDO findByUsername(String username);
 }

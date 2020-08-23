@@ -1,6 +1,9 @@
-package BackEndRewrite.CommandObjects;
+package BackEndRewrite.CommandObjects.StreamComponentCOs;
 
 import BackEndRewrite.DomainObjectBaseClasses.BaseEntity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * This CO is used to return data needed to LIST an article
@@ -11,11 +14,14 @@ import BackEndRewrite.DomainObjectBaseClasses.BaseEntity;
  * It is used on the Index Page, the Profile Page, and Community Page
  *
  */
-public class Article_StreamComponentCO extends BaseEntity {
+@Getter
+@Setter
+@NoArgsConstructor
+public class ArticleStreamComponentCO extends BaseEntity {
     String name;
     String description;
     String id;
 
     String userID;
-    User_StreamComponentCO userIndexPageCO;
+    ProfileStreamComponentCO userIndexPageCO;
 }

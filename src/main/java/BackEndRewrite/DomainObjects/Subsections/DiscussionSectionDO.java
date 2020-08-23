@@ -1,4 +1,4 @@
-package BackEndRewrite.DomainObjects;
+package BackEndRewrite.DomainObjects.Subsections;
 
 
 import BackEndRewrite.DomainObjectBaseClasses.BaseContent;
@@ -10,6 +10,6 @@ import java.util.List;
  * and replies
  */
 
-public class DiscussionContentDO extends BaseContent {
-    List<DiscussionContentDO> replies;
+public class DiscussionSectionDO extends BaseContent {
+    List<DiscussionSectionDO> replies;
 }

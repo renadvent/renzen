@@ -1,4 +1,4 @@
-package BackEndRewrite.DomainObjects;
+package BackEndRewrite.DomainObjects.Subsections;
 
 import BackEndRewrite.DomainObjectBaseClasses.BaseContent;
 
