@@ -1,4 +1,7 @@
 package BackEndRewrite.Repositories;
 
-public class CommunityRepository {
+import BackEndRewrite.DomainObjects.CommunityDO;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CommunityRepository extends CrudRepository<CommunityDO,String> {
 }

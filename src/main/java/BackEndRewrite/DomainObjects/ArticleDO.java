@@ -1,6 +1,7 @@
 package BackEndRewrite.DomainObjects;
 
 import BackEndRewrite.DomainObjectBaseClasses.BaseEntity;
+import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,5 +20,6 @@ public class ArticleDO extends BaseEntity {
     String userID;
     String discussionID;
 
-    List<String> articleSectionDOIDList;
+    List<ArticleSectionDO> articleSectionDOList;
+    //List<String> articleSectionDOIDList;
 }

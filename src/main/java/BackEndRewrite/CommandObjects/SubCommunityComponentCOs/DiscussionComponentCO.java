@@ -1,6 +1,6 @@
 package BackEndRewrite.CommandObjects.SubCommunityComponentCOs;
 
-import BackEndRewrite.CommandObjects.ContentCOs.DiscussionContentCO;
+import BackEndRewrite.CommandObjects.ContentCOs.DiscussionSectionCO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class DiscussionComponentCO {
 
-    List<String> discussionContentIDList;
-
-    List<DiscussionContentCO> discussionContentCOList;
+    //List<String> discussionContentIDList;
+    String id;
+    List<DiscussionSectionCO> discussionSectionCOList;
 
 }

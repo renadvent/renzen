@@ -1,6 +1,6 @@
 package BackEndRewrite.CommandObjects.SubCommunityComponentCOs;
 
-import BackEndRewrite.CommandObjects.ContentCOs.ArticleContentCO;
+import BackEndRewrite.CommandObjects.ContentCOs.ArticleSectionCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public class ArticleComponentCO {
     String discussionID;
     //DiscussionInfoCO discussionInfoCO;
 
-    List<String> articleContentIDList;
-    List<ArticleContentCO> articleContentCOList;
+    //List<String> articleContentIDList;
+    List<ArticleSectionCO> articleSectionCOList;
 
 }

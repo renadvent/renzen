@@ -1,13 +1,18 @@
 package BackEndRewrite.Converters;
 
+import BackEndRewrite.CommandObjects.ContentCOs.ArticleSectionCO;
 import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
+import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
 import BackEndRewrite.Repositories.UserRepository;
 import lombok.Synchronized;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Converts ArticleDO to ArticleComponentCO
@@ -20,6 +25,7 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
 
+    @Autowired
     public ArticleDO_to_ArticleComponentCO(UserRepository repo, ArticleRepository articleRepo) {
         this.userRepo = repo;
         this.articleRepo = articleRepo;
@@ -36,34 +42,24 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
 
         co.setUserID(source.getUserID());
         //converts profile DO to CO
-        ProfileDO_to_ProfileStreamComponentCO converter = new ProfileDO_to_ProfileStreamComponentCO();
-        userRepo.findById(source.getUserID()).ifPresent(user->co.setUser_streamComponentCO(converter.convert(user)));
+        ProfileDO_to_ProfileStreamComponentCO ProfileConverter = new ProfileDO_to_ProfileStreamComponentCO();
+        userRepo.findById(source.getUserID()).ifPresent(user->co.setUser_streamComponentCO(ProfileConverter.convert(user)));
 
         //-------------------------
 
         co.setDiscussionID(source.getDiscussionID());
 
-        //-------------------------
+        //--------------------------
 
-        //working HERE----------------
-        //get COs from IDs
+        ArticleSectionDO_to_ArticleSectionCO ArticleSectionConverter = new ArticleSectionDO_to_ArticleSectionCO();
 
-        co.setArticleContentIDList(source.getArticleSectionDOIDList());
-
-        for (String contentID : co.getArticleContentIDList()){
-
-
-
-
-
+        for (ArticleSectionDO sectionDO : source.getArticleSectionDOList()){
+            co.getArticleSectionCOList().add(ArticleSectionConverter.convert(sectionDO));
         }
 
-
-
-
+        //co.setArticleSectionCOList(ArticleSectionConverter.convert(source.getArticleSectionDOList()));
 
         return co;
-
 
     }
 }

@@ -3,7 +3,9 @@ package BackEndRewrite.Converters;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.Repositories.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.Synchronized;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
 
     final UserRepository repo;
 
+    @Autowired
     public ArticleDO_to_ArticleStreamComponentCO(UserRepository repo) {
         this.repo = repo;
     }

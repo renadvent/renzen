@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter@Setter
 @NoArgsConstructor
-public class ArticleContentCO {
+public class ArticleSectionCO {
     String id;
     String heading;
     String content;
