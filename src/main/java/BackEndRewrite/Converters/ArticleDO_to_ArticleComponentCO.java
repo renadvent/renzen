@@ -1,6 +1,5 @@
 package BackEndRewrite.Converters;
 
-import BackEndRewrite.CommandObjects.ContentCOs.ArticleSectionCO;
 import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
@@ -12,6 +11,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +25,23 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
 
+    final ProfileDO_to_ProfileStreamComponentCO ProfileConverter;
+
     @Autowired
-    public ArticleDO_to_ArticleComponentCO(UserRepository repo, ArticleRepository articleRepo) {
+    public ArticleDO_to_ArticleComponentCO(UserRepository repo, ArticleRepository articleRepo, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
         this.userRepo = repo;
         this.articleRepo = articleRepo;
+        ProfileConverter = profileConverter;
     }
+
+//    @Synchronized@Nullable
+//    public List<ArticleComponentCO> convert(Iterable<ArticleDO> sourceList){
+//        ArrayList<ArticleComponentCO> articleComponentCOList = new ArrayList<>();
+//        for (ArticleDO articleDO : sourceList){
+//            articleComponentCOList.add(convert(articleDO));
+//        }
+//        return articleComponentCOList;
+//    }
 
     @Synchronized@Nullable@Override
     public ArticleComponentCO convert(ArticleDO source){
@@ -42,7 +54,7 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
 
         co.setUserID(source.getUserID());
         //converts profile DO to CO
-        ProfileDO_to_ProfileStreamComponentCO ProfileConverter = new ProfileDO_to_ProfileStreamComponentCO();
+        //ProfileDO_to_ProfileStreamComponentCO ProfileConverter = new ProfileDO_to_ProfileStreamComponentCO(discussionRepository);
         userRepo.findById(source.getUserID()).ifPresent(user->co.setUser_streamComponentCO(ProfileConverter.convert(user)));
 
         //-------------------------

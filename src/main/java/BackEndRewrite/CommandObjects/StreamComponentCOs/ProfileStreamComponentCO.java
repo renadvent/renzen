@@ -14,9 +14,12 @@ public class ProfileStreamComponentCO extends BaseEntity {
 
     Integer numberOfArticles;
     Integer numberOfCommunities;
-    Integer numberOfDiscussionContentPosts;
+    //Integer numberOfDiscussionContentPosts;
 
     List<String> articleIDList;
     List<String> communityIDList;
-    List<String> discussionContentIDList;
+
+    //this may be broken... because content don't have their own repo anymore
+    //List<String> discussionContentIDList;
+    //List<String> discussionsPostedIn;
 }
