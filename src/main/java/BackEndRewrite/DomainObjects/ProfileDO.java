@@ -1,6 +1,7 @@
 package BackEndRewrite.DomainObjects;
 
-import com.ren.renzen.DomainObjects.BaseEntity;
+
+import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Getter@Setter
 @Document(collection="Users")
-public class ProfileDO extends BaseEntity {
+public class ProfileDO extends BaseDomain {
     String username;
     String password;
 
