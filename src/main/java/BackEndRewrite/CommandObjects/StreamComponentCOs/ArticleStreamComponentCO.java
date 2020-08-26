@@ -1,6 +1,6 @@
 package BackEndRewrite.CommandObjects.StreamComponentCOs;
 
-import BackEndRewrite.DomainObjectBaseClasses.BaseEntity;
+import BackEndRewrite.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ArticleStreamComponentCO extends BaseEntity {
+public class ArticleStreamComponentCO extends BaseDomain {
     String name;
     String description;
     String id;

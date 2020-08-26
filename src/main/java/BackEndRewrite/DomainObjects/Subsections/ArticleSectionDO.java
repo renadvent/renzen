@@ -1,6 +1,6 @@
 package BackEndRewrite.DomainObjects.Subsections;
 
-import BackEndRewrite.DomainObjectBaseClasses.BaseContent;
+import BackEndRewrite.DomainObjectBaseClasses.BaseSection;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +8,6 @@ import lombok.Setter;
  * contains the content for a section of an article
  */
 @Getter@Setter
-public class ArticleSectionDO extends BaseContent {
+public class ArticleSectionDO extends BaseSection {
     String heading;
 }

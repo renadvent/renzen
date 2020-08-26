@@ -1,6 +1,6 @@
 package BackEndRewrite.DomainObjects;
 
-import BackEndRewrite.DomainObjectBaseClasses.BaseEntity;
+import BackEndRewrite.DomainObjectBaseClasses.BaseDomain;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Getter@Setter
 @Document(collection = "Articles")
-public class ArticleDO extends BaseEntity {
+public class ArticleDO extends BaseDomain {
     String name;
     String description;
 

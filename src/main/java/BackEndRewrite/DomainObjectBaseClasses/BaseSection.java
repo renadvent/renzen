@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter@Setter
 @Document(collection = "Contents")
-public class BaseContent {
+public class BaseSection {
     @Id
     String id;
     String content;

@@ -1,6 +1,6 @@
 package BackEndRewrite.DomainObjects;
 
-import BackEndRewrite.DomainObjectBaseClasses.BaseEntity;
+import BackEndRewrite.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Getter@Setter
 @Document(collection = "Communities")
-public class CommunityDO extends BaseEntity {
+public class CommunityDO extends BaseDomain {
     String name;
     String creatorID;
     List<ProfileDO> profileDOList;

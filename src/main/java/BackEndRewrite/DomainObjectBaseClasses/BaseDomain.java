@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
  * Used for ArticleDO, CommunityDO, DiscussionDO, and UserDO
  */
 @Getter@Setter
-public class BaseEntity {
+public class BaseDomain {
     @Id
     String id;
 }
