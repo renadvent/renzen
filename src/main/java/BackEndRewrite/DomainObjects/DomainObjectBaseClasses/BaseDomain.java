@@ -1,4 +1,4 @@
-package BackEndRewrite.DomainObjectBaseClasses;
+package BackEndRewrite.DomainObjects.DomainObjectBaseClasses;
 
 import lombok.Getter;
 import lombok.Setter;

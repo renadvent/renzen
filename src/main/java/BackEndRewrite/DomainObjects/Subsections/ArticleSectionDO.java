@@ -1,6 +1,6 @@
 package BackEndRewrite.DomainObjects.Subsections;
 
-import BackEndRewrite.DomainObjectBaseClasses.BaseSection;
+import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseSection;
 import lombok.Getter;
 import lombok.Setter;
 

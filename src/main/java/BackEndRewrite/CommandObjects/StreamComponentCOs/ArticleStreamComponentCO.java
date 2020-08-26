@@ -1,6 +1,6 @@
 package BackEndRewrite.CommandObjects.StreamComponentCOs;
 
-import BackEndRewrite.DomainObjectBaseClasses.BaseDomain;
+import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

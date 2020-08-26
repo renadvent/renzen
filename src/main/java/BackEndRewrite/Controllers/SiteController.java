@@ -104,7 +104,7 @@ public class SiteController {
     )
     @ResponseBody
     public CommunityTabComponentCO createCommunity(@RequestBody CommunityDO communityDO){
-
+//		UserDomainObject found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
         if (community_repository.findByName(communityDO.getName())!=null){
             return null;
         }

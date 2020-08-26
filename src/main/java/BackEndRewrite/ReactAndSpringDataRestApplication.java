@@ -1,4 +1,4 @@
-package com.ren.renzen;
+package BackEndRewrite;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ReactAndSpringDataRestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(com.ren.renzen.ReactAndSpringDataRestApplication.class, args);
+        SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
 //        JythonTest.test();
     }
 }

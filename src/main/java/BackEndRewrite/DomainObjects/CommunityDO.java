@@ -1,6 +1,6 @@
 package BackEndRewrite.DomainObjects;
 
-import BackEndRewrite.DomainObjectBaseClasses.BaseDomain;
+import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
