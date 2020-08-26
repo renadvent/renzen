@@ -46,6 +46,10 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
 
         co.setDiscussionContentIDList(source.getDiscussionContentIDs());
 
+        /**
+         * here id lookup is done manually instead of by converter
+         * (compared to COmmuunityDO to Tab
+         */
         //creates CommunityCOs from list of DO ids
         Iterable<CommunityDO> communityDOList = communityRepository.findAllById(source.getCommunityIDList());
         co.setCommunityIndexPageCOList(communityConverter.convert(communityDOList));

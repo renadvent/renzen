@@ -19,4 +19,10 @@ public class ProfileDO extends BaseEntity {
     List<String> articleIDList;
     List<String> communityIDList;
     List<String> discussionContentIDs;
+
+    public ProfileDO(String username,String password){
+        this.username=username;
+        this.password=password;
+    }
+
 }

@@ -35,12 +35,12 @@ public class CommunityTabComponentCO {
     List<ProfileStreamComponentCO> user_streamComponentCOList;
     Integer numberOfUsers;
 
-    /**
-     * This List is used by the React Application to render the
-     * names of teh communities and provide Links
-     */
-    List<CommunityStreamComponentCO> community_streamComponentCOList;
-    Integer numberOfCommunities;
+//    /**
+//     * This List is used by the React Application to render the
+//     * names of teh communities and provide Links
+//     */
+//    List<CommunityStreamComponentCO> community_streamComponentCOList;
+//    Integer numberOfCommunities;
 
     /**
      * This Object is used to render the Community Discussion section

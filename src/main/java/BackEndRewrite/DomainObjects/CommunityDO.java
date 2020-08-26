@@ -14,6 +14,17 @@ import java.util.List;
 @Document(collection = "Communities")
 public class CommunityDO extends BaseEntity {
     String name;
+    String creatorID;
     List<ProfileDO> profileDOList;
     List<ArticleDO> articleDOList;
+    String discussionID;
+
+    /**
+     * Used by /createCommunity to create a new Community
+     */
+    public CommunityDO(String name,String creatorID){
+        this.name=name;
+        this.creatorID=creatorID;
+    }
+
 }
