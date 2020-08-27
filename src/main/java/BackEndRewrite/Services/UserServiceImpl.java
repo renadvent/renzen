@@ -7,10 +7,9 @@ import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -35,12 +34,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ProfileDO findProfileDOById(String id) {
+    public Optional<ProfileDO> findProfileDOById(String id) {
         return null;
     }
 
     @Override
-    public ProfileDO findProfileDOByName(String profileName) {
+    public Optional<ProfileDO> findProfileDOByName(String profileName) {
         return null;
     }
 

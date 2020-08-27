@@ -20,6 +20,7 @@ public class ArticleDO extends BaseDomain {
     String description;
 
     String userID;
+    String communityID;
     String discussionID;
 
     List<ArticleSectionDO> articleSectionDOList;
