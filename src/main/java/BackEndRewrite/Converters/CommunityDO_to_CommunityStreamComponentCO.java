@@ -5,7 +5,6 @@ import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
 import com.mongodb.lang.Nullable;
-import com.ren.renzen.DomainObjects.Community;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -35,6 +34,7 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
 
     /**
      * allows for multiple conversions
+     *
      * @param sourceList
      * @return
      */
@@ -42,7 +42,7 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
     @Nullable
     public List<CommunityStreamComponentCO> convert(Iterable<CommunityDO> sourceList) {
         ArrayList<CommunityStreamComponentCO> communityStreamComponentCOList = new ArrayList<CommunityStreamComponentCO>();
-        for (CommunityDO communityDO : sourceList){
+        for (CommunityDO communityDO : sourceList) {
             communityStreamComponentCOList.add(convert(communityDO));
         }
         return communityStreamComponentCOList;
@@ -59,13 +59,13 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         co.setName(source.getName());
 
         //ProfileDO_to_ProfileStreamComponentCO ProfileConverter = new ProfileDO_to_ProfileStreamComponentCO(discussionRepository);
-        for (ProfileDO profile : source.getProfileDOList()){
+        for (ProfileDO profile : source.getProfileDOList()) {
             co.getProfileStreamComponentCOList().add(ProfileConverter.convert(profile));
         }
 
         //not sure why this is necessary...
         //ArticleDO_to_ArticleStreamComponentCO ArticleConverter = new ArticleDO_to_ArticleStreamComponentCO(userRepository);
-        for (ArticleDO articleDO : source.getArticleDOList()){
+        for (ArticleDO articleDO : source.getArticleDOList()) {
             //co.getArticleStreamComponentCOList().add(ArticleConverter.convert(articleDO));
             co.getArticleStreamComponentCOList().add(testConverter.convert(articleDO));
         }
