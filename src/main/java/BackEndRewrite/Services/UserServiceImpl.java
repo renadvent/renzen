@@ -44,14 +44,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ProfileStreamComponentCO findProfileStreamComponentCOById(String id) {
-        return null;
+    public Optional<ProfileStreamComponentCO> findProfileStreamComponentCOById(String id) {
+        return Optional.empty();
     }
 
     @Override
-    public ProfileTabComponentCO findProfileTabComponentCOById(String id) {
-        return null;
+    public Optional<ProfileTabComponentCO> findProfileTabComponentCOById(String id) {
+        return Optional.empty();
     }
+
 
     /**
      * used by register controller
@@ -78,20 +79,20 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ProfileTabComponentCO findProfileTabComponentCOByNameAndPassword(String name,String password) {
+    public Optional<ProfileTabComponentCO> findProfileTabComponentCOByNameAndPassword(String name, String password) {
 
         ProfileDO profile = userRepository.findByUsername(name);
         if (profile!=null){
             if (password.equals(profile.getPassword())){
-                return (profileTabConverter.convert(profile));
+                return (Optional.of(profileTabConverter.convert(profile)));
             }
         }
         return null;
     }
 
     @Override
-    public ProfileTabComponentCO saveAndReturnProfileTabComponentCO(ProfileDO profileDO) {
-        return(profileTabConverter.convert(userRepository.save(profileDO)));
+    public Optional<ProfileTabComponentCO> saveAndReturnProfileTabComponentCO(ProfileDO profileDO) {
+        return(Optional.of(profileTabConverter.convert(userRepository.save(profileDO))));
         //return null;
     }
 }

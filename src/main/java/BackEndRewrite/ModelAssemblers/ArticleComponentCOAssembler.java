@@ -36,7 +36,7 @@ public class ArticleComponentCOAssembler implements RepresentationModelAssembler
                 linkTo(methodOn(CreateArticleController.class).doNothing()).withSelfRel(),
                 //add a discussion link?
                 //article stream component link
-                linkTo(methodOn(StreamControllers.class).getArticleStreamComponentCO(articleComponentCO.getId())).withRel("Article Stream Component"));
+                linkTo(methodOn(StreamControllers.class).getArticleStreamComponentCO(articleComponentCO.getId())).withRel("ArticleStreamComponentCO"));
     }
 
     @Override

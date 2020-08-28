@@ -41,6 +41,8 @@ public class SiteController {
         this.communityTabConverter = communityTabConverter;
     }
 
+
+
     /**
      * returns the index home page
      * @return

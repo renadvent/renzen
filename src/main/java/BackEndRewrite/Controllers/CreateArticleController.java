@@ -61,6 +61,7 @@ public class CreateArticleController {
         //try this route instead?
         Optional<ProfileDO> profileDOOptional = userService.findProfileDOById(articleDO.getUserID());
 
+        //instead of this
         try {
             userService.findProfileDOById(articleDO.getUserID())
                     .ifPresentOrElse(profileDO -> {
