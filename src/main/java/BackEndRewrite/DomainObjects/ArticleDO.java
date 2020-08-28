@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter@Setter
 @Document(collection = "Articles")
 @NoArgsConstructor
+@Entity //>?
 public class ArticleDO extends BaseDomain {
     String name;
     String description;

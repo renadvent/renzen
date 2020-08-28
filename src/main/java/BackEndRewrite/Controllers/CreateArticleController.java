@@ -2,30 +2,40 @@ package BackEndRewrite.Controllers;
 
 import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
+import BackEndRewrite.ModelAssemblers.TestAssembler;
 import BackEndRewrite.Services.UserServiceImpl;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 //TODO move logic to ArticleService
 
-@Controller
+@RestController
 public class CreateArticleController {
 
     final UserServiceImpl userService;
 
-    public CreateArticleController(UserServiceImpl userService) {
+    //test
+    final TestAssembler assembler;
+
+    public CreateArticleController(UserServiceImpl userService, TestAssembler assembler) {
         this.userService = userService;
+        this.assembler = assembler;
     }
 
+    //uselessly used in test assembler
+    public Class<?> doNothing(){
+        return null;
+    }
 
     @PostMapping(path="/articles/createArticle")
-    @ResponseBody
-    public ArticleComponentCO createArticle(@RequestBody CreateArticlePayload payload){
+    public HttpEntity<ArticleComponentCO> createArticle(@RequestBody CreateArticlePayload payload){
 
         //set initial DO attributes
         ArticleDO articleDO = new ArticleDO();
@@ -37,7 +47,8 @@ public class CreateArticleController {
         userService.findProfileDOById(articleDO.getUserID())
                 .map(profileDO->{
                     profileDO.getArticleIDList().add(articleDO.getId());
-                    return true; //?
+                    return true;
+                    //return new ResponseEntity(HttpStatus.OK); //?
                 }).orElse(false);
 
         //TODO create a blank discussion section for the article
@@ -49,7 +60,7 @@ public class CreateArticleController {
 
 
 
-        return null;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @NoArgsConstructor
@@ -59,6 +70,8 @@ public class CreateArticleController {
         String name;
         String description;
         String authorID;
+
+        //TODO add receptor for article sections
     }
 
 }
