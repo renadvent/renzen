@@ -1,5 +1,6 @@
 package BackEndRewrite.Services.Interfaces;
 
+import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 
 import javax.swing.text.html.Option;
@@ -13,6 +14,8 @@ public interface ArticleService {
     Optional<Set<ArticleDO>> findArticleDOsByCommunityID(String communityId);
 
     Optional<ArticleDO> findArticleDOByID(String Id);
+
+    Optional<ArticleComponentCO> findArticleComponentCOByID(String Id);
 
 
 }

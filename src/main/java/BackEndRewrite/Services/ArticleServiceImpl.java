@@ -1,5 +1,6 @@
 package BackEndRewrite.Services;
 
+import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Optional<ArticleDO> findArticleDOByID(String Id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ArticleComponentCO> findArticleComponentCOByID(String Id) {
         return Optional.empty();
     }
 }
