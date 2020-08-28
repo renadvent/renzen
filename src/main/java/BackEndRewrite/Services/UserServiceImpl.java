@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<ProfileDO> save(ProfileDO profileDO) {
+        return Optional.empty();
+    }
+
+    @Override
     public Set<ProfileDO> getProfileDOList() {
         return null;
     }

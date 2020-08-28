@@ -11,6 +11,11 @@ import java.util.Set;
 @Service
 public class ArticleServiceImpl implements ArticleService {
     @Override
+    public ArticleDO save(ArticleDO articleDO) {
+        return null;
+    }
+
+    @Override
     public Optional<ArticleDO> getArticleDOList() {
         return Optional.empty();
     }
@@ -28,5 +33,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Optional<ArticleComponentCO> findArticleComponentCOByID(String Id) {
         return Optional.empty();
+    }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

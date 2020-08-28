@@ -35,7 +35,7 @@ public class ArticleComponentCOAssembler implements RepresentationModelAssembler
         return EntityModel.of(articleComponentCO,
                 linkTo(methodOn(CreateArticleController.class).doNothing()).withSelfRel(),
                 //add a discussion link?
-                //article stream component link
+                //article metadata component link
                 linkTo(methodOn(StreamControllers.class).getArticleStreamComponentCO(articleComponentCO.getId())).withRel("ArticleStreamComponentCO"));
     }
 

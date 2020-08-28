@@ -10,6 +10,8 @@ import java.util.Set;
 
 public interface UserService {
 
+    Optional<ProfileDO> save(ProfileDO profileDO);
+
     Set<ProfileDO> getProfileDOList();
 
     Optional<ProfileDO> findProfileDOById(String id);

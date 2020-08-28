@@ -2,11 +2,14 @@ package BackEndRewrite.Controllers;
 
 import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
+import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
+import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.ModelAssemblers.ArticleComponentCOAssembler;
-import BackEndRewrite.Services.ArticleServiceImpl;
-import BackEndRewrite.Services.DiscussionServiceImpl;
-import BackEndRewrite.Services.UserServiceImpl;
+import BackEndRewrite.Services.Interfaces.ArticleService;
+import BackEndRewrite.Services.Interfaces.CommunityService;
+import BackEndRewrite.Services.Interfaces.DiscussionService;
+import BackEndRewrite.Services.Interfaces.UserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,23 +21,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import java.util.Set;
 
 //TODO move logic to ArticleService
 
 @RestController
 public class CreateArticleController {
 
-    final UserServiceImpl userService;
-    final ArticleServiceImpl articleService;
-    final DiscussionServiceImpl discussionService;
+    final UserService userService;
+    final ArticleService articleService;
+    final DiscussionService discussionService;
+    final CommunityService communityService;
 
     //test
     final ArticleComponentCOAssembler assembler;
 
-    public CreateArticleController(UserServiceImpl userService, ArticleServiceImpl articleService, DiscussionServiceImpl discussionService, ArticleComponentCOAssembler assembler) {
+    public CreateArticleController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleComponentCOAssembler assembler) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
+        this.communityService = communityService;
         this.assembler = assembler;
     }
 
@@ -44,40 +50,36 @@ public class CreateArticleController {
         return null;
     }
 
+
+
+
+
+
     //TODO move most of this to service...?
     @PostMapping(path = "/articles/createArticle")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
 
-        //set initial DO attributes
-        ArticleDO articleDO = new ArticleDO();
-        articleDO.setName(payload.getName());
-        articleDO.setDescription(payload.getDescription());
-        articleDO.setUserID(payload.getAuthorID());
+        //check if provided ids exist
+        Optional<ProfileDO> profileDOOptional = userService.findProfileDOById(payload.authorID);
+        Optional<CommunityDO> communityDOOptional = communityService.findCommunityDOById(payload.communityID);
 
-        //check if user exists, and then
-        //add article to user profile
-
-
-        //try this route instead?
-        Optional<ProfileDO> profileDOOptional = userService.findProfileDOById(articleDO.getUserID());
-
-        //instead of this
-        try {
-            userService.findProfileDOById(articleDO.getUserID())
-                    .ifPresentOrElse(profileDO -> {
-                        profileDO.getArticleIDList().add(articleDO.getId());
-                    }, () -> {
-                        throw new IllegalArgumentException("user not found");
-                    });
-        } catch (Exception e) {
+        if (profileDOOptional.isEmpty() ||  communityDOOptional.isEmpty()){
             return (ResponseEntity<?>) ResponseEntity.notFound();
         }
 
+        //save ArticleDO to get an ID from mongodb for it
+        ArticleDO savedArticleDO = articleService.save(new ArticleDO(payload.getName(),payload.getDescription(),
+                payload.getAuthorID(),payload.getCommunityID()));
 
-        //TODO create a blank discussion section for the article
-        articleDO.setDiscussionID("");
+        //add article to user
+        profileDOOptional.get().getArticleIDList().add(savedArticleDO.getId());
+
+        //add article to community
+        communityDOOptional.get().getArticleDOList().add(savedArticleDO.getId());
 
         //TODO distribute article sections
+
+        //TODO create a blank discussion section for the article
 
 
         /**
@@ -85,25 +87,16 @@ public class CreateArticleController {
          * assembles it to have the additional links in the assembler
          * responds that the article was created, and returns the ArticleComponentCO // can return something else
          */
+        Optional<ArticleComponentCO> articleDOOptional = articleService.findArticleComponentCOByID(savedArticleDO.getId());
 
-        try {
-            return articleService.findArticleComponentCOByID(articleDO.getId())
-                    .map(
-                            articleComponentCO -> {
-                                EntityModel<ArticleComponentCO> entityModel = assembler.toModel(articleComponentCO);
-
-                                return ResponseEntity
-                                        .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                                        .body(entityModel);
-                            }).orElseThrow();
-        } catch (Exception e) {
+        if (articleDOOptional.isEmpty()){
             return (ResponseEntity<?>) ResponseEntity.notFound();
+        }else{
+            EntityModel<ArticleComponentCO> entityModel = assembler.toModel(articleDOOptional.get());
+            return ResponseEntity
+                    .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                    .body(entityModel);
         }
-
-
-        //if failed...
-        //return new ResponseEntity(HttpStatus.BAD_REQUEST);
-
     }
 
     @NoArgsConstructor
@@ -113,6 +106,9 @@ public class CreateArticleController {
         String name;
         String description;
         String authorID;
+        String communityID;
+
+        Set<ArticleSectionDO> articleSectionDOSet;
 
         //TODO add receptor for article sections
     }

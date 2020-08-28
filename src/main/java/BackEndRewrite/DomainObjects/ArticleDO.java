@@ -27,4 +27,12 @@ public class ArticleDO extends BaseDomain {
 
     List<ArticleSectionDO> articleSectionDOList;
     //List<String> articleSectionDOIDList;
+
+
+    public ArticleDO(String name, String description, String authorID, String communityID){
+        this.name=name;
+        this.description=description;
+        this.userID=authorID;
+        this.communityID=communityID;
+    }
 }

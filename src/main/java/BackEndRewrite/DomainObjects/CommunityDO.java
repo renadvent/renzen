@@ -17,8 +17,8 @@ import java.util.List;
 public class CommunityDO extends BaseDomain {
     String name;
     String creatorID;
-    List<ProfileDO> profileDOList;
-    List<ArticleDO> articleDOList;
+    List<String> profileDOList;
+    List<String> articleDOList;
     String discussionID;
 
     /**

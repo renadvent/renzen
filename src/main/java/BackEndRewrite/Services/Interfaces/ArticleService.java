@@ -9,6 +9,10 @@ import java.util.Set;
 
 public interface ArticleService {
 
+
+
+    ArticleDO save(ArticleDO articleDO);
+
     Optional<ArticleDO> getArticleDOList();
 
     Optional<Set<ArticleDO>> findArticleDOsByCommunityID(String communityId);
@@ -16,6 +20,14 @@ public interface ArticleService {
     Optional<ArticleDO> findArticleDOByID(String Id);
 
     Optional<ArticleComponentCO> findArticleComponentCOByID(String Id);
+
+    //---------------------
+
+    void save();
+
+    void delete();
+
+
 
 
 }
