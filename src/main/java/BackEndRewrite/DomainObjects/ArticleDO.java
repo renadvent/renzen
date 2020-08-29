@@ -1,11 +1,12 @@
 package BackEndRewrite.DomainObjects;
 
-import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.Entity;
 import java.util.List;
@@ -15,9 +16,13 @@ import java.util.List;
  */
 @Getter@Setter
 @Document(collection = "Articles")
-@NoArgsConstructor
-@Entity //>?
-public class ArticleDO extends BaseDomain {
+@NoArgsConstructor //>?
+public class ArticleDO {
+
+
+    @Id
+    String Id;
+
     String name;
     String description;
 
@@ -29,10 +34,12 @@ public class ArticleDO extends BaseDomain {
     //List<String> articleSectionDOIDList;
 
 
-    public ArticleDO(String name, String description, String authorID, String communityID){
+    public ArticleDO(String name, String description, String authorID, String communityID,
+                     List<ArticleSectionDO> articleSectionDOList){
         this.name=name;
         this.description=description;
         this.userID=authorID;
         this.communityID=communityID;
+        this.articleSectionDOList=articleSectionDOList;
     }
 }

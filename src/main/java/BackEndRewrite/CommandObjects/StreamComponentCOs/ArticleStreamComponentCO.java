@@ -1,9 +1,10 @@
 package BackEndRewrite.CommandObjects.StreamComponentCOs;
 
-import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.hateoas.RepresentationModel;
 
 /**
  * This CO is used to return data needed to LIST an article
@@ -17,7 +18,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ArticleStreamComponentCO extends BaseDomain {
+public class ArticleStreamComponentCO extends RepresentationModel<ArticleStreamComponentCO> {
+
+    @Id
+    String Id;
+
     String name;
     String description;
     String id;

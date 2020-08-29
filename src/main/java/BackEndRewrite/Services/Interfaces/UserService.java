@@ -10,20 +10,20 @@ import java.util.Set;
 
 public interface UserService {
 
-    Optional<ProfileDO> save(ProfileDO profileDO);
+    ProfileDO save(ProfileDO profileDO);
 
     Set<ProfileDO> getProfileDOList();
 
-    Optional<ProfileDO> findProfileDOById(String id);
-    Optional <ProfileDO> findProfileDOByName(String profileName);
+    ProfileDO findProfileDOById(String id);
+    ProfileDO findProfileDOByName(String profileName);
 
-    Optional<ProfileStreamComponentCO> findProfileStreamComponentCOById(String id);
-    Optional<ProfileTabComponentCO> findProfileTabComponentCOById(String id);
+    ProfileStreamComponentCO findProfileStreamComponentCOById(String id);
+    ProfileTabComponentCO findProfileTabComponentCOById(String id);
 
     boolean checkIfUsernameTaken(String name);
-    Optional<ProfileTabComponentCO> findProfileTabComponentCOByNameAndPassword(String name,String password);
+    ProfileTabComponentCO findProfileTabComponentCOByNameAndPassword(String name,String password);
 
-    Optional<ProfileTabComponentCO> saveAndReturnProfileTabComponentCO(ProfileDO profileDO);
+    ProfileTabComponentCO saveAndReturnProfileTabComponentCO(ProfileDO profileDO);
 
 
 }

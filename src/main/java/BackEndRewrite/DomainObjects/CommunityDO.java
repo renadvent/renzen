@@ -1,9 +1,9 @@
 package BackEndRewrite.DomainObjects;
 
-import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -14,7 +14,10 @@ import java.util.List;
 @Getter@Setter
 @Document(collection = "Communities")
 @NoArgsConstructor
-public class CommunityDO extends BaseDomain {
+public class CommunityDO{
+
+    @org.springframework.data.annotation.Id
+    String Id;
     String name;
     String creatorID;
     List<String> profileDOList;

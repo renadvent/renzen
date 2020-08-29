@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 //TODO move logic to ArticleService
 
@@ -50,53 +49,37 @@ public class CreateArticleController {
         return null;
     }
 
-
-
-
-
-
     //TODO move most of this to service...?
     @PostMapping(path = "/articles/createArticle")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
 
         //check if provided ids exist
-        Optional<ProfileDO> profileDOOptional = userService.findProfileDOById(payload.authorID);
-        Optional<CommunityDO> communityDOOptional = communityService.findCommunityDOById(payload.communityID);
+        ProfileDO profileDO = userService.findProfileDOById(payload.authorID);
+        CommunityDO communityDO = communityService.findCommunityDOById(payload.communityID);
 
-        if (profileDOOptional.isEmpty() ||  communityDOOptional.isEmpty()){
-            return (ResponseEntity<?>) ResponseEntity.notFound();
-        }
 
         //save ArticleDO to get an ID from mongodb for it
-        ArticleDO savedArticleDO = articleService.save(new ArticleDO(payload.getName(),payload.getDescription(),
-                payload.getAuthorID(),payload.getCommunityID()));
+        ArticleDO savedArticleDO = articleService.save(new ArticleDO(payload.getName(), payload.getDescription(),
+                payload.getAuthorID(), payload.getCommunityID(), payload.getArticleSectionDOList()));
 
         //add article to user
-        profileDOOptional.get().getArticleIDList().add(savedArticleDO.getId());
+        profileDO.getArticleIDList().add(savedArticleDO.getId());
 
         //add article to community
-        communityDOOptional.get().getArticleDOList().add(savedArticleDO.getId());
-
-        //TODO distribute article sections
-
-        //TODO create a blank discussion section for the article
-
+        communityDO.getArticleDOList().add(savedArticleDO.getId());
 
         /**
          * finds CO component by id of the DO
          * assembles it to have the additional links in the assembler
          * responds that the article was created, and returns the ArticleComponentCO // can return something else
          */
-        Optional<ArticleComponentCO> articleDOOptional = articleService.findArticleComponentCOByID(savedArticleDO.getId());
+        ArticleComponentCO articleDOOptional = articleService.findArticleComponentCOByID(savedArticleDO.getId());
 
-        if (articleDOOptional.isEmpty()){
-            return (ResponseEntity<?>) ResponseEntity.notFound();
-        }else{
-            EntityModel<ArticleComponentCO> entityModel = assembler.toModel(articleDOOptional.get());
-            return ResponseEntity
-                    .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                    .body(entityModel);
-        }
+        EntityModel<ArticleComponentCO> entityModel = assembler.toModel(articleDOOptional);
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
     @NoArgsConstructor
@@ -108,7 +91,7 @@ public class CreateArticleController {
         String authorID;
         String communityID;
 
-        Set<ArticleSectionDO> articleSectionDOSet;
+        List<ArticleSectionDO> articleSectionDOList;
 
         //TODO add receptor for article sections
     }

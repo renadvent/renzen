@@ -5,6 +5,7 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ArticleComponentCO {
+public class ArticleComponentCO extends RepresentationModel<ArticleComponentCO> {
 
     String name;
     String description;

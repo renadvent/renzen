@@ -1,15 +1,20 @@
 package BackEndRewrite.CommandObjects.StreamComponentCOs;
 
-import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
 @Getter@Setter
 @NoArgsConstructor
-public class ProfileStreamComponentCO extends BaseDomain {
+public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamComponentCO> {
+
+    @Id
+    String Id;
+
     String username;
 
     Integer numberOfArticles;

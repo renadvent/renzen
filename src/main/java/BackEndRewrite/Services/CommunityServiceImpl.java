@@ -10,7 +10,19 @@ import java.util.Optional;
 public class CommunityServiceImpl implements CommunityService {
 
     @Override
-    public Optional<CommunityDO> findCommunityDOById(String id) {
-        return Optional.empty();
+    public CommunityDO findCommunityDOById(String id) {
+        return null;
     }
+
+    @Override
+    public CommunityDO findDOByName(String name) {
+        return null;
+    }
+
+    @Override
+    public CommunityDO save(CommunityDO communityDO) {
+        return null;
+    }
+
+
 }

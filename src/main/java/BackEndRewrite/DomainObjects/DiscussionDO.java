@@ -1,11 +1,12 @@
 package BackEndRewrite.DomainObjects;
 
-import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseDomain;
 import BackEndRewrite.DomainObjects.Subsections.DiscussionSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ import java.util.List;
 @Getter@Setter
 @Document(collection = "Disucssions")
 @NoArgsConstructor
-public class DiscussionDO extends BaseDomain {
+public class DiscussionDO {
+
+    @Id
+    String Id;
     List<DiscussionSectionDO> discussionSectionDOList;
 }

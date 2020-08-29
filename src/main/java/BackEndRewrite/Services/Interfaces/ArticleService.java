@@ -13,13 +13,13 @@ public interface ArticleService {
 
     ArticleDO save(ArticleDO articleDO);
 
-    Optional<ArticleDO> getArticleDOList();
+    ArticleDO getArticleDOList();
 
-    Optional<Set<ArticleDO>> findArticleDOsByCommunityID(String communityId);
+    Set<ArticleDO> findArticleDOsByCommunityID(String communityId);
 
-    Optional<ArticleDO> findArticleDOByID(String Id);
+    ArticleDO findArticleDOByID(String Id);
 
-    Optional<ArticleComponentCO> findArticleComponentCOByID(String Id);
+    ArticleComponentCO findArticleComponentCOByID(String Id);
 
     //---------------------
 

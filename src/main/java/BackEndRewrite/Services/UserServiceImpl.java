@@ -29,33 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<ProfileDO> save(ProfileDO profileDO) {
-        return Optional.empty();
+    public ProfileDO save(ProfileDO profileDO) {
+        return null;
     }
 
     @Override
     public Set<ProfileDO> getProfileDOList() {
         return null;
-    }
-
-    @Override
-    public Optional<ProfileDO> findProfileDOById(String id) {
-        return null;
-    }
-
-    @Override
-    public Optional<ProfileDO> findProfileDOByName(String profileName) {
-        return null;
-    }
-
-    @Override
-    public Optional<ProfileStreamComponentCO> findProfileStreamComponentCOById(String id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<ProfileTabComponentCO> findProfileTabComponentCOById(String id) {
-        return Optional.empty();
     }
 
 
@@ -84,20 +64,22 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Optional<ProfileTabComponentCO> findProfileTabComponentCOByNameAndPassword(String name, String password) {
+    public ProfileTabComponentCO findProfileTabComponentCOByNameAndPassword(String name, String password) {
 
         ProfileDO profile = userRepository.findByUsername(name);
         if (profile!=null){
             if (password.equals(profile.getPassword())){
-                return (Optional.of(profileTabConverter.convert(profile)));
+                return (profileTabConverter.convert(profile));
             }
+        }else{
+            throw new RuntimeException("Profile not found");
         }
-        return null;
+
     }
 
     @Override
-    public Optional<ProfileTabComponentCO> saveAndReturnProfileTabComponentCO(ProfileDO profileDO) {
-        return(Optional.of(profileTabConverter.convert(userRepository.save(profileDO))));
+    public ProfileTabComponentCO saveAndReturnProfileTabComponentCO(ProfileDO profileDO) {
+        return(profileTabConverter.convert(userRepository.save(profileDO)));
         //return null;
     }
 }

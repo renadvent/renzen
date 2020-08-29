@@ -5,12 +5,13 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponent
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
 @Getter@Setter
 @NoArgsConstructor
-public class ProfileTabComponentCO {
+public class ProfileTabComponentCO extends RepresentationModel<ProfileTabComponentCO> {
     String username;
 
     Integer numberOfArticles;
