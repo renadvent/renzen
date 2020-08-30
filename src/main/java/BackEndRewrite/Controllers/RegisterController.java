@@ -1,8 +1,13 @@
 package BackEndRewrite.Controllers;
 
 import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
+import BackEndRewrite.Converters.ProfileDO_to_ProfileTabComponentCO;
 import BackEndRewrite.DomainObjects.ProfileDO;
+import BackEndRewrite.ModelAssemblers.ProfileTabCOAssembler;
 import BackEndRewrite.Services.UserServiceImpl;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +17,15 @@ import org.springframework.web.bind.annotation.*;
 public class RegisterController {
 
     final UserServiceImpl userService;
+    final ProfileTabCOAssembler profileTabCOAssembler;
 
-    public RegisterController(UserServiceImpl userService) {
+    final ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
+
+
+    public RegisterController(UserServiceImpl userService, ProfileTabCOAssembler profileTabCOAssembler, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO) {
         this.userService = userService;
+        this.profileTabCOAssembler = profileTabCOAssembler;
+        this.profileDO_to_profileTabComponentCO = profileDO_to_profileTabComponentCO;
     }
 
     /**
@@ -27,12 +38,26 @@ public class RegisterController {
 
     @RequestMapping(path="/register")
     @ResponseBody
-    public ProfileTabComponentCO Register(@RequestBody SitePayloads.UserNamePassword payload){
-        userService.checkIfUsernameTaken(payload.username);
-        ProfileDO user = new ProfileDO(payload.username,payload.password);
+    public ResponseEntity<?> Register(@RequestBody SitePayloads.UserNamePassword payload){
 
-        return null;
-        //return userService.saveAndReturnProfileTabComponentCO(user);
+        if (userService.checkIfUsernameTaken(payload.username)){
+            throw new RuntimeException("user name taken");
+        }else{
+
+            //create profile
+            ProfileDO profileDO = new ProfileDO(payload.username,payload.password);
+
+            //get tab component
+            ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(profileDO);
+
+            //assemble
+            EntityModel<ProfileTabComponentCO> entityModel = profileTabCOAssembler.toModel(profileTabComponentCO);
+
+            return ResponseEntity
+                    .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                    .body(entityModel);
+
+        }
     }
 
 }

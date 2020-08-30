@@ -5,7 +5,7 @@ import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.Optional;
 
 /**
  * Accesses User Repository
@@ -20,25 +20,39 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     public ProfileDO save(ProfileDO profileDO) {
-        return null;
+        return userRepository.save(profileDO);
     }
 
     @Override
-    public Set<ProfileDO> getProfileDOList() {
-        return null;
+    public Iterable<ProfileDO> getProfileDOList() {
+        return userRepository.findAll();
     }
 
     @Override
     public ProfileDO findProfileDOById(String id) {
-        return null;
+
+        Optional<ProfileDO> profileDOOptional = userRepository.findById(id);
+
+        if (profileDOOptional.isEmpty()){
+            throw new RuntimeException("id not found");
+        }else {
+            return profileDOOptional.get();
+        }
     }
 
     @Override
     public ProfileDO findProfileDOByName(String profileName) {
-        return null;
+
+        Optional<ProfileDO> profileDOOptional = userRepository.findByUsername(profileName);
+
+        if (profileDOOptional.isEmpty()){
+            throw new RuntimeException("id not found");
+        }else {
+            return profileDOOptional.get();
+        }
+
     }
 
     /**
@@ -49,31 +63,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkIfUsernameTaken(String name) {
 
-        ProfileDO profileDO = userRepository.findByUsername(name);
-        if (userRepository.findByUsername(name)!=null){
+        if (userRepository.findByUsername(name).isPresent()){
             return true;
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "username is taken");
+        }else{
+            return false;
         }
-
-        return false;
     }
 
     @Override
     public ProfileDO findProfileDOByNameAndPassword(String name, String password) {
-        return null;
+
+
+        Optional<ProfileDO> profileDOOptional = userRepository.findByUsername(name);
+
+        if (profileDOOptional.isPresent()){
+            if (profileDOOptional.get().getPassword() == password){
+                return profileDOOptional.get();
+            }else{
+                throw new RuntimeException("username/password not found");
+            }
+        }else{
+            throw new RuntimeException("username/password not found");
+        }
     }
 
     @Override
     public ProfileDO saveAndReturnProfileDO(ProfileDO profileDO) {
-        return null;
+        return userRepository.save(profileDO);
     }
-
-    /**
-     * used by login controller
-     * @param name
-     * @param password
-     * @return
-     */
 
 }

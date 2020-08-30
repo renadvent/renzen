@@ -4,4 +4,6 @@ import BackEndRewrite.DomainObjects.ArticleDO;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ArticleRepository extends CrudRepository<ArticleDO,String> {
+    Iterable<ArticleDO> findArticleDOSByCommunityID(String id);
+
 }

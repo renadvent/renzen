@@ -43,6 +43,7 @@ public class CreateArticleController {
     //assemblers
     final ArticleComponentCOAssembler articleComponentCOAssembler;
 
+    //constructor
     public CreateArticleController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleComponentCOAssembler articleComponentCOAssembler, ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO) {
         this.userService = userService;
         this.articleService = articleService;

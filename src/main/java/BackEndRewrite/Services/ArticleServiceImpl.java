@@ -1,6 +1,5 @@
 package BackEndRewrite.Services;
 
-import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.DiscussionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
@@ -9,7 +8,6 @@ import BackEndRewrite.Services.Interfaces.DiscussionService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -30,6 +28,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDO save(ArticleDO articleDO) {
 
+        //broken
+
         DiscussionDO discussionDO = new DiscussionDO();
         discussionService.save(discussionDO);
         articleDO.setDiscussionID(discussionDO.getId());
@@ -38,27 +38,29 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDO getArticleDOList() {
-        return null;
+    public Iterable<ArticleDO> getArticleDOList() {
+        return articleRepository.findAll();
     }
 
     @Override
-    public Set<ArticleDO> findArticleDOsByCommunityID(String communityId) {
-        return null;
+    public Iterable<ArticleDO> findArticleDOsByCommunityID(String communityId) {
+        return articleRepository.findArticleDOSByCommunityID(communityId);
     }
 
     @Override
     public ArticleDO findArticleDOByID(String Id) {
-        return null;
+
+        Optional<ArticleDO> articleDOOptional = articleRepository.findById(Id);
+
+        if (articleDOOptional.isPresent()){
+            return articleDOOptional.get();
+        }else{
+            throw new RuntimeException("Article Not Found");
+        }
     }
 
     @Override
-    public void save() {
-
-    }
-
-    @Override
-    public void delete() {
-
+    public void delete(ArticleDO articleDO) {
+        articleRepository.delete(articleDO);
     }
 }
