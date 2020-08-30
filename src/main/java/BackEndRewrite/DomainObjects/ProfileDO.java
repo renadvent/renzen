@@ -11,7 +11,7 @@ import java.util.List;
  * DO for Users
  */
 @Getter@Setter
-@Document(collection="Users")
+@Document(collection="Profiles")
 public class ProfileDO {
     String username;
     String password;

@@ -1,6 +1,8 @@
 package BackEndRewrite.Controllers;
 
 import BackEndRewrite.CommandObjects.TabComponentCOs.CommunityTabComponentCO;
+import BackEndRewrite.Converters.ArticleDO_to_ArticleComponentCO;
+import BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import BackEndRewrite.Converters.CommunityDO_to_CommunityTabComponentCO;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.DiscussionDO;
@@ -14,21 +16,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class CreateCommunityController {
 
+    //services
     final CommunityService communityService;
     final DiscussionService discussionService;
     final CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
     final CommunityTabCOAssembler communityTabCOAssembler;
 
-    public CreateCommunityController(CommunityService communityService, DiscussionService discussionService, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityTabCOAssembler communityTabCOAssembler) {
+    //converters
+    final ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO;
+    final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
+
+    public CreateCommunityController(CommunityService communityService, DiscussionService discussionService, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityTabCOAssembler communityTabCOAssembler, ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO) {
         this.communityService = communityService;
         this.discussionService = discussionService;
         this.communityDO_to_communityTabComponentCO = communityDO_to_communityTabComponentCO;
         this.communityTabCOAssembler = communityTabCOAssembler;
+        this.articleDO_to_articleComponentCO = articleDO_to_articleComponentCO;
+        this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
     }
-
 
     /**
      * creates a community
@@ -45,21 +55,25 @@ public class CreateCommunityController {
     )
     @ResponseBody
     public ResponseEntity<?> createCommunity(@RequestBody CommunityDO communityDO){
-//		UserDomainObject found_user = user_repository.findById(createdByUserID).orElseThrow(IllegalStateException::new);
+
+        //check if community name already exists
         if (communityService.findDOByName(communityDO.getName())!=null){
             throw new RuntimeException("Community Name already in use");
         }
 
         //create new discussion for this community
-        DiscussionDO discussionDO = new DiscussionDO();
-        discussionDO=discussionService.save(discussionDO);
+        DiscussionDO discussionDO=discussionService.save(new DiscussionDO());
 
         //add discussion id to community
         communityDO.setDiscussionID(discussionDO.getId());
 
+        //save community
         communityDO = communityService.save(communityDO);
 
+        //get tab version of community
         CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(communityDO);
+
+        //convert co to model
         EntityModel<CommunityTabComponentCO> entityModel = communityTabCOAssembler.toModel(communityTabComponentCO);
 
         //now convert DO to CO

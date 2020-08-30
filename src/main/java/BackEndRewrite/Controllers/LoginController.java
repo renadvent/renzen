@@ -5,9 +5,10 @@ import BackEndRewrite.Services.UserServiceImpl;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
-
+@RestController
 public class LoginController {
 
     final UserServiceImpl userService;
@@ -25,7 +26,9 @@ public class LoginController {
      */
     @RequestMapping(path="/login")
     @ResponseBody
-    public Optional<ProfileTabComponentCO> Login(@RequestBody SitePayloads.UserNamePassword payload){
-        return userService.findProfileTabComponentCOByNameAndPassword(payload.username, payload.password);
+    public ProfileTabComponentCO Login(@RequestBody SitePayloads.UserNamePassword payload){
+
+        return null;
+        //return userService.findProfileTabComponentCOByNameAndPassword(payload.username, payload.password);
     }
 }

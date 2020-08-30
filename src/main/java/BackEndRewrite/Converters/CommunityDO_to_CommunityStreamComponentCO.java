@@ -1,9 +1,10 @@
 package BackEndRewrite.Converters;
 
 import BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
-import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.CommunityDO;
-import BackEndRewrite.DomainObjects.ProfileDO;
+import BackEndRewrite.Services.Interfaces.ArticleService;
+import BackEndRewrite.Services.Interfaces.CommunityService;
+import BackEndRewrite.Services.Interfaces.UserService;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CommunityDO_to_CommunityStreamComponentCO implements Converter<CommunityDO, CommunityStreamComponentCO> {
@@ -24,12 +26,19 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
     final ArticleDO_to_ArticleStreamComponentCO testConverter;
     final ProfileDO_to_ProfileStreamComponentCO ProfileConverter;
 
+    final UserService userService;
+    final ArticleService articleService;
+    final CommunityService communityService;
+
     @Autowired
-    public CommunityDO_to_CommunityStreamComponentCO(ArticleDO_to_ArticleStreamComponentCO testConverter, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
+    public CommunityDO_to_CommunityStreamComponentCO(ArticleDO_to_ArticleStreamComponentCO testConverter, ProfileDO_to_ProfileStreamComponentCO profileConverter, UserService userService, ArticleService articleService, CommunityService communityService) {
 //        this.articleRepository = articleRepository;
 //        this.userRepository = userRepository;
         this.testConverter = testConverter;
         ProfileConverter = profileConverter;
+        this.userService = userService;
+        this.articleService = articleService;
+        this.communityService = communityService;
     }
 
     /**
@@ -50,6 +59,16 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
 
     @Synchronized
     @Nullable
+    public List<CommunityStreamComponentCO> convert(List<String> sourceList){
+
+        return sourceList.stream().map(e->{
+            return convert(communityService.findCommunityDOById(e));
+        }).collect(Collectors.toList());
+
+    }
+
+    @Synchronized
+    @Nullable
     @Override
     public CommunityStreamComponentCO convert(CommunityDO source) {
 
@@ -58,16 +77,12 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         co.setId(source.getId());
         co.setName(source.getName());
 
-        //ProfileDO_to_ProfileStreamComponentCO ProfileConverter = new ProfileDO_to_ProfileStreamComponentCO(discussionRepository);
-        for (ProfileDO profile : source.getProfileDOList()) {
-            co.getProfileStreamComponentCOList().add(ProfileConverter.convert(profile));
+        for (String profile : source.getProfileDOList()) {
+            co.getProfileStreamComponentCOList().add(ProfileConverter.convert(userService.findProfileDOById(profile)));
         }
 
-        //not sure why this is necessary...
-        //ArticleDO_to_ArticleStreamComponentCO ArticleConverter = new ArticleDO_to_ArticleStreamComponentCO(userRepository);
-        for (ArticleDO articleDO : source.getArticleDOList()) {
-            //co.getArticleStreamComponentCOList().add(ArticleConverter.convert(articleDO));
-            co.getArticleStreamComponentCOList().add(testConverter.convert(articleDO));
+        for (String articleDO : source.getArticleDOList()) {
+            co.getArticleStreamComponentCOList().add(testConverter.convert(articleService.findArticleDOByID(articleDO)));
         }
 
         return co;

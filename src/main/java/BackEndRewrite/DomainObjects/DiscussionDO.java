@@ -14,7 +14,7 @@ import java.util.List;
  * DO for discussion
  */
 @Getter@Setter
-@Document(collection = "Disucssions")
+@Document(collection = "Discussions")
 @NoArgsConstructor
 public class DiscussionDO {
 

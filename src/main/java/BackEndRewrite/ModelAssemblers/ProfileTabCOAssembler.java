@@ -4,7 +4,9 @@ import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProfileTabCOAssembler implements RepresentationModelAssembler<ProfileTabComponentCO, EntityModel<ProfileTabComponentCO>> {
     @Override
     public EntityModel<ProfileTabComponentCO> toModel(ProfileTabComponentCO entity) {

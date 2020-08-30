@@ -1,6 +1,8 @@
 package BackEndRewrite.Controllers;
 
 import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
+import BackEndRewrite.Converters.ArticleDO_to_ArticleComponentCO;
+import BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
@@ -22,41 +24,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//TODO move logic to ArticleService
-
+/**
+ * creates article
+ */
 @RestController
 public class CreateArticleController {
 
+    //services
     final UserService userService;
     final ArticleService articleService;
     final DiscussionService discussionService;
     final CommunityService communityService;
 
-    //test
-    final ArticleComponentCOAssembler assembler;
+    //converters
+    final ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO;
+    final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
 
-    public CreateArticleController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleComponentCOAssembler assembler) {
+    //assemblers
+    final ArticleComponentCOAssembler articleComponentCOAssembler;
+
+    public CreateArticleController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleComponentCOAssembler articleComponentCOAssembler, ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
         this.communityService = communityService;
-        this.assembler = assembler;
+        this.articleComponentCOAssembler = articleComponentCOAssembler;
+        this.articleDO_to_articleComponentCO = articleDO_to_articleComponentCO;
+        this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
     }
 
-
-    //uselessly used in test assembler
-    public Class<?> doNothing() {
-        return null;
-    }
-
-    //TODO move most of this to service...?
     @PostMapping(path = "/articles/createArticle")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
 
         //check if provided ids exist
         ProfileDO profileDO = userService.findProfileDOById(payload.authorID);
         CommunityDO communityDO = communityService.findCommunityDOById(payload.communityID);
-
 
         //save ArticleDO to get an ID from mongodb for it
         ArticleDO savedArticleDO = articleService.save(new ArticleDO(payload.getName(), payload.getDescription(),
@@ -68,15 +70,15 @@ public class CreateArticleController {
         //add article to community
         communityDO.getArticleDOList().add(savedArticleDO.getId());
 
-        /**
-         * finds CO component by id of the DO
-         * assembles it to have the additional links in the assembler
-         * responds that the article was created, and returns the ArticleComponentCO // can return something else
-         */
-        ArticleComponentCO articleDOOptional = articleService.findArticleComponentCOByID(savedArticleDO.getId());
+        //gets ComponentCO version of article
+        ArticleComponentCO articleDO =
+                articleDO_to_articleComponentCO.convert(
+                articleService.findArticleDOByID(savedArticleDO.getId()));
 
-        EntityModel<ArticleComponentCO> entityModel = assembler.toModel(articleDOOptional);
+        //creates a model with rest links
+        EntityModel<ArticleComponentCO> entityModel = articleComponentCOAssembler.toModel(articleDO);
 
+        //responds that it was created successfully
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -92,8 +94,11 @@ public class CreateArticleController {
         String communityID;
 
         List<ArticleSectionDO> articleSectionDOList;
+    }
 
-        //TODO add receptor for article sections
+    //uselessly used in test assembler
+    public Class<?> doNothing() {
+        return null;
     }
 
 }

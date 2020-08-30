@@ -53,12 +53,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleComponentCO findArticleComponentCOByID(String Id) {
-        return null;
-    }
-
-
-    @Override
     public void save() {
 
     }

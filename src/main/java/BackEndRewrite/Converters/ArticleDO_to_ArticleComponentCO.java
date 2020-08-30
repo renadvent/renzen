@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Converts ArticleDO to ArticleComponentCO
@@ -42,6 +43,18 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
 //        }
 //        return articleComponentCOList;
 //    }
+//articleComponentCOList
+    public List<ArticleComponentCO> convert(List<String> articleDOIds){
+
+        ArrayList<ArticleComponentCO> articleComponentCOList = new ArrayList<>();
+
+        articleRepo.findAllById(articleDOIds).forEach(e->{
+            articleComponentCOList.add(convert(e));
+        });
+
+        return articleComponentCOList;
+
+    }
 
     @Synchronized@Nullable@Override
     public ArticleComponentCO convert(ArticleDO source){

@@ -17,13 +17,10 @@ public interface UserService {
     ProfileDO findProfileDOById(String id);
     ProfileDO findProfileDOByName(String profileName);
 
-    ProfileStreamComponentCO findProfileStreamComponentCOById(String id);
-    ProfileTabComponentCO findProfileTabComponentCOById(String id);
-
     boolean checkIfUsernameTaken(String name);
-    ProfileTabComponentCO findProfileTabComponentCOByNameAndPassword(String name,String password);
+    ProfileDO findProfileDOByNameAndPassword(String name,String password);
 
-    ProfileTabComponentCO saveAndReturnProfileTabComponentCO(ProfileDO profileDO);
+    ProfileDO saveAndReturnProfileDO(ProfileDO profileDO);
 
 
 }

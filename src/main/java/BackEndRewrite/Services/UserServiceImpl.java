@@ -1,15 +1,10 @@
 package BackEndRewrite.Services;
 
-import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
-import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
-import BackEndRewrite.Converters.ProfileDO_to_ProfileTabComponentCO;
 import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -20,13 +15,11 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
-    final ProfileDO_to_ProfileTabComponentCO profileTabConverter;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, ProfileDO_to_ProfileTabComponentCO profileTabConverter) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.profileTabConverter = profileTabConverter;
     }
+
 
     @Override
     public ProfileDO save(ProfileDO profileDO) {
@@ -38,6 +31,15 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public ProfileDO findProfileDOById(String id) {
+        return null;
+    }
+
+    @Override
+    public ProfileDO findProfileDOByName(String profileName) {
+        return null;
+    }
 
     /**
      * used by register controller
@@ -57,29 +59,21 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public ProfileDO findProfileDOByNameAndPassword(String name, String password) {
+        return null;
+    }
+
+    @Override
+    public ProfileDO saveAndReturnProfileDO(ProfileDO profileDO) {
+        return null;
+    }
+
     /**
      * used by login controller
      * @param name
      * @param password
      * @return
      */
-    @Override
-    public ProfileTabComponentCO findProfileTabComponentCOByNameAndPassword(String name, String password) {
 
-        ProfileDO profile = userRepository.findByUsername(name);
-        if (profile!=null){
-            if (password.equals(profile.getPassword())){
-                return (profileTabConverter.convert(profile));
-            }
-        }else{
-            throw new RuntimeException("Profile not found");
-        }
-
-    }
-
-    @Override
-    public ProfileTabComponentCO saveAndReturnProfileTabComponentCO(ProfileDO profileDO) {
-        return(profileTabConverter.convert(userRepository.save(profileDO)));
-        //return null;
-    }
 }

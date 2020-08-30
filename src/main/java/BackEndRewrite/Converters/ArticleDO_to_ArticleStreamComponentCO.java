@@ -1,8 +1,8 @@
 package BackEndRewrite.Converters;
 
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
-import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
+import BackEndRewrite.Repositories.ArticleRepository;
 import BackEndRewrite.Repositories.UserRepository;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleDO, ArticleStreamComponentCO> {
 
     final UserRepository repo;
+    final ArticleRepository articleRepository;
 
     final ProfileDO_to_ProfileStreamComponentCO profileConverter;
 
     @Autowired
-    public ArticleDO_to_ArticleStreamComponentCO(UserRepository repo, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
+    public ArticleDO_to_ArticleStreamComponentCO(UserRepository repo, ArticleRepository articleRepository, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
         this.repo = repo;
+        this.articleRepository = articleRepository;
         this.profileConverter = profileConverter;
     }
 
@@ -36,6 +40,12 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         return articleComponentCOList;
     }
 
+    public List<ArticleStreamComponentCO> convert(List<String> source){
+
+        return StreamSupport.stream(articleRepository.findAllById(source).spliterator(), false)
+                .map(this::convert).collect(Collectors.toList());
+
+    }
 
     @Synchronized
     @Nullable

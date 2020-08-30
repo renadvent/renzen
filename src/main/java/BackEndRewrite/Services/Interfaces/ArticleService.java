@@ -9,8 +9,6 @@ import java.util.Set;
 
 public interface ArticleService {
 
-
-
     ArticleDO save(ArticleDO articleDO);
 
     ArticleDO getArticleDOList();
@@ -18,9 +16,6 @@ public interface ArticleService {
     Set<ArticleDO> findArticleDOsByCommunityID(String communityId);
 
     ArticleDO findArticleDOByID(String Id);
-
-    ArticleComponentCO findArticleComponentCOByID(String Id);
-
     //---------------------
 
     void save();

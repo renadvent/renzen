@@ -4,13 +4,11 @@ import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
 import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Services.UserServiceImpl;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Component
 @CrossOrigin("*")
+@RestController
 public class RegisterController {
 
     final UserServiceImpl userService;
@@ -32,7 +30,9 @@ public class RegisterController {
     public ProfileTabComponentCO Register(@RequestBody SitePayloads.UserNamePassword payload){
         userService.checkIfUsernameTaken(payload.username);
         ProfileDO user = new ProfileDO(payload.username,payload.password);
-        return userService.saveAndReturnProfileTabComponentCO(user);
+
+        return null;
+        //return userService.saveAndReturnProfileTabComponentCO(user);
     }
 
 }
