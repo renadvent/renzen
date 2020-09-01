@@ -15,7 +15,7 @@ import java.util.List;
 public class DiscussionComponentCO extends RepresentationModel<DiscussionComponentCO> {
 
     //List<String> discussionContentIDList;
-    ObjectId id;
+    String _id;
     List<DiscussionSectionCO> discussionSectionCOList;
 
 }

@@ -14,7 +14,8 @@ import java.util.List;
 public class DiscussionSectionCO {
     ObjectId author;
     String content;
-    ObjectId id;
+
+    String _id;
 
     Integer replyCount;
     //List<String> replyCOIDList;

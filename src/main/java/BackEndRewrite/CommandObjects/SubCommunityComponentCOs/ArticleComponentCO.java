@@ -20,7 +20,7 @@ public class ArticleComponentCO extends RepresentationModel<ArticleComponentCO> 
 
     String name;
     String description;
-    ObjectId id;
+    String _id;
 
     ObjectId userID;
     ProfileStreamComponentCO user_streamComponentCO;

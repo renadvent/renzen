@@ -18,6 +18,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class HomeTabComponentCO extends RepresentationModel<HomeTabComponentCO> {
+
+    String _id;
+
     List<ArticleStreamComponentCO> article_Article_streamComponentCOList;
     List<ProfileStreamComponentCO> user_streamComponentCOList;
     List<CommunityStreamComponentCO> community_streamComponentCOList;

@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CommunityStreamComponentCO extends RepresentationModel<CommunityStreamComponentCO> {
 
-    ObjectId id;
+    String _id;
     String name;
     List<ProfileStreamComponentCO> profileStreamComponentCOList;
     List<ArticleStreamComponentCO> articleStreamComponentCOList;

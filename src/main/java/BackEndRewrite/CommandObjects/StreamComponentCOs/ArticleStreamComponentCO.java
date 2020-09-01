@@ -22,7 +22,7 @@ import org.springframework.hateoas.RepresentationModel;
 public class ArticleStreamComponentCO extends RepresentationModel<ArticleStreamComponentCO> {
 
     @Id
-    ObjectId Id;
+    String _id;
 
     String name;
     String description;

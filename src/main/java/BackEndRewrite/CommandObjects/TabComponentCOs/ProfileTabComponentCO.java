@@ -15,6 +15,8 @@ import java.util.List;
 public class ProfileTabComponentCO extends RepresentationModel<ProfileTabComponentCO> {
     String username;
 
+    String _id;
+
     Integer numberOfArticles;
     Integer numberOfCommunities;
     Integer numberOfDiscussionContentPosts;

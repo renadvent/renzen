@@ -37,6 +37,8 @@ public class CommunityDO_to_CommunityTabComponentCO implements Converter<Communi
 
         CommunityTabComponentCO co = new CommunityTabComponentCO();
 
+        co.set_id(source.get_id().toHexString());
+
         co.setArticle_Article_streamComponentCOList(articleDO_to_articleStreamComponentCO.convert(source.getArticleDOList()));
         co.setNumberOfArticles(source.getArticleDOList().size());
 

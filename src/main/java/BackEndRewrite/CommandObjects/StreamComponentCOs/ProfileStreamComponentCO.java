@@ -14,7 +14,7 @@ import java.util.List;
 public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamComponentCO> {
 
     @Id
-    ObjectId Id;
+    String _id;
 
     String username;
 

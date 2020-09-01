@@ -20,6 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 public class CommunityTabComponentCO extends RepresentationModel<CommunityTabComponentCO> {
 
+    String _id;
+
     /**
      * This List is used by the React Application to render the
      * names of the articles and to provide links to those articles

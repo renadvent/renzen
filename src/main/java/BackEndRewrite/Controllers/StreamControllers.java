@@ -19,6 +19,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,8 +56,17 @@ public class StreamControllers {
 
     @RequestMapping(path="/getProfiles")
     @ResponseBody
-    public Iterable<ProfileDO> getAllProfiles(){
-        return userService.findAll();
+    //public Iterable<ProfileDO> getAllProfiles(){
+    public List<ProfileStreamComponentCO>  getAllProfiles(){
+        List<ProfileStreamComponentCO> returnList = new ArrayList<>();
+
+        for (ProfileDO profileDO : userService.findAll()){
+            returnList.add(profileDO_to_profileStreamComponentCO.convert(profileDO));
+        }
+        
+        return returnList;
+
+        //return userService.findAll().forEach(profileDO_to_profileStreamComponentCO::convert);
     }
 
     @CrossOrigin("*")

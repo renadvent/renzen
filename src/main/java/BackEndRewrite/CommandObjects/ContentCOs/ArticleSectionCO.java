@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
 @Getter@Setter
 @NoArgsConstructor
 public class ArticleSectionCO {
-    ObjectId id;
+    String _id;
     String heading;
     String content;
     ObjectId author;
