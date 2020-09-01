@@ -4,6 +4,10 @@ import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +22,16 @@ public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    private final MongoTemplate mongoTemplate;
+    final MongoOperations mongoOperations;
+
+    public UserServiceImpl(UserRepository userRepository, MongoTemplate mongoTemplate, MongoOperations mongoOperations) {
         this.userRepository = userRepository;
+        this.mongoTemplate = mongoTemplate;
+        this.mongoOperations = mongoOperations;
     }
+    //final MongoClients mongoClients;
+
 
     @Override
     public ProfileDO save(ProfileDO profileDO) {
@@ -35,15 +46,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public ProfileDO findProfileDOById(ObjectId id) {
 
-        Optional<ProfileDO> profileDOOptional = userRepository.findById(id);
+        //Optional<ProfileDO> profileDOOptional = userRepository.findById(id);
 
         //Optional<ProfileDO> p = userRepository.findById(id);
 
-        if (profileDOOptional.isEmpty()){
-            throw new ResourceNotFoundException("id not found");
-        }else {
-            return profileDOOptional.get();
-        }
+        //MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "Profiles");
+        //Query query = new Query(Criteria.where("Id").is(id.toString()));
+        //ProfileDO profileDOtest = mongoTemplate.findOne(query, ProfileDO.class);
+
+//        System.out.println(mongoOperations.findOne(query, ProfileDO.class));
+//
+//        System.out.println(mongoOperations.findById(query, ProfileDO.class,"Profiles"));
+
+        return userRepository.findBy_id(id);
+        //return mongoOperations.findById(query, ProfileDO.class,"Profiles");
+
+        //MongoCollection<Document> coll = mongoClients.create().getDatabase("renzen").getCollection("Profiles");
+
+        //return mongoOperations.findOne(query, ProfileDO.class);
+
+        //return profileDOtest;
+
+//        if (profileDOOptional.isEmpty()){
+//            throw new ResourceNotFoundException("id not found");
+//        }else {
+//            return profileDOOptional.get();
+//        }
     }
 
     @Override

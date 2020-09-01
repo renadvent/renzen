@@ -19,7 +19,7 @@ import javax.persistence.Entity;
 public class BaseSection {
 
     @Id
-    ObjectId Id;
+    ObjectId _id;
     String content;
     ObjectId author;
     Integer upvotes;

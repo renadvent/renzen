@@ -65,7 +65,7 @@ public class CreateCommunityController {
         DiscussionDO discussionDO=discussionService.save(new DiscussionDO());
 
         //add discussion id to community
-        communityDO.setDiscussionID(discussionDO.getId());
+        communityDO.setDiscussionID(discussionDO.get_id());
 
         //save community
         communityDO = communityService.save(communityDO);

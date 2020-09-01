@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DiscussionDO {
 
-    @org.springframework.data.annotation.Id
-    ObjectId Id;
+    @Id
+    ObjectId _id;
     List<DiscussionSectionDO> discussionSectionDOList = new ArrayList<>();
 }

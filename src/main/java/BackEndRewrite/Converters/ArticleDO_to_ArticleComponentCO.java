@@ -64,7 +64,7 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
 
         co.setName(source.getName());
         co.setDescription(source.getDescription());
-        co.setId(source.getId());
+        co.setId(source.get_id());
 
         co.setUserID(source.getUserID());
         //converts profile DO to CO

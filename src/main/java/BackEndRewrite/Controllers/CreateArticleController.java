@@ -77,15 +77,15 @@ public class CreateArticleController {
                 payload.getAuthorID(), payload.getCommunityID(), payload.getArticleSectionDOList()));
 
         //add article to user
-        profileDO.getArticleIDList().add(savedArticleDO.getId());
+        profileDO.getArticleIDList().add(savedArticleDO.get_id());
 
         //add article to community
-        communityDO.getArticleDOList().add(savedArticleDO.getId());
+        communityDO.getArticleDOList().add(savedArticleDO.get_id());
 
         //gets ComponentCO version of article
         ArticleComponentCO articleDO =
                 articleDO_to_articleComponentCO.convert(
-                articleService.findArticleDOByID(savedArticleDO.getId()));
+                articleService.findArticleDOByID(savedArticleDO.get_id()));
 
         //creates a model with rest links
         EntityModel<ArticleComponentCO> entityModel = articleComponentCOAssembler.toModel(articleDO);

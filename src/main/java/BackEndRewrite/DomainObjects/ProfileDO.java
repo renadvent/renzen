@@ -19,8 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ProfileDO {
 
-    @org.springframework.data.annotation.Id
-    ObjectId Id;
+    @MongoId
+    ObjectId _id;
 
     String username;
     String password;

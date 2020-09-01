@@ -19,8 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class CommunityDO{
 
-    @org.springframework.data.annotation.Id
-    ObjectId Id;
+    @Id
+    ObjectId _id;
     String name;
     ObjectId creatorID;
     List<ObjectId> profileDOList= new ArrayList<>();

@@ -34,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         DiscussionDO discussionDO = new DiscussionDO();
         discussionService.save(discussionDO);
-        articleDO.setDiscussionID(discussionDO.getId());
+        articleDO.setDiscussionID(discussionDO.get_id());
         return articleRepository.save(articleDO);
 
     }

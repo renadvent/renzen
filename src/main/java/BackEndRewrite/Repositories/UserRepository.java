@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<ProfileDO, ObjectId> {
     Optional<ProfileDO> findByUsername(String username);
+    Optional<ProfileDO> findById(ObjectId objectId);
+    ProfileDO findBy_id(ObjectId _id);
 }

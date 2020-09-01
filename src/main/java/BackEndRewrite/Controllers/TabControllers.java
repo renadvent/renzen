@@ -80,7 +80,7 @@ public class TabControllers {
      */
     @RequestMapping(path="/communities/communityTabComponent/{id}")
     @ResponseBody
-    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable ObjectId id){
+    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
 
         //get command object
         CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(communityService.findCommunityDOById(id));

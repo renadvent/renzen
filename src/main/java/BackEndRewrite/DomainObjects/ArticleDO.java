@@ -23,8 +23,8 @@ import java.util.List;
 public class ArticleDO {
 
 
-    @org.springframework.data.annotation.Id
-    ObjectId Id;
+    @Id
+    ObjectId _id;
 
     String name;
     String description;
