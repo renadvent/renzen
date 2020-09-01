@@ -56,15 +56,20 @@ public class CreateArticleController {
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
     }
 
-    @PostMapping(path = "/articles/createArticle",
+    @PostMapping(path = "/createArticle",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
 
+        System.out.println("---------------ENTER CREATING ARTICLE");
+
         //check if provided ids exist
         ProfileDO profileDO = userService.findProfileDOById(payload.authorID);
+        System.out.println("---------------FOUND AUTHOR");
+
         CommunityDO communityDO = communityService.findCommunityDOById(payload.communityID);
+        System.out.println("---------------FOUND COMMUNITY");
 
         //save ArticleDO to get an ID from mongodb for it
         ArticleDO savedArticleDO = articleService.save(new ArticleDO(payload.getName(), payload.getDescription(),
@@ -100,6 +105,15 @@ public class CreateArticleController {
         String communityID;
 
         List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
+
+        public CreateArticlePayload(String name,String description,String authorID,String communityID
+                ){
+            this.name=name;
+            this.description=description;
+            this.authorID=authorID;
+            this.communityID=communityID;
+
+        }
 
         public CreateArticlePayload(String name,String description,String authorID,String communityID
         ,List<ArticleSectionDO> articleSectionDOList){
