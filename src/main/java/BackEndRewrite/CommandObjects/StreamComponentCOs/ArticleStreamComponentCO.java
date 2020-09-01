@@ -3,6 +3,7 @@ package BackEndRewrite.CommandObjects.StreamComponentCOs;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -21,12 +22,12 @@ import org.springframework.hateoas.RepresentationModel;
 public class ArticleStreamComponentCO extends RepresentationModel<ArticleStreamComponentCO> {
 
     @Id
-    String Id;
+    ObjectId Id;
 
     String name;
     String description;
-    String id;
 
-    String userID;
+
+    ObjectId userID;
     ProfileStreamComponentCO userIndexPageCO;
 }

@@ -3,6 +3,7 @@ package BackEndRewrite.DomainObjects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -19,17 +20,17 @@ import java.util.List;
 public class CommunityDO{
 
     @org.springframework.data.annotation.Id
-    String Id;
+    ObjectId Id;
     String name;
-    String creatorID;
-    List<String> profileDOList= new ArrayList<>();
-    List<String> articleDOList= new ArrayList<>();
-    String discussionID;
+    ObjectId creatorID;
+    List<ObjectId> profileDOList= new ArrayList<>();
+    List<ObjectId> articleDOList= new ArrayList<>();
+    ObjectId discussionID;
 
     /**
      * Used by /createCommunity to create a new Community
      */
-    public CommunityDO(String name,String creatorID){
+    public CommunityDO(String name,ObjectId creatorID){
         this.name=name;
         this.creatorID=creatorID;
     }

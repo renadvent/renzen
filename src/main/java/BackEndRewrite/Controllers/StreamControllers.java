@@ -12,6 +12,7 @@ import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.UserService;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,7 +57,7 @@ public class StreamControllers {
      */
     @RequestMapping(path="/profiles/profileStreamComponentCO/{id}")
     @ResponseBody
-    public ProfileStreamComponentCO  getProfileStreamComponentCO(@PathVariable String id){
+    public ProfileStreamComponentCO  getProfileStreamComponentCO(@PathVariable ObjectId id){
         return userRepository.findById(id)
                 .map(profileDO_to_profileStreamComponentCO::convert)
                         .orElse(null);
@@ -69,7 +70,7 @@ public class StreamControllers {
      */
     @RequestMapping(path="/articles/articleStreamComponentCO/{id}")
     @ResponseBody
-    public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable String id){
+    public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
         return articleRepository.findById(id)
                 .map(articleDO_to_articleStreamComponentCO::convert)
                 .orElse(null);
@@ -82,7 +83,7 @@ public class StreamControllers {
      */
     @RequestMapping(path="/communities/communityStreamComponentCO/{id}")
     @ResponseBody
-    public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable String id){
+    public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id){
         return communityRepository.findById(id)
                 .map(communityDO_to_communityStreamComponentCO::convert)
                 .orElse(null);

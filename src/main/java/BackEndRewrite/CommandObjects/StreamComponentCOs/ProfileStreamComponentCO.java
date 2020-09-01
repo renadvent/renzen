@@ -3,6 +3,7 @@ package BackEndRewrite.CommandObjects.StreamComponentCOs;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamComponentCO> {
 
     @Id
-    String Id;
+    ObjectId Id;
 
     String username;
 
@@ -21,8 +22,8 @@ public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamC
     Integer numberOfCommunities;
     //Integer numberOfDiscussionContentPosts;
 
-    List<String> articleIDList;
-    List<String> communityIDList;
+    List<ObjectId> articleIDList;
+    List<ObjectId> communityIDList;
 
     //this may be broken... because content don't have their own repo anymore
     //List<String> discussionContentIDList;

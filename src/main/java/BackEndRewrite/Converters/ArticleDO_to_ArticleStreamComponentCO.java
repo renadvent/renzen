@@ -5,6 +5,7 @@ import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.Repositories.ArticleRepository;
 import BackEndRewrite.Repositories.UserRepository;
 import lombok.Synchronized;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
@@ -40,7 +41,7 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         return articleComponentCOList;
     }
 
-    public List<ArticleStreamComponentCO> convert(List<String> source){
+    public List<ArticleStreamComponentCO> convert(List<ObjectId> source){
 
         return StreamSupport.stream(articleRepository.findAllById(source).spliterator(), false)
                 .map(this::convert).collect(Collectors.toList());

@@ -15,6 +15,7 @@ import BackEndRewrite.Services.Interfaces.UserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.MediaType;
@@ -101,12 +102,12 @@ public class CreateArticleController {
     public static class CreateArticlePayload {
         String name;
         String description;
-        String authorID;
-        String communityID;
+        ObjectId authorID;
+        ObjectId communityID;
 
         List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
 
-        public CreateArticlePayload(String name,String description,String authorID,String communityID
+        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID
                 ){
             this.name=name;
             this.description=description;
@@ -115,7 +116,7 @@ public class CreateArticleController {
 
         }
 
-        public CreateArticlePayload(String name,String description,String authorID,String communityID
+        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID
         ,List<ArticleSectionDO> articleSectionDOList){
             this.name=name;
             this.description=description;

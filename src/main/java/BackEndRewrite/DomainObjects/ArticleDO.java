@@ -4,6 +4,7 @@ import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,20 +24,20 @@ public class ArticleDO {
 
 
     @org.springframework.data.annotation.Id
-    String Id;
+    ObjectId Id;
 
     String name;
     String description;
 
-    String userID;
-    String communityID;
-    String discussionID;
+    ObjectId userID;
+    ObjectId communityID;
+    ObjectId discussionID;
 
     List<ArticleSectionDO> articleSectionDOList = new ArrayList<>();
     //List<String> articleSectionDOIDList;
 
 
-    public ArticleDO(String name, String description, String authorID, String communityID,
+    public ArticleDO(String name, String description, ObjectId authorID, ObjectId communityID,
                      List<ArticleSectionDO> articleSectionDOList){
         this.name=name;
         this.description=description;

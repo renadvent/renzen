@@ -5,6 +5,7 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponent
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
@@ -18,9 +19,9 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
     Integer numberOfCommunities;
     Integer numberOfDiscussionContentPosts;
 
-    List<String> articleIDList;
-    List<String> communityIDList;
-    List<String> discussionContentIDList;
+    List<ObjectId> articleIDList;
+    List<ObjectId> communityIDList;
+    List<ObjectId> discussionContentIDList;
 
     List<ArticleStreamComponentCO> articleHomePageCOList;
     List<CommunityStreamComponentCO> communityIndexPageCOList;

@@ -3,6 +3,7 @@ package BackEndRewrite.CommandObjects.ContentCOs;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 
 /**
  * This CO is used to return a section of an article
@@ -10,10 +11,10 @@ import lombok.Setter;
 @Getter@Setter
 @NoArgsConstructor
 public class ArticleSectionCO {
-    String id;
+    ObjectId id;
     String heading;
     String content;
-    String author;
+    ObjectId author;
     Integer upvotes;
     Integer downvotes;
 }

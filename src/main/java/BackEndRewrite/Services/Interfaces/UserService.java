@@ -1,6 +1,7 @@
 package BackEndRewrite.Services.Interfaces;
 
 import BackEndRewrite.DomainObjects.ProfileDO;
+import org.bson.types.ObjectId;
 
 public interface UserService {
 
@@ -8,7 +9,7 @@ public interface UserService {
 
     Iterable<ProfileDO> getProfileDOList();
 
-    ProfileDO findProfileDOById(String id);
+    ProfileDO findProfileDOById(ObjectId id);
     ProfileDO findProfileDOByName(String profileName);
 
     boolean checkIfUsernameTaken(String name);

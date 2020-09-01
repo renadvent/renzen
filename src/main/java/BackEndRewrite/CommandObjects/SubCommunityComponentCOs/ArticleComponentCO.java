@@ -5,6 +5,7 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
@@ -19,12 +20,12 @@ public class ArticleComponentCO extends RepresentationModel<ArticleComponentCO> 
 
     String name;
     String description;
-    String id;
+    ObjectId id;
 
-    String userID;
+    ObjectId userID;
     ProfileStreamComponentCO user_streamComponentCO;
 
-    String discussionID;
+    ObjectId discussionID;
     //DiscussionInfoCO discussionInfoCO;
 
     //List<String> articleContentIDList;

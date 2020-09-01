@@ -6,6 +6,7 @@ import BackEndRewrite.DomainObjects.Subsections.DiscussionSectionDO;
 import BackEndRewrite.Repositories.DiscussionRepository;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
+import org.bson.types.ObjectId;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class DiscussionDO_to_DiscussionComponentCO implements Converter<Discussi
      */
     @Synchronized
     @Nullable
-    public DiscussionComponentCO convert(String discussionID){
+    public DiscussionComponentCO convert(ObjectId discussionID){
         return discussionRepository.findById(discussionID)
                 .map(discussionDO -> convert(discussionDO))
                 .orElse(null);

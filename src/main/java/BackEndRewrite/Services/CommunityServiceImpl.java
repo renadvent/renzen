@@ -3,6 +3,7 @@ package BackEndRewrite.Services;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.Repositories.CommunityRepository;
 import BackEndRewrite.Services.Interfaces.CommunityService;
+import org.bson.types.ObjectId;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityDO findCommunityDOById(String id) {
+    public CommunityDO findCommunityDOById(ObjectId id) {
 
         Optional<CommunityDO> communityDOOptional = communityRepository.findById(id);
 

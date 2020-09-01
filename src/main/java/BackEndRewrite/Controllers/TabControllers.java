@@ -9,6 +9,7 @@ import BackEndRewrite.ModelAssemblers.ProfileTabCOAssembler;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.UserService;
+import org.bson.types.ObjectId;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,7 +61,7 @@ public class TabControllers {
      * @return
      */
     @RequestMapping(path="/profiles/profileTabComponentCO/{id}")
-    public ResponseEntity<?> getProfileTabComponentCO(@PathVariable String id){
+    public ResponseEntity<?> getProfileTabComponentCO(@PathVariable ObjectId id){
 
         //get Command Object
         ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(userService.findProfileDOById(id));
@@ -79,7 +80,7 @@ public class TabControllers {
      */
     @RequestMapping(path="/communities/communityTabComponent/{id}")
     @ResponseBody
-    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable String id){
+    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable ObjectId id){
 
         //get command object
         CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(communityService.findCommunityDOById(id));

@@ -7,6 +7,7 @@ import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.UserService;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -59,7 +60,7 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
 
     @Synchronized
     @Nullable
-    public List<CommunityStreamComponentCO> convert(List<String> sourceList){
+    public List<CommunityStreamComponentCO> convert(List<ObjectId> sourceList){
 
         return sourceList.stream().map(e->{
             return convert(communityService.findCommunityDOById(e));
@@ -77,11 +78,11 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         co.setId(source.getId());
         co.setName(source.getName());
 
-        for (String profile : source.getProfileDOList()) {
+        for (ObjectId profile : source.getProfileDOList()) {
             co.getProfileStreamComponentCOList().add(ProfileConverter.convert(userService.findProfileDOById(profile)));
         }
 
-        for (String articleDO : source.getArticleDOList()) {
+        for (ObjectId articleDO : source.getArticleDOList()) {
             co.getArticleStreamComponentCOList().add(testConverter.convert(articleService.findArticleDOByID(articleDO)));
         }
 

@@ -3,6 +3,7 @@ package BackEndRewrite.Services;
 import BackEndRewrite.DomainObjects.DiscussionDO;
 import BackEndRewrite.Repositories.DiscussionRepository;
 import BackEndRewrite.Services.Interfaces.DiscussionService;
+import org.bson.types.ObjectId;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class DiscussionServiceImpl implements DiscussionService {
     }
 
     @Override
-    public DiscussionDO findById(String id) {
+    public DiscussionDO findById(ObjectId id) {
 
         Optional<DiscussionDO> discussionDO = discussionRepository.findById(id);
 

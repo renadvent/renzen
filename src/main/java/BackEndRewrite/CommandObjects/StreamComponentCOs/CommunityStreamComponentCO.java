@@ -6,6 +6,7 @@ import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CommunityStreamComponentCO extends RepresentationModel<CommunityStreamComponentCO> {
 
-    String id;
+    ObjectId id;
     String name;
     List<ProfileStreamComponentCO> profileStreamComponentCOList;
     List<ArticleStreamComponentCO> articleStreamComponentCOList;

@@ -5,6 +5,7 @@ import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Services.Interfaces.UserService;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
+import org.bson.types.ObjectId;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,7 @@ public class ProfileDO_to_ProfileStreamComponentCO implements Converter<ProfileD
 
     @Synchronized
     @Nullable
-    public List<ProfileStreamComponentCO> convert(List<String> sourceList){
+    public List<ProfileStreamComponentCO> convert(List<ObjectId> sourceList){
 
         return sourceList.stream().map(e->{
             return convert(userService.findProfileDOById(e));

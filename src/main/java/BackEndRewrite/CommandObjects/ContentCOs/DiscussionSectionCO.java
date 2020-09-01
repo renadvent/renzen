@@ -4,6 +4,7 @@ import BackEndRewrite.DomainObjects.Subsections.DiscussionSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class DiscussionSectionCO {
-    String author;
+    ObjectId author;
     String content;
-    String id;
+    ObjectId id;
 
     Integer replyCount;
     //List<String> replyCOIDList;

@@ -1,6 +1,7 @@
 package BackEndRewrite.Services.Interfaces;
 
 import BackEndRewrite.DomainObjects.ArticleDO;
+import org.bson.types.ObjectId;
 
 public interface ArticleService {
 
@@ -8,9 +9,9 @@ public interface ArticleService {
 
     Iterable<ArticleDO> getArticleDOList();
 
-    Iterable<ArticleDO> findArticleDOsByCommunityID(String communityId);
+    Iterable<ArticleDO> findArticleDOsByCommunityID(String ObjectId);
 
-    ArticleDO findArticleDOByID(String Id);
+    ArticleDO findArticleDOByID(ObjectId Id);
     //---------------------
 
     void delete(ArticleDO articleDO);

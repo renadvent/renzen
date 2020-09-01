@@ -4,6 +4,7 @@ import BackEndRewrite.CommandObjects.ContentCOs.DiscussionSectionCO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class DiscussionComponentCO extends RepresentationModel<DiscussionComponentCO> {
 
     //List<String> discussionContentIDList;
-    String id;
+    ObjectId id;
     List<DiscussionSectionCO> discussionSectionCOList;
 
 }

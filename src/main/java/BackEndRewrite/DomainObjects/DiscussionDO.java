@@ -4,6 +4,7 @@ import BackEndRewrite.DomainObjects.Subsections.DiscussionSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -21,6 +22,6 @@ import java.util.List;
 public class DiscussionDO {
 
     @org.springframework.data.annotation.Id
-    String Id;
+    ObjectId Id;
     List<DiscussionSectionDO> discussionSectionDOList = new ArrayList<>();
 }

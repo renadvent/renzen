@@ -6,6 +6,7 @@ import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
 import BackEndRewrite.Repositories.UserRepository;
 import lombok.Synchronized;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
@@ -44,7 +45,7 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
 //        return articleComponentCOList;
 //    }
 //articleComponentCOList
-    public List<ArticleComponentCO> convert(List<String> articleDOIds){
+    public List<ArticleComponentCO> convert(List<ObjectId> articleDOIds){
 
         ArrayList<ArticleComponentCO> articleComponentCOList = new ArrayList<>();
 
