@@ -67,4 +67,9 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.delete(articleDO);
     }
 
+    @Override
+    public Iterable<ArticleDO> findAll() {
+        return articleRepository.findAll();
+    }
+
 }

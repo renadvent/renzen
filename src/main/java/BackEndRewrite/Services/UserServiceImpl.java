@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Iterable<ProfileDO> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public ProfileDO findBy_id(ObjectId id) {
 
         //Optional<ProfileDO> profileDOOptional = userRepository.findById(id);

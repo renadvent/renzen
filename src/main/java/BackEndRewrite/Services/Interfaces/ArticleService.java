@@ -16,4 +16,6 @@ public interface ArticleService {
 
     void delete(ArticleDO articleDO);
 
+    Iterable<ArticleDO> findAll();
+
 }

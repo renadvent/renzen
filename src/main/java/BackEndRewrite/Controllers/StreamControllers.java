@@ -6,6 +6,7 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO
 import BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import BackEndRewrite.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
+import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
@@ -16,10 +17,7 @@ import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -57,7 +55,12 @@ public class StreamControllers {
     @RequestMapping(path="/getProfiles")
     @ResponseBody
     public Iterable<ProfileDO> getAllProfiles(){
-        return userRepository.findAll();
+        return userService.findAll();
+    }
+
+    @GetMapping("/getArticles")
+    public Iterable<ArticleDO> getAllArticles(){
+        return articleService.findAll();
     }
 
     /**

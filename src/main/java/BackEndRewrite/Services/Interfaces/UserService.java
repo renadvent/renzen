@@ -9,6 +9,8 @@ public interface UserService {
 
     Iterable<ProfileDO> getProfileDOList();
 
+    Iterable<ProfileDO> findAll();
+
     ProfileDO findBy_id(ObjectId id);
     ProfileDO findProfileDOByName(String profileName);
 

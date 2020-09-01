@@ -11,5 +11,4 @@ import java.util.Optional;
 public interface ArticleRepository extends CrudRepository<ArticleDO, ObjectId> {
     Optional<ArticleDO> findBy_id(ObjectId id);
     Iterable<ArticleDO> findArticleDOSByCommunityID(ObjectId objectId);
-
 }

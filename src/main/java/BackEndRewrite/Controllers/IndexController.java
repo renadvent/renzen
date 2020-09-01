@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@RestController
+@Controller
 @CrossOrigin("*")
 public class IndexController {
     /**
@@ -25,6 +25,7 @@ public class IndexController {
      * @return
      */
     @RequestMapping()
+
     public String index(){
         return "index";
     }
