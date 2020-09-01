@@ -6,6 +6,8 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO
 import BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import BackEndRewrite.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
+import BackEndRewrite.DomainObjects.ProfileDO;
+import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
 import BackEndRewrite.Repositories.CommunityRepository;
 import BackEndRewrite.Repositories.UserRepository;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 //TODO not supposed to directly access repository from controllers... supposed to use services
@@ -48,6 +52,12 @@ public class StreamControllers {
         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.communityRepository = communityRepository;
+    }
+
+    @RequestMapping(path="/getProfiles")
+    @ResponseBody
+    public Iterable<ProfileDO> getAllProfiles(){
+        return userRepository.findAll();
     }
 
     /**

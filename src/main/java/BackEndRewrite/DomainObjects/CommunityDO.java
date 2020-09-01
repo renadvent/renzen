@@ -33,6 +33,7 @@ public class CommunityDO{
     public CommunityDO(String name,ObjectId creatorID){
         this.name=name;
         this.creatorID=creatorID;
+        this.getProfileDOList().add(creatorID);
     }
 
 }
