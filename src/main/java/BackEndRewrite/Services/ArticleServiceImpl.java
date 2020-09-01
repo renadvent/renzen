@@ -45,14 +45,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Iterable<ArticleDO> findArticleDOsByCommunityID(String communityId) {
+    public Iterable<ArticleDO> findArticleDOsByCommunityID(ObjectId communityId) {
         return articleRepository.findArticleDOSByCommunityID(communityId);
     }
 
     @Override
-    public ArticleDO findArticleDOByID(ObjectId Id) {
+    public ArticleDO findBy_id(ObjectId Id) {
 
-        Optional<ArticleDO> articleDOOptional = articleRepository.findById(Id);
+        Optional<ArticleDO> articleDOOptional = articleRepository.findBy_id(Id);
 
         if (articleDOOptional.isPresent()){
             return articleDOOptional.get();

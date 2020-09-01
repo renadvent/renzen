@@ -9,7 +9,7 @@ public interface UserService {
 
     Iterable<ProfileDO> getProfileDOList();
 
-    ProfileDO findProfileDOById(ObjectId id);
+    ProfileDO findBy_id(ObjectId id);
     ProfileDO findProfileDOByName(String profileName);
 
     boolean checkIfUsernameTaken(String name);

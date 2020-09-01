@@ -63,7 +63,7 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
     public List<CommunityStreamComponentCO> convert(List<ObjectId> sourceList){
 
         return sourceList.stream().map(e->{
-            return convert(communityService.findCommunityDOById(e));
+            return convert(communityService.findBy_id(e));
         }).collect(Collectors.toList());
 
     }
@@ -79,11 +79,11 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         co.setName(source.getName());
 
         for (ObjectId profile : source.getProfileDOList()) {
-            co.getProfileStreamComponentCOList().add(ProfileConverter.convert(userService.findProfileDOById(profile)));
+            co.getProfileStreamComponentCOList().add(ProfileConverter.convert(userService.findBy_id(profile)));
         }
 
         for (ObjectId articleDO : source.getArticleDOList()) {
-            co.getArticleStreamComponentCOList().add(testConverter.convert(articleService.findArticleDOByID(articleDO)));
+            co.getArticleStreamComponentCOList().add(testConverter.convert(articleService.findBy_id(articleDO)));
         }
 
         return co;

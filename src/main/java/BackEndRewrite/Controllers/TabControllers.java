@@ -64,7 +64,7 @@ public class TabControllers {
     public ResponseEntity<?> getProfileTabComponentCO(@PathVariable ObjectId id){
 
         //get Command Object
-        ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(userService.findProfileDOById(id));
+        ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(userService.findBy_id(id));
 
         //convert Command Object to model
         EntityModel<ProfileTabComponentCO> entityModel = profileTabCOAssembler.toModel(profileTabComponentCO);
@@ -83,7 +83,7 @@ public class TabControllers {
     public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
 
         //get command object
-        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(communityService.findCommunityDOById(id));
+        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(communityService.findBy_id(id));
 
         //TODO convert command object to model
         EntityModel<CommunityTabComponentCO> entityModel = communityTabCOAssembler.toModel(communityTabComponentCO);

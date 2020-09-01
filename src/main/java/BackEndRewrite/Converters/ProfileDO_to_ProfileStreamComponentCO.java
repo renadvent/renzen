@@ -28,7 +28,7 @@ public class ProfileDO_to_ProfileStreamComponentCO implements Converter<ProfileD
     public List<ProfileStreamComponentCO> convert(List<ObjectId> sourceList){
 
         return sourceList.stream().map(e->{
-            return convert(userService.findProfileDOById(e));
+            return convert(userService.findBy_id(e));
         }).collect(Collectors.toList());
 
     }

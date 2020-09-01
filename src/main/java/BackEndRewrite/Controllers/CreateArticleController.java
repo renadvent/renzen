@@ -66,10 +66,10 @@ public class CreateArticleController {
         System.out.println("---------------ENTER CREATING ARTICLE");
 
         //check if provided ids exist
-        ProfileDO profileDO = userService.findProfileDOById(payload.authorID);
+        ProfileDO profileDO = userService.findBy_id(payload.authorID);
         System.out.println("---------------FOUND AUTHOR");
 
-        CommunityDO communityDO = communityService.findCommunityDOById(payload.communityID);
+        CommunityDO communityDO = communityService.findBy_id(payload.communityID);
         System.out.println("---------------FOUND COMMUNITY");
 
         //save ArticleDO to get an ID from mongodb for it
@@ -85,15 +85,18 @@ public class CreateArticleController {
         //gets ComponentCO version of article
         ArticleComponentCO articleDO =
                 articleDO_to_articleComponentCO.convert(
-                articleService.findArticleDOByID(savedArticleDO.get_id()));
+                articleService.findBy_id(savedArticleDO.get_id()));
 
         //creates a model with rest links
         EntityModel<ArticleComponentCO> entityModel = articleComponentCOAssembler.toModel(articleDO);
 
         //responds that it was created successfully
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
+
+        return ResponseEntity.ok(entityModel);
+
+//        return ResponseEntity
+//                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+//                .body(entityModel);
     }
 
     @NoArgsConstructor

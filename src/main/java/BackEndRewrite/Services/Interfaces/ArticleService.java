@@ -9,14 +9,11 @@ public interface ArticleService {
 
     Iterable<ArticleDO> getArticleDOList();
 
-    Iterable<ArticleDO> findArticleDOsByCommunityID(String ObjectId);
+    Iterable<ArticleDO> findArticleDOsByCommunityID(ObjectId objectId);
 
-    ArticleDO findArticleDOByID(ObjectId Id);
+    ArticleDO findBy_id(ObjectId Id);
     //---------------------
 
     void delete(ArticleDO articleDO);
-
-
-
 
 }

@@ -9,4 +9,5 @@ import java.util.List;
 
 @Repository
 public interface DiscussionRepository extends CrudRepository<DiscussionDO, ObjectId> {
+    DiscussionDO findBy_id(ObjectId objectId);
 }

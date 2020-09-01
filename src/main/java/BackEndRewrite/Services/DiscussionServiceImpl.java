@@ -25,7 +25,7 @@ public class DiscussionServiceImpl implements DiscussionService {
     }
 
     @Override
-    public DiscussionDO findById(ObjectId id) {
+    public DiscussionDO findBy_id(ObjectId id) {
 
         Optional<DiscussionDO> discussionDO = discussionRepository.findById(id);
 

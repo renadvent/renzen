@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface CommunityRepository extends CrudRepository<CommunityDO, ObjectId> {
     Optional<CommunityDO> findByName(String name);
+    ObjectId findBy_id(ObjectId objectId);
 }

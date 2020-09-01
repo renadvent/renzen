@@ -8,5 +8,5 @@ public interface DiscussionService {
 
     DiscussionDO save(DiscussionDO discussionDO);
 
-    DiscussionDO findById(ObjectId id);
+    DiscussionDO findBy_id(ObjectId id);
 }
