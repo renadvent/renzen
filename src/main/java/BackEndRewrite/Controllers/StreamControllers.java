@@ -24,6 +24,7 @@ import java.util.List;
 
 //TODO not supposed to directly access repository from controllers... supposed to use services
 
+@CrossOrigin("*")
 @RestController
 public class StreamControllers {
 
@@ -58,6 +59,7 @@ public class StreamControllers {
         return userService.findAll();
     }
 
+    @CrossOrigin("*")
     @GetMapping("/getArticles")
     public Iterable<ArticleDO> getAllArticles(){
         return articleService.findAll();

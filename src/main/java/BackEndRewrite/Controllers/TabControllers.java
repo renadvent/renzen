@@ -70,7 +70,6 @@ public class TabControllers {
         EntityModel<ProfileTabComponentCO> entityModel = profileTabCOAssembler.toModel(profileTabComponentCO);
 
         return ResponseEntity.ok(entityModel);
-
     }
 
     /**

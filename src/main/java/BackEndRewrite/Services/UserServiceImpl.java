@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Iterable<ProfileDO> findAll() {
+
         return userRepository.findAll();
     }
 

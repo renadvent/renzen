@@ -14,6 +14,24 @@ lays out the single page web-app
 
 function App(props) {
 
+  async function getData(){
+    let data = await Axios.get("http://localhost:8001/getProfiles");
+    console.log(data)
+    console.log(data.data[0]._id)
+
+    let data2 = await Axios.get("http://localhost:8001/profiles/profileStreamComponentCO/"+(data.data[0]._id))
+    console.log(data2)
+
+
+
+
+  }
+
+  useEffect( ()=> {
+    getData()
+  },[])
+
+
   return (
     <div className="container-fluid">
       <Dropzone />
