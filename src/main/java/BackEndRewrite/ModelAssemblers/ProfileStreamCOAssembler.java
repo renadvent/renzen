@@ -17,9 +17,12 @@ public class ProfileStreamCOAssembler implements RepresentationModelAssembler<Pr
 
     @Override
     public EntityModel<ProfileStreamComponentCO> toModel(ProfileStreamComponentCO profileStreamComponentCO) {
-        return EntityModel.of(profileStreamComponentCO,
-                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(profileStreamComponentCO.getId())).withRel("profileStreamComponentCO"),
-                linkTo(methodOn(TabControllers.class).getProfileTabComponentCO(profileStreamComponentCO.getId())).withRel("profileTabComponentCO"));
+
+        return EntityModel.of(profileStreamComponentCO);
+        //        return EntityModel.of(profileStreamComponentCO,
+//                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(profileStreamComponentCO.getId())).withRel("profileStreamComponentCO"),
+//                linkTo(methodOn(TabControllers.class).getProfileTabComponentCO(profileStreamComponentCO.getId())).withRel("profileTabComponentCO"));
+//
     }
 
     @Override

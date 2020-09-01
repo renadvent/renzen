@@ -3,6 +3,7 @@ package BackEndRewrite.Services;
 import BackEndRewrite.DomainObjects.DiscussionDO;
 import BackEndRewrite.Repositories.DiscussionRepository;
 import BackEndRewrite.Services.Interfaces.DiscussionService;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class DiscussionServiceImpl implements DiscussionService {
         if (discussionDO.isPresent()){
             return discussionDO.get();
         }else{
-            throw new RuntimeException("discussion id not found");
+            throw new ResourceNotFoundException("discussion id not found");
         }
 
     }

@@ -5,6 +5,7 @@ import BackEndRewrite.DomainObjects.DiscussionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.DiscussionService;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (articleDOOptional.isPresent()){
             return articleDOOptional.get();
         }else{
-            throw new RuntimeException("Article Not Found");
+            throw new ResourceNotFoundException("Article Not Found");
         }
     }
 

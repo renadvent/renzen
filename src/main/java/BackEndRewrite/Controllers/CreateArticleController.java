@@ -17,11 +17,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +56,10 @@ public class CreateArticleController {
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
     }
 
-    @PostMapping(path = "/articles/createArticle")
+    @PostMapping(path = "/articles/createArticle",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
 
         //check if provided ids exist
@@ -88,18 +93,31 @@ public class CreateArticleController {
     @NoArgsConstructor
     @Getter
     @Setter
-    public class CreateArticlePayload {
+    public static class CreateArticlePayload {
         String name;
         String description;
         String authorID;
         String communityID;
 
-        List<ArticleSectionDO> articleSectionDOList;
+        List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
+
+        public CreateArticlePayload(String name,String description,String authorID,String communityID
+        ,List<ArticleSectionDO> articleSectionDOList){
+            this.name=name;
+            this.description=description;
+            this.authorID=authorID;
+            this.communityID=communityID;
+            this.articleSectionDOList=articleSectionDOList;
+        }
+
     }
 
-    //uselessly used in test assembler
-    public Class<?> doNothing() {
-        return null;
-    }
+//    //uselessly used in test assembler
+//    @NoArgsConstructor
+//    @Getter
+//    @Setter
+//    public Class<?> doNothing() {
+//        return null;
+//    }
 
 }

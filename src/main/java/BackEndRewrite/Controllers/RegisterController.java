@@ -44,8 +44,10 @@ public class RegisterController {
             throw new RuntimeException("user name taken");
         }else{
 
-            //create profile
-            ProfileDO profileDO = new ProfileDO(payload.username,payload.password);
+            //create and save profile
+            //ProfileDO profileDO = new ProfileDO(payload.username,payload.password);
+
+            ProfileDO profileDO = userService.save(new ProfileDO(payload.username,payload.password));
 
             //get tab component
             ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(profileDO);
@@ -54,8 +56,12 @@ public class RegisterController {
             EntityModel<ProfileTabComponentCO> entityModel = profileTabCOAssembler.toModel(profileTabComponentCO);
 
             return ResponseEntity
-                    .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                    .body(entityModel);
+                    .ok(entityModel);
+
+
+//            return ResponseEntity
+//                    .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+//                    .body(entityModel);
 
         }
     }

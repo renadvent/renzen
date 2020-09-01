@@ -3,6 +3,7 @@ package BackEndRewrite.Services;
 import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.UserService;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
         Optional<ProfileDO> profileDOOptional = userRepository.findById(id);
 
         if (profileDOOptional.isEmpty()){
-            throw new RuntimeException("id not found");
+            throw new ResourceNotFoundException("id not found");
         }else {
             return profileDOOptional.get();
         }
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
         Optional<ProfileDO> profileDOOptional = userRepository.findByUsername(profileName);
 
         if (profileDOOptional.isEmpty()){
-            throw new RuntimeException("id not found");
+            throw new ResourceNotFoundException("id not found");
         }else {
             return profileDOOptional.get();
         }

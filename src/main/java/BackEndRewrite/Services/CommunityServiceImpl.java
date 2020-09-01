@@ -3,6 +3,7 @@ package BackEndRewrite.Services;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.Repositories.CommunityRepository;
 import BackEndRewrite.Services.Interfaces.CommunityService;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class CommunityServiceImpl implements CommunityService {
         if (communityDOOptional.isPresent()){
             return communityDOOptional.get();
         }else{
-            throw new RuntimeException("Community not found");
+            throw new ResourceNotFoundException("Community not found");
         }
 
     }
@@ -37,7 +38,18 @@ public class CommunityServiceImpl implements CommunityService {
         if (communityDOOptional.isPresent()){
             return communityDOOptional.get();
         }else{
-            throw new RuntimeException("Community not found");
+            throw new ResourceNotFoundException("Community not found");
+        }
+    }
+
+    @Override
+    public boolean checkIfCommunityNameUsed(String name){
+        Optional<CommunityDO> communityDOOptional = communityRepository.findByName(name);
+
+        if (communityDOOptional.isPresent()){
+            return true;
+        }else{
+            return false;
         }
     }
 

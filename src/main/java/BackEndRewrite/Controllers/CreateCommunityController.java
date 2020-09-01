@@ -57,7 +57,7 @@ public class CreateCommunityController {
     public ResponseEntity<?> createCommunity(@RequestBody CommunityDO communityDO){
 
         //check if community name already exists
-        if (communityService.findDOByName(communityDO.getName())!=null){
+        if (communityService.checkIfCommunityNameUsed(communityDO.getName())){
             throw new RuntimeException("Community Name already in use");
         }
 
@@ -77,8 +77,10 @@ public class CreateCommunityController {
         EntityModel<CommunityTabComponentCO> entityModel = communityTabCOAssembler.toModel(communityTabComponentCO);
 
         //now convert DO to CO
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
+
+        return ResponseEntity.ok(entityModel);
+//        return ResponseEntity
+//                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+//                .body(entityModel);
     }
 }

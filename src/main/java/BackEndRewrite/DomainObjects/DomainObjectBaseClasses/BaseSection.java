@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 /**
  * Used for article Sections
@@ -13,8 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter@Setter
 @Document(collection = "Contents")
 public class BaseSection {
-    @Id
-    String id;
+
+
+    String Id;
     String content;
     String author;
     Integer upvotes;

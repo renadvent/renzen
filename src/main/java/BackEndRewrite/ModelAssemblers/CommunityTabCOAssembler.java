@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 public class CommunityTabCOAssembler implements RepresentationModelAssembler<CommunityTabComponentCO, EntityModel<CommunityTabComponentCO>> {
     @Override
     public EntityModel<CommunityTabComponentCO> toModel(CommunityTabComponentCO entity) {
-        return null;
+
+        return EntityModel.of(entity);
     }
 
     @Override

@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 public class ProfileTabCOAssembler implements RepresentationModelAssembler<ProfileTabComponentCO, EntityModel<ProfileTabComponentCO>> {
     @Override
     public EntityModel<ProfileTabComponentCO> toModel(ProfileTabComponentCO entity) {
-        return null;
+
+        return EntityModel.of(entity);
     }
 
     @Override

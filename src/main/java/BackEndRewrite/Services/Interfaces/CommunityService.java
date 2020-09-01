@@ -7,5 +7,8 @@ import java.util.Optional;
 public interface CommunityService {
     CommunityDO findCommunityDOById(String id);
     CommunityDO findDOByName(String name);
+
+    boolean checkIfCommunityNameUsed(String name);
+
     CommunityDO save(CommunityDO communityDO);
 }

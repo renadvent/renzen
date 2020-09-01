@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DiscussionDO {
 
-    @Id
+    @org.springframework.data.annotation.Id
     String Id;
-    List<DiscussionSectionDO> discussionSectionDOList;
+    List<DiscussionSectionDO> discussionSectionDOList = new ArrayList<>();
 }

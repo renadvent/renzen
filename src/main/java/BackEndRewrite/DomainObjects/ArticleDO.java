@@ -4,11 +4,13 @@ import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 
 
 import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ import java.util.List;
 public class ArticleDO {
 
 
-    @Id
+    @org.springframework.data.annotation.Id
     String Id;
 
     String name;
@@ -30,7 +32,7 @@ public class ArticleDO {
     String communityID;
     String discussionID;
 
-    List<ArticleSectionDO> articleSectionDOList;
+    List<ArticleSectionDO> articleSectionDOList = new ArrayList<>();
     //List<String> articleSectionDOIDList;
 
 

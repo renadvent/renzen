@@ -32,11 +32,16 @@ import org.springframework.stereotype.Component;
 public class ArticleComponentCOAssembler implements RepresentationModelAssembler<ArticleComponentCO, EntityModel<ArticleComponentCO>> {
     @Override
     public EntityModel<ArticleComponentCO> toModel(ArticleComponentCO articleComponentCO) {
-        return EntityModel.of(articleComponentCO,
-                linkTo(methodOn(CreateArticleController.class).doNothing()).withSelfRel(),
-                //add a discussion link?
-                //article metadata component link
-                linkTo(methodOn(StreamControllers.class).getArticleStreamComponentCO(articleComponentCO.getId())).withRel("ArticleStreamComponentCO"));
+
+        return EntityModel.of(articleComponentCO);
+
+//        return EntityModel.of(articleComponentCO,
+//                linkTo(methodOn(CreateArticleController.class).doNothing()).withSelfRel(),
+//                //add a discussion link?
+//                //article metadata component link
+//                linkTo(methodOn(StreamControllers.class).getArticleStreamComponentCO(articleComponentCO.getId())).withRel("ArticleStreamComponentCO"));
+//
+
     }
 
     @Override

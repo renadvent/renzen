@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +22,8 @@ public class CommunityDO{
     String Id;
     String name;
     String creatorID;
-    List<String> profileDOList;
-    List<String> articleDOList;
+    List<String> profileDOList= new ArrayList<>();
+    List<String> articleDOList= new ArrayList<>();
     String discussionID;
 
     /**
