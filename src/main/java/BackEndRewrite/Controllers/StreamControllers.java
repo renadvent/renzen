@@ -13,6 +13,8 @@ import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.UserService;
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +44,28 @@ public class StreamControllers {
         this.userService = userService;
         this.articleService = articleService;
         this.communityService = communityService;
+    }
+
+    @GetMapping(path="/getAllByCommunityIDAndTopic")
+    public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
+
+        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
+
+        for (ArticleDO articleDO : articleService.findAllByCommunityIDAndTopic(payload.communityID,payload.topic)){
+            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
+        }
+
+        return returnList;
+    }
+
+    @Getter@Setter
+    class getAllByCommunityIDAndTopicPayload{
+        ObjectId communityID;
+        String topic;
+        public getAllByCommunityIDAndTopicPayload(ObjectId communityID,String topic){
+            this.communityID=communityID;
+            this.topic=topic;
+        }
     }
 
     @GetMapping(path="/getProfiles")

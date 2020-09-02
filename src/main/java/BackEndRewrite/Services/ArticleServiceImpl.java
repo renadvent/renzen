@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -71,5 +72,10 @@ public class ArticleServiceImpl implements ArticleService {
     public Iterable<ArticleDO> findAll() {
         return articleRepository.findAll();
     }
+
+    @Override
+    public List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String topic){
+        return articleRepository.findAllByCommunityIDAndTopic(communityID,topic);
+    };
 
 }

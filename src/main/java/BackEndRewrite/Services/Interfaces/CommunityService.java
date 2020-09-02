@@ -15,4 +15,6 @@ public interface CommunityService {
     CommunityDO save(CommunityDO communityDO);
 
     List<CommunityDO> findByCreatorID(ObjectId objectId);
+
+    List<ObjectId> findAllByCommunityIDAndTopic(ObjectId communityID, String Topic);
 }

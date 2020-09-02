@@ -3,6 +3,8 @@ package BackEndRewrite.Services.Interfaces;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 public interface ArticleService {
 
     ArticleDO save(ArticleDO articleDO);
@@ -17,5 +19,7 @@ public interface ArticleService {
     void delete(ArticleDO articleDO);
 
     Iterable<ArticleDO> findAll();
+
+    List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String topic);
 
 }

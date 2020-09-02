@@ -26,6 +26,8 @@ public class ArticleDO {
     @Id
     ObjectId _id;
 
+    String topic;
+
     String name;
     String description;
 
