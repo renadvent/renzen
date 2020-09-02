@@ -36,7 +36,7 @@ export function DISPATCH_openArticle() {
 
 export function DISPATCH_logIn(payload) {
     return (dispatch) => {
-        Axios.post("/login/",
+        Axios.post("/login",
             {
                 password: payload.password,
                 username: payload.username

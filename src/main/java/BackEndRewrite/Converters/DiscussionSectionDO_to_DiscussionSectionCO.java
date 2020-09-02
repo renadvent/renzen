@@ -15,7 +15,7 @@ public class DiscussionSectionDO_to_DiscussionSectionCO implements Converter<Dis
     public DiscussionSectionCO convert(DiscussionSectionDO source) {
         DiscussionSectionCO co = new DiscussionSectionCO();
 
-        co.setAuthor(source.getAuthor());
+        co.setAuthorID(source.getAuthor());
         co.setContent(source.getContent());
         co.set_id(source.get_id().toHexString());
 

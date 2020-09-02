@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter@Setter
@@ -21,11 +22,11 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
     Integer numberOfCommunities;
     Integer numberOfDiscussionContentPosts;
 
-    List<ObjectId> articleIDList;
-    List<ObjectId> communityIDList;
-    List<ObjectId> discussionContentIDList;
+    List<ObjectId> articleIDList = new ArrayList<>();
+    List<ObjectId> communityIDList = new ArrayList<>();
+    List<ObjectId> discussionContentIDList = new ArrayList<>();
 
-    List<ArticleStreamComponentCO> articleHomePageCOList;
-    List<CommunityStreamComponentCO> communityIndexPageCOList;
+    List<ArticleStreamComponentCO> articleHomePageCOList = new ArrayList<>();
+    List<CommunityStreamComponentCO> communityIndexPageCOList = new ArrayList<>();
     //List<DiscussionInfoCO> discussionInfoCOList;
 }

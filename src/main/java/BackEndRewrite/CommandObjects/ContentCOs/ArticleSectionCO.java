@@ -14,7 +14,7 @@ public class ArticleSectionCO {
     String _id;
     String heading;
     String content;
-    ObjectId author;
+    ObjectId authorID;
     Integer upvotes;
     Integer downvotes;
 }

@@ -7,16 +7,12 @@ import BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import BackEndRewrite.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
+import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
-import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
-import BackEndRewrite.Repositories.ArticleRepository;
-import BackEndRewrite.Repositories.CommunityRepository;
-import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,41 +34,40 @@ public class StreamControllers {
     final ArticleService articleService;
     final CommunityService communityService;
 
-    final UserRepository userRepository;
-    final ArticleRepository articleRepository;
-    final CommunityRepository communityRepository;
-
-    public StreamControllers(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, UserService userService, ArticleService articleService, CommunityService communityService, UserRepository userRepository, ArticleRepository articleRepository, CommunityRepository communityRepository) {
+    public StreamControllers(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, UserService userService, ArticleService articleService, CommunityService communityService) {
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
         this.communityDO_to_communityStreamComponentCO = communityDO_to_communityStreamComponentCO;
         this.userService = userService;
         this.articleService = articleService;
         this.communityService = communityService;
-        this.userRepository = userRepository;
-        this.articleRepository = articleRepository;
-        this.communityRepository = communityRepository;
     }
 
-    @RequestMapping(path="/getProfiles")
-    @ResponseBody
-    //public Iterable<ProfileDO> getAllProfiles(){
+    @GetMapping(path="/getProfiles")
     public List<ProfileStreamComponentCO>  getAllProfiles(){
         List<ProfileStreamComponentCO> returnList = new ArrayList<>();
-
         for (ProfileDO profileDO : userService.findAll()){
             returnList.add(profileDO_to_profileStreamComponentCO.convert(profileDO));
         }
-        
         return returnList;
-
-        //return userService.findAll().forEach(profileDO_to_profileStreamComponentCO::convert);
     }
 
-    @CrossOrigin("*")
     @GetMapping("/getArticles")
-    public Iterable<ArticleDO> getAllArticles(){
-        return articleService.findAll();
+    public List<ArticleStreamComponentCO> getAllArticles(){
+        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
+        for (ArticleDO articleDO : articleService.findAll()){
+            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
+        }
+        return returnList;
+    }
+
+    @GetMapping("/getCommunities")
+    public List<CommunityStreamComponentCO> getAllCommunities(){
+        List<CommunityStreamComponentCO> returnList = new ArrayList<>();
+        for (CommunityDO communityDO : communityService.findAll()){
+            returnList.add(communityDO_to_communityStreamComponentCO.convert(communityDO));
+        }
+        return returnList;
     }
 
     /**
@@ -80,12 +75,9 @@ public class StreamControllers {
      * @param id
      * @return
      */
-    @RequestMapping(path="/profiles/profileStreamComponentCO/{id}")
-    @ResponseBody
+    @GetMapping(path="/getProfileStreamComponentCO/{id}")
     public ProfileStreamComponentCO  getProfileStreamComponentCO(@PathVariable ObjectId id){
-        return userRepository.findById(id)
-                .map(profileDO_to_profileStreamComponentCO::convert)
-                        .orElse(null);
+        return profileDO_to_profileStreamComponentCO.convert(userService.findBy_id(id));
     }
 
     /**
@@ -93,12 +85,9 @@ public class StreamControllers {
      * @param id
      * @return
      */
-    @RequestMapping(path="/articles/articleStreamComponentCO/{id}")
-    @ResponseBody
+    @GetMapping(path="/getArticleStreamComponentCO/{id}")
     public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
-        return articleRepository.findById(id)
-                .map(articleDO_to_articleStreamComponentCO::convert)
-                .orElse(null);
+        return articleDO_to_articleStreamComponentCO.convert(articleService.findBy_id(id));
     }
 
     /**
@@ -106,11 +95,8 @@ public class StreamControllers {
      * @param id
      * @return
      */
-    @RequestMapping(path="/communities/communityStreamComponentCO/{id}")
-    @ResponseBody
+    @GetMapping(path="/getCommunityStreamComponentCO/{id}")
     public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id){
-        return communityRepository.findById(id)
-                .map(communityDO_to_communityStreamComponentCO::convert)
-                .orElse(null);
+        return communityDO_to_communityStreamComponentCO.convert(communityService.findBy_id(id));
     }
 }

@@ -44,6 +44,12 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public Iterable<CommunityDO> findAll() {
+
+        return communityRepository.findAll();
+    }
+
+    @Override
     public boolean checkIfCommunityNameUsed(String name){
         Optional<CommunityDO> communityDOOptional = communityRepository.findByName(name);
 

@@ -1,7 +1,6 @@
 package BackEndRewrite.Converters;
 
 import BackEndRewrite.CommandObjects.ContentCOs.ArticleSectionCO;
-import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
@@ -18,7 +17,7 @@ public class ArticleSectionDO_to_ArticleSectionCO implements Converter<ArticleSe
         co.set_id(source.get_id().toHexString());
         co.setHeading(source.getHeading());
         co.setContent(source.getContent());
-        co.setAuthor(source.getAuthor());
+        co.setAuthorID(source.getAuthor());
         co.setUpvotes(source.getUpvotes());
         co.setDownvotes(source.getDownvotes());
         return co;

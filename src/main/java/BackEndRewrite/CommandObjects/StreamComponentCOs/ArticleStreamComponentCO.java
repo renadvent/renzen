@@ -20,14 +20,11 @@ import org.springframework.hateoas.RepresentationModel;
 @Setter
 @NoArgsConstructor
 public class ArticleStreamComponentCO extends RepresentationModel<ArticleStreamComponentCO> {
-
-    @Id
     String _id;
 
     String name;
     String description;
-
-
-    ObjectId userID;
-    ProfileStreamComponentCO userIndexPageCO;
+    String authorID;//author
+    String authorName; //implement this in converter
+    ProfileStreamComponentCO profileStreamComponentCO;
 }

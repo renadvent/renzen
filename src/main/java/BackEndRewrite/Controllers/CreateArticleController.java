@@ -63,14 +63,10 @@ public class CreateArticleController {
     )
     public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
 
-        System.out.println("---------------ENTER CREATING ARTICLE");
-
         //check if provided ids exist
         ProfileDO profileDO = userService.findBy_id(payload.authorID);
-        System.out.println("---------------FOUND AUTHOR");
 
         CommunityDO communityDO = communityService.findBy_id(payload.communityID);
-        System.out.println("---------------FOUND COMMUNITY");
 
         //save ArticleDO to get an ID from mongodb for it
         ArticleDO savedArticleDO = articleService.save(new ArticleDO(payload.getName(), payload.getDescription(),

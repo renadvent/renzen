@@ -7,15 +7,15 @@ import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class DiscussionComponentCO extends RepresentationModel<DiscussionComponentCO> {
-
-    //List<String> discussionContentIDList;
     String _id;
-    List<DiscussionSectionCO> discussionSectionCOList;
+
+    List<DiscussionSectionCO> discussionSectionCOList = new ArrayList<>();
 
 }

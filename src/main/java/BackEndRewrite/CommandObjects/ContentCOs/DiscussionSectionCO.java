@@ -12,12 +12,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class DiscussionSectionCO {
-    ObjectId author;
-    String content;
-
     String _id;
-
+    ObjectId authorID;
+    String content;
     Integer replyCount;
-    //List<String> replyCOIDList;
     List<DiscussionSectionCO> discussionSectionCOList;
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,25 +27,15 @@ public class CommunityTabComponentCO extends RepresentationModel<CommunityTabCom
      * This List is used by the React Application to render the
      * names of the articles and to provide links to those articles
      */
-    List<ArticleStreamComponentCO> article_Article_streamComponentCOList;
-    //stream component
+    List<ArticleStreamComponentCO> article_Article_streamComponentCOList = new ArrayList<>();
 
     Integer numberOfArticles;
-
     /**
      * This List is used by the React Application to render the
      * names of the members of this community and provide Links
      */
-    List<ProfileStreamComponentCO> user_streamComponentCOList;
+    List<ProfileStreamComponentCO> user_streamComponentCOList = new ArrayList<>();
     Integer numberOfUsers;
-
-//    /**
-//     * This List is used by the React Application to render the
-//     * names of teh communities and provide Links
-//     */
-//    List<CommunityStreamComponentCO> community_streamComponentCOList;
-//    Integer numberOfCommunities;
-
     /**
      * This Object is used to render the Community Discussion section
      * on the homepage

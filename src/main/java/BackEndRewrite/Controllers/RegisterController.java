@@ -45,8 +45,6 @@ public class RegisterController {
         }else{
 
             //create and save profile
-            //ProfileDO profileDO = new ProfileDO(payload.username,payload.password);
-
             ProfileDO profileDO = userService.save(new ProfileDO(payload.username,payload.password));
 
             //get tab component

@@ -3,11 +3,10 @@ package BackEndRewrite.Services.Interfaces;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import org.bson.types.ObjectId;
 
-import java.util.Optional;
-
 public interface CommunityService {
     CommunityDO findBy_id(ObjectId id);
     CommunityDO findDOByName(String name);
+    Iterable<CommunityDO> findAll();
 
     boolean checkIfCommunityNameUsed(String name);
 

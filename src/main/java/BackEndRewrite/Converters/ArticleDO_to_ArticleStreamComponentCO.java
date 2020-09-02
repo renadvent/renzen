@@ -19,14 +19,14 @@ import java.util.stream.StreamSupport;
 @Component
 public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleDO, ArticleStreamComponentCO> {
 
-    final UserRepository repo;
+    final UserRepository userRepository;
     final ArticleRepository articleRepository;
 
     final ProfileDO_to_ProfileStreamComponentCO profileConverter;
 
     @Autowired
-    public ArticleDO_to_ArticleStreamComponentCO(UserRepository repo, ArticleRepository articleRepository, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
-        this.repo = repo;
+    public ArticleDO_to_ArticleStreamComponentCO(UserRepository userRepository, ArticleRepository articleRepository, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
+        this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.profileConverter = profileConverter;
     }
@@ -62,11 +62,13 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         co.setName(source.getName());
         co.setDescription(source.getDescription());
         co.set_id(source.get_id().toHexString());
-        co.setUserID(source.getUserID());
+        co.setAuthorID(source.getUserID().toHexString());
+
+        co.setAuthorName(userRepository.findBy_id(source.getUserID()).getUsername());
 
         //converts profile DO to CO
         //ProfileDO_to_ProfileStreamComponentCO converter = new ProfileDO_to_ProfileStreamComponentCO(discussionRepository);
-        repo.findById(source.getUserID()).ifPresent(user->co.setUserIndexPageCO(profileConverter.convert(user)));
+        userRepository.findById(source.getUserID()).ifPresent(user->co.setProfileStreamComponentCO(profileConverter.convert(user)));
 
         return co;
 

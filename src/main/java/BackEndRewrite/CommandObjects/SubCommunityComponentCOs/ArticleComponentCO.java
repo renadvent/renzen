@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,18 +18,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ArticleComponentCO extends RepresentationModel<ArticleComponentCO> {
+    String _id;
 
     String name;
     String description;
-    String _id;
-
     ObjectId userID;
     ProfileStreamComponentCO user_streamComponentCO;
-
     ObjectId discussionID;
-    //DiscussionInfoCO discussionInfoCO;
-
-    //List<String> articleContentIDList;
-    List<ArticleSectionCO> articleSectionCOList;
-
+    List<ArticleSectionCO> articleSectionCOList = new ArrayList<>();
 }

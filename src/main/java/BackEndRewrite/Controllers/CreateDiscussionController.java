@@ -24,7 +24,7 @@ public class CreateDiscussionController {
     //assemblers
 
     //TODO create discussion
-    @PostMapping(path="/discussions/createDiscussion")
+    @PostMapping(path="/createDiscussion")
     public ResponseEntity<?> createDiscussion(@RequestBody createDiscussionPayload payload){
         return null;
     }
