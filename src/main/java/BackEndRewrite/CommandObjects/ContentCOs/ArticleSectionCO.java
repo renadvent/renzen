@@ -12,6 +12,8 @@ import org.bson.types.ObjectId;
 @NoArgsConstructor
 public class ArticleSectionCO {
     String _id;
+    ObjectId objectId; // needed for assemblers
+
     String heading;
     String content;
     ObjectId authorID;

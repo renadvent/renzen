@@ -18,6 +18,7 @@ public class DiscussionSectionDO_to_DiscussionSectionCO implements Converter<Dis
         co.setAuthorID(source.getAuthor());
         co.setContent(source.getContent());
         co.set_id(source.get_id().toHexString());
+        co.setObjectId(source.get_id());
 
         co.setReplyCount(source.getReplies().size());
 

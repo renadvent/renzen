@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class DiscussionSectionCO {
     String _id;
+    ObjectId objectId;
+
     ObjectId authorID;
     String content;
     Integer replyCount;

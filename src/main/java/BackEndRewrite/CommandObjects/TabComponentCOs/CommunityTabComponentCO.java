@@ -7,6 +7,7 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
 public class CommunityTabComponentCO extends RepresentationModel<CommunityTabComponentCO> {
 
     String _id;
+    ObjectId objectId;
 
     /**
      * This List is used by the React Application to render the

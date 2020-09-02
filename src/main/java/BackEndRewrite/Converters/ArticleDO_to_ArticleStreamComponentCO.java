@@ -62,6 +62,7 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         co.setName(source.getName());
         co.setDescription(source.getDescription());
         co.set_id(source.get_id().toHexString());
+        co.setObjectId(source.get_id());
         co.setAuthorID(source.getUserID().toHexString());
 
         co.setAuthorName(userRepository.findBy_id(source.getUserID()).getUsername());

@@ -19,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ArticleComponentCO extends RepresentationModel<ArticleComponentCO> {
     String _id;
+    ObjectId objectId;
 
     String name;
     String description;

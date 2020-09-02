@@ -74,9 +74,11 @@ public class CreateArticleController {
 
         //add article to user
         profileDO.getArticleIDList().add(savedArticleDO.get_id());
+        userService.save(profileDO);
 
         //add article to community
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
+        communityService.save(communityDO);
 
         //gets ComponentCO version of article
         ArticleComponentCO articleDO =

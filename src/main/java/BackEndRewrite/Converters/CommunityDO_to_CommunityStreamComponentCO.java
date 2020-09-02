@@ -76,6 +76,7 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         CommunityStreamComponentCO co = new CommunityStreamComponentCO();
 
         co.set_id(source.get_id().toHexString());
+        co.setObjectId(source.get_id());
         co.setName(source.getName());
 
         for (ObjectId profile : source.getProfileDOList()) {

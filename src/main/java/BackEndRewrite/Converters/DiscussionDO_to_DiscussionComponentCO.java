@@ -38,6 +38,9 @@ public class DiscussionDO_to_DiscussionComponentCO implements Converter<Discussi
     public DiscussionComponentCO convert(DiscussionDO source) {
         DiscussionComponentCO co = new DiscussionComponentCO();
 
+        co.set_id(source.get_id().toHexString());
+        co.setObjectId(source.get_id());
+
         //-------------------
 
 

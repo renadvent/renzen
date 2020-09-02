@@ -3,6 +3,7 @@ package BackEndRewrite.Controllers;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
+import BackEndRewrite.CommandObjects.TabComponentCOs.CommunityTabComponentCO;
 import BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import BackEndRewrite.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
@@ -48,6 +49,17 @@ public class StreamControllers {
         List<ProfileStreamComponentCO> returnList = new ArrayList<>();
         for (ProfileDO profileDO : userService.findAll()){
             returnList.add(profileDO_to_profileStreamComponentCO.convert(profileDO));
+        }
+        return returnList;
+    }
+
+    @GetMapping(path="/getCommunitiesByProfile/{id}")
+    public List<CommunityStreamComponentCO> getCommunitiesByProfile(@PathVariable ObjectId id){
+
+        List<CommunityStreamComponentCO> returnList = new ArrayList<>();
+
+        for (CommunityDO communityDO : communityService.findByCreatorID(id)){
+            returnList.add(communityDO_to_communityStreamComponentCO.convert(communityDO));
         }
         return returnList;
     }

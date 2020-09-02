@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamComponentCO> {
     String _id;
+    ObjectId objectId;
 
     String profileName;
     Integer numberOfArticles;

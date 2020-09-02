@@ -60,7 +60,7 @@ public class TabControllers {
      * @param id
      * @return
      */
-    @RequestMapping(path="/profiles/profileTabComponentCO/{id}")
+    @RequestMapping(path="/profileTabComponentCO/{id}")
     public ResponseEntity<?> getProfileTabComponentCO(@PathVariable ObjectId id){
 
         //get Command Object
@@ -77,7 +77,7 @@ public class TabControllers {
      * @param id
      * @return
      */
-    @RequestMapping(path="/communities/communityTabComponent/{id}")
+    @RequestMapping(path="/communityTabComponent/{id}")
     @ResponseBody
     public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
 

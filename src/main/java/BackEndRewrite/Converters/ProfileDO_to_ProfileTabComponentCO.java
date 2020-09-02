@@ -38,6 +38,7 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
         co.setUsername(source.getUsername());
 
         co.set_id(source.get_id().toHexString());
+        co.setObjectId(source.get_id());
 
         co.setNumberOfArticles(source.getArticleIDList().size());
         co.setNumberOfCommunities(source.getCommunityIDList().size());
@@ -50,7 +51,7 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
 
         /**
          * here id lookup is done manually instead of by converter
-         * (compared to COmmuunityDO to Tab
+         * (compared to CommunityDO to Tab
          */
         //creates CommunityCOs from list of DO ids
         Iterable<CommunityDO> communityDOList = communityRepository.findAllById(source.getCommunityIDList());

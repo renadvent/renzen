@@ -48,6 +48,7 @@ public class ProfileDO_to_ProfileStreamComponentCO implements Converter<ProfileD
         final ProfileStreamComponentCO co = new ProfileStreamComponentCO();
 
         co.set_id(source.get_id().toHexString());
+        co.setObjectId(source.get_id());
 
         co.setProfileName(source.getUsername());
         co.setNumberOfArticles(source.getArticleIDList().size());

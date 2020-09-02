@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DiscussionComponentCO extends RepresentationModel<DiscussionComponentCO> {
     String _id;
+    ObjectId objectId;
 
     List<DiscussionSectionCO> discussionSectionCOList = new ArrayList<>();
 

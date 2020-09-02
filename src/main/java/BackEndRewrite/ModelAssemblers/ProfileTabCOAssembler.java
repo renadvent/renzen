@@ -21,7 +21,8 @@ public class ProfileTabCOAssembler implements RepresentationModelAssembler<Profi
         return EntityModel.of(entity,
                 linkTo(methodOn(StreamControllers.class).getAllProfiles()).withSelfRel(),
                 linkTo(methodOn(StreamControllers.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withSelfRel());
+                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withRel("All_Communities"),
+                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(entity.getObjectId())).withRel("Stream_Version"));
 
                 //linkTo(methodOn(TabControllers.class).getProfileTabComponentCO(entity.getId())).withRel("profileTabComponentCO"));
 //);

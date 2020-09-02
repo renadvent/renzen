@@ -17,6 +17,7 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
     String username;
 
     String _id;
+    ObjectId objectId;
 
     Integer numberOfArticles;
     Integer numberOfCommunities;

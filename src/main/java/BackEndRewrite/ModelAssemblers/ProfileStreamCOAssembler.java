@@ -16,12 +16,17 @@ import org.springframework.stereotype.Component;
 public class ProfileStreamCOAssembler implements RepresentationModelAssembler<ProfileStreamComponentCO, EntityModel<ProfileStreamComponentCO>> {
 
     @Override
-    public EntityModel<ProfileStreamComponentCO> toModel(ProfileStreamComponentCO profileStreamComponentCO) {
+    public EntityModel<ProfileStreamComponentCO> toModel(ProfileStreamComponentCO entity) {
 
-        return EntityModel.of(profileStreamComponentCO,
+        return EntityModel.of(entity,
                 linkTo(methodOn(StreamControllers.class).getAllProfiles()).withSelfRel(),
                 linkTo(methodOn(StreamControllers.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withSelfRel());
+                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withSelfRel(),
+
+                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(entity.getObjectId())).withRel("Stream_Version"));
+                //linkTo(methodOn(StreamControllers.class).get));
+
+
 
 //                return EntityModel.of(profileStreamComponentCO,
 //                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(profileStreamComponentCO.get_id())).withRel("profileStreamComponentCO"),

@@ -20,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CommunityStreamComponentCO extends RepresentationModel<CommunityStreamComponentCO> {
     String _id;
+    ObjectId objectId;
 
     String name;
     List<ProfileStreamComponentCO> profileStreamComponentCOList = new ArrayList<>();

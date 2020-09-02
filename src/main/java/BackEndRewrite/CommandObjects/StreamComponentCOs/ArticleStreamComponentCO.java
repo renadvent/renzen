@@ -21,6 +21,7 @@ import org.springframework.hateoas.RepresentationModel;
 @NoArgsConstructor
 public class ArticleStreamComponentCO extends RepresentationModel<ArticleStreamComponentCO> {
     String _id;
+    ObjectId objectId;
 
     String name;
     String description;
