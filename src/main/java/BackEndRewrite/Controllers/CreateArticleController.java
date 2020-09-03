@@ -110,8 +110,7 @@ public class CreateArticleController {
         List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
 
         public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID,
-                                    String topic;
-                ){
+                                    String topic){
             this.name=name;
             this.description=description;
             this.authorID=authorID;
