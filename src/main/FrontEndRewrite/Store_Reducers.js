@@ -6,6 +6,9 @@ import React from "react"
 
 const initialState = {
 
+    //temp
+    open_communities: [],
+
     user: {
         logged_in: false,
         name: "",
@@ -98,4 +101,7 @@ const reducer = (state = initialState, action) => {
 
             break
     }
+    return state;
 }
+
+export default reducer;

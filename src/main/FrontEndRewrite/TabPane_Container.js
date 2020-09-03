@@ -10,7 +10,7 @@ hosts other opened tabs when they are opened
 
 const mapStateToProps = (state) => {
     return {
-        open_communities: state.open_communities,
+        open_communities: state.open_communities
     }
 }
 
@@ -42,6 +42,7 @@ function TabPane_Container(props) {
                     {props.open_communities.map(community=>{
                         return(community.tab)
                     })}
+                    Hi
                 </ul>
             </div>
 

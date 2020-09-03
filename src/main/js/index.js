@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+//import App from './App';
 import './index.css'
 
-import {applyMiddleware, createStore,compose} from "redux";
-import reducer from "./Store/reducer";
-import {Provider,} from "react-redux"
+import App2 from "../FrontEndRewrite/App2";
 
+import {applyMiddleware, createStore,compose} from "redux";
+
+
+
+//-------------------------------------------------------
+// import reducer from "./Store/reducer";
+import reducer from "../FrontEndRewrite/Store_Reducers";
+//-------------------------------------------------------
+
+
+
+import {Provider,} from "react-redux"
 import thunk from 'redux-thunk'
 
 import * as actionTypes from "./Store/actions"
@@ -17,7 +27,8 @@ const store=createStore(reducer,composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        {/*<App />*/}
+        <App2/>
     </Provider>
 ,
   document.getElementById('root')
