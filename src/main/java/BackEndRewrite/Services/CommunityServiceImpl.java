@@ -71,5 +71,11 @@ public class CommunityServiceImpl implements CommunityService {
         return communityRepository.findByCreatorID(objectId);
     }
 
+    //TODO this
+    @Override
+    public List<ObjectId> findAllByCommunityIDAndTopic(ObjectId communityID, String Topic) {
+        return null;
+    }
+
 
 }
