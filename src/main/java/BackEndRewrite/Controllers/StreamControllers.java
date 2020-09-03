@@ -3,23 +3,28 @@ package BackEndRewrite.Controllers;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
-import BackEndRewrite.CommandObjects.TabComponentCOs.CommunityTabComponentCO;
 import BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import BackEndRewrite.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
+import BackEndRewrite.ModelAssemblers.ProfileStreamCOAssembler;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.UserService;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
 //TODO not supposed to directly access repository from controllers... supposed to use services
@@ -37,13 +42,16 @@ public class StreamControllers {
     final ArticleService articleService;
     final CommunityService communityService;
 
-    public StreamControllers(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, UserService userService, ArticleService articleService, CommunityService communityService) {
+    final ProfileStreamCOAssembler profileStreamCOAssembler;
+
+    public StreamControllers(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, UserService userService, ArticleService articleService, CommunityService communityService, ProfileStreamCOAssembler profileStreamCOAssembler) {
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
         this.communityDO_to_communityStreamComponentCO = communityDO_to_communityStreamComponentCO;
         this.userService = userService;
         this.articleService = articleService;
         this.communityService = communityService;
+        this.profileStreamCOAssembler = profileStreamCOAssembler;
     }
 
     @GetMapping(path="/getAllByCommunityIDAndTopic")
@@ -69,12 +77,22 @@ public class StreamControllers {
     }
 
     @GetMapping(path="/getProfiles")
-    public List<ProfileStreamComponentCO>  getAllProfiles(){
+
+    public ResponseEntity<?> getAllProfiles(){
+    //public List<ProfileStreamComponentCO>  getAllProfiles(){
         List<ProfileStreamComponentCO> returnList = new ArrayList<>();
         for (ProfileDO profileDO : userService.findAll()){
             returnList.add(profileDO_to_profileStreamComponentCO.convert(profileDO));
         }
-        return returnList;
+
+        //returns a ResponseEntity of a Collection Model with a a collection Link
+        return ResponseEntity
+                .ok(CollectionModel.of(returnList.stream().map(profileStreamCOAssembler::toModel)
+                        .collect(Collectors.toList()),linkTo(methodOn(StreamControllers.class)
+                                .getAllProfiles()).withSelfRel()
+                        ));
+
+        //return returnList;
     }
 
     @GetMapping(path="/getCommunitiesByProfile/{id}")
