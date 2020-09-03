@@ -1,7 +1,8 @@
-import React from "react"
+import React, {useEffect} from "react"
 import Home from "../js/Home_Page/Home";
 import {connect} from "react-redux";
 import Home_Container from "./Home_Container";
+import * as store from "./Store_Actions"
 
 /*
 sets up main tab (HOME) and content
@@ -16,10 +17,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        DISPATCH_init: () => dispatch(store.DISPATCH_init())
     }
 }
 
 function TabPane_Container(props) {
+
+    useEffect(()=>{
+
+        props.DISPATCH_init();
+
+    },[])
 
     return (
         <div id={"tabsAndContents"}>
@@ -42,7 +50,6 @@ function TabPane_Container(props) {
                     {props.open_communities.map(community=>{
                         return(community.tab)
                     })}
-                    Hi
                 </ul>
             </div>
 

@@ -12,8 +12,24 @@ export const ACTION_createArticle = "ACTION_createArticle"
 export const ACTION_createPost = "ACTION_createPost"
 export const ACTION_createReply = "ACTION_createReply"
 
+export const ACTION_init="ACTION_init"
+
 //ACTION CREATORS
 //HOME-PAGE ACTION DISPATCHES
+
+
+export function DISPATCH_init(){
+    return(dispatch) => {
+        Axios.get("/getHomeStreams").then(res=>{
+            console.log(res)
+            dispatch({
+                type: ACTION_init,
+                payload: res.data
+            })
+        })
+    }
+}
+
 
 export function DISPATCH_openCommunity(com_url) {
     return (dispatch) => {

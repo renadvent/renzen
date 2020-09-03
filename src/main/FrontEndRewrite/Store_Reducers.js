@@ -37,6 +37,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
 
+        case at.DISPATCH_init:
+            console.log(action.payload)
+            return
+            break
+
         case at.ACTION_openCommunity:
             break
 
@@ -67,7 +72,7 @@ const reducer = (state = initialState, action) => {
 
         case at.ACTION_logIn:
 
-            if (action.payload) {
+            //if (action.payload) {
                 return {
                     ...state,
                     user: {
@@ -82,7 +87,7 @@ const reducer = (state = initialState, action) => {
 
                         user_data: action.payload
                     }
-                }
+               // }
             }
 
         case at.ACTION_createCommunity:

@@ -60,7 +60,7 @@ function LoginRegister_Container(props) {
             <div className="tab-content" id="myLoginContent">
 
                 <div className="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="home-tab">
-                    <form onSubmit={props.DISPATCH_logIn(userName,password)}>
+                    <form onSubmit={()=>props.DISPATCH_logIn(userName,password)}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input type="email" className="form-control" name="username"/>
@@ -78,7 +78,7 @@ function LoginRegister_Container(props) {
                 </div>
 
                 <div className="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="profile-tab">
-                    <form onSubmit={props.DISPATCH_register(userName,password)}>
+                    <form onSubmit={()=>props.DISPATCH_register(userName,password)}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input

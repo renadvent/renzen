@@ -54,6 +54,22 @@ public class StreamControllers {
         this.profileStreamCOAssembler = profileStreamCOAssembler;
     }
 
+    @GetMapping(path="/getHomeStreams")
+    public ResponseEntity<?> getHomeStreams(){
+
+
+//        ArrayList<List> returnList = new ArrayList();
+//
+//        returnList.add(getAllArticles());
+//        returnList.add(getAllProfiles());
+//        returnList.add(getAllCommunities());
+
+
+//        return ResponseEntity.ok(returnList);
+        return ResponseEntity.ok(getAllProfiles());
+    }
+
+
     @GetMapping(path="/getAllByCommunityIDAndTopic")
     public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
 
