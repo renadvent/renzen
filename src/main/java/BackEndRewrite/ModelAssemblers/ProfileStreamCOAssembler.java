@@ -6,14 +6,18 @@ import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO
 import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
 import BackEndRewrite.Controllers.StreamControllers;
 import BackEndRewrite.Controllers.TabControllers;
+import BackEndRewrite.DomainObjects.ProfileDO;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProfileStreamCOAssembler implements RepresentationModelAssembler<ProfileStreamComponentCO, EntityModel<ProfileStreamComponentCO>> {
+public class ProfileStreamCOAssembler extends RepresentationModelAssemblerSupport<ProfileDO, ProfileStreamComponentCO> {
+
+
 
     @Override
     public EntityModel<ProfileStreamComponentCO> toModel(ProfileStreamComponentCO entity) {

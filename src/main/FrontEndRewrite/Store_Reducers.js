@@ -35,11 +35,23 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+
+    // const findLink = (link){
+    //     link._links.find()
+    // }
+
     switch (action.type) {
 
         case at.ACTION_init:
             console.log("REDUCING INIT")
             console.log(action.payload)
+
+            //get profiles
+            //_links is an array
+            //action.payload._links.find((link)=>{return (link.rel==="profileTabLink")})
+            console.log("-----------STREAM VERSIOn")
+            //console.log(action.payload[1].links[0]["Stream_Version"])
+
             return {
                 ...state,
                 homeTabData:{

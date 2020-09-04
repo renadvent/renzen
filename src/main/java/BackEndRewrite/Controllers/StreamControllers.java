@@ -56,18 +56,18 @@ public class StreamControllers {
     }
 
     @GetMapping(path="/getHomeStreams")
-    public ResponseEntity<?> getHomeStreams(){
+    public ResponseEntity<CollectionModel> getHomeStreams(){
 
 
-        ArrayList<List> returnList = new ArrayList();
+        ArrayList<CollectionModel> returnList = new ArrayList();
 
         //TODO convert
-        returnList.add(getAllArticles());
-        returnList.add(ResponseEntity_to_List(getAllProfiles()));
-        returnList.add(getAllCommunities());
+        returnList.add(getAllArticles().getBody());
+        returnList.add(getAllProfilesCollectionModel());
+        returnList.add(getAllCommunities().getBody());
 
 
-        return ResponseEntity.ok(returnList);
+        return ResponseEntity.ok(CollectionModel.of(returnList));
     }
 
     //Converter
@@ -98,22 +98,24 @@ public class StreamControllers {
         }
     }
 
-    @GetMapping(path="/getProfiles")
-    public ResponseEntity<CollectionModel<?>> getAllProfiles(){
-    //public List<ProfileStreamComponentCO>  getAllProfiles(){
+    public CollectionModel<?> getAllProfilesCollectionModel(){
+
         List<ProfileStreamComponentCO> returnList = new ArrayList<>();
         for (ProfileDO profileDO : userService.findAll()){
             returnList.add(profileDO_to_profileStreamComponentCO.convert(profileDO));
         }
 
-        //returns a ResponseEntity of a Collection Model with a a collection Link
-        return ResponseEntity
-                .ok(CollectionModel.of(returnList.stream().map(profileStreamCOAssembler::toModel)
+        return CollectionModel.of(returnList.stream().map(profileStreamCOAssembler::toModel)
                         .collect(Collectors.toList()),linkTo(methodOn(StreamControllers.class)
-                                .getAllProfiles()).withSelfRel()
-                        ));
+                        .getAllProfiles()).withSelfRel()
+                );
 
-        //return returnList;
+    }
+
+    @GetMapping(path="/getProfiles")
+    public ResponseEntity<CollectionModel<?>> getAllProfiles(){
+        return ResponseEntity
+                .ok(getAllProfilesCollectionModel());
     }
 
     @GetMapping(path="/getCommunitiesByProfile/{id}")
@@ -128,21 +130,21 @@ public class StreamControllers {
     }
 
     @GetMapping("/getArticles")
-    public List<ArticleStreamComponentCO> getAllArticles(){
+    public ResponseEntity<CollectionModel> getAllArticles(){
         List<ArticleStreamComponentCO> returnList = new ArrayList<>();
         for (ArticleDO articleDO : articleService.findAll()){
             returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
         }
-        return returnList;
+        return ResponseEntity.ok(CollectionModel.of(returnList));
     }
 
     @GetMapping("/getCommunities")
-    public List<CommunityStreamComponentCO> getAllCommunities(){
+    public ResponseEntity<CollectionModel> getAllCommunities(){
         List<CommunityStreamComponentCO> returnList = new ArrayList<>();
         for (CommunityDO communityDO : communityService.findAll()){
             returnList.add(communityDO_to_communityStreamComponentCO.convert(communityDO));
         }
-        return returnList;
+        return ResponseEntity.ok(CollectionModel.of(returnList));
     }
 
     /**

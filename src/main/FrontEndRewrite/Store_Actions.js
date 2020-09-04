@@ -20,8 +20,11 @@ export const ACTION_init="ACTION_init"
 
 export function DISPATCH_init(){
     return(dispatch) => {
+
+
         Axios.get("/getHomeStreams").then(res=>{
             console.log(res)
+            console.log(res._embedded.collectionModels._embedded)
             dispatch({
                 type: ACTION_init,
                 payload: res.data
