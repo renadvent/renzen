@@ -44,9 +44,13 @@ export function DISPATCH_openCommunity(com_url) {
 
 export function DISPATCH_openUser() {
 
+    return null
+
 }
 
 export function DISPATCH_openArticle() {
+
+    return null
 
 }
 

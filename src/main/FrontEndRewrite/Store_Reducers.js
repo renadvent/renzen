@@ -37,18 +37,29 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case at.DISPATCH_init:
+        case at.ACTION_init:
+            console.log("REDUCING INIT")
             console.log(action.payload)
-            return
+            return {
+                ...state,
+                homeTabData:{
+                    articles: action.payload[0],
+                    users: action.payload[1],
+                    communities: action.payload[2]
+                }
+            }
             break
 
         case at.ACTION_openCommunity:
+            return state
             break
 
         case at.ACTION_openUser:
+            return state
             break
 
         case at.ACTION_openArticle:
+            return state
             break
 
         case at.ACTION_register:

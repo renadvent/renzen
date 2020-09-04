@@ -76,14 +76,20 @@ function Home_Container(props) {
     )
 }
 
+
+
 function Stream(props){
     return(
         <div>
             {props.source.map(single=>{
+                {console.log(single.link)}
+                {console.log(single.name)}
                 return(
-                    <div onClick={props.dispatch(single.link)}>
-                        {single.name}
-                    </div>
+
+                // <div onClick={props.dispatch(single.link)}>
+                    <div>
+                    {single.name}
+                </div>
                 )
             })}
         </div>

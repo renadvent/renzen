@@ -16,7 +16,7 @@ public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamC
     String _id;
     ObjectId objectId;
 
-    String profileName;
+    String name;
     Integer numberOfArticles;
     Integer numberOfCommunities;
     List<ObjectId> articleIDList = new ArrayList<>();

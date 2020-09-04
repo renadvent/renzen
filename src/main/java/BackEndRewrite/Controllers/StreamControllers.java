@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,15 +59,20 @@ public class StreamControllers {
     public ResponseEntity<?> getHomeStreams(){
 
 
-//        ArrayList<List> returnList = new ArrayList();
-//
-//        returnList.add(getAllArticles());
-//        returnList.add(getAllProfiles());
-//        returnList.add(getAllCommunities());
+        ArrayList<List> returnList = new ArrayList();
+
+        //TODO convert
+        returnList.add(getAllArticles());
+        returnList.add(ResponseEntity_to_List(getAllProfiles()));
+        returnList.add(getAllCommunities());
 
 
-//        return ResponseEntity.ok(returnList);
-        return ResponseEntity.ok(getAllProfiles());
+        return ResponseEntity.ok(returnList);
+    }
+
+    //Converter
+    public List<?> ResponseEntity_to_List(ResponseEntity<CollectionModel<?>> responseEntity){
+        return Arrays.asList(responseEntity.getBody().getContent().toArray());
     }
 
 
@@ -93,8 +99,7 @@ public class StreamControllers {
     }
 
     @GetMapping(path="/getProfiles")
-
-    public ResponseEntity<?> getAllProfiles(){
+    public ResponseEntity<CollectionModel<?>> getAllProfiles(){
     //public List<ProfileStreamComponentCO>  getAllProfiles(){
         List<ProfileStreamComponentCO> returnList = new ArrayList<>();
         for (ProfileDO profileDO : userService.findAll()){
