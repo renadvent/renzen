@@ -48,18 +48,22 @@ function LoginRegister_Container(props) {
 
         <div>
 
-            <ul className="nav nav-tabs">
+            <ul className="nav nav-tabs" role="tablist">
                 <li className="nav-item">
-                    <a className="nav-link active" href="#">Login</a>
+                    <a className="nav-link active" href="#login"
+                       data-toggle="tab"
+                       role="tab">Login</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Sign Up</a>
+                    <a className="nav-link" href="#signup"
+                       data-toggle="tab"
+                       role="tab">Sign Up</a>
                 </li>
             </ul>
 
-            <div className="tab-content" id="myLoginContent">
+            <div className="tab-content" id="myLoginRegisterContent">
 
-                <div className="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="home-tab">
+                <div className="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                     <form onSubmit={()=>props.DISPATCH_logIn(userName,password)}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
@@ -77,7 +81,7 @@ function LoginRegister_Container(props) {
                     </form>
                 </div>
 
-                <div className="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="profile-tab">
+                <div className="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
                     <form onSubmit={()=>props.DISPATCH_register(userName,password)}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>

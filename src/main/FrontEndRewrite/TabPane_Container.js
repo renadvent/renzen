@@ -3,6 +3,7 @@ import Home from "../js/Home_Page/Home";
 import {connect} from "react-redux";
 import Home_Container from "./Home_Container";
 import * as store from "./Store_Actions"
+import Profile_Container from "./Profile_Container";
 
 /*
 sets up main tab (HOME) and content
@@ -33,15 +34,28 @@ function TabPane_Container(props) {
         <div id={"tabsAndContents"}>
             <div id={"tab-list"}>
                 <ul className="nav nav-tabs" id="app-tabs" role="tablist">
+
                     <li className="nav-item">
                         <a
                             className="nav-link active"
                             id="home-tab"
                             data-toggle="tab"
-                            href="#home"
+                            href="#home-contents"
                             role="tab"
                         >
                             Home
+                        </a>
+                    </li>
+
+                    <li className="nav-item">
+                        <a
+                            className="nav-link"
+                            id="profile-tab"
+                            data-toggle="tab"
+                            href="#profile-contents"
+                            role="tab"
+                        >
+                            Profile
                         </a>
                     </li>
 
@@ -62,6 +76,19 @@ function TabPane_Container(props) {
                     aria-labelledby="home-tab"
                 >
                     <Home_Container/>
+
+                </div>
+
+
+
+                <div
+                    className="tab-pane fade show"
+                    id="profile-contents"
+                    role="tabpanel"
+                    aria-labelledby="profile-tab"
+                >
+                    <Profile_Container/>
+
                 </div>
 
             </div>
