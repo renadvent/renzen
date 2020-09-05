@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         if (profileDOOptional.isEmpty()){
             throw new ResourceNotFoundException("id not found");
         }else {
+            System.out.println(profileDOOptional.get());
             return profileDOOptional.get();
         }
 
@@ -68,7 +69,8 @@ public class UserServiceImpl implements UserService {
         Optional<ProfileDO> profileDOOptional = userRepository.findByUsername(name);
 
         if (profileDOOptional.isPresent()){
-            if (profileDOOptional.get().getPassword() == password){
+            if (profileDOOptional.get().getPassword().equals(password)){
+                System.out.println(profileDOOptional.get().toString());
                 return profileDOOptional.get();
             }else{
                 throw new RuntimeException("username/password not found");

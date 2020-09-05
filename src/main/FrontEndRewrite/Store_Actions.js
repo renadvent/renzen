@@ -97,18 +97,24 @@ export function DISPATCH_logIn(payload) {
                 password: payload.password,
                 username: payload.username
             }).then(res => {
-            //?
-            if (res.status) {
                 dispatch({
                     type: ACTION_logIn,
                     payload: res.data
-                })
-            } else {
-                dispatch({
-                    type: ACTION_logIn,
-                    payload: null
-                })
-            }
+
+            // console.log("RESDATA:")
+            // console.log(res.data)
+            //
+            // if (res.status) {
+            //     dispatch({
+            //         type: ACTION_logIn,
+            //         payload: res.data
+            //     })
+            // } else {
+            //     dispatch({
+            //         type: ACTION_logIn,
+            //         payload: null
+            //     })
+            })
         })
     }
 }

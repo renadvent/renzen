@@ -130,13 +130,15 @@ const reducer = (state = initialState, action) => {
         case at.ACTION_logIn:
 
         //TODO redo
+            console.log("ACTION LOGIN")
+            console.log(action.payload)
 
             return {
                 ...state,
                 user: {
                     ...state.user,
                     logged_in: true,
-                    name: action.payload.username,
+                    name: action.payload.name,
                     id: action.payload.id,
                     //url:action.payload.url,
                     communities: action.payload.communities,//a dual name, link object
@@ -144,6 +146,16 @@ const reducer = (state = initialState, action) => {
                     study_guides: action.payload.studyGuides,
 
                     user_data: action.payload
+                },
+                tabs:{
+                    ...state.tabs,
+                    open_profiles: state.tabs.open_profiles.concat({
+                        name: action.payload.name,
+                        data: action.payload,
+                        tab: <AppTab name={action.payload.name + " (Your Profile)"} href={"A" + action.payload._id}/>,
+                        component: <ProfileAppTabContent payload={action.payload} href={"A" + action.payload._id}/>
+                    })
+
                 }
         }
 

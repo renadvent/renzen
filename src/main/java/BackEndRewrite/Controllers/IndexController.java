@@ -127,9 +127,8 @@ public class IndexController {
     //-----------------------------------------------BASIC AUTHENTICATION
 
     @RequestMapping(path="/login")
-    public ProfileTabComponentCO Login(@RequestBody SitePayloads.UserNamePassword payload){
-        return profileDO_to_profileTabComponentCO
-                .convert(userService.findProfileDOByNameAndPassword(payload.username, payload.password));
+    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody SitePayloads.UserNamePassword payload){
+        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.username, payload.password)));
     }
 
     @RequestMapping(path="/register")

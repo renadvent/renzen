@@ -19,6 +19,8 @@ function Profile_Container(props) {
             <Stream source={props.data.articleIDList}/>
             {/*<p>{props.data.url}</p>*/}
 
+            {/*//TODO create community*/}
+
             <button onClick={props.DISPATCH_logOut}>Log Out</button>
         </div>
     )
