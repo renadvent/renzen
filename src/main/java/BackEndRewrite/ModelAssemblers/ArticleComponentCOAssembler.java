@@ -3,10 +3,7 @@ package BackEndRewrite.ModelAssemblers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
-import BackEndRewrite.Controllers.CreateArticleController;
-import BackEndRewrite.Controllers.StreamControllers;
-import BackEndRewrite.Controllers.TabControllers;
-import BackEndRewrite.DomainObjects.ArticleDO;
+import BackEndRewrite.Controllers.IndexController;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -37,9 +34,9 @@ public class ArticleComponentCOAssembler implements RepresentationModelAssembler
 //        return EntityModel.of(articleComponentCO);
 
         return EntityModel.of(articleComponentCO,
-                linkTo(methodOn(StreamControllers.class).getAllProfiles()).withSelfRel(),
-                linkTo(methodOn(StreamControllers.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withSelfRel());
+                linkTo(methodOn(IndexController.class).getAllProfiles()).withSelfRel(),
+                linkTo(methodOn(IndexController.class).getAllArticles()).withSelfRel(),
+                linkTo(methodOn(IndexController.class).getAllCommunities()).withSelfRel());
                 //add a discussion link?
                 //article metadata component link
                 //linkTo(methodOn(StreamControllers.class).getArticleStreamComponentCO(articleComponentCO.getId())).withRel("ArticleStreamComponentCO"));

@@ -3,7 +3,7 @@ package BackEndRewrite.ModelAssemblers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
-import BackEndRewrite.Controllers.StreamControllers;
+import BackEndRewrite.Controllers.IndexController;
 import BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import BackEndRewrite.DomainObjects.ProfileDO;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
@@ -17,7 +17,7 @@ public class ProfileStreamCOAssembler extends RepresentationModelAssemblerSuppor
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
     public ProfileStreamCOAssembler(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
-        super(StreamControllers.class, ProfileStreamComponentCO.class);
+        super(IndexController.class, ProfileStreamComponentCO.class);
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
     }
 
@@ -28,10 +28,10 @@ public class ProfileStreamCOAssembler extends RepresentationModelAssemblerSuppor
        ProfileStreamComponentCO profileStreamComponentCO = profileDO_to_profileStreamComponentCO.convert(profileDO);
 
         return profileStreamComponentCO.add(List.of(
-                linkTo(methodOn(StreamControllers.class).getAllProfiles()).withRel("other"),
-                linkTo(methodOn(StreamControllers.class).getAllArticles()).withRel("other"),
-                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withRel("other"),
-                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(profileStreamComponentCO.getObjectId())).withRel("Stream_Version"))
+                linkTo(methodOn(IndexController.class).getAllProfiles()).withRel("other"),
+                linkTo(methodOn(IndexController.class).getAllArticles()).withRel("other"),
+                linkTo(methodOn(IndexController.class).getAllCommunities()).withRel("other"),
+                linkTo(methodOn(IndexController.class).getProfileStreamComponentCO(profileStreamComponentCO.getObjectId())).withRel("Stream_Version"))
                 );
     }
 
