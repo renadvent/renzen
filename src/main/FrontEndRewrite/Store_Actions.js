@@ -24,10 +24,31 @@ export function DISPATCH_init(){
 
         Axios.get("/getHomeStreams").then(res=>{
             console.log(res)
-            console.log(res._embedded.collectionModels._embedded)
+            console.log(res.data._embedded.collectionModels[1]._embedded)
+
+
+
+            console.log("UNDER")
+
+            let base = res.data._embedded.collectionModels
+
+            console.log(base[0])
+            let articles = (!Object.keys(base[0]).length ? null : base[0]._embedded.articleStreamComponentCoes)
+            let profiles = (!Object.keys(base[1]).length ? null : base[1]._embedded.profileStreamComponentCoes)
+            let communities = (!Object.keys(base[2]).length ? null : base[2]._embedded.communityStreamComponentCoes)
+
+
             dispatch({
                 type: ACTION_init,
-                payload: res.data
+                //payload:res.data._embedded.collectionModels
+
+                payload:
+                    {
+                        articles : articles,
+                        users : profiles,
+                        communities : communities
+                }
+                //payload: res.data
             })
         })
     }

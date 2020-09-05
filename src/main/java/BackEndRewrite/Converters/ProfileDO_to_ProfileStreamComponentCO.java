@@ -6,6 +6,7 @@ import BackEndRewrite.Services.Interfaces.UserService;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ public class ProfileDO_to_ProfileStreamComponentCO implements Converter<ProfileD
 
     final UserService userService;
 
+    @Autowired
     public ProfileDO_to_ProfileStreamComponentCO(UserService userService) {
         this.userService = userService;
     }

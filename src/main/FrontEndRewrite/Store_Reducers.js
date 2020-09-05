@@ -55,9 +55,9 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 homeTabData:{
-                    articles: action.payload[0],
-                    users: action.payload[1],
-                    communities: action.payload[2]
+                    articles: action.payload.articles,
+                    users: action.payload.users,
+                    communities: action.payload.communities
                 }
             }
             break

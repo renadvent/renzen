@@ -63,7 +63,7 @@ public class StreamControllers {
 
         //TODO convert
         returnList.add(getAllArticles().getBody());
-        returnList.add(getAllProfilesCollectionModel());
+        returnList.add(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
         returnList.add(getAllCommunities().getBody());
 
 
@@ -98,24 +98,10 @@ public class StreamControllers {
         }
     }
 
-    public CollectionModel<?> getAllProfilesCollectionModel(){
-
-        List<ProfileStreamComponentCO> returnList = new ArrayList<>();
-        for (ProfileDO profileDO : userService.findAll()){
-            returnList.add(profileDO_to_profileStreamComponentCO.convert(profileDO));
-        }
-
-        return CollectionModel.of(returnList.stream().map(profileStreamCOAssembler::toModel)
-                        .collect(Collectors.toList()),linkTo(methodOn(StreamControllers.class)
-                        .getAllProfiles()).withSelfRel()
-                );
-
-    }
-
     @GetMapping(path="/getProfiles")
     public ResponseEntity<CollectionModel<?>> getAllProfiles(){
         return ResponseEntity
-                .ok(getAllProfilesCollectionModel());
+                .ok(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
     }
 
     @GetMapping(path="/getCommunitiesByProfile/{id}")

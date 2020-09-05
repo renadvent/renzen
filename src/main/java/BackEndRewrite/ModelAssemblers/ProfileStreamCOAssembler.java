@@ -3,43 +3,37 @@ package BackEndRewrite.ModelAssemblers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
-import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
 import BackEndRewrite.Controllers.StreamControllers;
-import BackEndRewrite.Controllers.TabControllers;
+import BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import BackEndRewrite.DomainObjects.ProfileDO;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ProfileStreamCOAssembler extends RepresentationModelAssemblerSupport<ProfileDO, ProfileStreamComponentCO> {
 
+    final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
-
-    @Override
-    public EntityModel<ProfileStreamComponentCO> toModel(ProfileStreamComponentCO entity) {
-
-        return EntityModel.of(entity,
-                linkTo(methodOn(StreamControllers.class).getAllProfiles()).withSelfRel(),
-                linkTo(methodOn(StreamControllers.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withSelfRel(),
-
-                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(entity.getObjectId())).withRel("Stream_Version"));
-                //linkTo(methodOn(StreamControllers.class).get));
-
-
-
-//                return EntityModel.of(profileStreamComponentCO,
-//                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(profileStreamComponentCO.get_id())).withRel("profileStreamComponentCO"),
-//                linkTo(methodOn(TabControllers.class).getProfileTabComponentCO(profileStreamComponentCO.getId())).withRel("profileTabComponentCO"));
-
+    public ProfileStreamCOAssembler(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
+        super(StreamControllers.class, ProfileStreamComponentCO.class);
+        this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
     }
 
     @Override
-    public CollectionModel<EntityModel<ProfileStreamComponentCO>> toCollectionModel(Iterable<? extends ProfileStreamComponentCO> entities) {
-        return null;
+    public ProfileStreamComponentCO toModel(ProfileDO profileDO) {
+
+        //ProfileStreamComponentCO profileStreamComponentCO = profileDO_to_profileStreamComponentCO.convert(instantiateModel(profileDO));
+       ProfileStreamComponentCO profileStreamComponentCO = profileDO_to_profileStreamComponentCO.convert(profileDO);
+
+        return profileStreamComponentCO.add(List.of(
+                linkTo(methodOn(StreamControllers.class).getAllProfiles()).withRel("other"),
+                linkTo(methodOn(StreamControllers.class).getAllArticles()).withRel("other"),
+                linkTo(methodOn(StreamControllers.class).getAllCommunities()).withRel("other"),
+                linkTo(methodOn(StreamControllers.class).getProfileStreamComponentCO(profileStreamComponentCO.getObjectId())).withRel("Stream_Version"))
+                );
     }
+
+
 }

@@ -81,17 +81,19 @@ function Home_Container(props) {
 function Stream(props){
     return(
         <div>
-            {props.source.map(single=>{
-                {console.log(single.link)}
+            {console.log(props)}
+
+            {props.source !==null ? props.source.map(single=>{
+                {console.log(single._links)}
                 {console.log(single.name)}
                 return(
 
-                // <div onClick={props.dispatch(single.link)}>
+                // <div onClick={props.dispatch(single._links["Stream_Version"].href)}>
                     <div>
                     {single.name}
                 </div>
                 )
-            })}
+            }):null}
         </div>
     )
 }
