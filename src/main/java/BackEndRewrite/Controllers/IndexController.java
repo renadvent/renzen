@@ -33,6 +33,7 @@ import java.util.List;
 @CrossOrigin("*")
 public class IndexController {
 
+    //services
     final UserService userService;
     final ArticleService articleService;
     final DiscussionService discussionService;
@@ -46,16 +47,14 @@ public class IndexController {
     final CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
     final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
-
     //assemblers
     final ArticleComponentCOAssembler articleComponentCOAssembler;
-
     final ProfileStreamCOAssembler profileStreamCOAssembler;
     final ProfileTabCOAssembler profileTabCOAssembler;
     final CommunityTabCOAssembler communityTabCOAssembler;
-
     final CommunityStreamCOAssembler communityStreamCOAssembler;
 
+    //controllers
     public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleComponentCOAssembler articleComponentCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
@@ -74,24 +73,8 @@ public class IndexController {
         this.communityStreamCOAssembler = communityStreamCOAssembler;
     }
 
-
-
-
-
-    /**
-     * creates a community
-     * uses ProfileDO constructor (String name, String creatorID)
-     *then converts it to a tabCO and returns it
-     *
-     * @param communityDO
-     * @return
-     */
-    @PostMapping(
-            path="/createCommunity",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    @ResponseBody
+    //-------------------------------------------CREATE
+    @PostMapping(path="/createCommunity")
     public ResponseEntity<?> createCommunity(@RequestBody CommunityDO communityDO){
 
         //check if community name already exists
@@ -108,16 +91,16 @@ public class IndexController {
         //save community
         communityDO = communityService.save(communityDO);
 
+        ProfileDO profileDO = userService.findBy_id(communityDO.getCreatorID());
+        profileDO.getCommunityIDList().add(communityDO.get_id());
+
         return ResponseEntity.ok(communityTabCOAssembler.toModel(communityDO));
 //        return ResponseEntity
 //                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
 //                .body(entityModel);
     }
 
-    @PostMapping(path = "/createArticle",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping(path = "/createArticle")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
 
         //check if provided ids exist
@@ -141,69 +124,89 @@ public class IndexController {
 
     }
 
+    //-----------------------------------------------BASIC AUTHENTICATION
 
-    //TODO create discussion
-    @PostMapping(path="/createDiscussion")
-    public ResponseEntity<?> createDiscussion(@RequestBody createDiscussionPayload payload){
-        return null;
-    }
-
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    class createDiscussionPayload{
-
-    }
-
-    public class CreateDiscussionSectionController {
-    }
-
-
-    /**
-     * Used to login to website using username and password
-     * Returns info to form a user tab component in react
-     *
-     * @param payload
-     * @return
-     */
     @RequestMapping(path="/login")
-    @ResponseBody
     public ProfileTabComponentCO Login(@RequestBody SitePayloads.UserNamePassword payload){
         return profileDO_to_profileTabComponentCO
                 .convert(userService.findProfileDOByNameAndPassword(payload.username, payload.password));
     }
 
     @RequestMapping(path="/register")
-    @ResponseBody
     public ResponseEntity<ProfileTabComponentCO> Register(@RequestBody SitePayloads.UserNamePassword payload){
         if (userService.checkIfUsernameTaken(payload.username)){
             throw new RuntimeException("user name taken");
         }else{
-            //create and save profile
             return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.save(new ProfileDO(payload.username,payload.password))));
         }
     }
 
+    //---------------------------------------------------------
+
     @GetMapping(path="/getHomeStreams")
-    public ResponseEntity<CollectionModel> getHomeStreams(){
+    public ResponseEntity<CollectionModel<?>> getHomeStreams(){
 
-
-        ArrayList<CollectionModel> returnList = new ArrayList();
+        ArrayList<CollectionModel<?>> returnList = new ArrayList<>();
 
         //TODO convert
         returnList.add(getAllArticles().getBody());
         returnList.add(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
         returnList.add(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
 
-
         return ResponseEntity.ok(CollectionModel.of(returnList));
     }
 
-    //Converter
-    public List<?> ResponseEntity_to_List(ResponseEntity<CollectionModel<?>> responseEntity){
-        return Arrays.asList(responseEntity.getBody().getContent().toArray());
+    //------------------------------------------------GET
+
+    @GetMapping(path="/getProfiles")
+    public ResponseEntity<CollectionModel<?>> getAllProfiles(){
+        return ResponseEntity
+                .ok(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
     }
 
+    @GetMapping("/getArticles")
+    public ResponseEntity<CollectionModel<?>> getAllArticles(){
+
+        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
+        for (ArticleDO articleDO : articleService.findAll()){
+            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
+        }
+        return ResponseEntity.ok(CollectionModel.of(returnList));
+    }
+
+    @GetMapping("/getCommunities")
+    public ResponseEntity<CollectionModel<?>> getAllCommunities(){
+        return ResponseEntity
+                .ok(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
+    }
+
+    //------------------------------------------------By ID
+
+    @GetMapping(path="/getProfileStreamComponentCO/{id}")
+    public ProfileStreamComponentCO getProfileStreamComponentCO(@PathVariable ObjectId id){
+        return profileDO_to_profileStreamComponentCO.convert(userService.findBy_id(id));
+    }
+
+    @RequestMapping(path="/profileTabComponentCO/{id}")
+    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id){
+        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findBy_id(id)));
+    }
+
+    @GetMapping(path="/getArticleStreamComponentCO/{id}")
+    public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
+        return articleDO_to_articleStreamComponentCO.convert(articleService.findBy_id(id));
+    }
+
+    @GetMapping(path="/getCommunityStreamComponentCO/{id}")
+    public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id){
+        return communityDO_to_communityStreamComponentCO.convert(communityService.findBy_id(id));
+    }
+
+    @RequestMapping(path="/communityTabComponent/{id}")
+    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
+        return ResponseEntity
+                .ok(communityTabCOAssembler.toModel(communityService.findBy_id(id)));
+    }
 
     @GetMapping(path="/getAllByCommunityIDAndTopic")
     public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
@@ -213,109 +216,10 @@ public class IndexController {
         for (ArticleDO articleDO : articleService.findAllByCommunityIDAndTopic(payload.communityID,payload.topic)){
             returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
         }
-
         return returnList;
     }
 
-    @Getter@Setter
-    class getAllByCommunityIDAndTopicPayload{
-        ObjectId communityID;
-        String topic;
-        public getAllByCommunityIDAndTopicPayload(ObjectId communityID,String topic){
-            this.communityID=communityID;
-            this.topic=topic;
-        }
-    }
-
-    @GetMapping(path="/getProfiles")
-    public ResponseEntity<CollectionModel<?>> getAllProfiles(){
-        return ResponseEntity
-                .ok(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
-    }
-
-    @GetMapping(path="/getCommunitiesByProfile/{id}")
-    public List<CommunityStreamComponentCO> getCommunitiesByProfile(@PathVariable ObjectId id){
-
-        List<CommunityStreamComponentCO> returnList = new ArrayList<>();
-
-        for (CommunityDO communityDO : communityService.findByCreatorID(id)){
-            returnList.add(communityDO_to_communityStreamComponentCO.convert(communityDO));
-        }
-        return returnList;
-    }
-
-    @GetMapping("/getArticles")
-    public ResponseEntity<CollectionModel> getAllArticles(){
-        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
-        for (ArticleDO articleDO : articleService.findAll()){
-            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
-        }
-        return ResponseEntity.ok(CollectionModel.of(returnList));
-    }
-
-    @GetMapping("/getCommunities")
-    public ResponseEntity<CollectionModel> getAllCommunities(){
-        List<CommunityStreamComponentCO> returnList = new ArrayList<>();
-        for (CommunityDO communityDO : communityService.findAll()){
-            returnList.add(communityDO_to_communityStreamComponentCO.convert(communityDO));
-        }
-        return ResponseEntity.ok(CollectionModel.of(returnList));
-    }
-
-    /**
-     * returns a profile stream component for react render
-     * @param id
-     * @return
-     */
-    @GetMapping(path="/getProfileStreamComponentCO/{id}")
-    public ProfileStreamComponentCO getProfileStreamComponentCO(@PathVariable ObjectId id){
-        return profileDO_to_profileStreamComponentCO.convert(userService.findBy_id(id));
-    }
-
-    /**
-     * returns an article stream component for react render
-     * @param id
-     * @return
-     */
-    @GetMapping(path="/getArticleStreamComponentCO/{id}")
-    public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
-        return articleDO_to_articleStreamComponentCO.convert(articleService.findBy_id(id));
-    }
-
-    /**
-     * returns a community stream component for react render
-     * @param id
-     * @return
-     */
-    @GetMapping(path="/getCommunityStreamComponentCO/{id}")
-    public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id){
-        return communityDO_to_communityStreamComponentCO.convert(communityService.findBy_id(id));
-    }
-
-    /**
-     * Get Profile Tab Component CO for React
-     * @param id
-     * @return
-     */
-    @RequestMapping(path="/profileTabComponentCO/{id}")
-    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id){
-        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findBy_id(id)));
-    }
-
-    /**
-     * Get Community Tab Component CO for React
-     * @param id
-     * @return
-     */
-    @RequestMapping(path="/communityTabComponent/{id}")
-    @ResponseBody
-    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
-        return ResponseEntity
-                .ok(communityTabCOAssembler.toModel(communityService.findBy_id(id)));
-    }
-
-
-
+    //------------------------------------------------Payloads
 
     @NoArgsConstructor
     @Getter
@@ -349,5 +253,14 @@ public class IndexController {
 
     }
 
+    @Getter@Setter
+    class getAllByCommunityIDAndTopicPayload{
+        ObjectId communityID;
+        String topic;
+        public getAllByCommunityIDAndTopicPayload(ObjectId communityID,String topic){
+            this.communityID=communityID;
+            this.topic=topic;
+        }
+    }
 
 }

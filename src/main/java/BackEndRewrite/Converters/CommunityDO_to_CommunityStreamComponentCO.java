@@ -19,11 +19,6 @@ import java.util.stream.Collectors;
 @Component
 public class CommunityDO_to_CommunityStreamComponentCO implements Converter<CommunityDO, CommunityStreamComponentCO> {
 
-
-//    final ArticleRepository articleRepository;
-//    final UserRepository userRepository;
-
-    //can inject converters with spring?
     final ArticleDO_to_ArticleStreamComponentCO testConverter;
     final ProfileDO_to_ProfileStreamComponentCO ProfileConverter;
 
@@ -33,8 +28,6 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
 
     @Autowired
     public CommunityDO_to_CommunityStreamComponentCO(ArticleDO_to_ArticleStreamComponentCO testConverter, ProfileDO_to_ProfileStreamComponentCO profileConverter, UserService userService, ArticleService articleService, CommunityService communityService) {
-//        this.articleRepository = articleRepository;
-//        this.userRepository = userRepository;
         this.testConverter = testConverter;
         ProfileConverter = profileConverter;
         this.userService = userService;
@@ -58,6 +51,7 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         return communityStreamComponentCOList;
     }
 
+    //???
     @Synchronized
     @Nullable
     public List<CommunityStreamComponentCO> convert(List<ObjectId> sourceList){

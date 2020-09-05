@@ -15,6 +15,8 @@ function Profile_Container(props) {
             <p>number of communities: {props.data.numberOfCommunities}</p>
             <p>Communities you are a part of: </p>
             <Stream source={props.data.communityIDList}/>
+            <p>Articles you've written</p>
+            <Stream source={props.data.articleIDList}/>
             {/*<p>{props.data.url}</p>*/}
 
             <button onClick={props.DISPATCH_logOut}>Log Out</button>

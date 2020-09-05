@@ -4,35 +4,19 @@ import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.Repositories.UserRepository;
 import BackEndRewrite.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
-/**
- * Accesses User Repository
- */
 
 @Service
 public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
 
-    private final MongoTemplate mongoTemplate;
-    final MongoOperations mongoOperations;
-
-    public UserServiceImpl(UserRepository userRepository, MongoTemplate mongoTemplate, MongoOperations mongoOperations) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.mongoTemplate = mongoTemplate;
-        this.mongoOperations = mongoOperations;
     }
-    //final MongoClients mongoClients;
-
-
 
     @Override
     public ProfileDO save(ProfileDO profileDO) {
@@ -46,39 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Iterable<ProfileDO> findAll() {
-
         return userRepository.findAll();
     }
 
     @Override
     public ProfileDO findBy_id(ObjectId id) {
-
-        //Optional<ProfileDO> profileDOOptional = userRepository.findById(id);
-
-        //Optional<ProfileDO> p = userRepository.findById(id);
-
-        //MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "Profiles");
-        //Query query = new Query(Criteria.where("Id").is(id.toString()));
-        //ProfileDO profileDOtest = mongoTemplate.findOne(query, ProfileDO.class);
-
-//        System.out.println(mongoOperations.findOne(query, ProfileDO.class));
-//
-//        System.out.println(mongoOperations.findById(query, ProfileDO.class,"Profiles"));
-
         return userRepository.findBy_id(id);
-        //return mongoOperations.findById(query, ProfileDO.class,"Profiles");
-
-        //MongoCollection<Document> coll = mongoClients.create().getDatabase("renzen").getCollection("Profiles");
-
-        //return mongoOperations.findOne(query, ProfileDO.class);
-
-        //return profileDOtest;
-
-//        if (profileDOOptional.isEmpty()){
-//            throw new ResourceNotFoundException("id not found");
-//        }else {
-//            return profileDOOptional.get();
-//        }
     }
 
     @Override
@@ -94,11 +51,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    /**
-     * used by register controller
-     * @param name
-     * @return
-     */
     @Override
     public boolean checkIfUsernameTaken(String name) {
 
