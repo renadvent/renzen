@@ -91,7 +91,7 @@ function Stream(props){
 
                 <div onClick={()=>props.dispatch(single._links["Stream_Version"].href)}>
 
-<a href={""}>{single.name}</a>
+<a>{single.name}</a>
 
                 </div>
                 )

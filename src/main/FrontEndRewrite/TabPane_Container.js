@@ -12,7 +12,7 @@ hosts other opened tabs when they are opened
 
 const mapStateToProps = (state) => {
     return {
-        open_communities: state.open_communities
+        open_communities: state.tabs.open_communities
     }
 }
 

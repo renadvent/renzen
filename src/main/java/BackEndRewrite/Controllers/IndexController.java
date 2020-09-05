@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Controller
+@RestController
 @CrossOrigin("*")
 public class IndexController {
 
@@ -75,15 +75,7 @@ public class IndexController {
     }
 
 
-    /**
-     * returns the index home page
-     * @return
-     */
-    @RequestMapping()
 
-    public String index(){
-        return "index";
-    }
 
 
     /**

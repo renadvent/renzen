@@ -68,9 +68,13 @@ export function DISPATCH_openCommunity(com_url) {
 
 export function DISPATCH_openUser(url) {
     return (dispatch) => {
-        dispatch({
-            type: ACTION_openUser
+        Axios.get(url).then(res=>{
+            dispatch({
+                type: ACTION_openUser,
+                payload:res.data
+            })
         })
+
     }
 }
 

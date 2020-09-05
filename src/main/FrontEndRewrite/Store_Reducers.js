@@ -1,6 +1,8 @@
 import * as at from "./Store_Actions"
 import Community from "../js/Community_Page/Community/Community";
 import React from "react"
+import AppTab from "./AppTab";
+import {open_community} from "../js/Store/actions";
 
 //INITIAL STATE
 
@@ -63,7 +65,19 @@ const reducer = (state = initialState, action) => {
             break
 
         case at.ACTION_openCommunity:
-            return state
+            return {
+                ...state,
+                tabs : {
+                    open_communities: state.open_communities.concat(
+                        {
+                            name: action.payload.name,
+                            data: action.payload.data,
+                            //tab: null,
+                            tab: <AppTab name={action.payload.name}/>,
+                            component: <Community payload={action.payload.data}/>
+                        })
+                }
+            }
             break
 
         case at.ACTION_openUser:
