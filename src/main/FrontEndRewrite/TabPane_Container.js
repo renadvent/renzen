@@ -67,7 +67,7 @@ function TabPane_Container(props) {
                 </ul>
             </div>
 
-            <div id={"tabContents"}>
+            <div id={"tabContents"} className={"tab-content"}>
 
                 <div
                     className="tab-pane fade show active"
@@ -82,7 +82,7 @@ function TabPane_Container(props) {
 
 
                 <div
-                    className="tab-pane fade show"
+                    className="tab-pane fade"
                     id="profile-contents"
                     role="tabpanel"
                     aria-labelledby="profile-tab"
@@ -90,6 +90,10 @@ function TabPane_Container(props) {
                     <Profile_Container/>
 
                 </div>
+
+                {props.open_communities.map(community=>{
+                    return(community.component)
+                })}
 
             </div>
 

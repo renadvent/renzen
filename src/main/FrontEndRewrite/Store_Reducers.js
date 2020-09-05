@@ -3,6 +3,7 @@ import Community from "../js/Community_Page/Community/Community";
 import React from "react"
 import AppTab from "./AppTab";
 import {open_community} from "../js/Store/actions";
+import AppTabContent from "./AppTabContent";
 
 //INITIAL STATE
 
@@ -25,7 +26,8 @@ const initialState = {
 
     tabs: {
         open_communities: [],
-        open_study_guides: []
+        open_study_guides: [],
+        open_profiles:[]
     },
 
     homeTabData: {
@@ -68,20 +70,36 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 tabs : {
-                    open_communities: state.open_communities.concat(
+                    open_communities: state.tabs.open_communities.concat(
                         {
                             name: action.payload.name,
                             data: action.payload.data,
                             //tab: null,
-                            tab: <AppTab name={action.payload.name}/>,
-                            component: <Community payload={action.payload.data}/>
+                            tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
+                            component:<AppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
+                            //component:<AppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
+                            //component: <Community payload={action.payload.data} href={action.payload._id}/>
                         })
                 }
             }
             break
 
         case at.ACTION_openUser:
-            return state
+            return {
+                ...state,
+                tabs : {
+                    open_profiles: state.tabs.open_profiles.concat(
+                        {
+                            name: action.payload.name,
+                            data: action.payload.data,
+                            //tab: null,
+                            tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
+                            component:<AppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
+                            //component: <Community payload={action.payload.data} href={action.payload._id}/>
+                        }
+                    )
+                }
+            }
             break
 
         case at.ACTION_openArticle:
