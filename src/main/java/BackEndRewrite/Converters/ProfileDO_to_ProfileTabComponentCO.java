@@ -35,7 +35,7 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
 
         final ProfileTabComponentCO co = new ProfileTabComponentCO();
 
-        co.setUsername(source.getUsername());
+        co.setName(source.getUsername());
 
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());

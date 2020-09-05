@@ -30,7 +30,8 @@ public class ProfileStreamCOAssembler extends RepresentationModelAssemblerSuppor
                 linkTo(methodOn(IndexController.class).getAllProfiles()).withRel("other"),
                 linkTo(methodOn(IndexController.class).getAllArticles()).withRel("other"),
                 linkTo(methodOn(IndexController.class).getAllCommunities()).withRel("other"),
-                linkTo(methodOn(IndexController.class).getProfileStreamComponentCO(profileStreamComponentCO.getObjectId())).withRel("Stream_Version"))
+                linkTo(methodOn(IndexController.class).getProfileStreamComponentCO(profileStreamComponentCO.getObjectId())).withRel("Stream_Version"),
+                linkTo(methodOn(IndexController.class).getProfileTabComponentCO(profileStreamComponentCO.getObjectId())).withRel("Tab_Version"))
                 );
     }
 

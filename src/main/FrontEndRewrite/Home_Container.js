@@ -90,10 +90,10 @@ function Stream(props){
             {props.source !==null ? props.source.map(single=>{
                 {console.log(single._links)}
                 {console.log(single.name)}
-                {console.log(single._links["Stream_Version"].href)}
+                {console.log(single._links["Tab_Version"].href)}
                 return(
 
-                <div onClick={()=>props.dispatch(single._links["Stream_Version"].href)}>
+                <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
 
 <a>{single.name}</a>
 

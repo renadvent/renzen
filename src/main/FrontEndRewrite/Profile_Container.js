@@ -10,14 +10,18 @@ function Profile_Container(props) {
     return(
         <div>
 
-            <p>{props.data.name}</p>
+            <p>username: {props.data.name}</p>
+            <p>number of articles: {props.data.numberOfArticles}</p>
+            <p>number of communities: {props.data.numberOfCommunities}</p>
+            <p>Communities you are a part of: </p>
+            <Stream source={props.data.communityIDList}/>
             {/*<p>{props.data.url}</p>*/}
 
             <button onClick={props.DISPATCH_logOut}>Log Out</button>
         </div>
     )
 }
-
+//<Stream source={props.loadedCommunities} dispatch={props.DISPATCH_openCommunity}/>
 const mapStateToProps = (state) => {
     return{
         user:state.user
@@ -28,6 +32,28 @@ const mapDispatchToProps = (dispatch) => {
     return{
         DISPATCH_logOut:()=>dispatch(store.DISPATCH_logOut())
     }
+}
+
+function Stream(props){
+    return(
+        <div>
+            {console.log(props)}
+
+            {props.source !==null ? props.source.map(single=>{
+                {console.log(single._links)}
+                {console.log(single.name)}
+                {console.log(single._links["Tab_Version"].href)}
+                return(
+
+                    // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
+<div>
+                        <a>{single.name}</a>
+
+                    </div>
+                )
+            }):null}
+        </div>
+    )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps) (Profile_Container)

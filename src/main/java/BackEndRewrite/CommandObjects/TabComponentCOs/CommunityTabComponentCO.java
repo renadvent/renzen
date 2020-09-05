@@ -24,6 +24,7 @@ public class CommunityTabComponentCO extends RepresentationModel<CommunityTabCom
 
     String _id;
     ObjectId objectId;
+    String name;
 
     /**
      * This List is used by the React Application to render the

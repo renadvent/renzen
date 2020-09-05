@@ -33,7 +33,8 @@ public class ProfileTabCOAssembler extends RepresentationModelAssemblerSupport<P
                 linkTo(methodOn(IndexController.class).getAllProfiles()).withSelfRel(),
                 linkTo(methodOn(IndexController.class).getAllArticles()).withSelfRel(),
                 linkTo(methodOn(IndexController.class).getAllCommunities()).withRel("All_Communities"),
-                linkTo(methodOn(IndexController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId())).withRel("Stream_Version")));
+                linkTo(methodOn(IndexController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId())).withRel("Stream_Version"),
+                linkTo(methodOn(IndexController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId())).withRel("Tab_Version")));
 
     }
 

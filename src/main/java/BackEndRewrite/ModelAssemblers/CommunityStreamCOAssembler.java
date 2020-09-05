@@ -27,7 +27,10 @@ public class CommunityStreamCOAssembler extends RepresentationModelAssemblerSupp
     public CommunityStreamComponentCO toModel(CommunityDO entity) {
 
         CommunityStreamComponentCO communityStreamComponentCO = communityDO_to_communityStreamComponentCO.convert(entity);
-        return communityStreamComponentCO.add(List.of(linkTo(methodOn(IndexController.class).getCommunityStreamComponentCO(communityStreamComponentCO.getObjectId())).withRel("Stream_Version")));
+        return communityStreamComponentCO
+                .add(List.of(
+                        linkTo(methodOn(IndexController.class).getCommunityStreamComponentCO(communityStreamComponentCO.getObjectId())).withRel("Stream_Version"),
+                        linkTo(methodOn(IndexController.class).getCommunityTabComponentCO(communityStreamComponentCO.getObjectId())).withRel("Tab_Version")));
     }
 }
 

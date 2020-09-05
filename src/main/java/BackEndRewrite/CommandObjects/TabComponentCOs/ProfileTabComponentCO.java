@@ -14,7 +14,7 @@ import java.util.List;
 @Getter@Setter
 @NoArgsConstructor
 public class ProfileTabComponentCO extends RepresentationModel<ProfileTabComponentCO> {
-    String username;
+    String name;
 
     String _id;
     ObjectId objectId;
