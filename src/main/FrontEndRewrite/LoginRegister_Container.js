@@ -8,9 +8,9 @@ const mapStateToProps = (state) => {
         open_communities: state.open_communities,
         isLoggedIn: state.isLoggedIn,
 
-        loadedCommunities:state.homeTabData.communities,
-        loadedArticles:state.homeTabData.articles,
-        loadedUsers:state.homeTabData.users,
+        loadedCommunities:state.tabs.open_communities,
+        loadedArticles:state.tabs.open_articles,
+        loadedUsers:state.tabs.open_profiles,
 
         user:state.user
     }

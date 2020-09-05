@@ -9,9 +9,13 @@ const mapStateToProps = (state) => {
         open_communities: state.open_communities,
         isLoggedIn: state.isLoggedIn,
 
-        loadedCommunities:state.homeTabData.communities,
-        loadedArticles:state.homeTabData.articles,
-        loadedUsers:state.homeTabData.users,
+        // loadedCommunities:state.tabs.open_communities,
+        // loadedArticles:state.tabs.open_articles,
+        // loadedUsers:state.tabs.open_profiles,
+
+        loadedCommunities:state.homeTabData.stream_communities,
+        loadedArticles:state.homeTabData.stream_articles,
+        loadedUsers:state.homeTabData.stream_users,
 
         user:state.user
     }
@@ -48,7 +52,7 @@ function Home_Container(props) {
         <div>
             <div className={props.isLoggedIn ? "d-block" : "d-none"}>
                 <InLine_NewCommunity/>
-                <Profile_Container/>
+                {/*<Profile_Container/>*/}
             </div>
 
             <div className={!props.isLoggedIn ? "d-block" : "d-none"}>

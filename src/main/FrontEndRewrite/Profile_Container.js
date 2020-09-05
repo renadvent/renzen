@@ -4,10 +4,14 @@ import * as store from "./Store_Actions"
 
 //can be opened as a tab as well as in home page
 function Profile_Container(props) {
+
+    console.log(props)
+    console.log(props.data)
     return(
         <div>
-            <p>{props.user.name}</p>
-            <p>{props.user.url}</p>
+
+            <p>{props.data.name}</p>
+            {/*<p>{props.data.url}</p>*/}
 
             <button onClick={props.DISPATCH_logOut}>Log Out</button>
         </div>

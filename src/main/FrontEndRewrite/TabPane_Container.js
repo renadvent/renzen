@@ -12,7 +12,8 @@ hosts other opened tabs when they are opened
 
 const mapStateToProps = (state) => {
     return {
-        open_communities: state.tabs.open_communities
+        open_communities: state.tabs.open_communities,
+        open_profiles:state.tabs.open_profiles
     }
 }
 
@@ -47,22 +48,26 @@ function TabPane_Container(props) {
                         </a>
                     </li>
 
-                    <li className="nav-item">
-                        <a
-                            className="nav-link"
-                            id="profile-tab"
-                            data-toggle="tab"
-                            href="#profile-contents"
-                            role="tab"
-                        >
-                            Profile
-                        </a>
-                    </li>
+                    {/*<li className="nav-item">*/}
+                    {/*    <a*/}
+                    {/*        className="nav-link"*/}
+                    {/*        id="profile-tab"*/}
+                    {/*        data-toggle="tab"*/}
+                    {/*        href="#profile-contents"*/}
+                    {/*        role="tab"*/}
+                    {/*    >*/}
+                    {/*        Profile*/}
+                    {/*    </a>*/}
+                    {/*</li>*/}
 
 
                     {/*gets component from component portion of coummunity object*/}
                     {props.open_communities.map(community=>{
                         return(community.tab)
+                    })}
+
+                    {props.open_profiles.map(profile=>{
+                        return(profile.tab)
                     })}
                 </ul>
             </div>
@@ -81,18 +86,22 @@ function TabPane_Container(props) {
 
 
 
-                <div
-                    className="tab-pane fade"
-                    id="profile-contents"
-                    role="tabpanel"
-                    aria-labelledby="profile-tab"
-                >
-                    <Profile_Container/>
+                {/*<div*/}
+                {/*    className="tab-pane fade"*/}
+                {/*    id="profile-contents"*/}
+                {/*    role="tabpanel"*/}
+                {/*    aria-labelledby="profile-tab"*/}
+                {/*>*/}
+                {/*    <Profile_Container/>*/}
 
-                </div>
+                {/*</div>*/}
 
                 {props.open_communities.map(community=>{
                     return(community.component)
+                })}
+
+                {props.open_profiles.map(profile=>{
+                    return(profile.component)
                 })}
 
             </div>

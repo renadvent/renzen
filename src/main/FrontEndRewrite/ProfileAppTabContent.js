@@ -1,7 +1,7 @@
 import React from "react"
 import Profile_Container from "./Profile_Container";
 
-function AppTabContent(props){
+function ProfileAppTabContent(props){
 
     console.log("HREF"+props.href)
 
@@ -12,10 +12,11 @@ function AppTabContent(props){
             role="tabpanel"
             //aria-labelledby="profile-tab"
         >
-            Hi
+
+            <Profile_Container data={props.payload}/>
 
         </div>
     )
 }
 
-export default AppTabContent
+export default ProfileAppTabContent

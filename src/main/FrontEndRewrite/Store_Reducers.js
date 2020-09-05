@@ -3,14 +3,12 @@ import Community from "../js/Community_Page/Community/Community";
 import React from "react"
 import AppTab from "./AppTab";
 import {open_community} from "../js/Store/actions";
-import AppTabContent from "./AppTabContent";
+import ProfileAppTabContent from "./ProfileAppTabContent";
+import CommunityAppTabContent from "./CommunityAppTabContent";
 
 //INITIAL STATE
 
 const initialState = {
-
-    //temp
-    open_communities: [],
 
     user: {
         logged_in: false,
@@ -26,14 +24,14 @@ const initialState = {
 
     tabs: {
         open_communities: [],
-        open_study_guides: [],
+        stream_communities: [],
         open_profiles:[]
     },
 
     homeTabData: {
-        users: [],
-        communities: [],
-        articles: []
+        stream_users: [],
+        stream_communities: [],
+        stream_articles: []
     }
 
 }
@@ -59,9 +57,9 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 homeTabData:{
-                    articles: action.payload.articles,
-                    users: action.payload.users,
-                    communities: action.payload.communities
+                    stream_articles: action.payload.articles,
+                    stream_users: action.payload.users,
+                    stream_communities: action.payload.communities
                 }
             }
             break
@@ -70,13 +68,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 tabs : {
+                    ...state.tabs,
                     open_communities: state.tabs.open_communities.concat(
                         {
                             name: action.payload.name,
                             data: action.payload.data,
                             //tab: null,
                             tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
-                            component:<AppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
+                            component:<CommunityAppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
                             //component:<AppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
                             //component: <Community payload={action.payload.data} href={action.payload._id}/>
                         })
@@ -85,16 +84,21 @@ const reducer = (state = initialState, action) => {
             break
 
         case at.ACTION_openUser:
+
+            console.log("XKDJLFKJLD")
+            console.log(action.payload)
+
             return {
                 ...state,
                 tabs : {
+                    ...state.tabs,
                     open_profiles: state.tabs.open_profiles.concat(
                         {
                             name: action.payload.name,
-                            data: action.payload.data,
+                            data: action.payload,
                             //tab: null,
                             tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
-                            component:<AppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
+                            component:<ProfileAppTabContent payload={action.payload} href={"A"+action.payload._id}/>
                             //component: <Community payload={action.payload.data} href={action.payload._id}/>
                         }
                     )
