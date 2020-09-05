@@ -3,8 +3,6 @@ package BackEndRewrite.Controllers;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
-import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
-import BackEndRewrite.CommandObjects.TabComponentCOs.CommunityTabComponentCO;
 import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
 import BackEndRewrite.Converters.*;
 import BackEndRewrite.DomainObjects.ArticleDO;
@@ -12,10 +10,7 @@ import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.DiscussionDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
-import BackEndRewrite.ModelAssemblers.ArticleComponentCOAssembler;
-import BackEndRewrite.ModelAssemblers.CommunityTabCOAssembler;
-import BackEndRewrite.ModelAssemblers.ProfileStreamCOAssembler;
-import BackEndRewrite.ModelAssemblers.ProfileTabCOAssembler;
+import BackEndRewrite.ModelAssemblers.*;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.DiscussionService;
@@ -25,7 +20,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -60,7 +54,9 @@ public class IndexController {
     final ProfileTabCOAssembler profileTabCOAssembler;
     final CommunityTabCOAssembler communityTabCOAssembler;
 
-    public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleComponentCOAssembler articleComponentCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler) {
+    final CommunityStreamCOAssembler communityStreamCOAssembler;
+
+    public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleComponentCOAssembler articleComponentCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -75,6 +71,7 @@ public class IndexController {
         this.profileStreamCOAssembler = profileStreamCOAssembler;
         this.profileTabCOAssembler = profileTabCOAssembler;
         this.communityTabCOAssembler = communityTabCOAssembler;
+        this.communityStreamCOAssembler = communityStreamCOAssembler;
     }
 
 
@@ -119,15 +116,7 @@ public class IndexController {
         //save community
         communityDO = communityService.save(communityDO);
 
-        //get tab version of community
-        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(communityDO);
-
-        //convert co to model
-        EntityModel<CommunityTabComponentCO> entityModel = communityTabCOAssembler.toModel(communityTabComponentCO);
-
-        //now convert DO to CO
-
-        return ResponseEntity.ok(entityModel);
+        return ResponseEntity.ok(communityTabCOAssembler.toModel(communityDO));
 //        return ResponseEntity
 //                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
 //                .body(entityModel);
@@ -156,54 +145,10 @@ public class IndexController {
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
         communityService.save(communityDO);
 
-        //gets ComponentCO version of article
-        ArticleComponentCO articleDO =
-                articleDO_to_articleComponentCO.convert(
-                        articleService.findBy_id(savedArticleDO.get_id()));
-
-        //creates a model with rest links
-        EntityModel<ArticleComponentCO> entityModel = articleComponentCOAssembler.toModel(articleDO);
-
-        //responds that it was created successfully
-
-        return ResponseEntity.ok(entityModel);
-
-//        return ResponseEntity
-//                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-//                .body(entityModel);
-    }
-
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    public static class CreateArticlePayload {
-        String name;
-        String description;
-        ObjectId authorID;
-        ObjectId communityID;
-        String topic;
-
-        List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
-
-        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID,
-                                    String topic){
-            this.name=name;
-            this.description=description;
-            this.authorID=authorID;
-            this.communityID=communityID;
-            this.topic=topic;
-        }
-
-        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID
-                ,List<ArticleSectionDO> articleSectionDOList){
-            this.name=name;
-            this.description=description;
-            this.authorID=authorID;
-            this.communityID=communityID;
-            this.articleSectionDOList=articleSectionDOList;
-        }
+        return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
 
     }
+
 
     //TODO create discussion
     @PostMapping(path="/createDiscussion")
@@ -238,29 +183,12 @@ public class IndexController {
 
     @RequestMapping(path="/register")
     @ResponseBody
-    public ResponseEntity<?> Register(@RequestBody SitePayloads.UserNamePassword payload){
-
+    public ResponseEntity<ProfileTabComponentCO> Register(@RequestBody SitePayloads.UserNamePassword payload){
         if (userService.checkIfUsernameTaken(payload.username)){
             throw new RuntimeException("user name taken");
         }else{
-
             //create and save profile
-            ProfileDO profileDO = userService.save(new ProfileDO(payload.username,payload.password));
-
-            //get tab component
-            ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(profileDO);
-
-            //assemble
-            EntityModel<ProfileTabComponentCO> entityModel = profileTabCOAssembler.toModel(profileTabComponentCO);
-
-            return ResponseEntity
-                    .ok(entityModel);
-
-
-//            return ResponseEntity
-//                    .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-//                    .body(entityModel);
-
+            return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.save(new ProfileDO(payload.username,payload.password))));
         }
     }
 
@@ -273,7 +201,7 @@ public class IndexController {
         //TODO convert
         returnList.add(getAllArticles().getBody());
         returnList.add(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
-        returnList.add(getAllCommunities().getBody());
+        returnList.add(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
 
 
         return ResponseEntity.ok(CollectionModel.of(returnList));
@@ -378,15 +306,8 @@ public class IndexController {
      * @return
      */
     @RequestMapping(path="/profileTabComponentCO/{id}")
-    public ResponseEntity<?> getProfileTabComponentCO(@PathVariable ObjectId id){
-
-        //get Command Object
-        ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(userService.findBy_id(id));
-
-        //convert Command Object to model
-        EntityModel<ProfileTabComponentCO> entityModel = profileTabCOAssembler.toModel(profileTabComponentCO);
-
-        return ResponseEntity.ok(entityModel);
+    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id){
+        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findBy_id(id)));
     }
 
     /**
@@ -397,15 +318,43 @@ public class IndexController {
     @RequestMapping(path="/communityTabComponent/{id}")
     @ResponseBody
     public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
-
-        //get command object
-        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(communityService.findBy_id(id));
-
-        //TODO convert command object to model
-        EntityModel<CommunityTabComponentCO> entityModel = communityTabCOAssembler.toModel(communityTabComponentCO);
-
         return ResponseEntity
-                .ok(communityTabComponentCO);
+                .ok(communityTabCOAssembler.toModel(communityService.findBy_id(id)));
+    }
+
+
+
+
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class CreateArticlePayload {
+        String name;
+        String description;
+        ObjectId authorID;
+        ObjectId communityID;
+        String topic;
+
+        List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
+
+        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID,
+                                    String topic){
+            this.name=name;
+            this.description=description;
+            this.authorID=authorID;
+            this.communityID=communityID;
+            this.topic=topic;
+        }
+
+        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID
+                ,List<ArticleSectionDO> articleSectionDOList){
+            this.name=name;
+            this.description=description;
+            this.authorID=authorID;
+            this.communityID=communityID;
+            this.articleSectionDOList=articleSectionDOList;
+        }
+
     }
 
 

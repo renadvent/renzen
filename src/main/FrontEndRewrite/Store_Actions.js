@@ -66,16 +66,20 @@ export function DISPATCH_openCommunity(com_url) {
     }
 }
 
-export function DISPATCH_openUser() {
-
-    return null
-
+export function DISPATCH_openUser(url) {
+    return (dispatch) => {
+        dispatch({
+            type: ACTION_openUser
+        })
+    }
 }
 
-export function DISPATCH_openArticle() {
-
-    return null
-
+export function DISPATCH_openArticle(url) {
+    return (dispatch) => {
+        dispatch({
+            type: ACTION_openArticle
+        })
+    }
 }
 
 export function DISPATCH_logIn(payload) {

@@ -20,9 +20,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        DISPATCH_openCommunity: () => dispatch(store.DISPATCH_openCommunity()),
-        DISPATCH_openUser: () => dispatch(store.DISPATCH_openUser()),
-        DISPATCH_openArticle: () => dispatch(store.DISPATCH_openArticle()),
+        DISPATCH_openCommunity: (url) => dispatch(store.DISPATCH_openCommunity(url)),
+        DISPATCH_openUser: (url) => dispatch(store.DISPATCH_openUser(url)),
+        DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
 
         DISPATCH_logIn: (username, password) =>
             dispatch(store.DISPATCH_logIn({username:username,password:password})),
@@ -86,11 +86,13 @@ function Stream(props){
             {props.source !==null ? props.source.map(single=>{
                 {console.log(single._links)}
                 {console.log(single.name)}
+                {console.log(single._links["Stream_Version"].href)}
                 return(
 
-                // <div onClick={props.dispatch(single._links["Stream_Version"].href)}>
-                    <div>
-                    {single.name}
+                <div onClick={()=>props.dispatch(single._links["Stream_Version"].href)}>
+
+<a href={""}>{single.name}</a>
+
                 </div>
                 )
             }):null}

@@ -24,7 +24,6 @@ public class ProfileStreamCOAssembler extends RepresentationModelAssemblerSuppor
     @Override
     public ProfileStreamComponentCO toModel(ProfileDO profileDO) {
 
-        //ProfileStreamComponentCO profileStreamComponentCO = profileDO_to_profileStreamComponentCO.convert(instantiateModel(profileDO));
        ProfileStreamComponentCO profileStreamComponentCO = profileDO_to_profileStreamComponentCO.convert(profileDO);
 
         return profileStreamComponentCO.add(List.of(

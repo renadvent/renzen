@@ -4,10 +4,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
 import BackEndRewrite.Controllers.IndexController;
-import org.springframework.hateoas.CollectionModel;
+import BackEndRewrite.Converters.ArticleDO_to_ArticleComponentCO;
+import BackEndRewrite.DomainObjects.ArticleDO;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Test Assembler for Rest
@@ -27,25 +30,24 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class ArticleComponentCOAssembler implements RepresentationModelAssembler<ArticleComponentCO, EntityModel<ArticleComponentCO>> {
+public class ArticleComponentCOAssembler extends RepresentationModelAssemblerSupport<ArticleDO, ArticleComponentCO> {
+
+    final ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO;
+
+    public ArticleComponentCOAssembler(ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO) {
+        super(IndexController.class, ArticleComponentCO.class);
+        this.articleDO_to_articleComponentCO = articleDO_to_articleComponentCO;
+    }
+
     @Override
-    public EntityModel<ArticleComponentCO> toModel(ArticleComponentCO articleComponentCO) {
+    public ArticleComponentCO toModel(ArticleDO articleDO) {
 
-//        return EntityModel.of(articleComponentCO);
-
-        return EntityModel.of(articleComponentCO,
+        return articleDO_to_articleComponentCO.convert(articleDO).add(List.of(
                 linkTo(methodOn(IndexController.class).getAllProfiles()).withSelfRel(),
                 linkTo(methodOn(IndexController.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(IndexController.class).getAllCommunities()).withSelfRel());
-                //add a discussion link?
-                //article metadata component link
-                //linkTo(methodOn(StreamControllers.class).getArticleStreamComponentCO(articleComponentCO.getId())).withRel("ArticleStreamComponentCO"));
-
+                linkTo(methodOn(IndexController.class).getAllCommunities()).withSelfRel()
+        ));
 
     }
 
-    @Override
-    public CollectionModel<EntityModel<ArticleComponentCO>> toCollectionModel(Iterable<? extends ArticleComponentCO> entities) {
-        return null;
-    }
 }
