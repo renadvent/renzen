@@ -1,5 +1,20 @@
 import React, {useEffect, useState} from 'react'
-import ArticleSection from "../js/Community_Page/ArticleSection";
+import ArticleSection from "./ArticleSection";
+import * as store from "./Store_Actions";
+import {connect} from "react-redux";
+
+const mapStateToProps = (state) => {
+    return {
+        open_communities: state.tabs.open_communities,
+        open_profiles:state.tabs.open_profiles
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        DISPATCH_init: () => dispatch(store.DISPATCH_init())
+    }
+}
 
 
 function CreateArticleArea(props) {
@@ -41,8 +56,8 @@ function CreateArticleArea(props) {
 
     //when post is clicked
     //to save
-    useEffect(() => {
-    }, [sectionData, post, articleData])
+    // useEffect(() => {
+    // }, [sectionData, post, articleData])
 
     return (
         <div>
@@ -142,5 +157,4 @@ function CreateArticleArea(props) {
     )
 
 }
-
-export default CreateArticleArea
+export default connect(mapStateToProps, mapDispatchToProps)(CreateArticleArea)
