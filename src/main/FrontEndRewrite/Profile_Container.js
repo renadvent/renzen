@@ -33,10 +33,10 @@ function Profile_Container(props) {
           />
       </div>
 
-      <button onClick={()=>props.DISPATCH_createCommunity(props.data._id,communityName)}>
+      <button className="btn btn-dark" onClick={()=>props.DISPATCH_createCommunity(props.data._id,communityName)}>
         Create Community+
       </button>
-      <button onClick={props.DISPATCH_logOut}>Log Out</button>
+      <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>Log Out</button>
     </div>
   );
 }
@@ -67,9 +67,9 @@ function Stream(props) {
             {
               console.log(single.name);
             }
-            {
-              console.log(single._links["Tab_Version"].href);
-            }
+            // {
+            //   console.log(single._links["Tab_Version"].href);
+            // }
             return (
               // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
               <div>

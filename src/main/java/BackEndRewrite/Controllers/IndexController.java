@@ -87,12 +87,14 @@ public class IndexController {
 
         //add discussion id to community
         communityDO.setDiscussionID(discussionDO.get_id());
+        discussionService.save(discussionDO);
 
         //save community
         communityDO = communityService.save(communityDO);
 
         ProfileDO profileDO = userService.findBy_id(communityDO.getCreatorID());
         profileDO.getCommunityIDList().add(communityDO.get_id());
+        userService.save(profileDO);
 
         return ResponseEntity.ok(communityTabCOAssembler.toModel(communityDO));
 //        return ResponseEntity

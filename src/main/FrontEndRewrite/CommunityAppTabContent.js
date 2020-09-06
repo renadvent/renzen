@@ -14,6 +14,9 @@ function CommunityAppTabContent(props){
         >
             Hi
 
+            <button className="btn btn-dark">Join Community</button>
+            <button className="btn btn-dark">Create Article</button>
+
         </div>
     )
 }

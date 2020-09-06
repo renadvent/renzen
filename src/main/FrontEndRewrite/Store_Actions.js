@@ -70,8 +70,8 @@ export function DISPATCH_openUser(url) {
     return (dispatch) => {
         Axios.get(url).then(res=>{
 
-            console.log("PAYLOAD"+res)
-            console.log("PAYLOAD"+res.data)
+            console.log("PAYLOAD")
+            console.log(res.data)
 
             dispatch({
                 type: ACTION_openUser,
