@@ -128,16 +128,15 @@ public class IndexController {
     }
 
     @PostMapping(path = "/createArticle")
-    public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload) {
+    public ResponseEntity<?> createArticle(@RequestBody ArticleDO articleDO) {
 
         //check if provided ids exist
-        ProfileDO profileDO = userService.findBy_id(payload.authorID);
+        ProfileDO profileDO = userService.findBy_id(articleDO.getUserID());
 
-        CommunityDO communityDO = communityService.findBy_id(payload.communityID);
+        CommunityDO communityDO = communityService.findBy_id(articleDO.getCommunityID());
 
         //save ArticleDO to get an ID from mongodb for it
-        ArticleDO savedArticleDO = articleService.save(new ArticleDO(payload.getName(), payload.getDescription(),
-                payload.getAuthorID(), payload.getCommunityID(), payload.getArticleSectionDOList()));
+        ArticleDO savedArticleDO = articleService.save(articleDO);
 
         //add article to user
         profileDO.getArticleIDList().add(savedArticleDO.get_id());
@@ -148,6 +147,11 @@ public class IndexController {
         communityService.save(communityDO);
 
         return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
+
+    }
+
+    @Getter@Setter
+    static class createArticlePayload{
 
     }
 
@@ -247,37 +251,37 @@ public class IndexController {
 
     //------------------------------------------------Payloads
 
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    public static class CreateArticlePayload {
-        String name;
-        String description;
-        ObjectId authorID;
-        ObjectId communityID;
-        String topic;
-
-        List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
-
-        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID,
-                                    String topic){
-            this.name=name;
-            this.description=description;
-            this.authorID=authorID;
-            this.communityID=communityID;
-            this.topic=topic;
-        }
-
-        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID
-                ,List<ArticleSectionDO> articleSectionDOList){
-            this.name=name;
-            this.description=description;
-            this.authorID=authorID;
-            this.communityID=communityID;
-            this.articleSectionDOList=articleSectionDOList;
-        }
-
-    }
+//    @NoArgsConstructor
+//    @Getter
+//    @Setter
+//    public static class CreateArticlePayload {
+//        String name;
+//        String description;
+//        ObjectId authorID;
+//        ObjectId communityID;
+//        String topic;
+//
+//        List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
+//
+//        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID,
+//                                    String topic){
+//            this.name=name;
+//            this.description=description;
+//            this.authorID=authorID;
+//            this.communityID=communityID;
+//            this.topic=topic;
+//        }
+//
+//        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID
+//                ,List<ArticleSectionDO> articleSectionDOList){
+//            this.name=name;
+//            this.description=description;
+//            this.authorID=authorID;
+//            this.communityID=communityID;
+//            this.articleSectionDOList=articleSectionDOList;
+//        }
+//
+//    }
 
     @Getter@Setter
     static class getAllByCommunityIDAndTopicPayload{

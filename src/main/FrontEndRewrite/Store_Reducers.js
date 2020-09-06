@@ -40,6 +40,11 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case at.ACTION_createArticle:
+            return state
+
+        break
+
         case at.ACTION_joinCommunity:
 
             return {

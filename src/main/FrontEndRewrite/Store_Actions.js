@@ -18,14 +18,22 @@ export const ACTION_joinCommunity="ACTION_joinCommunity"
 
 //ACTION CREATORS
 
-export function DISPATCH_createArticle(payload){
+export function DISPATCH_createArticle(payload,user,community){
     return(dispatch)=>{
 
         //code here
         console.log("creating article")
+        console.log(payload)
+        console.log(user)
+        console.log(community)
 
         Axios.post("/createArticle",{
             //payload
+            name:payload.articleName,
+            description:payload.articleDescription,
+            userID:user,
+            communityID:community,
+            //articleSectionDOList:payload.articleAddToSection
         }).then(res=>{
             dispatch({
                 type:ACTION_createArticle,

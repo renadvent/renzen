@@ -51,7 +51,7 @@ function CommunityAppTabContent(props) {
           Join Community
         </button>
 
-          <CreateArticleArea/>
+          <CreateArticleArea community={props.payload._id}/>
 
         <button className="btn btn-dark">Create Article</button>
       </div>

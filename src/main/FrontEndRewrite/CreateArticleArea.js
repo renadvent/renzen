@@ -6,24 +6,24 @@ import {connect} from "react-redux";
 const mapStateToProps = (state) => {
     return {
         open_communities: state.tabs.open_communities,
-        open_profiles:state.tabs.open_profiles
+        open_profiles:state.tabs.open_profiles,
+
+        user_communities:state.user.communities,
+
+        user:state.user
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        DISPATCH_init: () => dispatch(store.DISPATCH_init())
+        DISPATCH_createArticle:(payload,user,community)=>dispatch(store.DISPATCH_createArticle(payload,user,community))
     }
 }
 
 
 function CreateArticleArea(props) {
 
-    //should this be here?
-    const [loadedArticles, setLoadedArticles] = useState([])
-    let [comRef, setComRef] = useState(props.page)
-
-    const [numOfArticles, setNumOfArticles] = useState(0)
+    const [thisCommunity,setThisCommunity] = useState(props.community)
 
     const [createState, setCreateState] = useState(false)
 
@@ -32,9 +32,6 @@ function CreateArticleArea(props) {
 
     //used for rendering
     const [sectionsCreated, setSectionsCreated] = useState([<ArticleSection index={0} update={setSectionData}/>])
-
-    //gets flipped when button clicked. doesn't matter value
-    const [post, setPost] = useState(false)
 
     //used to save get article information
     const [articleData, setArticleData] = useState({
@@ -53,11 +50,6 @@ function CreateArticleArea(props) {
             }
         })
     }
-
-    //when post is clicked
-    //to save
-    // useEffect(() => {
-    // }, [sectionData, post, articleData])
 
     return (
         <div>
@@ -144,9 +136,7 @@ function CreateArticleArea(props) {
 
                     </button>
 
-                    <button type="button" onClick={() => setPost(x => {
-                        return !x
-                    })}
+                    <button type="button" onClick={() => props.DISPATCH_createArticle(articleData,props.user.id,thisCommunity)}
                             className="btn btn-secondary">Post Article
                     </button>
 
