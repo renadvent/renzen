@@ -55,7 +55,7 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
          */
         //creates CommunityCOs from list of DO ids
         Iterable<CommunityDO> communityDOList = communityRepository.findAllById(source.getCommunityIDList());
-        co.setCommunityIndexPageCOList(communityConverter.convert(communityDOList));
+        co.setCommunityStreamComponentCOList(communityConverter.convert(communityDOList));
 
         //create articleCOs from list of DO ids
         Iterable<ArticleDO> articleDOList = articleRepository.findAllById(source.getArticleIDList());

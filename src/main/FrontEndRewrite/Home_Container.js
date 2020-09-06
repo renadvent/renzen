@@ -64,15 +64,15 @@ function Home_Container(props) {
                 <div className={"row"}>
                     <div className={"col"}>
                         <h4>All Users</h4>
-                        <Stream source={props.loadedUsers} dispatch={props.DISPATCH_openUser}/>
+                        <Stream key={"userStream"} source={props.loadedUsers} dispatch={props.DISPATCH_openUser}/>
                     </div>
                     <div className={"col"}>
                         <h4>All Articles</h4>
-                        <Stream source={props.loadedArticles} dispatch={props.DISPATCH_openArticle}/>
+                        <Stream key={"articleStream"} source={props.loadedArticles} dispatch={props.DISPATCH_openArticle}/>
                     </div>
                     <div className={"col"}>
                         <h4>All Communities</h4>
-                        <Stream source={props.loadedCommunities} dispatch={props.DISPATCH_openCommunity}/>
+                        <Stream key={"communityStream"} source={props.loadedCommunities} dispatch={props.DISPATCH_openCommunity}/>
                     </div>
                 </div>
             </div>
@@ -85,12 +85,12 @@ function Home_Container(props) {
 function Stream(props){
     return(
         <div>
-            {console.log(props)}
+            {/*{console.log(props)}*/}
 
             {props.source !==null ? props.source.map(single=>{
-                {console.log(single._links)}
-                {console.log(single.name)}
-                {console.log(single._links["Tab_Version"].href)}
+                // {console.log(single._links)}
+                // {console.log(single.name)}
+                // {console.log(single._links["Tab_Version"].href)}
                 return(
 
                 <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>

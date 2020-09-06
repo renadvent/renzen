@@ -17,7 +17,6 @@ import java.util.List;
  */
 @Getter@Setter
 @Document(collection = "Communities")
-@NoArgsConstructor
 public class CommunityDO{
 
     @Id

@@ -2,6 +2,7 @@ package BackEndRewrite.Converters;
 
 import BackEndRewrite.CommandObjects.TabComponentCOs.CommunityTabComponentCO;
 import BackEndRewrite.DomainObjects.CommunityDO;
+import BackEndRewrite.ModelAssemblers.ProfileStreamCOAssembler;
 import BackEndRewrite.Services.Interfaces.UserService;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
@@ -17,11 +18,14 @@ public class CommunityDO_to_CommunityTabComponentCO implements Converter<Communi
 
     final UserService userService;
 
-    public CommunityDO_to_CommunityTabComponentCO(ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, DiscussionDO_to_DiscussionComponentCO discussionDO_to_discussionComponentCO, UserService userService) {
+    final ProfileStreamCOAssembler profileStreamCOAssembler;
+
+    public CommunityDO_to_CommunityTabComponentCO(ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, DiscussionDO_to_DiscussionComponentCO discussionDO_to_discussionComponentCO, UserService userService, ProfileStreamCOAssembler profileStreamCOAssembler) {
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
         this.discussionDO_to_discussionComponentCO = discussionDO_to_discussionComponentCO;
         this.userService = userService;
+        this.profileStreamCOAssembler = profileStreamCOAssembler;
     }
 
     /**
@@ -41,11 +45,17 @@ public class CommunityDO_to_CommunityTabComponentCO implements Converter<Communi
         co.setObjectId(source.get_id());
         co.setName(source.getName());
 
+
+
         co.setArticle_Article_streamComponentCOList(articleDO_to_articleStreamComponentCO.convert(source.getArticleDOList()));
         co.setNumberOfArticles(source.getArticleDOList().size());
 
-        co.setUser_streamComponentCOList(profileDO_to_profileStreamComponentCO.convert(source.getProfileDOList()));
-        co.setNumberOfArticles(source.getProfileDOList().size());
+
+        co.setUser_streamComponentCOList(profileStreamCOAssembler
+                .toCollectionModel(userService.findAllBy_Id(source.getProfileDOList())));
+
+        //co.setUser_streamComponentCOList(profileDO_to_profileStreamComponentCO.convert(source.getProfileDOList()));
+        co.setNumberOfUsers(source.getProfileDOList().size());
 
         /**
          * here id lookup is done by converter

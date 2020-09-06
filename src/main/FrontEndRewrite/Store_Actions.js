@@ -14,8 +14,44 @@ export const ACTION_createReply = "ACTION_createReply"
 
 export const ACTION_init="ACTION_init"
 
+export const ACTION_joinCommunity="ACTION_joinCommunity"
+
 //ACTION CREATORS
-//HOME-PAGE ACTION DISPATCHES
+
+export function DISPATCH_createArticle(payload){
+    return(dispatch)=>{
+
+        //code here
+        console.log("creating article")
+
+        Axios.post("/createArticle",{
+            //payload
+        }).then(res=>{
+            dispatch({
+                type:ACTION_createArticle,
+                payload:res.data
+            })
+        })
+    }
+}
+
+export function DISPATCH_joinCommunity(payload){
+    return(dispatch)=>{
+
+        //code here
+        console.log("joining community")
+
+        Axios.post("/joinCommunity",{
+            userId:payload.userId,
+            communityId:payload.communityId
+        }).then(res=>{
+            dispatch({
+                type:ACTION_joinCommunity,
+                payload:res.data
+            })
+        })
+    }
+}
 
 
 export function DISPATCH_init(){
@@ -168,10 +204,10 @@ export function DISPATCH_createCommunity(payload) {
 }}
 
 //COMMUNITY-PAGE ACTION DISPATCHES
-
-export function DISPATCH_createArticle() {
-
-}
+//
+// export function DISPATCH_createArticle() {
+//
+// }
 
 export function DISPATCH_createPost() {
 

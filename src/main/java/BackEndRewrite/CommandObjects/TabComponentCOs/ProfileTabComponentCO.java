@@ -28,6 +28,6 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
     List<ObjectId> discussionContentIDList = new ArrayList<>();
 
     List<ArticleStreamComponentCO> articleHomePageCOList = new ArrayList<>();
-    List<CommunityStreamComponentCO> communityIndexPageCOList = new ArrayList<>();
+    List<CommunityStreamComponentCO> communityStreamComponentCOList = new ArrayList<>();
     //List<DiscussionInfoCO> discussionInfoCOList;
 }

@@ -40,6 +40,14 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case at.ACTION_joinCommunity:
+
+            return {
+                ...state,
+            }
+
+            break
+
         case at.ACTION_init:
 
             return {
@@ -62,7 +70,7 @@ const reducer = (state = initialState, action) => {
                             name: action.payload.name,
                             data: action.payload.data,
                             tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
-                            component:<CommunityAppTabContent payload={action.payload.data} href={"A"+action.payload._id}/>
+                            component:<CommunityAppTabContent payload={action.payload} href={"A"+action.payload._id}/>
                         })
                 }
             }
@@ -93,6 +101,7 @@ const reducer = (state = initialState, action) => {
         case at.ACTION_register:
 
             //TODO finish
+
 
             return {
                 ...state,
@@ -133,13 +142,16 @@ const reducer = (state = initialState, action) => {
             console.log("ACTION LOGIN")
             console.log(action.payload)
 
+            console.log("LOGINID")
+            console.log(action.payload._id)
+
             return {
                 ...state,
                 user: {
                     ...state.user,
                     logged_in: true,
                     name: action.payload.name,
-                    id: action.payload.id,
+                    id: action.payload._id,
                     //url:action.payload.url,
                     communities: action.payload.communities,//a dual name, link object
                     articles: action.payload.articles,

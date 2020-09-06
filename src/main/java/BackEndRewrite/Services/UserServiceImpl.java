@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ProfileDO findBy_id(ObjectId id) {
         return userRepository.findBy_id(id);
+    }
+
+    @Override
+    public List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList){
+        return userRepository.findAllBy_id(objectIdList);
     }
 
     @Override

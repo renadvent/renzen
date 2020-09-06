@@ -73,6 +73,30 @@ public class IndexController {
         this.communityStreamCOAssembler = communityStreamCOAssembler;
     }
 
+    //-------------------------------------------JOIN
+
+    @PostMapping(path="/joinCommunity")
+    public ResponseEntity<?> joinCommunity(@RequestBody JoinCommunityPayload payload){
+
+        var profileDO=userService.findBy_id(payload.userId);
+        var communityDO = communityService.findBy_id(payload.communityId);
+
+        profileDO.getCommunityIDList().add(communityDO.get_id());
+        communityDO.getProfileDOList().add(profileDO.get_id());
+
+        userService.save(profileDO);
+        communityService.save(communityDO);
+
+        //?
+        return ResponseEntity.ok(null);
+    }
+
+    @Getter@Setter
+    static class JoinCommunityPayload{
+        ObjectId userId;
+        ObjectId communityId;
+    }
+
     //-------------------------------------------CREATE
     @PostMapping(path="/createCommunity")
     public ResponseEntity<?> createCommunity(@RequestBody CommunityDO communityDO){
@@ -87,6 +111,7 @@ public class IndexController {
 
         //add discussion id to community
         communityDO.setDiscussionID(discussionDO.get_id());
+        //communityDO.getProfileDOList().add()
         discussionService.save(discussionDO);
 
         //save community
@@ -255,7 +280,7 @@ public class IndexController {
     }
 
     @Getter@Setter
-    class getAllByCommunityIDAndTopicPayload{
+    static class getAllByCommunityIDAndTopicPayload{
         ObjectId communityID;
         String topic;
         public getAllByCommunityIDAndTopicPayload(ObjectId communityID,String topic){

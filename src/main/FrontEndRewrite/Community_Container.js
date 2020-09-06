@@ -3,6 +3,8 @@ import Axios from "axios";
 import Community from "../js/Community_Page/Community/Community";
 import CommunityContent from "./CommunityContent";
 import CommunitySidebar from "./CommunitySidebar";
+import ArticleArea from "./CreateArticleArea";
+import CreateArticleArea from "./CreateArticleArea";
 
 function Community_Container(props){
 
@@ -29,6 +31,9 @@ function Community_Container(props){
                     <CommunityContent data={data}/>
                 </div>
             </div>
+
+
+
         </div>
     )
 }

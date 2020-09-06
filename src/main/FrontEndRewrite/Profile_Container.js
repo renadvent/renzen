@@ -15,9 +15,9 @@ function Profile_Container(props) {
       <p>number of articles: {props.data.numberOfArticles}</p>
       <p>number of communities: {props.data.numberOfCommunities}</p>
       <p>Communities you are a part of: </p>
-      <Stream source={props.data.communityIDList} />
-      <p>Articles you've written</p>
-      <Stream source={props.data.articleIDList} />
+      <Stream source={props.data.communityStreamComponentCOList} />
+      {/*<p>Articles you've written</p>*/}
+      {/*<Stream source={props.data.articleStreamComponentCOList} />*/}
       {/*<p>{props.data.url}</p>*/}
 
       {/*//TODO create community*/}
@@ -57,23 +57,12 @@ const mapDispatchToProps = (dispatch) => {
 function Stream(props) {
   return (
     <div>
-      {console.log(props)}
-
       {props.source !== null
         ? props.source.map((single) => {
-            {
-              console.log(single._links);
-            }
-            {
-              console.log(single.name);
-            }
-            // {
-            //   console.log(single._links["Tab_Version"].href);
-            // }
             return (
               // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
               <div>
-                <a>{single.name}</a>
+                <a>+{single.name}</a>
               </div>
             );
           })
