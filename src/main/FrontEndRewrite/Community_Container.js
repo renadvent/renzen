@@ -8,14 +8,14 @@ function Community_Container(props){
 
     const [data,setData]=useState()
 
-    useEffect(()=>{
-        loadCommunity()
-    })
-
-    async function loadCommunity() {
-        let temp = await Axios.get(props.source)
-        setData(temp.data)
-    }
+    // useEffect(()=>{
+    //     loadCommunity()
+    // })
+    //
+    // async function loadCommunity() {
+    //     let temp = await Axios.get(props.source)
+    //     setData(temp.data)
+    // }
 
     return(
         <div id={"community-container"} className="tab-pane fade" role="tabpanel">

@@ -179,6 +179,17 @@ public class IndexController {
                 .ok(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
     }
 
+    @GetMapping(path="/getAllByCommunityIDAndTopic")
+    public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
+
+        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
+
+        for (ArticleDO articleDO : articleService.findAllByCommunityIDAndTopic(payload.communityID,payload.topic)){
+            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
+        }
+        return returnList;
+    }
+
     //------------------------------------------------By ID
 
     @GetMapping(path="/getProfileStreamComponentCO/{id}")
@@ -205,17 +216,6 @@ public class IndexController {
     public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
         return ResponseEntity
                 .ok(communityTabCOAssembler.toModel(communityService.findBy_id(id)));
-    }
-
-    @GetMapping(path="/getAllByCommunityIDAndTopic")
-    public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
-
-        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
-
-        for (ArticleDO articleDO : articleService.findAllByCommunityIDAndTopic(payload.communityID,payload.topic)){
-            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
-        }
-        return returnList;
     }
 
     //------------------------------------------------Payloads

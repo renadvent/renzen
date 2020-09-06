@@ -161,17 +161,17 @@ const reducer = (state = initialState, action) => {
 
         case at.ACTION_createCommunity:
 
-            return {
-                ...state,
-                open_communities: state.open_communities.concat(
-                    {
-                        name: action.payload.name,
-                        data: action.payload.data,
-                        tab: <AppTab name={action.payload.name}/>,
-                        component: <Community payload={action.payload.data}/>
-                    })
-
-            }
+            // return {
+            //     ...state,
+            //     open_communities: state.open_communities.concat(
+            //         {
+            //             name: action.payload.name,
+            //             data: action.payload.data,
+            //             tab: <AppTab name={action.payload.name}/>,
+            //             component: <Community payload={action.payload.data}/>
+            //         })
+            //
+            // }
 
             break
     }

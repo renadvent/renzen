@@ -141,24 +141,31 @@ export function DISPATCH_register(payload) {
 
 }
 
-export function DISPATCH_createCommunity(user, payload) {
+export function DISPATCH_createCommunity(payload) {
     return (dispatch, getState) => {
         Axios.post("/createCommunity", {
-            params: {
-                user: user
-            },
-            data: {
-                name: payload.name,
-                description: payload.description
-            }
+            name:payload.name,
+            creatorID:payload.creatorID
+            // params: {
+            //     user: user
+            // },
+            // data: {
+            //     name: payload.name,
+            //     description: payload.description
+            // }
         }).then(res=>{
             dispatch({
-                type: ACTION_createCommunity,
+                type: ACTION_openCommunity,
                 payload: res.data
+                // type: ACTION_createCommunity,
+                // payload: res.data
             })
-        })
-    }
-}
+        // }).then(
+        //     DISPATCH_openCommunity(res.data._links["Tab_Version"])
+        //
+        // )
+    })
+}}
 
 //COMMUNITY-PAGE ACTION DISPATCHES
 
