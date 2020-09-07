@@ -28,5 +28,5 @@ jobs:
       with:
         app-name: 'renzen-web-app-2'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a1daa5b43fd84b95b5b0748f18b975d9 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3f0d644d0a934eb5889757c7ee331262 }}
         package: '${{ github.workspace }}/target/*.jar'
