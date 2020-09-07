@@ -24,7 +24,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function CommunityAppTabContent(props) {
-  console.log("HREF" + props.href);
+  console.log("app content payload");
+    console.log(props.payload);
 
   return (
     <div
@@ -35,8 +36,15 @@ function CommunityAppTabContent(props) {
     >
 
         <p>Members of this Community</p>
-        <Stream source={props.payload}/>
+        <Stream source={props.payload.user_streamComponentCOList._embedded.profileStreamComponentCoes}/>
 
+        {props.user.communities.find(x=>{
+            return (x._id===props.payload._id)
+        }) ? <div>You are a member of this community</div>:
+        <div>You are not a member of this community</div>}
+
+        <p>Articles in this community</p>
+        <Stream source={props.payload.article_Article_streamComponentCOList}/>
 
       <div>
         <button
@@ -63,19 +71,21 @@ function CommunityAppTabContent(props) {
 function Stream(props) {
 
     console.log(props)
+    // source.user_streamComponentCOList._embedded.profileStreamComponentCoes
+
+    // {props.source.user_streamComponentCOList._embedded.profileStreamComponentCoes !== null
+    //     ? props.source.user_streamComponentCOList._embedded.profileStreamComponentCoes.map((single) => {
 
     return (
         <div>
-            {props.source.user_streamComponentCOList._embedded.profileStreamComponentCoes !== null
-                ? props.source.user_streamComponentCOList._embedded.profileStreamComponentCoes.map((single) => {
-                    return (
-                        // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
-                        <div>
-                            <a>+{single.name}</a>
-                        </div>
-                    );
-                })
-                : null}
+            {props.source.map((single)=> {
+                return (
+                    // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
+                    <div>
+                        <a>+{single.name}</a>
+                    </div>
+                );
+            })}
         </div>
     );
 }

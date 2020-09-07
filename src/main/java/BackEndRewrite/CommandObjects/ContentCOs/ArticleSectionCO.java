@@ -14,8 +14,9 @@ public class ArticleSectionCO {
     String _id;
     ObjectId objectId; // needed for assemblers
 
-    String heading;
-    String content;
+    String header;
+    String body;
+
     ObjectId authorID;
     Integer upvotes;
     Integer downvotes;

@@ -16,6 +16,8 @@ function Profile_Container(props) {
       <p>number of communities: {props.data.numberOfCommunities}</p>
       <p>Communities you are a part of: </p>
       <Stream source={props.data.communityStreamComponentCOList} />
+      <p>Articles you've written</p>
+      <Stream source={props.data.articleHomePageCOList}/>
       {/*<p>Articles you've written</p>*/}
       {/*<Stream source={props.data.articleStreamComponentCOList} />*/}
       {/*<p>{props.data.url}</p>*/}

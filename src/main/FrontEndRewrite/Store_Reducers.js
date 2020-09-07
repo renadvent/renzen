@@ -173,8 +173,9 @@ const reducer = (state = initialState, action) => {
                     name: action.payload.name,
                     id: action.payload._id,
                     //url:action.payload.url,
-                    communities: action.payload.communities,//a dual name, link object
-                    articles: action.payload.articles,
+                    communities: action.payload.communityStreamComponentCOList,
+                    //communities: action.payload.communities,
+                    articles: action.payload.articleHomePageCOList,
                     study_guides: action.payload.studyGuides,
 
                     user_data: action.payload

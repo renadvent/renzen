@@ -30,6 +30,19 @@ function ArticleAppTabContent(props){
             Placeholder for article
         </div>
 
+            <div>
+                {props.payload.name}
+            </div>
+
+            {props.payload.articleSectionCOList.map(section=>{
+                return(
+                    <div>
+                        <div>{section.header}</div>
+                        <div>{section.body}</div>
+                    </div>
+                )
+            })}
+
         </div>
     )
 

@@ -14,7 +14,8 @@ public class ArticleSectionDO_to_ArticleSectionCO implements Converter<ArticleSe
     @Override
     public ArticleSectionCO convert(ArticleSectionDO source) {
         ArticleSectionCO co = new ArticleSectionCO();
-        co.setHeading(source.getHeader());
+        co.setHeader(source.getHeader());
+        co.setBody(source.getBody());
         return co;
     }
 }
