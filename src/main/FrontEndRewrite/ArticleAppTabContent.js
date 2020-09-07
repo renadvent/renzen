@@ -14,11 +14,22 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-function ArticleAppTabContent(){
+function ArticleAppTabContent(props){
 
     return(
+
+
+        <div
+            className="tab-pane fade"
+            id={props.href}
+            role="tabpanel"
+            //aria-labelledby="profile-tab"
+        >
+
         <div>
             Placeholder for article
+        </div>
+
         </div>
     )
 

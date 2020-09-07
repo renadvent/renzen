@@ -111,7 +111,7 @@ const reducer = (state = initialState, action) => {
                             name: action.payload.name,
                             data:action.payload,
                             tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
-                            component: <ArticleAppTabContent/>
+                            component: <ArticleAppTabContent payload={action.payload} href={"A"+action.payload._id}/>
                         }
                     )
                 }
