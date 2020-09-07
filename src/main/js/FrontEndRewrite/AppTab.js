@@ -6,7 +6,7 @@ function AppTab(props){
     <li className="nav-item">
         <a
             className="nav-link"
-            //id="profile-tab"
+            id={"tab"+props.href}
             data-toggle="tab"
             href={"#"+props.href}
             role="tab"

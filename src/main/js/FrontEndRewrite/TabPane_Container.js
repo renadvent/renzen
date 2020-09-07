@@ -30,6 +30,11 @@ function TabPane_Container(props) {
 
     },[])
 
+    useEffect(()=>{
+        $('#'+props.open_profiles.lastItem().data.id).tab('show')
+        // $('#app-tabs li:last-child a').tab('show')
+    },[props.open_profiles])
+
     return (
         <div id={"tabsAndContents"}>
             <div id={"tab-list"}>

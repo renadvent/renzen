@@ -220,6 +220,16 @@ public class IndexController {
         return returnList;
     }
 
+    @Getter@Setter
+    static class getAllByCommunityIDAndTopicPayload{
+        ObjectId communityID;
+        String topic;
+        public getAllByCommunityIDAndTopicPayload(ObjectId communityID,String topic){
+            this.communityID=communityID;
+            this.topic=topic;
+        }
+    }
+
     //------------------------------------------------By ID
 
     @GetMapping(path="/getProfileStreamComponentCO/{id}")
@@ -232,69 +242,28 @@ public class IndexController {
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findBy_id(id)));
     }
 
+    //TODO update toModel
     @GetMapping(path="/getArticleStreamComponentCO/{id}")
     public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
         return articleDO_to_articleStreamComponentCO.convert(articleService.findBy_id(id));
     }
 
+    //TODO update toModel
     @GetMapping(path="/getArticleTabComponentCO/{id}")
     public ArticleTabComponentCO getArticleTabComponentCO(@PathVariable ObjectId id){
         return articleDO_to_articleTabComponentCO.convert(articleService.findBy_id(id));
     }
 
+    //TODO update toModel
     @GetMapping(path="/getCommunityStreamComponentCO/{id}")
     public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id){
         return communityDO_to_communityStreamComponentCO.convert(communityService.findBy_id(id));
     }
 
+    //TODO update toModel
     @RequestMapping(path="/communityTabComponent/{id}")
     public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
         return ResponseEntity
                 .ok(communityTabCOAssembler.toModel(communityService.findBy_id(id)));
     }
-
-    //------------------------------------------------Payloads
-
-//    @NoArgsConstructor
-//    @Getter
-//    @Setter
-//    public static class CreateArticlePayload {
-//        String name;
-//        String description;
-//        ObjectId authorID;
-//        ObjectId communityID;
-//        String topic;
-//
-//        List<ArticleSectionDO> articleSectionDOList=new ArrayList<>();
-//
-//        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID,
-//                                    String topic){
-//            this.name=name;
-//            this.description=description;
-//            this.authorID=authorID;
-//            this.communityID=communityID;
-//            this.topic=topic;
-//        }
-//
-//        public CreateArticlePayload(String name,String description,ObjectId authorID,ObjectId communityID
-//                ,List<ArticleSectionDO> articleSectionDOList){
-//            this.name=name;
-//            this.description=description;
-//            this.authorID=authorID;
-//            this.communityID=communityID;
-//            this.articleSectionDOList=articleSectionDOList;
-//        }
-//
-//    }
-
-    @Getter@Setter
-    static class getAllByCommunityIDAndTopicPayload{
-        ObjectId communityID;
-        String topic;
-        public getAllByCommunityIDAndTopicPayload(ObjectId communityID,String topic){
-            this.communityID=communityID;
-            this.topic=topic;
-        }
-    }
-
 }

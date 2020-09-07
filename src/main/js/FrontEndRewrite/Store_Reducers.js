@@ -25,7 +25,9 @@ const initialState = {
         open_communities: [],
         stream_communities: [],
         open_profiles:[],
-        open_articles:[]
+        open_articles:[],
+
+        open:[]
     },
 
     homeTabData: {
@@ -183,8 +185,11 @@ const reducer = (state = initialState, action) => {
                     open_profiles: state.tabs.open_profiles.concat({
                         name: action.payload.name,
                         data: action.payload,
-                        tab: <AppTab name={action.payload.name + " (Your Profile)"} href={"A" + action.payload._id}/>,
-                        component: <ProfileAppTabContent payload={action.payload} href={"A" + action.payload._id}/>
+                        // tab: <AppTab name={action.payload.name + " (Your Profile)"} href={"A" + action.payload._id}/>,
+
+                        //TODO working on changing tab when created
+                        component: <ProfileAppTabContent payload={action.payload} href={"A" + action.payload._id}/>,
+                        tab: <AppTab name={action.payload.name + " (Your Profile)"} href={"A" + action.payload._id}/>
                     })
 
                 }
@@ -208,5 +213,13 @@ const reducer = (state = initialState, action) => {
     }
     return state;
 }
+
+function activaTab(someTab){
+    console.log("ACTIVATAB")
+    console.log(someTab)
+    $(someTab).tab('show')
+    return null
+    // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
 
 export default reducer;

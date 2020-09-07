@@ -145,24 +145,22 @@ export function DISPATCH_logIn(payload) {
                 dispatch({
                     type: ACTION_logIn,
                     payload: res.data
-
-            // console.log("RESDATA:")
-            // console.log(res.data)
-            //
-            // if (res.status) {
-            //     dispatch({
-            //         type: ACTION_logIn,
-            //         payload: res.data
-            //     })
-            // } else {
-            //     dispatch({
-            //         type: ACTION_logIn,
-            //         payload: null
-            //     })
             })
+                // .then(()=>{
+                //     $('#app-tabs li:last-child a').tab('show')
+                // })
         })
     }
 }
+
+//TODO working on changing tab when created
+function activaTab(someTab){
+    console.log("ACTIVATAB")
+    console.log(someTab)
+    $(someTab).tab('show')
+    return null
+    // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
 
 export function DISPATCH_logOut() {
     return {

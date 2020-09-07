@@ -1,22 +1,21 @@
-import React from "react"
+import React from "react";
 import Profile_Container from "./Profile_Container";
 
-function ProfileAppTabContent(props){
+function ProfileAppTabContent(props) {
+  console.log("HREF" + props.href);
 
-    console.log("HREF"+props.href)
-
-    return(
-        <div
-            className="tab-pane fade"
-            id={props.href}
-            role="tabpanel"
-            //aria-labelledby="profile-tab"
-        >
-
-            <Profile_Container data={props.payload}/>
-
-        </div>
-    )
+  return (
+    <div>
+      <div
+        className="tab-pane fade"
+        id={props.href}
+        role="tabpanel"
+        //aria-labelledby="profile-tab"
+      >
+        <Profile_Container data={props.payload} />
+      </div>
+    </div>
+  );
 }
 
-export default ProfileAppTabContent
+export default ProfileAppTabContent;
