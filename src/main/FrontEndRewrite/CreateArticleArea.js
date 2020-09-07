@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        DISPATCH_createArticle:(payload,user,community)=>dispatch(store.DISPATCH_createArticle(payload,user,community))
+        DISPATCH_createArticle:(payload,user,community,sectionData)=>
+            dispatch(store.DISPATCH_createArticle(payload,user,community,sectionData))
     }
 }
 
@@ -136,7 +137,8 @@ function CreateArticleArea(props) {
 
                     </button>
 
-                    <button type="button" onClick={() => props.DISPATCH_createArticle(articleData,props.user.id,thisCommunity)}
+                    <button type="button" onClick={() =>
+                        props.DISPATCH_createArticle(articleData,props.user.id,thisCommunity,sectionData)}
                             className="btn btn-secondary">Post Article
                     </button>
 

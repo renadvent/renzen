@@ -5,6 +5,7 @@ import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
 import BackEndRewrite.Repositories.UserRepository;
+import BackEndRewrite.Services.Interfaces.UserService;
 import lombok.Synchronized;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Converts ArticleDO to ArticleComponentCO
@@ -27,13 +27,19 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
 
-    final ProfileDO_to_ProfileStreamComponentCO ProfileConverter;
+    final UserService userService;
+
+    final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
+
+    final ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO;
 
     @Autowired
-    public ArticleDO_to_ArticleComponentCO(UserRepository repo, ArticleRepository articleRepo, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
+    public ArticleDO_to_ArticleComponentCO(UserRepository repo, ArticleRepository articleRepo, UserService userService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO) {
         this.userRepo = repo;
         this.articleRepo = articleRepo;
-        ProfileConverter = profileConverter;
+        this.userService = userService;
+        profileDO_to_profileStreamComponentCO = profileDOtoprofileStreamComponentCO;
+        this.articleSectionDO_to_articleSectionCO = articleSectionDO_to_articleSectionCO;
     }
 
 //    @Synchronized@Nullable
@@ -70,7 +76,8 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
         co.setUserID(source.getUserID());
         //converts profile DO to CO
         //ProfileDO_to_ProfileStreamComponentCO ProfileConverter = new ProfileDO_to_ProfileStreamComponentCO(discussionRepository);
-        userRepo.findById(source.getUserID()).ifPresent(user->co.setUser_streamComponentCO(ProfileConverter.convert(user)));
+        userRepo.findById(source.getUserID()).ifPresent(user->co.setUser_streamComponentCO(profileDO_to_profileStreamComponentCO.convert(user)));
+        //userService.findBy_id(source.get_id()).set
 
         //-------------------------
 
@@ -78,10 +85,14 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
 
         //--------------------------
 
-        ArticleSectionDO_to_ArticleSectionCO ArticleSectionConverter = new ArticleSectionDO_to_ArticleSectionCO();
+//        ArticleSectionDO_to_ArticleSectionCO ArticleSectionConverter = new ArticleSectionDO_to_ArticleSectionCO();
 
-        for (ArticleSectionDO sectionDO : source.getArticleSectionDOList()){
-            co.getArticleSectionCOList().add(ArticleSectionConverter.convert(sectionDO));
+        System.out.println(source.getArticleSectionDOList());
+
+        for (ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()){
+
+            //System.out.println(articleSectionDO.get_id());
+            co.getArticleSectionCOList().add(articleSectionDO_to_articleSectionCO.convert(articleSectionDO));
         }
 
         //co.setArticleSectionCOList(ArticleSectionConverter.convert(source.getArticleSectionDOList()));

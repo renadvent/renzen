@@ -18,7 +18,7 @@ export const ACTION_joinCommunity="ACTION_joinCommunity"
 
 //ACTION CREATORS
 
-export function DISPATCH_createArticle(payload,user,community){
+export function DISPATCH_createArticle(payload,user,community,sectionData){
     return(dispatch)=>{
 
         //code here
@@ -26,6 +26,7 @@ export function DISPATCH_createArticle(payload,user,community){
         console.log(payload)
         console.log(user)
         console.log(community)
+        console.log(sectionData)
 
         Axios.post("/createArticle",{
             //payload
@@ -33,7 +34,7 @@ export function DISPATCH_createArticle(payload,user,community){
             description:payload.articleDescription,
             userID:user,
             communityID:community,
-            //articleSectionDOList:payload.articleAddToSection
+            articleSectionDOList:sectionData//[]//payload.articleAddToSection
         }).then(res=>{
             dispatch({
                 type:ACTION_createArticle,

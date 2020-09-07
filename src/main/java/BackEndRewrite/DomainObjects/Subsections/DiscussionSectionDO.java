@@ -17,4 +17,7 @@ public class DiscussionSectionDO extends BaseSection {
      * replies
      */
     List<DiscussionSectionDO> replies;
+
+
+
 }

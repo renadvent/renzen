@@ -146,7 +146,8 @@ public class IndexController {
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
         communityService.save(communityDO);
 
-        return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
+        return ResponseEntity.ok(articleComponentCOAssembler.toModel(savedArticleDO));
+        //return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
 
     }
 

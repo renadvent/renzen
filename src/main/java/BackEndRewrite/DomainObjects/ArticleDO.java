@@ -34,25 +34,25 @@ public class ArticleDO {
     ObjectId communityID;
     ObjectId discussionID;
 
-    List<ArticleSectionDO> articleSectionDOList = new ArrayList<>();
+    List<ArticleSectionDO> articleSectionDOList;
     //List<String> articleSectionDOIDList;
 
 
-//    public ArticleDO(String name, String description, ObjectId userID, ObjectId communityID,
-//                     List<ArticleSectionDO> articleSectionDOList){
-//        this.name=name;
-//        this.description=description;
-//        this.userID=userID;
-//        this.communityID=communityID;
-//        this.articleSectionDOList=articleSectionDOList;
-//    }
-
-    public ArticleDO(String name, String description, ObjectId userID, ObjectId communityID
-                     ){
+    public ArticleDO(String name, String description, ObjectId userID, ObjectId communityID,
+                     List<ArticleSectionDO> articleSectionDOList){
         this.name=name;
         this.description=description;
         this.userID=userID;
         this.communityID=communityID;
-        //this.articleSectionDOList=articleSectionDOList;
+        this.articleSectionDOList=articleSectionDOList;
     }
+
+//    public ArticleDO(String name, String description, ObjectId userID, ObjectId communityID
+//                     ){
+//        this.name=name;
+//        this.description=description;
+//        this.userID=userID;
+//        this.communityID=communityID;
+//        //this.articleSectionDOList=articleSectionDOList;
+//    }
 }

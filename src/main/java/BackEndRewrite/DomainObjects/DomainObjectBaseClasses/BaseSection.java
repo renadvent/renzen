@@ -15,7 +15,6 @@ import javax.persistence.Entity;
  */
 
 @Getter@Setter
-@Document(collection = "Contents")
 public class BaseSection {
 
     @Id
