@@ -128,7 +128,7 @@ function CommunityAppTabContent(props) {
                 {props.user.name === "" ? "not logged in" : props.user.name}
               </p>
               <h2>Articles in this community:</h2>
-              <p>Number of Sections in community: {0}</p>
+              <p>Number of Sections in community: {props.payload.numberOfArticles}</p>
 
               <button type="button" className="btn btn-secondary">
                 Add Topic to Community+
@@ -138,22 +138,26 @@ function CommunityAppTabContent(props) {
               {/*    <CreateTopicArea />*/}
               {/*</div>*/}
 
+              {console.log(props.payload)}
               <ul>
-                <li>Community Info</li>
-
-                <ul>
-                  <li>Purpose</li>
-                  <li>Affiliated Topics</li>
-                  <li>Affiliated Communities</li>
-                  <li>Moderators</li>
-                </ul>
-                <li>Getting Started</li>
-                <li>Main Concepts</li>
-                <li>Walkthroughs</li>
-                <li>Study Guides</li>
-                <li>Q&A</li>
-                <li>Reference</li>
+              <Stream source={props.payload.article_Article_streamComponentCOList}/>
               </ul>
+              {/*<ul>*/}
+              {/*  <li>Community Info</li>*/}
+
+              {/*  <ul>*/}
+              {/*    <li>Purpose</li>*/}
+              {/*    <li>Affiliated Topics</li>*/}
+              {/*    <li>Affiliated Communities</li>*/}
+              {/*    <li>Moderators</li>*/}
+              {/*  </ul>*/}
+              {/*  <li>Getting Started</li>*/}
+              {/*  <li>Main Concepts</li>*/}
+              {/*  <li>Walkthroughs</li>*/}
+              {/*  <li>Study Guides</li>*/}
+              {/*  <li>Q&A</li>*/}
+              {/*  <li>Reference</li>*/}
+              {/*</ul>*/}
               <div className={"card"}>
                 <div className={"card-body"}>add article</div>
               </div>
@@ -231,9 +235,9 @@ function Stream(props) {
       {props.source.map((single) => {
         return (
           // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
-          <div>
-            <a>+{single.name}</a>
-          </div>
+          <li>
+            <a>{single.name}</a>
+          </li>
         );
       })}
     </div>
