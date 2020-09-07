@@ -39,7 +39,10 @@ function LoginRegister_Container(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit() {}
+  function resetFields(){
+    setPassword("")
+    setUserName("")
+  }
 
   return (
     <div>
@@ -90,7 +93,10 @@ function LoginRegister_Container(props) {
 
           <button
             className="btn btn-dark"
-            onClick={() => props.DISPATCH_logIn(userName, password)}
+            onClick={() => {
+              props.DISPATCH_logIn(userName, password)
+              resetFields()
+            }}
           >
             Login
           </button>
@@ -123,7 +129,10 @@ function LoginRegister_Container(props) {
           </div>
           <button
             className="btn btn-dark"
-            onClick={() => props.DISPATCH_register(userName, password)}
+            onClick={() => {
+              props.DISPATCH_register(userName, password)
+              resetFields()
+            }}
           >
             Register
           </button>

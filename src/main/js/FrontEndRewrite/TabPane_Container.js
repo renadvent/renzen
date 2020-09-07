@@ -25,20 +25,16 @@ const mapDispatchToProps = (dispatch) => {
 
 function TabPane_Container(props) {
 
+    //initial load of site
     useEffect(()=>{
-
         props.DISPATCH_init();
-
     },[])
 
+    //updates active tab when new ones are opened
     useEffect(()=>{
-
         if ((props.open.length)>0){
             $('#tabA'+props.open[props.open.length-1].data._id).tab('show')
         }
-
-
-        // $('#app-tabs li:last-child a').tab('show')
     },[props.open])
 
     return (
@@ -58,31 +54,9 @@ function TabPane_Container(props) {
                         </a>
                     </li>
 
-                    {/*<li className="nav-item">*/}
-                    {/*    <a*/}
-                    {/*        className="nav-link"*/}
-                    {/*        id="profile-tab"*/}
-                    {/*        data-toggle="tab"*/}
-                    {/*        href="#profile-contents"*/}
-                    {/*        role="tab"*/}
-                    {/*    >*/}
-                    {/*        Profile*/}
-                    {/*    </a>*/}
-                    {/*</li>*/}
-
-
-                    {/*gets component from component portion of coummunity object*/}
                     {props.open.map(open=>{
                         return(open.tab)
                     })}
-
-                    {/*{props.open_profiles.map(profile=>{*/}
-                    {/*    return(profile.tab)*/}
-                    {/*})}*/}
-
-                    {/*{props.open_articles.map(article=>{*/}
-                    {/*    return(article.tab)*/}
-                    {/*})}*/}
 
                 </ul>
             </div>
@@ -99,29 +73,9 @@ function TabPane_Container(props) {
 
                 </div>
 
-
-
-                {/*<div*/}
-                {/*    className="tab-pane fade"*/}
-                {/*    id="profile-contents"*/}
-                {/*    role="tabpanel"*/}
-                {/*    aria-labelledby="profile-tab"*/}
-                {/*>*/}
-                {/*    <Profile_Container/>*/}
-
-                {/*</div>*/}
-
                 {props.open.map(open=>{
                     return(open.component)
                 })}
-
-                {/*{props.open_profiles.map(profile=>{*/}
-                {/*    return(profile.component)*/}
-                {/*})}*/}
-
-                {/*{props.open_articles.map(article=>{*/}
-                {/*    return(article.component)*/}
-                {/*})}*/}
 
             </div>
 
