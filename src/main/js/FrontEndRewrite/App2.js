@@ -4,6 +4,7 @@ import Axios from "axios";
 import Header_Container from "./Header_Container";
 import TabPane_Container from "./TabPane_Container";
 import Footer_Container from "./Footer_Container";
+import BookmarksComponent from "./BookmarksComponent";
 
 /*
 sets up page and divisions
@@ -20,7 +21,7 @@ function App2(props) {
                             <TabPane_Container/>
                         </div>
                         <div id={"study-guide-area"} className={"col-3"}>
-                            {/*<StudyGuide_Container/>*/}
+                            <BookmarksComponent/>
                         </div>
                     </div>
                 </div>
