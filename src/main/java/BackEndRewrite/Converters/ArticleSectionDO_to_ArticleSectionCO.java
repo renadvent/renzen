@@ -14,13 +14,7 @@ public class ArticleSectionDO_to_ArticleSectionCO implements Converter<ArticleSe
     @Override
     public ArticleSectionCO convert(ArticleSectionDO source) {
         ArticleSectionCO co = new ArticleSectionCO();
-        //co.set_id(source.get_id().toHexString());
-        //co.setObjectId(source.get_id());
         co.setHeading(source.getHeader());
-        co.setContent(source.getContent());
-        co.setAuthorID(source.getAuthor());
-        co.setUpvotes(source.getUpvotes());
-        co.setDownvotes(source.getDownvotes());
         return co;
     }
 }

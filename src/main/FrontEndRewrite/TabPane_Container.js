@@ -13,7 +13,8 @@ hosts other opened tabs when they are opened
 const mapStateToProps = (state) => {
     return {
         open_communities: state.tabs.open_communities,
-        open_profiles:state.tabs.open_profiles
+        open_profiles:state.tabs.open_profiles,
+        open_articles:state.tabs.open_articles
     }
 }
 
@@ -69,6 +70,11 @@ function TabPane_Container(props) {
                     {props.open_profiles.map(profile=>{
                         return(profile.tab)
                     })}
+
+                    {props.open_articles.map(article=>{
+                        return(article.tab)
+                    })}
+
                 </ul>
             </div>
 
@@ -102,6 +108,10 @@ function TabPane_Container(props) {
 
                 {props.open_profiles.map(profile=>{
                     return(profile.component)
+                })}
+
+                {props.open_articles.map(article=>{
+                    return(article.component)
                 })}
 
             </div>

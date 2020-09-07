@@ -5,6 +5,7 @@ import AppTab from "./AppTab";
 import {open_community} from "../js/Store/actions";
 import ProfileAppTabContent from "./ProfileAppTabContent";
 import CommunityAppTabContent from "./CommunityAppTabContent";
+import ArticleAppTabContent from "./ArticleAppTabContent";
 
 //INITIAL STATE
 
@@ -25,7 +26,8 @@ const initialState = {
     tabs: {
         open_communities: [],
         stream_communities: [],
-        open_profiles:[]
+        open_profiles:[],
+        open_articles:[]
     },
 
     homeTabData: {
@@ -100,7 +102,20 @@ const reducer = (state = initialState, action) => {
             break
 
         case at.ACTION_openArticle:
-            return state
+            return {
+                ...state,
+                tabs:{
+                    ...state.tabs,
+                    open_articles: state.tabs.open_articles.concat(
+                        {
+                            name: action.payload.name,
+                            data:action.payload,
+                            tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
+                            component: <ArticleAppTabContent/>
+                        }
+                    )
+                }
+            }
             break
 
         case at.ACTION_register:

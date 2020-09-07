@@ -1,7 +1,6 @@
 package BackEndRewrite.DomainObjects.Subsections;
 
 
-import BackEndRewrite.DomainObjects.DomainObjectBaseClasses.BaseSection;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * and replies
  */
 @Getter@Setter
-public class DiscussionSectionDO extends BaseSection {
+public class DiscussionSectionDO {
     /**
      * replies
      */

@@ -129,8 +129,12 @@ export function DISPATCH_openUser(url) {
 
 export function DISPATCH_openArticle(url) {
     return (dispatch) => {
-        dispatch({
-            type: ACTION_openArticle
+
+        Axios.get(url).then(res=>{
+            dispatch({
+                type: ACTION_openArticle,
+                payload:res.data
+            })
         })
     }
 }
