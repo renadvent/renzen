@@ -139,8 +139,11 @@ function CreateArticleArea(props) {
 
                     </button>
 
-                    <button type="button" onClick={() =>
-                        props.DISPATCH_createArticle(articleData,props.user.id,thisCommunity,sectionData)}
+                    <button type="button" onClick={() =>{
+                        props.DISPATCH_createArticle(articleData,props.user.id,thisCommunity,sectionData)
+                        props.show(false)
+                    }
+                        }
                             className="btn btn-secondary">Post Article
                     </button>
 
