@@ -37,7 +37,7 @@ export function DISPATCH_createArticle(payload,user,community,sectionData){
             articleSectionDOList:sectionData//[]//payload.articleAddToSection
         }).then(res=>{
             dispatch({
-                type:ACTION_createArticle,
+                type:ACTION_openArticle,
                 payload:res.data
             })
         })

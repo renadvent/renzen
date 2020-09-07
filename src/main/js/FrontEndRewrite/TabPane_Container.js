@@ -26,9 +26,11 @@ const mapDispatchToProps = (dispatch) => {
 function TabPane_Container(props) {
 
     //initial load of site
+
+    //loads initially, and updates article names etc when a new tab is opened
     useEffect(()=>{
         props.DISPATCH_init();
-    },[])
+    },[props.open])
 
     //updates active tab when new ones are opened
     useEffect(()=>{
