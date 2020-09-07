@@ -154,13 +154,13 @@ export function DISPATCH_logIn(payload) {
 }
 
 //TODO working on changing tab when created
-function activaTab(someTab){
-    console.log("ACTIVATAB")
-    console.log(someTab)
-    $(someTab).tab('show')
-    return null
-    // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-};
+// function activaTab(someTab){
+//     console.log("ACTIVATAB")
+//     console.log(someTab)
+//     $(someTab).tab('show')
+//     return null
+//     // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+// };
 
 export function DISPATCH_logOut() {
     return {

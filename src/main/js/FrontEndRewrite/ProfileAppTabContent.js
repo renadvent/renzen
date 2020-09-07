@@ -5,7 +5,6 @@ function ProfileAppTabContent(props) {
   console.log("HREF" + props.href);
 
   return (
-    <div>
       <div
         className="tab-pane fade"
         id={props.href}
@@ -14,7 +13,6 @@ function ProfileAppTabContent(props) {
       >
         <Profile_Container data={props.payload} />
       </div>
-    </div>
   );
 }
 

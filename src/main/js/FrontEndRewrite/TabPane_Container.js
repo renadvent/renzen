@@ -10,9 +10,10 @@ hosts other opened tabs when they are opened
 
 const mapStateToProps = (state) => {
     return {
-        open_communities: state.tabs.open_communities,
-        open_profiles:state.tabs.open_profiles,
-        open_articles:state.tabs.open_articles
+        // open_communities: state.tabs.open_communities,
+        // open_profiles:state.tabs.open_profiles,
+        // open_articles:state.tabs.open_articles
+        open:state.tabs.open
     }
 }
 
@@ -31,9 +32,14 @@ function TabPane_Container(props) {
     },[])
 
     useEffect(()=>{
-        $('#'+props.open_profiles.lastItem().data.id).tab('show')
+
+        if ((props.open.length)>0){
+            $('#tabA'+props.open[props.open.length-1].data._id).tab('show')
+        }
+
+
         // $('#app-tabs li:last-child a').tab('show')
-    },[props.open_profiles])
+    },[props.open])
 
     return (
         <div id={"tabsAndContents"}>
@@ -66,17 +72,17 @@ function TabPane_Container(props) {
 
 
                     {/*gets component from component portion of coummunity object*/}
-                    {props.open_communities.map(community=>{
-                        return(community.tab)
+                    {props.open.map(open=>{
+                        return(open.tab)
                     })}
 
-                    {props.open_profiles.map(profile=>{
-                        return(profile.tab)
-                    })}
+                    {/*{props.open_profiles.map(profile=>{*/}
+                    {/*    return(profile.tab)*/}
+                    {/*})}*/}
 
-                    {props.open_articles.map(article=>{
-                        return(article.tab)
-                    })}
+                    {/*{props.open_articles.map(article=>{*/}
+                    {/*    return(article.tab)*/}
+                    {/*})}*/}
 
                 </ul>
             </div>
@@ -105,17 +111,17 @@ function TabPane_Container(props) {
 
                 {/*</div>*/}
 
-                {props.open_communities.map(community=>{
-                    return(community.component)
+                {props.open.map(open=>{
+                    return(open.component)
                 })}
 
-                {props.open_profiles.map(profile=>{
-                    return(profile.component)
-                })}
+                {/*{props.open_profiles.map(profile=>{*/}
+                {/*    return(profile.component)*/}
+                {/*})}*/}
 
-                {props.open_articles.map(article=>{
-                    return(article.component)
-                })}
+                {/*{props.open_articles.map(article=>{*/}
+                {/*    return(article.component)*/}
+                {/*})}*/}
 
             </div>
 

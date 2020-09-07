@@ -5,7 +5,7 @@ import LoginRegister_Container from "./LoginRegister_Container";
 
 const mapStateToProps = (state) => {
     return {
-        open_communities: state.open_communities,
+        // open_communities: state.open_communities,
         isLoggedIn: state.isLoggedIn,
 
         // loadedCommunities:state.tabs.open_communities,

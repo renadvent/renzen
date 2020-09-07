@@ -22,10 +22,10 @@ const initialState = {
     },
 
     tabs: {
-        open_communities: [],
-        stream_communities: [],
-        open_profiles:[],
-        open_articles:[],
+        // open_communities: [],
+        // stream_communities: [],
+        // open_profiles:[],
+        // open_articles:[],
 
         open:[]
     },
@@ -72,10 +72,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 tabs : {
                     ...state.tabs,
-                    open_communities: state.tabs.open_communities.concat(
+                    open: state.tabs.open.concat(
                         {
+                            type: "community",
                             name: action.payload.name,
-                            data: action.payload.data,
+                            // data: action.payload.data,
+                            data: action.payload,
                             tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
                             component:<CommunityAppTabContent payload={action.payload} href={"A"+action.payload._id}/>
                         })
@@ -89,8 +91,9 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 tabs : {
                     ...state.tabs,
-                    open_profiles: state.tabs.open_profiles.concat(
+                    open: state.tabs.open.concat(
                         {
+                            type:"profile",
                             name: action.payload.name,
                             data: action.payload,
                             tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
@@ -106,8 +109,9 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 tabs:{
                     ...state.tabs,
-                    open_articles: state.tabs.open_articles.concat(
+                    open: state.tabs.open.concat(
                         {
+                            type:"articles",
                             name: action.payload.name,
                             data:action.payload,
                             tab: <AppTab name={action.payload.name} href={"A"+action.payload._id}/>,
@@ -182,7 +186,7 @@ const reducer = (state = initialState, action) => {
                 },
                 tabs:{
                     ...state.tabs,
-                    open_profiles: state.tabs.open_profiles.concat({
+                    open: state.tabs.open.concat({
                         name: action.payload.name,
                         data: action.payload,
                         // tab: <AppTab name={action.payload.name + " (Your Profile)"} href={"A" + action.payload._id}/>,
@@ -214,12 +218,12 @@ const reducer = (state = initialState, action) => {
     return state;
 }
 
-function activaTab(someTab){
-    console.log("ACTIVATAB")
-    console.log(someTab)
-    $(someTab).tab('show')
-    return null
-    // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-};
+// function activaTab(someTab){
+//     console.log("ACTIVATAB")
+//     console.log(someTab)
+//     $(someTab).tab('show')
+//     return null
+//     // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+// };
 
 export default reducer;
