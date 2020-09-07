@@ -1,4 +1,4 @@
-package BackEndRewrite.CommandObjects.SubCommunityComponentCOs;
+package BackEndRewrite.CommandObjects.TabComponentCOs;
 
 import BackEndRewrite.CommandObjects.ContentCOs.ArticleSectionCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ArticleComponentCO extends RepresentationModel<ArticleComponentCO> {
+public class ArticleTabComponentCO extends RepresentationModel<ArticleTabComponentCO> {
     String _id;
     ObjectId objectId;
 

@@ -1,6 +1,6 @@
 package BackEndRewrite.Converters;
 
-import BackEndRewrite.CommandObjects.SubCommunityComponentCOs.ArticleComponentCO;
+import BackEndRewrite.CommandObjects.TabComponentCOs.ArticleTabComponentCO;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.Repositories.ArticleRepository;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @Component
-public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,ArticleComponentCO> {
+public class ArticleDO_to_ArticleTabComponentCO implements Converter<ArticleDO, ArticleTabComponentCO> {
 
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
@@ -34,7 +34,7 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
     final ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO;
 
     @Autowired
-    public ArticleDO_to_ArticleComponentCO(UserRepository repo, ArticleRepository articleRepo, UserService userService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO) {
+    public ArticleDO_to_ArticleTabComponentCO(UserRepository repo, ArticleRepository articleRepo, UserService userService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO) {
         this.userRepo = repo;
         this.articleRepo = articleRepo;
         this.userService = userService;
@@ -51,22 +51,22 @@ public class ArticleDO_to_ArticleComponentCO implements Converter<ArticleDO,Arti
 //        return articleComponentCOList;
 //    }
 //articleComponentCOList
-    public List<ArticleComponentCO> convert(List<ObjectId> articleDOIds){
+    public List<ArticleTabComponentCO> convert(List<ObjectId> articleDOIds){
 
-        ArrayList<ArticleComponentCO> articleComponentCOList = new ArrayList<>();
+        ArrayList<ArticleTabComponentCO> articleTabComponentCOList = new ArrayList<>();
 
         articleRepo.findAllById(articleDOIds).forEach(e->{
-            articleComponentCOList.add(convert(e));
+            articleTabComponentCOList.add(convert(e));
         });
 
-        return articleComponentCOList;
+        return articleTabComponentCOList;
 
     }
 
     @Synchronized@Nullable@Override
-    public ArticleComponentCO convert(ArticleDO source){
+    public ArticleTabComponentCO convert(ArticleDO source){
 
-        final ArticleComponentCO co = new ArticleComponentCO();
+        final ArticleTabComponentCO co = new ArticleTabComponentCO();
 
         co.setName(source.getName());
         co.setDescription(source.getDescription());

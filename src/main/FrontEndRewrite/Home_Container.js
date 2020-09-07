@@ -85,7 +85,8 @@ function Home_Container(props) {
 function Stream(props){
     return(
         <div>
-            {/*{console.log(props)}*/}
+            {console.log("props")}
+            {console.log(props)}
 
             {props.source !==null ? props.source.map(single=>{
                 // {console.log(single._links)}

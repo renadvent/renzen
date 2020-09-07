@@ -3,30 +3,26 @@ package BackEndRewrite.Controllers;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
 import BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
+import BackEndRewrite.CommandObjects.TabComponentCOs.ArticleTabComponentCO;
 import BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
 import BackEndRewrite.Converters.*;
 import BackEndRewrite.DomainObjects.ArticleDO;
 import BackEndRewrite.DomainObjects.CommunityDO;
 import BackEndRewrite.DomainObjects.DiscussionDO;
 import BackEndRewrite.DomainObjects.ProfileDO;
-import BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import BackEndRewrite.ModelAssemblers.*;
 import BackEndRewrite.Services.Interfaces.ArticleService;
 import BackEndRewrite.Services.Interfaces.CommunityService;
 import BackEndRewrite.Services.Interfaces.DiscussionService;
 import BackEndRewrite.Services.Interfaces.UserService;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -40,7 +36,7 @@ public class IndexController {
     final CommunityService communityService;
 
     //converters
-    final ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO;
+    final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
     final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
     final ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
@@ -48,25 +44,25 @@ public class IndexController {
     final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
     //assemblers
-    final ArticleComponentCOAssembler articleComponentCOAssembler;
+    final ArticleTabCOAssembler articleTabCOAssembler;
     final ProfileStreamCOAssembler profileStreamCOAssembler;
     final ProfileTabCOAssembler profileTabCOAssembler;
     final CommunityTabCOAssembler communityTabCOAssembler;
     final CommunityStreamCOAssembler communityStreamCOAssembler;
 
     //controllers
-    public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleComponentCO articleDO_to_articleComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleComponentCOAssembler articleComponentCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
+    public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
         this.communityService = communityService;
-        this.articleDO_to_articleComponentCO = articleDO_to_articleComponentCO;
+        this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
         this.profileDO_to_profileTabComponentCO = profileDO_to_profileTabComponentCO;
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
         this.communityDO_to_communityTabComponentCO = communityDO_to_communityTabComponentCO;
         this.communityDO_to_communityStreamComponentCO = communityDO_to_communityStreamComponentCO;
-        this.articleComponentCOAssembler = articleComponentCOAssembler;
+        this.articleTabCOAssembler = articleTabCOAssembler;
         this.profileStreamCOAssembler = profileStreamCOAssembler;
         this.profileTabCOAssembler = profileTabCOAssembler;
         this.communityTabCOAssembler = communityTabCOAssembler;
@@ -146,7 +142,7 @@ public class IndexController {
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
         communityService.save(communityDO);
 
-        return ResponseEntity.ok(articleComponentCOAssembler.toModel(savedArticleDO));
+        return ResponseEntity.ok(articleTabCOAssembler.toModel(savedArticleDO));
         //return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
 
     }
@@ -237,6 +233,11 @@ public class IndexController {
     @GetMapping(path="/getArticleStreamComponentCO/{id}")
     public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
         return articleDO_to_articleStreamComponentCO.convert(articleService.findBy_id(id));
+    }
+
+    @GetMapping(path="/getArticleTabComponentCO/{id}")
+    public ArticleTabComponentCO getArticleTabComponentCO(@PathVariable ObjectId id){
+        return articleDO_to_articleTabComponentCO.convert(articleService.findBy_id(id));
     }
 
     @GetMapping(path="/getCommunityStreamComponentCO/{id}")
