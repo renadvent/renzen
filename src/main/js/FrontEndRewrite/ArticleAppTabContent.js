@@ -19,25 +19,25 @@ function ArticleAppTabContent(props){
     return(
 
 
-        <div
+        <div style={{ textAlign: "center" }}
             className="tab-pane fade"
             id={props.href}
             role="tabpanel"
             //aria-labelledby="profile-tab"
         >
 
-        <div>
-            Placeholder for article
-        </div>
 
-            <div>
+
+            <h1>
                 {props.payload.name}
-            </div>
+            </h1>
+
+            <hr/>
 
             {props.payload.articleSectionCOList.map(section=>{
                 return(
                     <div>
-                        <div>{section.header}</div>
+                        <h3>{section.header}</h3>
                         <div>{section.body}</div>
                     </div>
                 )

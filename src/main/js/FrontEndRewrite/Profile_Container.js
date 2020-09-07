@@ -11,13 +11,19 @@ function Profile_Container(props) {
 
   return (
     <div>
+        <br/>
       <p>username: {props.data.name}</p>
-      <p>number of articles: {props.data.numberOfArticles}</p>
+        <hr/>
+
       <p>number of communities: {props.data.numberOfCommunities}</p>
       <p>Communities you are a part of: </p>
       <Stream source={props.data.communityStreamComponentCOList} />
+      <hr/>
+        <p>number of articles: {props.data.numberOfArticles}</p>
       <p>Articles you've written</p>
       <Stream source={props.data.articleHomePageCOList}/>
+
+      <hr/>
       {/*<p>Articles you've written</p>*/}
       {/*<Stream source={props.data.articleStreamComponentCOList} />*/}
       {/*<p>{props.data.url}</p>*/}
@@ -58,18 +64,18 @@ const mapDispatchToProps = (dispatch) => {
 
 function Stream(props) {
   return (
-    <div>
+    <ul>
       {props.source !== null
         ? props.source.map((single) => {
             return (
               // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
-              <div>
+              <li>
                 <a>+{single.name}</a>
-              </div>
+              </li>
             );
           })
         : null}
-    </div>
+    </ul>
   );
 }
 

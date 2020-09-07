@@ -12,7 +12,7 @@ function BookmarksComponent() {
         <div id="addTo">
             <ul className="nav nav-tabs">
                 <WebsiteTab
-                    name={"Default Study Guide"}
+                    name={"Bookmarks"}
                     linkTo={"#AnnoSec"}
                     active={"active"}
                 />
@@ -26,8 +26,8 @@ function BookmarksComponent() {
                     aria-labelledby="profile-tab"
                 >
                     <div id="annoBar">
-                        <button>Add Note</button>
-                        ...
+                        {/*<button>Add Note</button>*/}
+                        {/*...*/}
                     </div>
                 </div>
             </div>

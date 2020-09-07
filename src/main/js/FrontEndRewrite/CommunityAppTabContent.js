@@ -34,7 +34,7 @@ function CommunityAppTabContent(props) {
       //aria-labelledby="profile-tab"
     >
       {/*<div className="tab-pane fade" id="com" role="tabpanel">*/}
-        <h1 style={{ textAlign: "center" }}>Community Homepage</h1>
+        <h1 style={{ textAlign: "center" }}>{props.payload.name} Homepage</h1>
         <hr></hr>
         <div className="row">
           <div className={"col-5"}>
@@ -62,10 +62,16 @@ function CommunityAppTabContent(props) {
                   aria-controls="profile"
                   aria-selected="false"
                 >
-                  Article Annotations
+                  +
+
+                  {/*Article Annotations*/}
                 </a>
               </li>
             </ul>
+
+
+
+
             <div className="tab-content" id="myTabContent2">
               <div
                 className="tab-pane fade show active"
@@ -96,25 +102,25 @@ function CommunityAppTabContent(props) {
                   role="tabpanel"
                   aria-labelledby="home-tab"
                 >
-                  <div className="btn-group-vertical">
-                    <form>
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        // onClick={annotateSelection}
-                      >
-                        Add Annotation
-                      </button>
-                    </form>
-                  </div>
-                  None Yet
+                  {/*<div className="btn-group-vertical">*/}
+                  {/*  <form>*/}
+                  {/*    <button*/}
+                  {/*      type="button"*/}
+                  {/*      className="btn btn-secondary"*/}
+                  {/*      // onClick={annotateSelection}*/}
+                  {/*    >*/}
+                  {/*      Add Annotation*/}
+                  {/*    </button>*/}
+                  {/*  </form>*/}
+                  {/*</div>*/}
+                  {/*None Yet*/}
                 </div>
               </div>
             </div>
           </div>
           <div className={"col-7"}>
             <div>
-              <button style={{ textAlign: "center" }}>
+              <button className="btn btn-dark" style={{ textAlign: "center" }}>
                 {props.user.communities.find((x) => {
                   return x._id === props.payload._id;
                 }) ? (
@@ -124,15 +130,32 @@ function CommunityAppTabContent(props) {
                 )}
               </button>
 
+              <button
+                  className="btn btn-dark"
+                  onClick={() => {
+                    console.log("CLICKED");
+                    console.log(props.user.id);
+                    console.log(props.payload._id);
+                    props.DISPATCH_joinCommunity(props.user.id, props.payload._id);
+                  }}
+              >
+                Join Community
+              </button>
+
               <p>
                 {props.user.name === "" ? "not logged in" : props.user.name}
               </p>
+
+
+
               <h2>Articles in this community:</h2>
               <p>Number of Sections in community: {props.payload.numberOfArticles}</p>
 
-              <button type="button" className="btn btn-secondary">
-                Add Topic to Community+
+              <button type="button" className="btn btn-secondary">Write New Article
+                {/*Add Topic to Community+*/}
               </button>
+
+
 
               {/*<div className={showCreateTopic ? "d-block" : "d-none"}>*/}
               {/*    <CreateTopicArea />*/}
@@ -158,17 +181,18 @@ function CommunityAppTabContent(props) {
               {/*  <li>Q&A</li>*/}
               {/*  <li>Reference</li>*/}
               {/*</ul>*/}
-              <div className={"card"}>
-                <div className={"card-body"}>add article</div>
-              </div>
+              {/*<div className={"card"}>*/}
+              {/*  <div className={"card-body"}>*/}
+              {/*    <button className="btn btn-dark">add article</button></div>*/}
+              {/*</div>*/}
 
-              <div className={"card"}>
-                <div className={"card-body"}>
-                  <button type="button" className="btn btn-secondary">
-                    Ask Question
-                  </button>
-                </div>
-              </div>
+              {/*<div className={"card"}>*/}
+              {/*  <div className={"card-body"}>*/}
+              {/*    <button type="button" className="btn btn-secondary">*/}
+              {/*      Ask Question*/}
+              {/*    </button>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
             </div>
           </div>
         </div>
@@ -182,41 +206,31 @@ function CommunityAppTabContent(props) {
         </div>
       {/*</div>*/}
 
-      <p>Members of this Community</p>
-      <Stream
-        source={
-          props.payload.user_streamComponentCOList._embedded
-            .profileStreamComponentCoes
-        }
-      />
+      {/*<p>Members of this Community</p>*/}
+      {/*<Stream*/}
+      {/*  source={*/}
+      {/*    props.payload.user_streamComponentCOList._embedded*/}
+      {/*      .profileStreamComponentCoes*/}
+      {/*  }*/}
+      {/*/>*/}
 
-      {props.user.communities.find((x) => {
-        return x._id === props.payload._id;
-      }) ? (
-        <div>You are a member of this community</div>
-      ) : (
-        <div>You are not a member of this community</div>
-      )}
+      {/*{props.user.communities.find((x) => {*/}
+      {/*  return x._id === props.payload._id;*/}
+      {/*}) ? (*/}
+      {/*  <div>You are a member of this community</div>*/}
+      {/*) : (*/}
+      {/*  <div>You are not a member of this community</div>*/}
+      {/*)}*/}
 
-      <p>Articles in this community</p>
-      <Stream source={props.payload.article_Article_streamComponentCOList} />
+      {/*<p>Articles in this community</p>*/}
+      {/*<Stream source={props.payload.article_Article_streamComponentCOList} />*/}
 
       <div>
-        <button
-          className="btn btn-dark"
-          onClick={() => {
-            console.log("CLICKED");
-            console.log(props.user.id);
-            console.log(props.payload._id);
-            props.DISPATCH_joinCommunity(props.user.id, props.payload._id);
-          }}
-        >
-          Join Community
-        </button>
+
 
         <CreateArticleArea community={props.payload._id} />
 
-        <button className="btn btn-dark">Create Article</button>
+        {/*<button className="btn btn-dark">Create Article</button>*/}
       </div>
     </div>
   );
