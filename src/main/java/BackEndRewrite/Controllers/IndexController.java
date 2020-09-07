@@ -49,9 +49,10 @@ public class IndexController {
     final ProfileTabCOAssembler profileTabCOAssembler;
     final CommunityTabCOAssembler communityTabCOAssembler;
     final CommunityStreamCOAssembler communityStreamCOAssembler;
+    final ArticleStreamCOAssembler articleStreamCOAssembler;
 
     //controllers
-    public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
+    public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -67,6 +68,7 @@ public class IndexController {
         this.profileTabCOAssembler = profileTabCOAssembler;
         this.communityTabCOAssembler = communityTabCOAssembler;
         this.communityStreamCOAssembler = communityStreamCOAssembler;
+        this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
     //-------------------------------------------JOIN
@@ -176,7 +178,7 @@ public class IndexController {
         ArrayList<CollectionModel<?>> returnList = new ArrayList<>();
 
         //TODO convert
-        returnList.add(getAllArticles().getBody());
+        returnList.add(articleStreamCOAssembler.toCollectionModel(articleService.findAll()));
         returnList.add(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
         returnList.add(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
 

@@ -41,15 +41,13 @@ public class ArticleTabCOAssembler extends RepresentationModelAssemblerSupport<A
     @Override
     public ArticleTabComponentCO toModel(ArticleDO articleDO) {
 
+        ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convert(articleDO);
 
+        return articleTabComponentCO
 
-        return articleDO_to_articleTabComponentCO.convert(articleDO).add(List.of(
-
-                linkTo(methodOn(IndexController.class).getAllProfiles()).withSelfRel(),
-                linkTo(methodOn(IndexController.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(IndexController.class).getAllCommunities()).withSelfRel()
-        ));
-
+                .add(List.of(
+                        linkTo(methodOn(IndexController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
+                        linkTo(methodOn(IndexController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
     }
 
 }
