@@ -1,67 +1,66 @@
 //Object literals
 
-const new_Article = function(){
-    return{
-        id:"",
-        name:"",
+const new_Article = function () {
+  return {
+    id: "",
+    name: "",
 
-        author:"",
-        community:"",
+    author: "",
+    community: "",
 
-        description:""
-    }
-}
+    description: "",
+  };
+};
 
-const new_Community = function(){
-    return{
-        id:"",
-        name:"",
-        description:"",
-        creator:"",
+const new_Community = function () {
+  return {
+    id: "",
+    name: "",
+    description: "",
+    creator: "",
 
-        topics:[],
-        articles:[],
-        questions:[],
+    topics: [],
+    articles: [],
+    questions: [],
 
-        users:[],
-        moderators:[],
-    }
-}
+    users: [],
+    moderators: [],
+  };
+};
 
-const new_Content = function(){
-    return{
-        id:"",
-        creator:"",
+const new_Content = function () {
+  return {
+    id: "",
+    creator: "",
 
-        content:"",
+    content: "",
 
-        upVotes:"",
-        downVotes:"",
+    upVotes: "",
+    downVotes: "",
 
-        header:"",
-        description:"",
-        tags:[],
+    header: "",
+    description: "",
+    tags: [],
 
-        discussion:""
-    }
-}
+    discussion: "",
+  };
+};
 
-const new_User = function(){
-    return{
-        id:"",
-        name:"",
-        password:"",
+const new_User = function () {
+  return {
+    id: "",
+    name: "",
+    password: "",
 
-        articles:[],
-        questions:[],
-        communities:[],
-        studyGuides:[]
-    }
-}
+    articles: [],
+    questions: [],
+    communities: [],
+    studyGuides: [],
+  };
+};
 
-const new_StudyGuide = function(){
-    return{
-        id:""
-    }
-}
-
+const new_StudyGuide = function () {
+  return {
+    id: "",
+  };
+};

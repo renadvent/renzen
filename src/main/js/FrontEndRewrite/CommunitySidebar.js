@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
-function CommunitySidebar(props){
-    return(
-        <div>
-            {/*<CommunityHeader/>*/}
-            {/*<CommunityDiscussionStream/>*/}
-        </div>
-    )
+function CommunitySidebar(props) {
+  return (
+    <div>
+      {/*<CommunityHeader/>*/}
+      {/*<CommunityDiscussionStream/>*/}
+    </div>
+  );
 }
 
-export default CommunitySidebar
+export default CommunitySidebar;

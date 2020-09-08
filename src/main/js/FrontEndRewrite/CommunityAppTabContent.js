@@ -27,7 +27,7 @@ function CommunityAppTabContent(props) {
   console.log(props.payload);
 
   const [showCreateArticle, setShowCreateArticle] = useState(false);
-  const [childPosted,setChildPosted] = useState(false)
+  const [childPosted, setChildPosted] = useState(false);
 
   return (
     <div
@@ -118,8 +118,6 @@ function CommunityAppTabContent(props) {
         </div>
         <div className={"col-7"}>
           <div>
-
-
             {/*works... but is a mess of logic*/}
             {props.user.logged_in ? (
               <button className="btn btn-dark" style={{ textAlign: "center" }}>
@@ -137,19 +135,20 @@ function CommunityAppTabContent(props) {
                       );
                     }}
                   >
-                    {props.user.logged_in ? (
-                      "Join Community"
-                    ) : (
-                      "Hi!"
-                    )}
+                    {props.user.logged_in ? "Join Community" : "Hi!"}
                   </button>
                 )}
               </button>
-            ) : <button className="btn btn-dark" onClick={()=>{
-              $("#home-tab").tab('show')
-            }}>Login</button>}
-
-
+            ) : (
+              <button
+                className="btn btn-dark"
+                onClick={() => {
+                  $("#home-tab").tab("show");
+                }}
+              >
+                Login
+              </button>
+            )}
 
             <h2>Articles in this community:</h2>
             <p>
@@ -195,22 +194,20 @@ function CommunityAppTabContent(props) {
             {/*  </div>*/}
             {/*</div>*/}
 
-            {props.user.logged_in ?
-
-            <button
-              type="button"
-              onClick={() => setShowCreateArticle(!showCreateArticle)}
-              className="btn btn-secondary"
-            >
-              {showCreateArticle ? "Cancel Article" : "Write New Article"}
-              {/*Add Topic to Community+*/}
-            </button>
-
-                : <button className="btn btn-secondary">"Log in to write articles!!"</button>}
-
-
-
-
+            {props.user.logged_in ? (
+              <button
+                type="button"
+                onClick={() => setShowCreateArticle(!showCreateArticle)}
+                className="btn btn-secondary"
+              >
+                {showCreateArticle ? "Cancel Article" : "Write New Article"}
+                {/*Add Topic to Community+*/}
+              </button>
+            ) : (
+              <button className="btn btn-secondary">
+                "Log in to write articles!!"
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -222,51 +219,25 @@ function CommunityAppTabContent(props) {
       >
         ...
       </div>
-      {/*</div>*/}
-
-      {/*<p>Members of this Community</p>*/}
-      {/*<Stream*/}
-      {/*  source={*/}
-      {/*    props.payload.user_streamComponentCOList._embedded*/}
-      {/*      .profileStreamComponentCoes*/}
-      {/*  }*/}
-      {/*/>*/}
-
-      {/*{props.user.communities.find((x) => {*/}
-      {/*  return x._id === props.payload._id;*/}
-      {/*}) ? (*/}
-      {/*  <div>You are a member of this community</div>*/}
-      {/*) : (*/}
-      {/*  <div>You are not a member of this community</div>*/}
-      {/*)}*/}
-
-      {/*<p>Articles in this community</p>*/}
-      {/*<Stream source={props.payload.article_Article_streamComponentCOList} />*/}
 
       <div>
         {showCreateArticle ? (
-          <CreateArticleArea show={setShowCreateArticle} community={props.payload._id} />
+          <CreateArticleArea
+            show={setShowCreateArticle}
+            community={props.payload._id}
+          />
         ) : null}
-
-        {/*<button className="btn btn-dark">Create Article</button>*/}
       </div>
     </div>
   );
 }
 
-//streamCOlist
 function Stream(props) {
-  console.log(props);
-  // source.user_streamComponentCOList._embedded.profileStreamComponentCoes
-
-  // {props.source.user_streamComponentCOList._embedded.profileStreamComponentCoes !== null
-  //     ? props.source.user_streamComponentCOList._embedded.profileStreamComponentCoes.map((single) => {
-
   return (
     <div>
       {props.source.map((single) => {
         return (
-          // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
+          //<div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
           <li>
             <a>{single.name}</a>
           </li>

@@ -39,9 +39,9 @@ function LoginRegister_Container(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  function resetFields(){
-    setPassword("")
-    setUserName("")
+  function resetFields() {
+    setPassword("");
+    setUserName("");
   }
 
   return (
@@ -94,8 +94,8 @@ function LoginRegister_Container(props) {
           <button
             className="btn btn-dark"
             onClick={() => {
-              props.DISPATCH_logIn(userName, password)
-              resetFields()
+              props.DISPATCH_logIn(userName, password);
+              resetFields();
             }}
           >
             Login
@@ -130,8 +130,8 @@ function LoginRegister_Container(props) {
           <button
             className="btn btn-dark"
             onClick={() => {
-              props.DISPATCH_register(userName, password)
-              resetFields()
+              props.DISPATCH_register(userName, password);
+              resetFields();
             }}
           >
             Register
