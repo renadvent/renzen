@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch) => {
         })
       ),
     DISPATCH_createArticle: () => dispatch(store.DISPATCH_createArticle()),
+    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
   };
 };
 
@@ -163,6 +164,7 @@ function CommunityAppTabContent(props) {
             <ul>
               <Stream
                 source={props.payload.article_Article_streamComponentCOList}
+                dispatch={props.DISPATCH_openArticle}
               />
             </ul>
             {/*<ul>*/}
@@ -233,14 +235,26 @@ function CommunityAppTabContent(props) {
 }
 
 function Stream(props) {
+
+
   return (
     <div>
+      {console.log("whole")}
+      {console.log(props)}
       {props.source.map((single) => {
+        {console.log("ssingle")}
+        {console.log(single)}
+
+        //_links.Tab_Version
+
+        //source
+        //_embedded.articleStreamComponentCoes[0]._links.Tab_Version
         return (
-          //<div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
+          // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
           <li>
             <a>{single.name}</a>
           </li>
+            // </div>
         );
       })}
     </div>

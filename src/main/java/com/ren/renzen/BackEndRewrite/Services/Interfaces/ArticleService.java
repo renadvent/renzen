@@ -14,6 +14,8 @@ public interface ArticleService {
     Iterable<ArticleDO> findArticleDOsByCommunityID(ObjectId objectId);
 
     ArticleDO findBy_id(ObjectId Id);
+
+    List<ArticleDO> findAllBy_id(List<ObjectId> objectIdList);
     //---------------------
 
     void delete(ArticleDO articleDO);

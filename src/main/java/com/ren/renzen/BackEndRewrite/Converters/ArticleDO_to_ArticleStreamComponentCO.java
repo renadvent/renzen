@@ -53,10 +53,6 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
     @Override
     public ArticleStreamComponentCO convert(ArticleDO source){
 
-        if (source==null){
-            return null;
-        }
-
         final ArticleStreamComponentCO co = new ArticleStreamComponentCO();
 
         co.setName(source.getName());

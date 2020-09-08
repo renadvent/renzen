@@ -234,7 +234,8 @@ public class IndexController {
 
     @GetMapping(path="/getProfileStreamComponentCO/{id}")
     public ProfileStreamComponentCO getProfileStreamComponentCO(@PathVariable ObjectId id){
-        return profileDO_to_profileStreamComponentCO.convert(userService.findBy_id(id));
+        return profileStreamCOAssembler.toModel(userService.findBy_id(id));
+//        return profileDO_to_profileStreamComponentCO.convert(userService.findBy_id(id));
     }
 
     @RequestMapping(path="/profileTabComponentCO/{id}")
@@ -245,19 +246,22 @@ public class IndexController {
     //TODO update toModel
     @GetMapping(path="/getArticleStreamComponentCO/{id}")
     public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
-        return articleDO_to_articleStreamComponentCO.convert(articleService.findBy_id(id));
+        return articleStreamCOAssembler.toModel(articleService.findBy_id(id));
+//        return articleDO_to_articleStreamComponentCO.convert(articleService.findBy_id(id));
     }
 
     //TODO update toModel
     @GetMapping(path="/getArticleTabComponentCO/{id}")
     public ArticleTabComponentCO getArticleTabComponentCO(@PathVariable ObjectId id){
-        return articleDO_to_articleTabComponentCO.convert(articleService.findBy_id(id));
+        return articleTabCOAssembler.toModel(articleService.findBy_id(id));
+//        return articleDO_to_articleTabComponentCO.convert(articleService.findBy_id(id));
     }
 
     //TODO update toModel
     @GetMapping(path="/getCommunityStreamComponentCO/{id}")
     public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id){
-        return communityDO_to_communityStreamComponentCO.convert(communityService.findBy_id(id));
+        return communityStreamCOAssembler.toModel(communityService.findBy_id(id));
+//        return communityDO_to_communityStreamComponentCO.convert(communityService.findBy_id(id));
     }
 
     //TODO update toModel

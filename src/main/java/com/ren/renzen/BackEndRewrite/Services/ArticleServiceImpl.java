@@ -64,6 +64,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDO> findAllBy_id(List<ObjectId> objectIdList) {
+        return articleRepository.findAllBy_id(objectIdList);
+    }
+
+
+    @Override
     public void delete(ArticleDO articleDO) {
         articleRepository.delete(articleDO);
     }
