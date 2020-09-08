@@ -244,7 +244,9 @@ function Stream(props) {
     <div>
       {console.log("whole")}
       {console.log(props)}
-      {props.source._embedded.articleStreamComponentCoes.map((single) => {
+      {/*{props.source!== {} ?*/}
+      {!jQuery.isEmptyObject(props.source._embedded) ?
+      props.source._embedded.articleStreamComponentCoes.map((single) => {
         {
           console.log("ssingle");
         }
@@ -252,10 +254,6 @@ function Stream(props) {
           console.log(single);
         }
 
-        //_links.Tab_Version
-
-        //source
-        //_embedded.articleStreamComponentCoes[0]._links.Tab_Version
         return (
           <div
             onClick={() => props.dispatch(single._links["Tab_Version"].href)}
@@ -266,7 +264,7 @@ function Stream(props) {
             </li>
           </div>
         );
-      })}
+      }) : null}
     </div>
   );
 }

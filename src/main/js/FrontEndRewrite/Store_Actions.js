@@ -145,11 +145,17 @@ export function DISPATCH_openArticle(url) {
 }
 
 export function DISPATCH_logIn(payload) {
-  return (dispatch) => {
+  return (dispatch,getState) => {
     Axios.post("/login", {
       password: payload.password,
       username: payload.username,
     }).then((res) => {
+
+      //TODO will still open a second tab if not logged on first, and then logs on
+      // getState().tabs.open.find((x) => {
+      //   return (x.id === res.data._id)
+      // }) && getState().user.logged_in ? $("#tabA"+res.data._id).tab("show") :
+
       dispatch({
         type: ACTION_logIn,
         payload: res.data,
