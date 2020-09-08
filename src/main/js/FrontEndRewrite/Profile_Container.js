@@ -16,8 +16,12 @@ function Profile_Container(props) {
       <p>Communities you are a part of: </p>
       <Stream
         source={
-          props.data.communityStreamComponentCOList._embedded
-            .communityStreamComponentCoes
+          !jQuery.isEmptyObject(
+            props.data.communityStreamComponentCOList._embedded
+          )
+            ? props.data.communityStreamComponentCOList._embedded
+                .communityStreamComponentCoes
+            : []
         }
         dispatch={props.DISPATCH_openCommunity}
       />
@@ -26,7 +30,10 @@ function Profile_Container(props) {
       <p>Articles you've written</p>
       <Stream
         source={
-          props.data.articleHomePageCOList._embedded.articleStreamComponentCoes
+          !jQuery.isEmptyObject(props.data.articleHomePageCOList._embedded)
+            ? props.data.articleHomePageCOList._embedded
+                .articleStreamComponentCoes
+            : null
         }
         dispatch={props.DISPATCH_openArticle}
       />
@@ -90,7 +97,7 @@ function Stream(props) {
 
   return (
     <ul>
-      {props.source !== null
+      {!jQuery.isEmptyObject(props.source)
         ? props.source.map((single) => {
             return (
               <div
