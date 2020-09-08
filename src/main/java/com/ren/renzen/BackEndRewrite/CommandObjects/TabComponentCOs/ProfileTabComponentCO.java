@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
     List<ObjectId> communityIDList = new ArrayList<>();
     List<ObjectId> discussionContentIDList = new ArrayList<>();
 
-    List<ArticleStreamComponentCO> articleHomePageCOList = new ArrayList<>();
-    List<CommunityStreamComponentCO> communityStreamComponentCOList = new ArrayList<>();
+    CollectionModel<ArticleStreamComponentCO> articleHomePageCOList;
+    CollectionModel<CommunityStreamComponentCO> communityStreamComponentCOList;
     //List<DiscussionInfoCO> discussionInfoCOList;
 }

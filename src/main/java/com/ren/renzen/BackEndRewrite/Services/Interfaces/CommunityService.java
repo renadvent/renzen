@@ -12,6 +12,8 @@ public interface CommunityService {
 
     boolean checkIfCommunityNameUsed(String name);
 
+    List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList);
+
     CommunityDO save(CommunityDO communityDO);
 
     List<CommunityDO> findByCreatorID(ObjectId objectId);

@@ -13,4 +13,5 @@ public interface CommunityRepository extends CrudRepository<CommunityDO, ObjectI
     Optional<CommunityDO> findByName(String name);
     ObjectId findBy_id(ObjectId objectId);
     List<CommunityDO> findByCreatorID(ObjectId objectId);
+    List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList);
 }

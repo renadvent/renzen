@@ -15,6 +15,8 @@ public class CommunityServiceImpl implements CommunityService {
 
     final CommunityRepository communityRepository;
 
+
+
     public CommunityServiceImpl(CommunityRepository communityRepository) {
         this.communityRepository = communityRepository;
     }
@@ -55,6 +57,11 @@ public class CommunityServiceImpl implements CommunityService {
         Optional<CommunityDO> communityDOOptional = communityRepository.findByName(name);
 
         return communityDOOptional.isPresent();
+    }
+
+    @Override
+    public List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList) {
+        return communityRepository.findBy_idIn(objectIdList);
     }
 
     @Override

@@ -65,6 +65,7 @@ public class CommunityDO_to_CommunityTabComponentCO implements Converter<Communi
         co.setNumberOfArticles(source.getArticleDOList().size());
 
 
+        //TODO change to findALlBy_idIn
         co.setUser_streamComponentCOList(profileStreamCOAssembler
                 .toCollectionModel(userService.findAllBy_Id(source.getProfileDOList())));
 

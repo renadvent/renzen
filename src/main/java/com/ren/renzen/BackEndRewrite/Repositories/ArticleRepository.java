@@ -17,4 +17,5 @@ public interface ArticleRepository extends CrudRepository<ArticleDO, ObjectId> {
 
 //    List<ArticleDO> findArticleDOSBy_id(List<ObjectId> objectIdList);
     List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String Topic);
+
 }
