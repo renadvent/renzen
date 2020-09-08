@@ -15,6 +15,7 @@ public interface UserService {
 
     ProfileDO findBy_id(ObjectId id);
 
+    //TODO might have to change this to "in"
     List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList);
 
     ProfileDO findProfileDOByName(String profileName);

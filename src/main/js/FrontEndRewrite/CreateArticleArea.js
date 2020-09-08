@@ -146,25 +146,25 @@ function CreateArticleArea(props) {
           Add Section
         </button>
 
-        <button type="button" className="btn btn-secondary">
-          Add Image
-        </button>
+        {/*<button type="button" className="btn btn-secondary">*/}
+        {/*  Add Image*/}
+        {/*</button>*/}
 
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={() => {
-            setCreateState(false);
-            setSectionsCreated(
-              <ArticleSection
-                index={sectionData.length}
-                update={setSectionData}
-              />
-            );
-          }}
-        >
-          Cancel Article
-        </button>
+        {/*<button*/}
+        {/*  type="button"*/}
+        {/*  className="btn btn-secondary"*/}
+        {/*  onClick={() => {*/}
+        {/*    setCreateState(false);*/}
+        {/*    setSectionsCreated(*/}
+        {/*      <ArticleSection*/}
+        {/*        index={sectionData.length}*/}
+        {/*        update={setSectionData}*/}
+        {/*      />*/}
+        {/*    );*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  Cancel Article*/}
+        {/*</button>*/}
 
         <button
           type="button"

@@ -46,105 +46,113 @@ function LoginRegister_Container(props) {
   }
 
   return (
-      <div>
-        {props.user.logged_in ? <button className="btn btn-dark"
-                                        onClick={props.DISPATCH_logOut}>Logout</button> :
-            <div>
-              <ul className="nav nav-tabs" role="tablist">
-                <li className="nav-item">
-                  <a
-                      className="nav-link active"
-                      href="#login"
-                      data-toggle="tab"
-                      role="tab"
-                  >
-                    Login
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#signup" data-toggle="tab" role="tab">
-                    Sign Up
-                  </a>
-                </li>
-              </ul>
+    <div>
+      {props.user.logged_in ? (
+        <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
+          Logout
+        </button>
+      ) : (
+        <div>
+          <ul className="nav nav-tabs" role="tablist">
+            <li className="nav-item">
+              <a
+                className="nav-link active"
+                href="#login"
+                data-toggle="tab"
+                role="tab"
+              >
+                Login
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="#signup"
+                data-toggle="tab"
+                role="tab"
+              >
+                Sign Up
+              </a>
+            </li>
+          </ul>
 
-              <div className="tab-content" id="myLoginRegisterContent">
-                <div
-                    className="tab-pane fade show active"
-                    id="login"
-                    role="tabpanel"
-                    aria-labelledby="login-tab"
-                >
-                  <div className="form-group">
-                    <input
-                        value={userName}
-                        onChange={(event) => setUserName(event.target.value)}
-                        type="username"
-                        className="form-control"
-                        name="username"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        type="password"
-                        className="form-control"
-                        name="password"
-                    />
-                  </div>
-
-                  <button
-                      className="btn btn-dark"
-                      onClick={() => {
-                        props.DISPATCH_logIn(userName, password);
-                        resetFields();
-                      }}
-                  >
-                    Login
-                  </button>
-                </div>
-
-                <div
-                    className="tab-pane fade"
-                    id="signup"
-                    role="tabpanel"
-                    aria-labelledby="signup-tab"
-                >
-                  <div className="form-group">
-                    <input
-                        value={userName}
-                        onChange={(event) => setUserName(event.target.value)}
-                        type="username"
-                        className="form-control"
-                        name="username"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        type="password"
-                        className="form-control"
-                        name="password"
-                    />
-                  </div>
-                  <button
-                      className="btn btn-dark"
-                      onClick={() => {
-                        props.DISPATCH_register(userName, password);
-                        resetFields();
-                      }}
-                  >
-                    Register
-                  </button>
-                </div>
+          <div className="tab-content" id="myLoginRegisterContent">
+            <div
+              className="tab-pane fade show active"
+              id="login"
+              role="tabpanel"
+              aria-labelledby="login-tab"
+            >
+              <div className="form-group">
+                <input
+                  value={userName}
+                  onChange={(event) => setUserName(event.target.value)}
+                  type="username"
+                  className="form-control"
+                  name="username"
+                />
               </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  type="password"
+                  className="form-control"
+                  name="password"
+                />
+              </div>
+
+              <button
+                className="btn btn-dark"
+                onClick={() => {
+                  props.DISPATCH_logIn(userName, password);
+                  resetFields();
+                }}
+              >
+                Login
+              </button>
             </div>
-      }
-      </div>
+
+            <div
+              className="tab-pane fade"
+              id="signup"
+              role="tabpanel"
+              aria-labelledby="signup-tab"
+            >
+              <div className="form-group">
+                <input
+                  value={userName}
+                  onChange={(event) => setUserName(event.target.value)}
+                  type="username"
+                  className="form-control"
+                  name="username"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  type="password"
+                  className="form-control"
+                  name="password"
+                />
+              </div>
+              <button
+                className="btn btn-dark"
+                onClick={() => {
+                  props.DISPATCH_register(userName, password);
+                  resetFields();
+                }}
+              >
+                Register
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

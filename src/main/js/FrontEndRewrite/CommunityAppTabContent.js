@@ -235,27 +235,30 @@ function CommunityAppTabContent(props) {
 }
 
 function Stream(props) {
-
-
   return (
     <div>
       {console.log("whole")}
       {console.log(props)}
       {props.source._embedded.articleStreamComponentCoes.map((single) => {
-        {console.log("ssingle")}
-        {console.log(single)}
+        {
+          console.log("ssingle");
+        }
+        {
+          console.log(single);
+        }
 
         //_links.Tab_Version
 
         //source
         //_embedded.articleStreamComponentCoes[0]._links.Tab_Version
         return (
-          <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
-
+          <div
+            onClick={() => props.dispatch(single._links["Tab_Version"].href)}
+          >
             {/*//source._embedded.articleStreamComponentCoes[0]._links.Tab_Version*/}
-          <li>
-            <a>{single.name}</a>
-          </li>
+            <li>
+              <a>{single.name}</a>
+            </li>
           </div>
         );
       })}
