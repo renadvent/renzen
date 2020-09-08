@@ -71,6 +71,7 @@ const reducer = (state = initialState, action) => {
             name: action.payload.name,
             // data: action.payload.data,
             data: action.payload,
+            id: action.payload._id,
             tab: (
               <AppTab
                 name={action.payload.name}
@@ -97,6 +98,7 @@ const reducer = (state = initialState, action) => {
             type: "profile",
             name: action.payload.name,
             data: action.payload,
+            id: action.payload._id,
             tab: (
               <AppTab
                 name={action.payload.name}
@@ -123,6 +125,7 @@ const reducer = (state = initialState, action) => {
             type: "articles",
             name: action.payload.name,
             data: action.payload,
+            id: action.payload._id,
             tab: (
               <AppTab
                 name={action.payload.name}
@@ -214,6 +217,7 @@ const reducer = (state = initialState, action) => {
             type: "CURRENT USER",
             name: action.payload.name,
             data: action.payload,
+            id: action.payload._id,
             component: (
               <ProfileAppTabContent
                 payload={action.payload}

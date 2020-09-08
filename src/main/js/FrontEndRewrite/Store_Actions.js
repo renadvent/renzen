@@ -94,8 +94,13 @@ export function DISPATCH_init() {
 }
 
 export function DISPATCH_openCommunity(com_url) {
-  return (dispatch) => {
+  return (dispatch,getState) => {
     Axios.get(com_url).then((res) => {
+
+      getState().tabs.open.find((x) => {
+        return (x.id === res.data._id)
+      }) ? $("#tabA"+res.data._id).tab("show") :
+
       dispatch({
         type: ACTION_openCommunity,
         payload: res.data,
@@ -105,26 +110,36 @@ export function DISPATCH_openCommunity(com_url) {
 }
 
 export function DISPATCH_openUser(url) {
-  return (dispatch) => {
+
+  //USING getstate
+  return (dispatch,getState) => {
     Axios.get(url).then((res) => {
       console.log("PAYLOAD");
       console.log(res.data);
 
-      dispatch({
+      //check if already open
+      getState().tabs.open.find((x) => {
+        return (x.id === res.data._id)
+      }) ? $("#tabA"+res.data._id).tab("show") : dispatch({
         type: ACTION_openUser,
         payload: res.data,
-      });
+      })
     });
   };
 }
 
 export function DISPATCH_openArticle(url) {
-  return (dispatch) => {
+  return (dispatch,getState) => {
     Axios.get(url).then((res) => {
-      dispatch({
+
+      //check if already open
+      getState().tabs.open.find((x) => {
+        return (x.id === res.data._id)
+      }) ? $("#tabA"+res.data._id).tab("show") : dispatch({
         type: ACTION_openArticle,
         payload: res.data,
-      });
+      })
+
     });
   };
 }
