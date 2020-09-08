@@ -25,6 +25,28 @@ function Profile_Container(props) {
         }
         dispatch={props.DISPATCH_openCommunity}
       />
+
+      <div>
+        <input
+          value={communityName}
+          onChange={(event) => setCommunityName(event.target.value)}
+          type="communityName"
+          className="form-control"
+          name="communityName"
+        />
+      </div>
+
+      <br />
+
+      <button
+        className="btn btn-dark"
+        onClick={() =>
+          props.DISPATCH_createCommunity(props.data._id, communityName)
+        }
+      >
+        Create Community+
+      </button>
+
       <hr />
       <p>number of articles: {props.data.numberOfArticles}</p>
       <p>Articles you've written</p>
@@ -45,24 +67,6 @@ function Profile_Container(props) {
 
       {/*//TODO create community*/}
 
-      <div>
-        <input
-          value={communityName}
-          onChange={(event) => setCommunityName(event.target.value)}
-          type="communityName"
-          className="form-control"
-          name="communityName"
-        />
-      </div>
-
-      <button
-        className="btn btn-dark"
-        onClick={() =>
-          props.DISPATCH_createCommunity(props.data._id, communityName)
-        }
-      >
-        Create Community+
-      </button>
       <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
         Log Out
       </button>
