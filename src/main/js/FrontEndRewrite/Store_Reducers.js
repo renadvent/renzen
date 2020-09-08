@@ -205,27 +205,34 @@ const reducer = (state = initialState, action) => {
       console.log("LOGINID");
       console.log(action.payload._id);
 
+      // let bookmarks = jQuery.isEmptyObject();
+
       return {
         ...state,
         user: {
           ...state.user,
 
-          bookmarks:
-            action.payload.articleBookmarksCM._embedded
-              .articleStreamComponentCoes,
+          //TODO fix error when login user has no bookmarks, communities etc like in init
+          // bookmarks:
+          //   action.payload.articleBookmarksCM._embedded
+          //     .articleStreamComponentCoes,
+
+          bookmarks: action.bookmarks,
+          articles: action.articles,
+          communities: action.communities,
 
           logged_in: true,
           name: action.payload.name,
           id: action.payload._id,
           //url:action.payload.url,
           //communities: action.payload.communityStreamComponentCOList
-          communities:
-            action.payload.communityStreamComponentCOList._embedded
-              .communityStreamComponentCoes,
-          //communities: action.payload.communities,
-          articles:
-            action.payload.articleHomePageCOList._embedded
-              .articleStreamComponentCoes,
+          // communities:
+          //   action.payload.communityStreamComponentCOList._embedded
+          //     .communityStreamComponentCoes,
+          // //communities: action.payload.communities,
+          // articles:
+          //   action.payload.articleHomePageCOList._embedded
+          //     .articleStreamComponentCoes,
           //study_guides: action.payload.studyGuides,
 
           user_data: action.payload,

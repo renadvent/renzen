@@ -172,9 +172,34 @@ export function DISPATCH_logIn(payload) {
       //   return (x.id === res.data._id)
       // }) && getState().user.logged_in ? $("#tabA"+res.data._id).tab("show") :
 
+      console.log("I AM WORKING ON HERE");
+      console.log(res.data);
+      let base = res.data;
+
+      console.log(base[0]);
+
+      let articles = jQuery.isEmptyObject(res.data.articleStreamComponentCoes)
+        ? null
+        : res.data.articleStreamComponentCoes;
+      // let profiles = !Object.keys(base[1]).length
+      //     ? null
+      //     : base[1]._embedded.profileStreamComponentCoes;
+      let communities = jQuery.isEmptyObject(
+        res.data.communityStreamComponentCoes
+      )
+        ? null
+        : res.data.communityStreamComponentCoes;
+      let bookmarks = jQuery.isEmptyObject(res.data.articleBookmarksCM)
+        ? null
+        : res.data.articleBookmarksCM;
+
       dispatch({
         type: ACTION_logIn,
         payload: res.data,
+        articles: articles,
+        // users: profiles,
+        communities: communities,
+        bookmarks: bookmarks,
       });
       // .then(()=>{
       //     $('#app-tabs li:last-child a').tab('show')

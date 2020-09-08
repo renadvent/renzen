@@ -36,9 +36,11 @@ function BookmarksComponent(props) {
           role="tabpanel"
           aria-labelledby="profile-tab"
         >
-          {props.state.user.bookmarks.map((x) => {
-            return <li>{x.name}</li>;
-          })}
+          {!jQuery.isEmptyObject(props.state.user.bookmarks)
+            ? props.state.user.bookmarks.map((x) => {
+                return <li>{x.name}</li>;
+              })
+            : null}
 
           <div id="annoBar">
             {/*<button>Add Note</button>*/}
