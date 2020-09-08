@@ -54,11 +54,7 @@ public class CommunityServiceImpl implements CommunityService {
     public boolean checkIfCommunityNameUsed(String name){
         Optional<CommunityDO> communityDOOptional = communityRepository.findByName(name);
 
-        if (communityDOOptional.isPresent()){
-            return true;
-        }else{
-            return false;
-        }
+        return communityDOOptional.isPresent();
     }
 
     @Override

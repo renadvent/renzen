@@ -76,6 +76,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String topic){
         return articleRepository.findAllByCommunityIDAndTopic(communityID,topic);
-    };
+    }
 
 }

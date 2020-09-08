@@ -61,11 +61,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkIfUsernameTaken(String name) {
 
-        if (userRepository.findByUsername(name).isPresent()){
-            return true;
-        }else{
-            return false;
-        }
+        return userRepository.findByUsername(name).isPresent();
     }
 
     @Override
