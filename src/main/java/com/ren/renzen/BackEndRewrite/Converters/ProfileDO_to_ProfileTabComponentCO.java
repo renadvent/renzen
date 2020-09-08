@@ -84,6 +84,11 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
         co.setArticleHomePageCOList(articleStreamCOAssembler
                 .toCollectionModel(articleService.findBy_idIn(source.getArticleIDList())));
 
+
+        co.setArticleBookmarksCM(articleStreamCOAssembler
+                .toCollectionModel(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
+
+
         return co;
     }
 }

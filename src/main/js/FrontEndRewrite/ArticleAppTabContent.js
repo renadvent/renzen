@@ -9,7 +9,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    DISPATCH_addBookmark: (userId, articleId, name) =>
+      dispatch(store.DISPATCH_addBookmark(userId, articleId, name)),
+  };
 };
 
 function ArticleAppTabContent(props) {
@@ -21,6 +24,19 @@ function ArticleAppTabContent(props) {
       role="tabpanel"
       //aria-labelledby="profile-tab"
     >
+      <button
+        className="btn btn-dark"
+        onClick={() =>
+          props.DISPATCH_addBookmark(
+            props.state.user.id,
+            props.payload._id,
+            props.payload.name
+          )
+        }
+      >
+        Add Bookmark
+      </button>
+
       <h1>{props.payload.name}</h1>
 
       <hr />

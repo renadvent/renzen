@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -30,5 +31,10 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
 
     CollectionModel<ArticleStreamComponentCO> articleHomePageCOList;
     CollectionModel<CommunityStreamComponentCO> communityStreamComponentCOList;
+
+
+    CollectionModel<ArticleStreamComponentCO> articleBookmarksCM;
+
+
     //List<DiscussionInfoCO> discussionInfoCOList;
 }

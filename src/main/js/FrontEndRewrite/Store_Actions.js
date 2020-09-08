@@ -16,7 +16,24 @@ export const ACTION_init = "ACTION_init";
 
 export const ACTION_joinCommunity = "ACTION_joinCommunity";
 
+export const ACTION_addBookmark = "ACTION_addBookmark";
+
 //ACTION CREATORS
+
+export function DISPATCH_addBookmark(userId, articleId, name) {
+  return (dispatch) => {
+    Axios.post("/addBookmark", {
+      userId: userId,
+      articleId: articleId,
+    }).then((res) => {
+      dispatch({
+        type: ACTION_addBookmark,
+        // data: res.data,
+        name: name,
+      });
+    });
+  };
+}
 
 export function DISPATCH_createArticle(payload, user, community, sectionData) {
   return (dispatch) => {

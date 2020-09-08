@@ -29,6 +29,8 @@ public class ProfileDO {
     List<ObjectId> communityIDList = new ArrayList<>();
     List<ObjectId> discussionContentIDs = new ArrayList<>();
 
+    List<ObjectId> articleBookmarkIDList = new ArrayList<>();
+
     public ProfileDO(String username,String password){
         this.username=username;
         this.password=password;

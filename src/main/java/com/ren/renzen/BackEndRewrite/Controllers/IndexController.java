@@ -71,6 +71,27 @@ public class IndexController {
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
+    //-------------------------------------------BOOKMARKS
+
+    @PostMapping(path="/addBookmark")
+    public ResponseEntity<?> addBookmark(@RequestBody addBookmarkPayload payload){
+
+        var profileDO = userService.findBy_id(payload.getUserId());
+        var articleDO = articleService.findBy_id(payload.getArticleId());
+
+        profileDO.getArticleBookmarkIDList().add(articleDO.get_id());
+
+        userService.save(profileDO);
+
+        return ResponseEntity.ok(null);
+    }
+
+    @Getter@Setter
+    static class addBookmarkPayload{
+        ObjectId userId;
+        ObjectId articleId;
+    }
+
     //-------------------------------------------JOIN
 
     @PostMapping(path="/joinCommunity")

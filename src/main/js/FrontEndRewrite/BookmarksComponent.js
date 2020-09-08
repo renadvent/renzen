@@ -1,13 +1,28 @@
 import React from "react";
 
 import WebsiteTab from "./WebsiteTab";
+import * as store from "./Store_Actions";
+import { connect } from "react-redux";
 
 /*
  * Show the study guide on the right side of the screen
  *
  * */
 
-function BookmarksComponent() {
+const mapStateToProps = (state) => {
+  return {
+    state: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DISPATCH_addBookmark: (userId, articleId) =>
+      dispatch(store.DISPATCH_addBookmark),
+  };
+};
+
+function BookmarksComponent(props) {
   return (
     <div id="addTo">
       <ul className="nav nav-tabs">
@@ -21,6 +36,10 @@ function BookmarksComponent() {
           role="tabpanel"
           aria-labelledby="profile-tab"
         >
+          {props.state.user.bookmarks.map((x) => {
+            return <li>{x.name}</li>;
+          })}
+
           <div id="annoBar">
             {/*<button>Add Note</button>*/}
             {/*...*/}
@@ -31,4 +50,4 @@ function BookmarksComponent() {
   );
 }
 
-export default BookmarksComponent;
+export default connect(mapStateToProps, mapDispatchToProps)(BookmarksComponent);

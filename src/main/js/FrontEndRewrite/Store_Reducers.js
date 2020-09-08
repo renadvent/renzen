@@ -18,6 +18,7 @@ const initialState = {
     study_guides: [],
 
     user_data: {},
+    bookmarks: [],
   },
 
   tabs: {
@@ -38,6 +39,19 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    //TODO concat bookmarks
+
+    case at.ACTION_addBookmark:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          bookmarks: state.user.bookmarks.concat({
+            name: action.name,
+          }),
+        },
+      };
+
     case at.ACTION_createArticle:
       return state;
 
@@ -195,6 +209,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
+
+          bookmarks:
+            action.payload.articleBookmarksCM._embedded
+              .articleStreamComponentCoes,
+
           logged_in: true,
           name: action.payload.name,
           id: action.payload._id,
