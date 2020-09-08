@@ -14,13 +14,22 @@ function Profile_Container(props) {
 
       <p>number of communities: {props.data.numberOfCommunities}</p>
       <p>Communities you are a part of: </p>
-      <Stream source={props.data.communityStreamComponentCOList._embedded.communityStreamComponentCoes}
-      dispatch={props.DISPATCH_openCommunity}/>
+      <Stream
+        source={
+          props.data.communityStreamComponentCOList._embedded
+            .communityStreamComponentCoes
+        }
+        dispatch={props.DISPATCH_openCommunity}
+      />
       <hr />
       <p>number of articles: {props.data.numberOfArticles}</p>
       <p>Articles you've written</p>
-      <Stream source={props.data.articleHomePageCOList._embedded.articleStreamComponentCoes}
-              dispatch={props.DISPATCH_openArticle}/>
+      <Stream
+        source={
+          props.data.articleHomePageCOList._embedded.articleStreamComponentCoes
+        }
+        dispatch={props.DISPATCH_openArticle}
+      />
 
       <hr />
       {/*<p>Articles you've written</p>*/}
@@ -63,30 +72,35 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
-      DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
+    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
     DISPATCH_createCommunity: (creatorID, name) =>
       dispatch(
         store.DISPATCH_createCommunity({ creatorID: creatorID, name: name })
       ),
-      DISPATCH_openCommunity: (url) =>
-          dispatch(store.DISPATCH_openCommunity(url)),
+    DISPATCH_openCommunity: (url) =>
+      dispatch(store.DISPATCH_openCommunity(url)),
   };
 };
 
 function Stream(props) {
-
-    console.log("OF INTEREEST-----------------------------------")
-    {console.log(props)}
+  console.log("OF INTEREEST-----------------------------------");
+  {
+    console.log(props);
+  }
 
   return (
     <ul>
-      {props.source!== null
+      {props.source !== null
         ? props.source.map((single) => {
             return (
-              <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
-              <li>
-                <a>+{single.name}</a>
-              </li>
+              <div
+                onClick={() =>
+                  props.dispatch(single._links["Tab_Version"].href)
+                }
+              >
+                <li>
+                  <a>+{single.name}</a>
+                </li>
               </div>
             );
           })

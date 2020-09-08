@@ -174,6 +174,10 @@ const reducer = (state = initialState, action) => {
 
           user_data: {},
         },
+        tabs: {
+          ...state.tabs,
+          open: [],
+        },
       };
 
     case at.ACTION_logIn:
@@ -192,21 +196,24 @@ const reducer = (state = initialState, action) => {
           name: action.payload.name,
           id: action.payload._id,
           //url:action.payload.url,
-          communities: action.payload.communityStreamComponentCOList,
+          //communities: action.payload.communityStreamComponentCOList
+          communities:
+            action.payload.communityStreamComponentCOList._embedded
+              .communityStreamComponentCoes,
           //communities: action.payload.communities,
-          articles: action.payload.articleHomePageCOList,
-          study_guides: action.payload.studyGuides,
+          articles:
+            action.payload.articleHomePageCOList._embedded
+              .articleStreamComponentCoes,
+          //study_guides: action.payload.studyGuides,
 
           user_data: action.payload,
         },
         tabs: {
           ...state.tabs,
           open: state.tabs.open.concat({
+            type: "CURRENT USER",
             name: action.payload.name,
             data: action.payload,
-            // tab: <AppTab name={action.payload.name + " (Your Profile)"} href={"A" + action.payload._id}/>,
-
-            //TODO working on changing tab when created
             component: (
               <ProfileAppTabContent
                 payload={action.payload}

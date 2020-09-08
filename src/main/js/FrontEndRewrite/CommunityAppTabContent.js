@@ -206,7 +206,12 @@ function CommunityAppTabContent(props) {
                 {/*Add Topic to Community+*/}
               </button>
             ) : (
-              <button className="btn btn-secondary">
+              <button
+                onClick={() => {
+                  $("#home-tab").tab("show");
+                }}
+                className="btn btn-secondary"
+              >
                 "Log in to write articles!!"
               </button>
             )}
