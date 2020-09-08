@@ -241,7 +241,7 @@ function Stream(props) {
     <div>
       {console.log("whole")}
       {console.log(props)}
-      {props.source.map((single) => {
+      {props.source._embedded.articleStreamComponentCoes.map((single) => {
         {console.log("ssingle")}
         {console.log(single)}
 
@@ -250,11 +250,13 @@ function Stream(props) {
         //source
         //_embedded.articleStreamComponentCoes[0]._links.Tab_Version
         return (
-          // <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
+          <div onClick={()=>props.dispatch(single._links["Tab_Version"].href)}>
+
+            {/*//source._embedded.articleStreamComponentCoes[0]._links.Tab_Version*/}
           <li>
             <a>{single.name}</a>
           </li>
-            // </div>
+          </div>
         );
       })}
     </div>

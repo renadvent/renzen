@@ -13,6 +13,8 @@ public interface ArticleRepository extends CrudRepository<ArticleDO, ObjectId> {
     Optional<ArticleDO> findBy_id(ObjectId id);
     Iterable<ArticleDO> findArticleDOSByCommunityID(ObjectId objectId);
 
-    List<ArticleDO> findAllBy_id(List<ObjectId> objectIdList);
+    List<ArticleDO> findBy_idIn(List<ObjectId> objectIdList);
+
+//    List<ArticleDO> findArticleDOSBy_id(List<ObjectId> objectIdList);
     List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String Topic);
 }

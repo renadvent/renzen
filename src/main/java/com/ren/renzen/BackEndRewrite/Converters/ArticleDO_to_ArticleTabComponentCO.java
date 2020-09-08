@@ -51,6 +51,8 @@ public class ArticleDO_to_ArticleTabComponentCO implements Converter<ArticleDO, 
 //        return articleComponentCOList;
 //    }
 //articleComponentCOList
+@Synchronized
+@Nullable
     public List<ArticleTabComponentCO> convert(List<ObjectId> articleDOIds){
 
         ArrayList<ArticleTabComponentCO> articleTabComponentCOList = new ArrayList<>();

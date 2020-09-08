@@ -15,7 +15,7 @@ public interface ArticleService {
 
     ArticleDO findBy_id(ObjectId Id);
 
-    List<ArticleDO> findAllBy_id(List<ObjectId> objectIdList);
+    List<ArticleDO> findBy_idIn(List<ObjectId> objectIdList);
     //---------------------
 
     void delete(ArticleDO articleDO);

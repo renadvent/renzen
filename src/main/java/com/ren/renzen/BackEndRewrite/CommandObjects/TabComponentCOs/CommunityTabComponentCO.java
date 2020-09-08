@@ -30,7 +30,7 @@ public class CommunityTabComponentCO extends RepresentationModel<CommunityTabCom
      * This List is used by the React Application to render the
      * names of the articles and to provide links to those articles
      */
-    List<ArticleStreamComponentCO> article_Article_streamComponentCOList = new ArrayList<>();
+    CollectionModel<ArticleStreamComponentCO> article_Article_streamComponentCOList;
 
     Integer numberOfArticles;
     /**

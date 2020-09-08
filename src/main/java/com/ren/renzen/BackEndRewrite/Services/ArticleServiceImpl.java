@@ -64,8 +64,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDO> findAllBy_id(List<ObjectId> objectIdList) {
-        return articleRepository.findAllBy_id(objectIdList);
+    public List<ArticleDO> findBy_idIn(List<ObjectId> objectIdList) {
+        return articleRepository.findBy_idIn(objectIdList);
     }
 
 

@@ -22,8 +22,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    DISPATCH_openCommunity: (url) =>
-      dispatch(store.DISPATCH_openCommunity(url)),
+    DISPATCH_openCommunity: (url) => dispatch(store.DISPATCH_openCommunity(url)),
     DISPATCH_openUser: (url) => dispatch(store.DISPATCH_openUser(url)),
     DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
 
