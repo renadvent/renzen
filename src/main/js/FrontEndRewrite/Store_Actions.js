@@ -94,63 +94,62 @@ export function DISPATCH_init() {
 }
 
 export function DISPATCH_openCommunity(com_url) {
-  return (dispatch,getState) => {
+  return (dispatch, getState) => {
     Axios.get(com_url).then((res) => {
-
       getState().tabs.open.find((x) => {
-        return (x.id === res.data._id)
-      }) ? $("#tabA"+res.data._id).tab("show") :
-
-      dispatch({
-        type: ACTION_openCommunity,
-        payload: res.data,
-      });
+        return x.id === res.data._id;
+      })
+        ? $("#tabA" + res.data._id).tab("show")
+        : dispatch({
+            type: ACTION_openCommunity,
+            payload: res.data,
+          });
     });
   };
 }
 
 export function DISPATCH_openUser(url) {
-
   //USING getstate
-  return (dispatch,getState) => {
+  return (dispatch, getState) => {
     Axios.get(url).then((res) => {
       console.log("PAYLOAD");
       console.log(res.data);
 
       //check if already open
       getState().tabs.open.find((x) => {
-        return (x.id === res.data._id)
-      }) ? $("#tabA"+res.data._id).tab("show") : dispatch({
-        type: ACTION_openUser,
-        payload: res.data,
+        return x.id === res.data._id;
       })
+        ? $("#tabA" + res.data._id).tab("show")
+        : dispatch({
+            type: ACTION_openUser,
+            payload: res.data,
+          });
     });
   };
 }
 
 export function DISPATCH_openArticle(url) {
-  return (dispatch,getState) => {
+  return (dispatch, getState) => {
     Axios.get(url).then((res) => {
-
       //check if already open
       getState().tabs.open.find((x) => {
-        return (x.id === res.data._id)
-      }) ? $("#tabA"+res.data._id).tab("show") : dispatch({
-        type: ACTION_openArticle,
-        payload: res.data,
+        return x.id === res.data._id;
       })
-
+        ? $("#tabA" + res.data._id).tab("show")
+        : dispatch({
+            type: ACTION_openArticle,
+            payload: res.data,
+          });
     });
   };
 }
 
 export function DISPATCH_logIn(payload) {
-  return (dispatch,getState) => {
+  return (dispatch, getState) => {
     Axios.post("/login", {
       password: payload.password,
       username: payload.username,
     }).then((res) => {
-
       //TODO will still open a second tab if not logged on first, and then logs on
       // getState().tabs.open.find((x) => {
       //   return (x.id === res.data._id)
@@ -177,6 +176,8 @@ export function DISPATCH_logIn(payload) {
 // };
 
 export function DISPATCH_logOut() {
+  $("#home-tab").tab("show");
+
   return {
     type: ACTION_logOut,
   };
