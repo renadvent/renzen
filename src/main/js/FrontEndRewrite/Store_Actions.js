@@ -80,14 +80,32 @@ export function DISPATCH_joinCommunity(payload) {
 export function DISPATCH_init() {
   return (dispatch) => {
     Axios.get("/getHomeStreams").then((res) => {
-      console.log(res);
-      console.log(res.data._embedded.collectionModels[1]._embedded);
+      // console.log(res);
+      // console.log(res.data._embedded.collectionModels[1]._embedded);
 
       console.log("UNDER");
+      console.log(res);
+
+      // let base = res.data._embedded.collectionModels;
+      //
+      // let articles = jQuery.isEmptyObject(
+      //   base[0]._embedded.articleStreamComponentCoes
+      // )
+      //   ? []
+      //   : res.data.articleStreamComponentCoes._embedded
+      //       .articleStreamComponentCoes;
+      //
+      // let communities = jQuery.isEmptyObject(
+      //   res.data.communityStreamComponentCoes
+      // )
+      //   ? []
+      //   : res.data.communityStreamComponentCoes._embedded
+      //       .communityStreamComponentCoes;
 
       let base = res.data._embedded.collectionModels;
 
       console.log(base[0]);
+
       let articles = !Object.keys(base[0]).length
         ? null
         : base[0]._embedded.articleStreamComponentCoes;
@@ -178,20 +196,23 @@ export function DISPATCH_logIn(payload) {
 
       console.log(base[0]);
 
+      //annoying HATEOS COLLECTIONMODEL logic
+
       let articles = jQuery.isEmptyObject(res.data.articleStreamComponentCoes)
-        ? null
-        : res.data.articleStreamComponentCoes;
-      // let profiles = !Object.keys(base[1]).length
-      //     ? null
-      //     : base[1]._embedded.profileStreamComponentCoes;
+        ? []
+        : res.data.articleStreamComponentCoes._embedded
+            .articleStreamComponentCoes;
+
       let communities = jQuery.isEmptyObject(
         res.data.communityStreamComponentCoes
       )
-        ? null
-        : res.data.communityStreamComponentCoes;
+        ? []
+        : res.data.communityStreamComponentCoes._embedded
+            .communityStreamComponentCoes;
+
       let bookmarks = jQuery.isEmptyObject(res.data.articleBookmarksCM)
-        ? null
-        : res.data.articleBookmarksCM;
+        ? []
+        : res.data.articleBookmarksCM._embedded.articleStreamComponentCoes;
 
       dispatch({
         type: ACTION_logIn,

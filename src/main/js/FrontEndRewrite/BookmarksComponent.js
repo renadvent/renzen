@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     DISPATCH_addBookmark: (userId, articleId) =>
       dispatch(store.DISPATCH_addBookmark),
+    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
   };
 };
 
@@ -36,11 +37,29 @@ function BookmarksComponent(props) {
           role="tabpanel"
           aria-labelledby="profile-tab"
         >
-          {!jQuery.isEmptyObject(props.state.user.bookmarks)
-            ? props.state.user.bookmarks.map((x) => {
-                return <li>{x.name}</li>;
-              })
-            : null}
+          {console.log("BOOKMARKS-=------------------------------------------")}
+          {console.log(props.state.user.bookmarks)}
+
+          {props.state.user.bookmarks.map((x) => {
+            return (
+              <li
+                onClick={() =>
+                  props.DISPATCH_openArticle(x._links.Tab_Version.href)
+                }
+              >
+                {x.name}
+              </li>
+            );
+          })}
+
+          {/*{!jQuery.isEmptyObject(props.state.user.bookmarks._embedded) ||*/}
+          {/*props.state.user.bookmarks !== []*/}
+          {/*  ? props.state.user.bookmarks.map(*/}
+          {/*      (x) => {*/}
+          {/*        return <li>{x.name}</li>;*/}
+          {/*      }*/}
+          {/*    )*/}
+          {/*  : null}*/}
 
           <div id="annoBar">
             {/*<button>Add Note</button>*/}

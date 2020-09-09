@@ -189,6 +189,8 @@ const reducer = (state = initialState, action) => {
           articles: [],
           study_guides: [],
 
+          bookmarks: [],
+
           user_data: {},
         },
         tabs: {
