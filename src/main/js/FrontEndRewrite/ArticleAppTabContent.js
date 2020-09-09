@@ -5,6 +5,7 @@ import * as store from "./Store_Actions";
 const mapStateToProps = (state) => {
   return {
     state: state,
+    user: state.user,
   };
 };
 
@@ -24,18 +25,29 @@ function ArticleAppTabContent(props) {
       role="tabpanel"
       //aria-labelledby="profile-tab"
     >
-      <button
-        className="btn btn-dark"
-        onClick={() =>
-          props.DISPATCH_addBookmark(
-            props.state.user.id,
-            props.payload._id,
-            props.payload.name
-          )
-        }
-      >
-        Add Bookmark
-      </button>
+      {props.user.logged_in ? (
+        <button
+          className="btn btn-dark"
+          onClick={() =>
+            props.DISPATCH_addBookmark(
+              props.state.user.id,
+              props.payload._id,
+              props.payload.name
+            )
+          }
+        >
+          Add Bookmark
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            $("#home-tab").tab("show");
+          }}
+          className="btn btn-secondary"
+        >
+          Log in to bookmark articles!!
+        </button>
+      )}
 
       <h1>{props.payload.name}</h1>
 

@@ -170,6 +170,7 @@ const reducer = (state = initialState, action) => {
           communities: [], //array of objects containing: name,link
           articles: [],
           study_guides: [],
+          bookmarks: [],
 
           user_data: {},
         },

@@ -256,6 +256,10 @@ export function DISPATCH_register(payload) {
         type: ACTION_register,
         payload: res.data,
       });
+      dispatch({
+        type: ACTION_openUser,
+        payload: res.data,
+      });
     });
   };
 }

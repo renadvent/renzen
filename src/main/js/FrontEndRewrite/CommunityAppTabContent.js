@@ -212,7 +212,7 @@ function CommunityAppTabContent(props) {
                 }}
                 className="btn btn-secondary"
               >
-                "Log in to write articles!!"
+                Log in to write articles!!
               </button>
             )}
           </div>
@@ -245,26 +245,29 @@ function Stream(props) {
       {console.log("whole")}
       {console.log(props)}
       {/*{props.source!== {} ?*/}
-      {!jQuery.isEmptyObject(props.source._embedded) ?
-      props.source._embedded.articleStreamComponentCoes.map((single) => {
-        {
-          console.log("ssingle");
-        }
-        {
-          console.log(single);
-        }
+      {!jQuery.isEmptyObject(props.source._embedded)
+        ? props.source._embedded.articleStreamComponentCoes.map((single) => {
+            {
+              console.log("ssingle");
+            }
+            {
+              console.log(single);
+            }
 
-        return (
-          <div
-            onClick={() => props.dispatch(single._links["Tab_Version"].href)}
-          >
-            {/*//source._embedded.articleStreamComponentCoes[0]._links.Tab_Version*/}
-            <li>
-              <a>{single.name}</a>
-            </li>
-          </div>
-        );
-      }) : null}
+            return (
+              <div
+                onClick={() =>
+                  props.dispatch(single._links["Tab_Version"].href)
+                }
+              >
+                {/*//source._embedded.articleStreamComponentCoes[0]._links.Tab_Version*/}
+                <li>
+                  <a>{single.name}</a>
+                </li>
+              </div>
+            );
+          })
+        : null}
     </div>
   );
 }
