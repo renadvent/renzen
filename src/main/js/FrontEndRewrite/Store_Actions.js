@@ -180,16 +180,15 @@ export function DISPATCH_logIn(payload) {
 
       //annoying HATEOS COLLECTIONMODEL logic
 
-      let articles = jQuery.isEmptyObject(res.data.articleStreamComponentCoes)
+      let articles = jQuery.isEmptyObject(res.data.articleHomePageCOList)
         ? []
-        : res.data.articleStreamComponentCoes._embedded
-            .articleStreamComponentCoes;
+        : res.data.articleHomePageCOList._embedded.articleStreamComponentCoes;
 
       let communities = jQuery.isEmptyObject(
-        res.data.communityStreamComponentCoes
+        res.data.communityStreamComponentCOList
       )
         ? []
-        : res.data.communityStreamComponentCoes._embedded
+        : res.data.communityStreamComponentCOList._embedded
             .communityStreamComponentCoes;
 
       let bookmarks = jQuery.isEmptyObject(res.data.articleBookmarksCM)

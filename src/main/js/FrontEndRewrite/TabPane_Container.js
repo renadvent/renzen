@@ -32,6 +32,8 @@ function TabPane_Container(props) {
   useEffect(() => {
     if (props.open.length > 0) {
       $("#tabA" + props.open[props.open.length - 1].data._id).tab("show");
+    } else {
+      $("#home-tab").tab("show");
     }
   }, [props.open]);
 

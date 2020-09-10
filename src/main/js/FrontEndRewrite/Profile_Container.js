@@ -26,26 +26,40 @@ function Profile_Container(props) {
 
   return (
     <div>
+      <br />
+
+      <div className="jumbotron">
+        <h1 className="display-4">Hello!</h1>
+        <p className="lead">Welcome to {props.data.name}'s Profile Page!</p>
+        <hr className="my-4" />
+        <p>
+          Here you can see the articles this user has written, and what
+          communities they belong to
+        </p>
+      </div>
+
+      <br />
+
       <div className="container-fluid">
         <div className={"row"}>
-          <br />
-          <h4>username: {props.data.name}</h4>
+          {/*<h4>username: </h4>*/}
 
           <br />
-        </div>
-        <div className={"row"}>
-          <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
-            Log Out
-          </button>
-        </div>
 
-        <hr />
+          {/*{props.user.logged_in ? (*/}
+          {/*  <div className={"row"}>*/}
+          {/*    <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>*/}
+          {/*      Log Out*/}
+          {/*    </button>*/}
+          {/*  </div>*/}
+          {/*) : null}*/}
+
+          <hr />
+        </div>
 
         <div className={"row"}>
           <div className={"col"}>
-            <h4>
-              Communities you are a part of: {props.data.numberOfCommunities}{" "}
-            </h4>
+            <h4>Communities: {props.data.numberOfCommunities} </h4>
             <Stream
               source={
                 !jQuery.isEmptyObject(
@@ -85,7 +99,7 @@ function Profile_Container(props) {
 
           <div className={"col"}>
             {/*<p>number of articles: {props.data.numberOfArticles}</p>*/}
-            <h4>Articles you've written: {props.data.numberOfArticles}</h4>
+            <h4>Articles: {props.data.numberOfArticles}</h4>
             <Stream
               source={
                 !jQuery.isEmptyObject(

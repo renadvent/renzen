@@ -26,11 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function CommunityAppTabContent(props) {
-  console.log("app content payload");
-  console.log(props.payload);
-
   const [showCreateArticle, setShowCreateArticle] = useState(false);
-  const [childPosted, setChildPosted] = useState(false);
 
   return (
     <div
@@ -42,68 +38,102 @@ function CommunityAppTabContent(props) {
       <h1 style={{ textAlign: "center" }}>{props.payload.name} Homepage</h1>
       <hr></hr>
       <div className="row">
-        <div className={"col-5"}>
-          <ul className="nav nav-tabs" id="myTab" role="tablist">
-            <li className="nav-item">
-              <a
-                className="nav-link active"
-                id="comDiscTag"
-                data-toggle="tab"
-                href="#comDisc"
-                role="tab"
-                aria-controls="home"
-                aria-selected="true"
-              >
-                Community Discussion
-              </a>
-            </li>
-          </ul>
+        {/*<div className={"col-5"}>*/}
+        {/*  <ul className="nav nav-tabs" id="myTab" role="tablist">*/}
+        {/*    <li className="nav-item">*/}
+        {/*      <a*/}
+        {/*        className="nav-link active"*/}
+        {/*        id="comDiscTag"*/}
+        {/*        data-toggle="tab"*/}
+        {/*        href="#comDisc"*/}
+        {/*        role="tab"*/}
+        {/*        aria-controls="home"*/}
+        {/*        aria-selected="true"*/}
+        {/*      >*/}
+        {/*        Community Discussion*/}
+        {/*      </a>*/}
+        {/*    </li>*/}
+        {/*  </ul>*/}
 
-          <div className="tab-content" id="myTabContent2">
-            <div
-              className="tab-pane fade show active"
-              id="comDisc"
-              role="tabpanel"
-              aria-labelledby="home-tab"
-            >
-              <div>
-                <h2>Community Updates</h2>
-                <ul>
-                  <li>Article Requests</li>
-                  <li>New Articles</li>
-                  <li>New Members</li>
-                  <li>Unanswered Questions</li>
-                  <li>Accepted Answers</li>
-                  <li>Events</li>
-                  <li>Questions about the Community</li>
-                </ul>
+        {/*  <div className="tab-content" id="myTabContent2">*/}
+        {/*    <div*/}
+        {/*      className="tab-pane fade show active"*/}
+        {/*      id="comDisc"*/}
+        {/*      role="tabpanel"*/}
+        {/*      aria-labelledby="home-tab"*/}
+        {/*    >*/}
+        {/*      <div>*/}
+        {/*        <h2>Community Updates</h2>*/}
+        {/*        <ul>*/}
+        {/*          <li>Article Requests</li>*/}
+        {/*          <li>New Articles</li>*/}
+        {/*          <li>New Members</li>*/}
+        {/*          <li>Unanswered Questions</li>*/}
+        {/*          <li>Accepted Answers</li>*/}
+        {/*          <li>Events</li>*/}
+        {/*          <li>Questions about the Community</li>*/}
+        {/*        </ul>*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        <div className={"col-5"}>
+          <div id="comDisc" role="tabpanel" aria-labelledby="home-tab">
+            <div>
+              <div className="jumbotron">
+                <h1 className="display-4">Welcome to the Community!</h1>
+                <p className="lead">
+                  Here you can see the articles and content the the community
+                  creates!
+                </p>
+                <hr className="my-4" />
+                <p>
+                  More functionality will be coming soon! Such as the ability to
+                  comment on articles, and have discussions on the homepage!
+                </p>
+                {/*<a className="btn btn-primary btn-lg" href="#" role="button">*/}
+                {/*  Learn more*/}
+                {/*</a>*/}
               </div>
+
+              {/*  <h2>Community Updates</h2>*/}
+              {/*  <ul>*/}
+              {/*    <li>Welcome to the community!</li>*/}
+              {/*    /!*<li>Article Requests</li>*!/*/}
+              {/*    /!*<li>New Articles</li>*!/*/}
+              {/*    /!*<li>New Members</li>*!/*/}
+              {/*    /!*<li>Unanswered Questions</li>*!/*/}
+              {/*    /!*<li>Accepted Answers</li>*!/*/}
+              {/*    /!*<li>Events</li>*!/*/}
+              {/*    /!*<li>Questions about the Community</li>*!/*/}
+              {/*  </ul>*/}
+              {/*</div>*/}
             </div>
           </div>
         </div>
-        <div className={"col-7"}>
+        <div className={"col-5"}>
           <div>
             {/*works... but is a mess of logic*/}
             {props.user.logged_in ? (
-              <button className="btn btn-dark" style={{ textAlign: "center" }}>
-                {props.user.communities.find((x) => {
-                  return x._id === props.payload._id;
-                }) ? (
-                  <div>Welcome Back!</div>
-                ) : (
-                  <button
-                    className="btn btn-dark"
-                    onClick={() => {
-                      props.DISPATCH_joinCommunity(
-                        props.user.id,
-                        props.payload._id
-                      );
-                    }}
-                  >
-                    {"Join Community!"}
-                  </button>
-                )}
-              </button>
+              props.user.communities.find((x) => {
+                return x._id === props.payload._id;
+              }) ? (
+                <div className="alert alert-secondary" role="alert">
+                  Welcome Back!
+                </div>
+              ) : (
+                <button
+                  className="btn btn-dark"
+                  onClick={() => {
+                    props.DISPATCH_joinCommunity(
+                      props.user.id,
+                      props.payload._id
+                    );
+                  }}
+                >
+                  {"Join Community!"}
+                </button>
+              )
             ) : (
               <div className="alert alert-secondary" role="alert">
                 Login to write articles and participate in the community!
@@ -111,17 +141,6 @@ function CommunityAppTabContent(props) {
             )}
 
             <h2>Articles in this community:</h2>
-            <p>
-              Number of Sections in community: {props.payload.numberOfArticles}
-            </p>
-
-            <ul className="list-group">
-              <Stream
-                source={props.payload.article_Article_streamComponentCOList}
-                dispatch={props.DISPATCH_openArticle}
-              />
-            </ul>
-
             {/*//TODO fix this. move logic to a function and call function here */}
             {props.user.logged_in ? (
               <button
@@ -134,8 +153,19 @@ function CommunityAppTabContent(props) {
                 {showCreateArticle ? "Cancel Article" : "Write New Article"}
               </button>
             ) : null}
+            <p>
+              Number of Sections in community: {props.payload.numberOfArticles}
+            </p>
+
+            <ul className="list-group">
+              <Stream
+                source={props.payload.article_Article_streamComponentCOList}
+                dispatch={props.DISPATCH_openArticle}
+              />
+            </ul>
           </div>
         </div>
+        {/*<div className={"col-3"}></div>*/}
       </div>
     </div>
   );

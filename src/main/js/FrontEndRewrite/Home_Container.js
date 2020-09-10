@@ -137,7 +137,7 @@ function Stream(props) {
           ? props.source.map((single) => {
               return (
                 <li
-                  className="list-group-item"
+                  className="list-group-item shadow-sm"
                   onClick={() =>
                     props.dispatch(single._links["Tab_Version"].href)
                   }

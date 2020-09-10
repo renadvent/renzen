@@ -23,8 +23,9 @@ function ArticleAppTabContent(props) {
       className="tab-pane fade"
       id={props.href}
       role="tabpanel"
-      //aria-labelledby="profile-tab"
+      aria-labelledby="article-tab"
     >
+      <br />
       {props.user.logged_in ? (
         <button
           className="btn btn-dark"
@@ -39,14 +40,9 @@ function ArticleAppTabContent(props) {
           Add Bookmark
         </button>
       ) : (
-        <button
-          onClick={() => {
-            $("#home-tab").tab("show");
-          }}
-          className="btn btn-secondary"
-        >
+        <div className="alert alert-secondary" role="alert">
           Log in to bookmark articles!!
-        </button>
+        </div>
       )}
 
       <h1>{props.payload.name}</h1>
@@ -54,10 +50,16 @@ function ArticleAppTabContent(props) {
       <hr />
 
       {props.payload.articleSectionCOList.map((section) => {
+        //style={{ textAlign: "center" }}
         return (
-          <div>
-            <h3>{section.header}</h3>
-            <div>{section.body}</div>
+          <div className="d-flex justify-content-center">
+            <div className="card" style={{ width: "18rem" }}>
+              <div className="card-body">
+                <h5 className="card-title">{section.header}</h5>
+                {/*<h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>*/}
+                <p className="card-text">{section.body}</p>
+              </div>
+            </div>
           </div>
         );
       })}

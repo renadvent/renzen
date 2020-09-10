@@ -1,4 +1,18 @@
 import React from "react";
+import * as store from "./Store_Actions";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
+  };
+};
 
 function Header_Container(props) {
   return (
@@ -9,16 +23,24 @@ function Header_Container(props) {
       <a className="navbar-brand" href="#">
         Renzen
       </a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
+
+      {props.user.logged_in ? (
+        // <div className={"row"}>
+        <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
+          Log Out
+        </button>
+      ) : null}
+
+      {/*<button*/}
+      {/*  className="navbar-toggler"*/}
+      {/*  type="button"*/}
+      {/*  data-toggle="collapse"*/}
+      {/*  data-target="#navbarSupportedContent"*/}
+      {/*>*/}
+      {/*  <span className="navbar-toggler-icon"></span>*/}
+      {/*</button>*/}
     </nav>
   );
 }
 
-export default Header_Container;
+export default connect(mapStateToProps, mapDispatchToProps)(Header_Container);

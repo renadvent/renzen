@@ -30,7 +30,7 @@ function AppTab(props) {
           className="close"
           onClick={() => {
             props.DISPATCH_removeOpenTabById(props.id);
-            $("#home-tab").tab("show");
+            // $("#home-tab").tab("show");
           }}
         >
           ×
