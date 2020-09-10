@@ -73,13 +73,13 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         co.setObjectId(source.get_id());
         co.setName(source.getName());
 
-        for (ObjectId profile : source.getProfileDOList()) {
-            co.getProfileStreamComponentCOList().add(ProfileConverter.convert(userService.findBy_id(profile)));
-        }
-
-        for (ObjectId articleDO : source.getArticleDOList()) {
-            co.getArticleStreamComponentCOList().add(testConverter.convert(articleService.findBy_id(articleDO)));
-        }
+//        for (ObjectId profile : source.getProfileDOList()) {
+//            co.getProfileStreamComponentCOList().add(ProfileConverter.convert(userService.findBy_id(profile)));
+//        }
+//
+//        for (ObjectId articleDO : source.getArticleDOList()) {
+//            co.getArticleStreamComponentCOList().add(testConverter.convert(articleService.findBy_id(articleDO)));
+//        }
 
         return co;
     }

@@ -56,8 +56,8 @@ public class ProfileDO_to_ProfileStreamComponentCO implements Converter<ProfileD
         co.setNumberOfArticles(source.getArticleIDList().size());
         co.setNumberOfCommunities(source.getCommunityIDList().size());
 
-        co.setArticleIDList(source.getArticleIDList());
-        co.setCommunityIDList(source.getCommunityIDList());
+//        co.setArticleIDList(source.getArticleIDList());
+//        co.setCommunityIDList(source.getCommunityIDList());
 
         return co;
 

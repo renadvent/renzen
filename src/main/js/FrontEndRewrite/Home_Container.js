@@ -98,6 +98,8 @@ function Home_Container(props) {
 
       <hr />
 
+      <br />
+
       <div className="container-fluid" style={{ textAlign: "center" }}>
         <div className={"row"}>
           <div className={"col"}>
