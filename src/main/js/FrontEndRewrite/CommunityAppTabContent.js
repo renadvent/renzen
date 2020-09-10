@@ -39,7 +39,6 @@ function CommunityAppTabContent(props) {
       role="tabpanel"
       //aria-labelledby="profile-tab"
     >
-      {/*<div className="tab-pane fade" id="com" role="tabpanel">*/}
       <h1 style={{ textAlign: "center" }}>{props.payload.name} Homepage</h1>
       <hr></hr>
       <div className="row">
@@ -56,19 +55,6 @@ function CommunityAppTabContent(props) {
                 aria-selected="true"
               >
                 Community Discussion
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                id="artDiscTab"
-                data-toggle="tab"
-                href="#artDisc"
-                role="tab"
-                aria-controls="profile"
-                aria-selected="false"
-              >
-                +{/*Article Annotations*/}
               </a>
             </li>
           </ul>
@@ -91,30 +77,6 @@ function CommunityAppTabContent(props) {
                   <li>Events</li>
                   <li>Questions about the Community</li>
                 </ul>
-                {/*<DiscussionArea*/}
-                {/*    title={"Community Discussion"}*/}
-                {/*    page={"/api/pages/5efd2911d231b04eecfcd282"}*/}
-                {/*    sharable={false}*/}
-                {/*/>*/}
-              </div>
-              <div
-                className="tab-pane fade show active"
-                id="artDisc"
-                role="tabpanel"
-                aria-labelledby="home-tab"
-              >
-                {/*<div className="btn-group-vertical">*/}
-                {/*  <form>*/}
-                {/*    <button*/}
-                {/*      type="button"*/}
-                {/*      className="btn btn-secondary"*/}
-                {/*      // onClick={annotateSelection}*/}
-                {/*    >*/}
-                {/*      Add Annotation*/}
-                {/*    </button>*/}
-                {/*  </form>*/}
-                {/*</div>*/}
-                {/*None Yet*/}
               </div>
             </div>
           </div>
@@ -146,14 +108,6 @@ function CommunityAppTabContent(props) {
               <div className="alert alert-secondary" role="alert">
                 Login to write articles and participate in the community!
               </div>
-              // <button
-              //   className="btn btn-dark"
-              //   onClick={() => {
-              //     $("#home-tab").tab("show");
-              //   }}
-              // >
-              //   Login
-              // </button>
             )}
 
             <h2>Articles in this community:</h2>
@@ -161,11 +115,6 @@ function CommunityAppTabContent(props) {
               Number of Sections in community: {props.payload.numberOfArticles}
             </p>
 
-            {/*<div className={showCreateTopic ? "d-block" : "d-none"}>*/}
-            {/*    <CreateTopicArea />*/}
-            {/*</div>*/}
-
-            {console.log(props.payload)}
             <ul className="list-group">
               <Stream
                 source={props.payload.article_Article_streamComponentCOList}
@@ -174,50 +123,20 @@ function CommunityAppTabContent(props) {
             </ul>
 
             {/*//TODO fix this. move logic to a function and call function here */}
-
-            {
-              props.user.logged_in ? (
-                <button
-                  type="button"
-                  onClick={() =>
-                    props.DISPATCH_openCreateArticleTab(props.payload._id)
-                  }
-                  // onClick={() => setShowCreateArticle(!showCreateArticle)}
-                  className="btn btn-secondary"
-                >
-                  {showCreateArticle ? "Cancel Article" : "Write New Article"}
-                  {/*Add Topic to Community+*/}
-                </button>
-              ) : null
-              // <button
-              //   onClick={() => {
-              //     $("#home-tab").tab("show");
-              //   }}
-              //   className="btn btn-secondary"
-              // >
-              //   Log in to write articles!!
-              // </button>
-            }
+            {props.user.logged_in ? (
+              <button
+                type="button"
+                onClick={() =>
+                  props.DISPATCH_openCreateArticleTab(props.payload._id)
+                }
+                className="btn btn-secondary"
+              >
+                {showCreateArticle ? "Cancel Article" : "Write New Article"}
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
-      <div
-        className="tab-pane fade"
-        id="contact"
-        role="tabpanel"
-        aria-labelledby="contact-tab"
-      >
-        ...
-      </div>
-
-      {/*<div>*/}
-      {/*  {showCreateArticle ? (*/}
-      {/*    <CreateArticleArea*/}
-      {/*      show={setShowCreateArticle}*/}
-      {/*      community={props.payload._id}*/}
-      {/*    />*/}
-      {/*  ) : null}*/}
-      {/*</div>*/}
     </div>
   );
 }
@@ -225,25 +144,14 @@ function CommunityAppTabContent(props) {
 function Stream(props) {
   return (
     <div>
-      {console.log("whole")}
-      {console.log(props)}
-      {/*{props.source!== {} ?*/}
       {!jQuery.isEmptyObject(props.source._embedded)
         ? props.source._embedded.articleStreamComponentCoes.map((single) => {
-            {
-              console.log("ssingle");
-            }
-            {
-              console.log(single);
-            }
-
             return (
               <div
                 onClick={() =>
                   props.dispatch(single._links["Tab_Version"].href)
                 }
               >
-                {/*//source._embedded.articleStreamComponentCoes[0]._links.Tab_Version*/}
                 <li className={"list-group-item"}>{single.name}</li>
               </div>
             );

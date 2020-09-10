@@ -26,8 +26,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function BookmarksComponent(props) {
-  console.log("_---------sfasfs---------------sate");
-  console.log(props.user.logged_in);
   return (
     <div>
       <div id="addTo">
@@ -54,10 +52,6 @@ function BookmarksComponent(props) {
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            {console.log(
-              "BOOKMARKS-=------------------------------------------"
-            )}
-            {console.log(props.state.user.bookmarks)}
             <ul className="list-group">
               {props.state.user.bookmarks.map((x) => {
                 return (
@@ -72,18 +66,6 @@ function BookmarksComponent(props) {
                 );
               })}
             </ul>
-            {/*{!jQuery.isEmptyObject(props.state.user.bookmarks._embedded) ||*/}
-            {/*props.state.user.bookmarks !== []*/}
-            {/*  ? props.state.user.bookmarks.map(*/}
-            {/*      (x) => {*/}
-            {/*        return <li>{x.name}</li>;*/}
-            {/*      }*/}
-            {/*    )*/}
-            {/*  : null}*/}
-            {/*<div id="annoBar">*/}
-            {/*  /!*<button>Add Note</button>*!/*/}
-            {/*  /!*...*!/*/}
-            {/*</div>*/}
           </div>
         </div>
       </div>

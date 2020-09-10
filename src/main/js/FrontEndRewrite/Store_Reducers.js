@@ -15,20 +15,14 @@ const initialState = {
     name: "",
     id: "",
     //url:"",
-    communities: [], //array of objects containing: name,link
+    communities: [],
     articles: [],
     study_guides: [],
-
     user_data: {},
     bookmarks: [],
   },
 
   tabs: {
-    // open_communities: [],
-    // stream_communities: [],
-    // open_profiles:[],
-    // open_articles:[],
-
     open: [],
   },
 
@@ -45,11 +39,14 @@ const reducer = (state = initialState, action) => {
 
     //NOT WORKING
     case at.ACTION_removeOpenTabById:
+      console.log("ACTION_removeOpenTabById");
+      console.log(state.tabs.open);
+      console.log(action.id);
       return {
         ...state,
         tabs: {
           ...state.tabs,
-          open: state.tabs.open.filter((tab) => tab !== action.id),
+          open: state.tabs.open.filter((tab) => tab.id !== action.id),
         },
       };
 
@@ -129,12 +126,14 @@ const reducer = (state = initialState, action) => {
               <AppTab
                 name={action.payload.name}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
             component: (
               <CommunityAppTabContent
                 payload={action.payload}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
           }),
@@ -156,12 +155,14 @@ const reducer = (state = initialState, action) => {
               <AppTab
                 name={action.payload.name}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
             component: (
               <ProfileAppTabContent
                 payload={action.payload}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
           }),
@@ -184,12 +185,14 @@ const reducer = (state = initialState, action) => {
               <AppTab
                 name={action.payload.name}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
             component: (
               <ArticleAppTabContent
                 payload={action.payload}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
           }),
@@ -207,7 +210,7 @@ const reducer = (state = initialState, action) => {
           name: action.payload.name,
           id: action.payload._id,
           //url:"",
-          communities: [], //array of objects containing: name,link
+          communities: [],
           articles: [],
           study_guides: [],
           bookmarks: [],
@@ -226,7 +229,7 @@ const reducer = (state = initialState, action) => {
           name: "",
           id: "",
           //url:"",
-          communities: [], //array of objects containing: name,link
+          communities: [],
           articles: [],
           study_guides: [],
 
@@ -242,13 +245,6 @@ const reducer = (state = initialState, action) => {
 
     case at.ACTION_logIn:
       //TODO redo
-      console.log("ACTION LOGIN");
-      console.log(action.payload);
-
-      console.log("LOGINID");
-      console.log(action.payload._id);
-
-      // let bookmarks = jQuery.isEmptyObject();
 
       return {
         ...state,
@@ -263,21 +259,9 @@ const reducer = (state = initialState, action) => {
           bookmarks: action.bookmarks,
           articles: action.articles,
           communities: action.communities,
-
           logged_in: true,
           name: action.payload.name,
           id: action.payload._id,
-          //url:action.payload.url,
-          //communities: action.payload.communityStreamComponentCOList
-          // communities:
-          //   action.payload.communityStreamComponentCOList._embedded
-          //     .communityStreamComponentCoes,
-          // //communities: action.payload.communities,
-          // articles:
-          //   action.payload.articleHomePageCOList._embedded
-          //     .articleStreamComponentCoes,
-          //study_guides: action.payload.studyGuides,
-
           user_data: action.payload,
         },
         tabs: {
@@ -291,12 +275,14 @@ const reducer = (state = initialState, action) => {
               <ProfileAppTabContent
                 payload={action.payload}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
             tab: (
               <AppTab
                 name={action.payload.name + " (Your Profile)"}
                 href={"A" + action.payload._id}
+                id={action.payload._id}
               />
             ),
           }),
@@ -304,29 +290,9 @@ const reducer = (state = initialState, action) => {
       };
 
     case at.ACTION_createCommunity:
-      // return {
-      //     ...state,
-      //     open_communities: state.open_communities.concat(
-      //         {
-      //             name: action.payload.name,
-      //             data: action.payload.data,
-      //             tab: <AppTab name={action.payload.name}/>,
-      //             component: <Community payload={action.payload.data}/>
-      //         })
-      //
-      // }
-
       break;
   }
   return state;
 };
-
-// function activaTab(someTab){
-//     console.log("ACTIVATAB")
-//     console.log(someTab)
-//     $(someTab).tab('show')
-//     return null
-//     // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-// };
 
 export default reducer;

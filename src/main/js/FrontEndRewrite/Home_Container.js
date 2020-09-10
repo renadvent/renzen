@@ -6,18 +6,9 @@ import Spotlight from "./Spotlight";
 
 const mapStateToProps = (state) => {
   return {
-    // open_communities: state.open_communities,
-    // isLoggedIn: state.isLoggedIn,
-
-    // loadedCommunities:state.tabs.open_communities,
-    // loadedArticles:state.tabs.open_articles,
-    // loadedUsers:state.tabs.open_profiles,
-
     loadedCommunities: state.homeTabData.stream_communities,
     loadedArticles: state.homeTabData.stream_articles,
     loadedUsers: state.homeTabData.stream_users,
-
-    user: state.user,
   };
 };
 
@@ -42,36 +33,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-/*
-The home page/tab
-includes:
-login/register actions
-open articles/users/communities
-shows own profile
-create communities
- */
-
-// <div className="card" style="width: 18rem;">
-//   <div className="card-header">
-//     Featured
-//   </div>
-//   <ul className="list-group list-group-flush">
-//     <li className="list-group-item">Cras justo odio</li>
-//     <li className="list-group-item">Dapibus ac facilisis in</li>
-//     <li className="list-group-item">Vestibulum at eros</li>
-//   </ul>
-
-// style={{width: 18rem}}>
-// </div>
-
 function Home_Container(props) {
   return (
     <div>
-      {/*<div className={props.isLoggedIn ? "d-block" : "d-none"}>*/}
-      {/*  <InLine_NewCommunity />*/}
-      {/*  /!*<Profile_Container/>*!/*/}
-      {/*</div>*/}
-
       <div className="jumbotron">
         <h1 className="display-4">Welcome to Renzen!</h1>
         <p className="lead">
@@ -119,11 +83,6 @@ function Home_Container(props) {
       <hr />
 
       <br />
-
-      {/*<div className={!props.isLoggedIn ? "d-block" : "d-none"}>*/}
-      {/*  <LoginRegister_Container />*/}
-      {/*  /!*<RegisterContainer action={props.onRegister}/>*!/*/}
-      {/*</div>*/}
 
       <div className="container-fluid" style={{ textAlign: "center" }}>
         <div className={"row"}>
@@ -173,20 +132,10 @@ function Home_Container(props) {
 function Stream(props) {
   return (
     <div>
-      {/*{console.log("props")}*/}
-      {/*{console.log(props)}*/}
-
       <ul className="list-group list-group-flush">
         {props.source !== null
           ? props.source.map((single) => {
-              // {console.log(single._links)}
-              // {console.log(single.name)}
-              // {console.log(single._links["Tab_Version"].href)}
               return (
-                // <ul className="list-group list-group-flush">
-                //   <li className="list-group-item">Cras justo odio</li>
-                // </ul>
-
                 <li
                   className="list-group-item"
                   onClick={() =>
@@ -201,10 +150,6 @@ function Stream(props) {
       </ul>
     </div>
   );
-}
-
-function InLine_NewCommunity(props) {
-  return <div></div>;
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home_Container);

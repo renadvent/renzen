@@ -5,13 +5,8 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
-    // open_communities: state.tabs.open_communities,
-    // open_profiles:state.tabs.open_profiles,
-
     open: state.tabs.open,
-
     user_communities: state.user.communities,
-
     user: state.user,
   };
 };
@@ -29,8 +24,6 @@ const mapDispatchToProps = (dispatch) => {
 
 function CreateArticleArea(props) {
   const [thisCommunity, setThisCommunity] = useState(props.community);
-
-  const [createState, setCreateState] = useState(false);
 
   //used for saving
   const [sectionData, setSectionData] = useState([]);
@@ -60,7 +53,6 @@ function CreateArticleArea(props) {
 
   return (
     <div>
-      {/*<div className={createState ? 'd-block' : 'd-none'}>*/}
       <div>
         <label htmlFor="basic-url">{props.title}</label>
 
@@ -147,27 +139,6 @@ function CreateArticleArea(props) {
         >
           Add Section
         </button>
-
-        {/*<button type="button" className="btn btn-secondary">*/}
-        {/*  Add Image*/}
-        {/*</button>*/}
-
-        {/*<button*/}
-        {/*  type="button"*/}
-        {/*  className="btn btn-secondary"*/}
-        {/*  onClick={() => {*/}
-        {/*    setCreateState(false);*/}
-        {/*    setSectionsCreated(*/}
-        {/*      <ArticleSection*/}
-        {/*        index={sectionData.length}*/}
-        {/*        update={setSectionData}*/}
-        {/*      />*/}
-        {/*    );*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  Cancel Article*/}
-        {/*</button>*/}
-
         <button
           type="button"
           onClick={() => {
@@ -178,14 +149,12 @@ function CreateArticleArea(props) {
               sectionData
             );
             props.DISPATCH_removeOpenTabById(props.community + props.community);
-            // props.show(false);
           }}
           className="btn btn-secondary"
         >
           Post Article
         </button>
       </div>
-      {/*</div>*/}
     </div>
   );
 }

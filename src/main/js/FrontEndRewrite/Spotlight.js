@@ -32,8 +32,6 @@ function Spotlight(props) {
             This is a modified jumbotron that occupies the entire horizontal
             space of its parent.
           </p>
-
-          {/*<h2>{props.name}</h2>*/}
           <div className="bd-example">
             <div
               id="carouselExampleCaptions"

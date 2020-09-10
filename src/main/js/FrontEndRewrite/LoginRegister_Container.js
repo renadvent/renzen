@@ -4,13 +4,7 @@ import * as store from "./Store_Actions";
 
 const mapStateToProps = (state) => {
   return {
-    // open_communities: state.open_communities,
     isLoggedIn: state.isLoggedIn,
-
-    // loadedCommunities: state.tabs.open_communities,
-    // loadedArticles: state.tabs.open_articles,
-    // loadedUsers: state.tabs.open_profiles,
-
     user: state.user,
   };
 };

@@ -2,7 +2,25 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as store from "./Store_Actions";
 
-//can be opened as a tab as well as in home page
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
+    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
+    DISPATCH_createCommunity: (creatorID, name) =>
+      dispatch(
+        store.DISPATCH_createCommunity({ creatorID: creatorID, name: name })
+      ),
+    DISPATCH_openCommunity: (url) =>
+      dispatch(store.DISPATCH_openCommunity(url)),
+  };
+};
+
 function Profile_Container(props) {
   const [communityName, setCommunityName] = useState("");
 
@@ -25,7 +43,6 @@ function Profile_Container(props) {
 
         <div className={"row"}>
           <div className={"col"}>
-            {/*<p>number of communities: </p>*/}
             <h4>
               Communities you are a part of: {props.data.numberOfCommunities}{" "}
             </h4>
@@ -80,45 +97,15 @@ function Profile_Container(props) {
               }
               dispatch={props.DISPATCH_openArticle}
             />
-
             <hr />
-            {/*<p>Articles you've written</p>*/}
-            {/*<Stream source={props.data.articleStreamComponentCOList} />*/}
-            {/*<p>{props.data.url}</p>*/}
-
-            {/*//TODO create community*/}
           </div>
         </div>
       </div>
     </div>
   );
 }
-//<Stream source={props.loadedCommunities} dispatch={props.DISPATCH_openCommunity}/>
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
-    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
-    DISPATCH_createCommunity: (creatorID, name) =>
-      dispatch(
-        store.DISPATCH_createCommunity({ creatorID: creatorID, name: name })
-      ),
-    DISPATCH_openCommunity: (url) =>
-      dispatch(store.DISPATCH_openCommunity(url)),
-  };
-};
 
 function Stream(props) {
-  console.log("OF INTEREEST-----------------------------------");
-  {
-    console.log(props);
-  }
-
   return (
     <ul className="list-group">
       {!jQuery.isEmptyObject(props.source)

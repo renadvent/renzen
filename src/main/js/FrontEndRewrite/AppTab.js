@@ -1,4 +1,19 @@
 import React from "react";
+import * as store from "./Store_Actions";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return {
+    // open: state.tabs.open,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DISPATCH_removeOpenTabById: (id) =>
+      dispatch(store.DISPATCH_removeOpenTabById(id)),
+  };
+};
 
 function AppTab(props) {
   return (
@@ -11,9 +26,18 @@ function AppTab(props) {
         role="tab"
       >
         {props.name}
+        <span
+          className="close"
+          onClick={() => {
+            props.DISPATCH_removeOpenTabById(props.id);
+            $("#home-tab").tab("show");
+          }}
+        >
+          ×
+        </span>
       </a>
     </li>
   );
 }
 
-export default AppTab;
+export default connect(mapStateToProps, mapDispatchToProps)(AppTab);

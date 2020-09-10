@@ -1,7 +1,19 @@
 import React from "react";
-{
-  /*"nav-link active"*/
-}
+import { connect } from "react-redux";
+import * as store from "./Store_Actions";
+
+const mapStateToProps = (state) => {
+  return {
+    // open: state.tabs.open,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DISPATCH_removeOpenTabById: (id) =>
+      dispatch(store.DISPATCH_removeOpenTabById(id)),
+  };
+};
 
 function WebsiteTab(props) {
   return (
@@ -16,9 +28,13 @@ function WebsiteTab(props) {
         aria-selected="true"
       >
         {props.name}
+        {/*<span className="close"*/}
+
+        {/*onClick={()=>props.DISPATCH_removeOpenTabById(props.)}*/}
+        {/*>×</span>*/}
       </a>
     </li>
   );
 }
 
-export default WebsiteTab;
+export default connect(mapStateToProps, mapDispatchToProps)(WebsiteTab);

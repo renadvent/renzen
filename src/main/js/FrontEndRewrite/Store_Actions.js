@@ -1,5 +1,7 @@
 import Axios from "axios";
 
+//POSSIBLE ACTIONS
+
 export const ACTION_openCommunity = "ACTION_openCommunity";
 export const ACTION_openUser = "ACTION_openUser";
 export const ACTION_openArticle = "ACTION_openArticle";
@@ -7,19 +9,11 @@ export const ACTION_logIn = "ACTION_logIn";
 export const ACTION_logOut = "ACTION_logOut";
 export const ACTION_register = "ACTION_register";
 export const ACTION_createCommunity = "ACTION_createCommunity";
-
 export const ACTION_createArticle = "ACTION_createArticle";
-export const ACTION_createPost = "ACTION_createPost";
-export const ACTION_createReply = "ACTION_createReply";
-
 export const ACTION_init = "ACTION_init";
-
 export const ACTION_joinCommunity = "ACTION_joinCommunity";
-
 export const ACTION_addBookmark = "ACTION_addBookmark";
-
 export const ACTION_openCreateArticleTab = "ACTION_openCreateArticleTab";
-
 export const ACTION_removeOpenTabById = "ACTION_removeOpenTabById";
 
 //ACTION CREATORS
@@ -50,7 +44,6 @@ export function DISPATCH_addBookmark(userId, articleId, name) {
     }).then((res) => {
       dispatch({
         type: ACTION_addBookmark,
-        // data: res.data,
         name: name,
       });
     });
@@ -59,20 +52,12 @@ export function DISPATCH_addBookmark(userId, articleId, name) {
 
 export function DISPATCH_createArticle(payload, user, community, sectionData) {
   return (dispatch) => {
-    //code here
-    console.log("creating article");
-    console.log(payload);
-    console.log(user);
-    console.log(community);
-    console.log(sectionData);
-
     Axios.post("/createArticle", {
-      //payload
       name: payload.articleName,
       description: payload.articleDescription,
       userID: user,
       communityID: community,
-      articleSectionDOList: sectionData, //[]//payload.articleAddToSection
+      articleSectionDOList: sectionData,
     }).then((res) => {
       dispatch({
         type: ACTION_openArticle,
@@ -84,9 +69,6 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
 
 export function DISPATCH_joinCommunity(payload) {
   return (dispatch) => {
-    //code here
-    console.log("joining community");
-
     Axios.post("/joinCommunity", {
       userId: payload.userId,
       communityId: payload.communityId,
@@ -102,28 +84,6 @@ export function DISPATCH_joinCommunity(payload) {
 export function DISPATCH_init() {
   return (dispatch) => {
     Axios.get("/getHomeStreams").then((res) => {
-      // console.log(res);
-      // console.log(res.data._embedded.collectionModels[1]._embedded);
-
-      console.log("UNDER");
-      console.log(res);
-
-      // let base = res.data._embedded.collectionModels;
-      //
-      // let articles = jQuery.isEmptyObject(
-      //   base[0]._embedded.articleStreamComponentCoes
-      // )
-      //   ? []
-      //   : res.data.articleStreamComponentCoes._embedded
-      //       .articleStreamComponentCoes;
-      //
-      // let communities = jQuery.isEmptyObject(
-      //   res.data.communityStreamComponentCoes
-      // )
-      //   ? []
-      //   : res.data.communityStreamComponentCoes._embedded
-      //       .communityStreamComponentCoes;
-
       let base = res.data._embedded.collectionModels;
 
       console.log(base[0]);
@@ -244,9 +204,6 @@ export function DISPATCH_logIn(payload) {
         communities: communities,
         bookmarks: bookmarks,
       });
-      // .then(()=>{
-      //     $('#app-tabs li:last-child a').tab('show')
-      // })
     });
   };
 }
@@ -291,34 +248,11 @@ export function DISPATCH_createCommunity(payload) {
     Axios.post("/createCommunity", {
       name: payload.name,
       creatorID: payload.creatorID,
-      // params: {
-      //     user: user
-      // },
-      // data: {
-      //     name: payload.name,
-      //     description: payload.description
-      // }
     }).then((res) => {
       dispatch({
         type: ACTION_openCommunity,
         payload: res.data,
-        // type: ACTION_createCommunity,
-        // payload: res.data
       });
-      // }).then(
-      //     DISPATCH_openCommunity(res.data._links["Tab_Version"])
-      //
-      // )
     });
   };
 }
-
-//COMMUNITY-PAGE ACTION DISPATCHES
-//
-// export function DISPATCH_createArticle() {
-//
-// }
-
-export function DISPATCH_createPost() {}
-
-export function DISPATCH_createReply() {}

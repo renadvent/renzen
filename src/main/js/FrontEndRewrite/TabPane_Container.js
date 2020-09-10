@@ -10,9 +10,6 @@ hosts other opened tabs when they are opened
 
 const mapStateToProps = (state) => {
   return {
-    // open_communities: state.tabs.open_communities,
-    // open_profiles:state.tabs.open_profiles,
-    // open_articles:state.tabs.open_articles
     open: state.tabs.open,
   };
 };
