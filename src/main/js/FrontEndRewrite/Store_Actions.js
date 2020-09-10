@@ -86,7 +86,7 @@ export function DISPATCH_init() {
     Axios.get("/getHomeStreams").then((res) => {
       let base = res.data._embedded.collectionModels;
 
-      console.log(base[0]);
+      // console.log(base[0]);
 
       let articles = !Object.keys(base[0]).length
         ? null
@@ -129,8 +129,8 @@ export function DISPATCH_openUser(url) {
   //USING getstate
   return (dispatch, getState) => {
     Axios.get(url).then((res) => {
-      console.log("PAYLOAD");
-      console.log(res.data);
+      // console.log("PAYLOAD");
+      // console.log(res.data);
 
       //check if already open
       getState().tabs.open.find((x) => {
@@ -172,11 +172,11 @@ export function DISPATCH_logIn(payload) {
       //   return (x.id === res.data._id)
       // }) && getState().user.logged_in ? $("#tabA"+res.data._id).tab("show") :
 
-      console.log("I AM WORKING ON HERE");
-      console.log(res.data);
+      // console.log("I AM WORKING ON HERE");
+      // console.log(res.data);
       let base = res.data;
 
-      console.log(base[0]);
+      // console.log(base[0]);
 
       //annoying HATEOS COLLECTIONMODEL logic
 

@@ -20,6 +20,7 @@ import java.util.List;
 public class ArticleTabComponentCO extends RepresentationModel<ArticleTabComponentCO> {
     String _id;
     ObjectId objectId;
+    String userName;
 
     String name;
     String description;

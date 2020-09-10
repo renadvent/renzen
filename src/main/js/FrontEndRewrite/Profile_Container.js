@@ -36,6 +36,10 @@ function Profile_Container(props) {
           Here you can see the articles this user has written, and what
           communities they belong to
         </p>
+        <p>
+          If you are logged in, you can create new Communities at the bottom of
+          the page!
+        </p>
       </div>
 
       <br />

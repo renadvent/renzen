@@ -56,29 +56,46 @@ function CreateArticleArea(props) {
       <div>
         <label htmlFor="basic-url">{props.title}</label>
 
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <label className="input-group-text" htmlFor="inputGroupSelect01">
-              Add To Section
-            </label>
-          </div>
-          <select className="custom-select" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
+        {/*<div className="input-group mb-3">*/}
+        {/*  <div className="input-group-prepend">*/}
+        {/*    <label className="input-group-text" htmlFor="inputGroupSelect01">*/}
+        {/*      Add To Section*/}
+        {/*    </label>*/}
+        {/*  </div>*/}
+        {/*  <select className="custom-select" id="inputGroupSelect01">*/}
+        {/*    <option selected>Choose...</option>*/}
+        {/*    <option value="1">One</option>*/}
+        {/*    <option value="2">Two</option>*/}
+        {/*    <option value="3">Three</option>*/}
+        {/*  </select>*/}
+        {/*</div>*/}
+
+        {/*<div className="input-group mb-3">*/}
+        {/*  <div className="input-group-prepend">*/}
+        {/*    <span className="input-group-text" id="basic-addon3">*/}
+        {/*      Tags*/}
+        {/*    </span>*/}
+        {/*  </div>*/}
+        {/*  <input*/}
+        {/*    name={"articleTags"}*/}
+        {/*    value={articleData.articleTags}*/}
+        {/*    onChange={handleChange}*/}
+        {/*    type="text"*/}
+        {/*    className="form-control"*/}
+        {/*    id="basic-url"*/}
+        {/*    aria-describedby="basic-addon3"*/}
+        {/*  />*/}
+        {/*</div>*/}
 
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text" id="basic-addon3">
-              Tags
+              Article Name:{" "}
             </span>
           </div>
           <input
-            name={"articleTags"}
-            value={articleData.articleTags}
+            name={"articleName"}
+            value={articleData.articleName}
             onChange={handleChange}
             type="text"
             className="form-control"
@@ -96,23 +113,6 @@ function CreateArticleArea(props) {
           <input
             name={"articleDescription"}
             value={articleData.articleDescription}
-            onChange={handleChange}
-            type="text"
-            className="form-control"
-            id="basic-url"
-            aria-describedby="basic-addon3"
-          />
-        </div>
-
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon3">
-              Article Name:{" "}
-            </span>
-          </div>
-          <input
-            name={"articleName"}
-            value={articleData.articleName}
             onChange={handleChange}
             type="text"
             className="form-control"

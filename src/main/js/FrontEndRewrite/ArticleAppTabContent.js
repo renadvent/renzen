@@ -46,6 +46,8 @@ function ArticleAppTabContent(props) {
       )}
 
       <h1>{props.payload.name}</h1>
+      <p>{props.payload.description}</p>
+      <p>by: {props.payload.userName}</p>
 
       <hr />
 

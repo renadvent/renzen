@@ -28,10 +28,7 @@ function Spotlight(props) {
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <h1 className="display-4">{props.name}</h1>
-          <p className="lead">
-            This is a modified jumbotron that occupies the entire horizontal
-            space of its parent.
-          </p>
+          <p className="lead">Say Hello!</p>
           <div className="bd-example">
             <div
               id="carouselExampleCaptions"
@@ -57,7 +54,7 @@ function Spotlight(props) {
                 <div className="carousel-item active">
                   {/*<img src="..." className="d-block w-100" alt="..." />*/}
                   <div className="d-block w-100" alt="...">
-                    Spotlight!
+                    Spotlight 1!
                   </div>
 
                   <div className="carousel-caption d-none d-md-block">

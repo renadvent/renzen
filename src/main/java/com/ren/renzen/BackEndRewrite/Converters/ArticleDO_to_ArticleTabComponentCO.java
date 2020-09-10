@@ -75,12 +75,15 @@ public class ArticleDO_to_ArticleTabComponentCO implements Converter<ArticleDO, 
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
 
+
+
         co.setUserID(source.getUserID());
         //converts profile DO to CO
         //ProfileDO_to_ProfileStreamComponentCO ProfileConverter = new ProfileDO_to_ProfileStreamComponentCO(discussionRepository);
         userRepo.findById(source.getUserID()).ifPresent(user->co.setUser_streamComponentCO(profileDO_to_profileStreamComponentCO.convert(user)));
         //userService.findBy_id(source.get_id()).set
 
+        co.setUserName(co.getUser_streamComponentCO().getName());
         //-------------------------
 
         co.setDiscussionID(source.getDiscussionID());

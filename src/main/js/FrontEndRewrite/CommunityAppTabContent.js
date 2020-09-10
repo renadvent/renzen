@@ -84,7 +84,7 @@ function CommunityAppTabContent(props) {
                 <h1 className="display-4">Welcome to the Community!</h1>
                 <p className="lead">
                   Here you can see the articles and content the the community
-                  creates!
+                  creates and write articles of your own!
                 </p>
                 <hr className="my-4" />
                 <p>
@@ -153,8 +153,9 @@ function CommunityAppTabContent(props) {
                 {showCreateArticle ? "Cancel Article" : "Write New Article"}
               </button>
             ) : null}
+            <br />
             <p>
-              Number of Sections in community: {props.payload.numberOfArticles}
+              Number of Articles in community: {props.payload.numberOfArticles}
             </p>
 
             <ul className="list-group">
