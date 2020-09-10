@@ -84,6 +84,7 @@ function LoginRegister_Container(props) {
               aria-labelledby="login-tab"
             >
               <div className="form-group">
+                <label htmlFor="username">Username</label>
                 <input
                   value={userName}
                   onChange={(event) => setUserName(event.target.value)}
@@ -121,6 +122,7 @@ function LoginRegister_Container(props) {
               aria-labelledby="signup-tab"
             >
               <div className="form-group">
+                <label htmlFor="username">Username</label>
                 <input
                   value={userName}
                   onChange={(event) => setUserName(event.target.value)}

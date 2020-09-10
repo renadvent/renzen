@@ -8,68 +8,85 @@ function Profile_Container(props) {
 
   return (
     <div>
-      <br />
-      <p>username: {props.data.name}</p>
-      <hr />
+      <div className="container-fluid">
+        <div className={"row"}>
+          <br />
+          <h4>username: {props.data.name}</h4>
 
-      <p>number of communities: {props.data.numberOfCommunities}</p>
-      <p>Communities you are a part of: </p>
-      <Stream
-        source={
-          !jQuery.isEmptyObject(
-            props.data.communityStreamComponentCOList._embedded
-          )
-            ? props.data.communityStreamComponentCOList._embedded
-                .communityStreamComponentCoes
-            : []
-        }
-        dispatch={props.DISPATCH_openCommunity}
-      />
+          <br />
+        </div>
+        <div className={"row"}>
+          <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
+            Log Out
+          </button>
+        </div>
 
-      <div>
-        <input
-          value={communityName}
-          onChange={(event) => setCommunityName(event.target.value)}
-          type="communityName"
-          className="form-control"
-          name="communityName"
-        />
+        <hr />
+
+        <div className={"row"}>
+          <div className={"col"}>
+            {/*<p>number of communities: </p>*/}
+            <h4>
+              Communities you are a part of: {props.data.numberOfCommunities}{" "}
+            </h4>
+            <Stream
+              source={
+                !jQuery.isEmptyObject(
+                  props.data.communityStreamComponentCOList._embedded
+                )
+                  ? props.data.communityStreamComponentCOList._embedded
+                      .communityStreamComponentCoes
+                  : []
+              }
+              dispatch={props.DISPATCH_openCommunity}
+            />
+
+            <div>
+              <input
+                value={communityName}
+                onChange={(event) => setCommunityName(event.target.value)}
+                type="communityName"
+                className="form-control"
+                name="communityName"
+              />
+              <br />
+            </div>
+
+            <button
+              className="btn btn-dark"
+              onClick={() => {
+                props.DISPATCH_createCommunity(props.data._id, communityName);
+                setCommunityName("");
+              }}
+            >
+              Create Community+
+            </button>
+          </div>
+
+          <div className={"col"}>
+            {/*<p>number of articles: {props.data.numberOfArticles}</p>*/}
+            <h4>Articles you've written: {props.data.numberOfArticles}</h4>
+            <Stream
+              source={
+                !jQuery.isEmptyObject(
+                  props.data.articleHomePageCOList._embedded
+                )
+                  ? props.data.articleHomePageCOList._embedded
+                      .articleStreamComponentCoes
+                  : null
+              }
+              dispatch={props.DISPATCH_openArticle}
+            />
+
+            <hr />
+            {/*<p>Articles you've written</p>*/}
+            {/*<Stream source={props.data.articleStreamComponentCOList} />*/}
+            {/*<p>{props.data.url}</p>*/}
+
+            {/*//TODO create community*/}
+          </div>
+        </div>
       </div>
-
-      <br />
-
-      <button
-        className="btn btn-dark"
-        onClick={() =>
-          props.DISPATCH_createCommunity(props.data._id, communityName)
-        }
-      >
-        Create Community+
-      </button>
-
-      <hr />
-      <p>number of articles: {props.data.numberOfArticles}</p>
-      <p>Articles you've written</p>
-      <Stream
-        source={
-          !jQuery.isEmptyObject(props.data.articleHomePageCOList._embedded)
-            ? props.data.articleHomePageCOList._embedded
-                .articleStreamComponentCoes
-            : null
-        }
-        dispatch={props.DISPATCH_openArticle}
-      />
-
-      <hr />
-      {/*<p>Articles you've written</p>*/}
-      {/*<Stream source={props.data.articleStreamComponentCOList} />*/}
-      {/*<p>{props.data.url}</p>*/}
-
-      {/*//TODO create community*/}
-
-      <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
-        Log Out
-      </button>
     </div>
   );
 }

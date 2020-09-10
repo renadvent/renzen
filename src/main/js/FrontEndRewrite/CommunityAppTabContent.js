@@ -136,7 +136,7 @@ function CommunityAppTabContent(props) {
                       );
                     }}
                   >
-                    {props.user.logged_in ? "Join Community" : "Hi!"}
+                    {"Join Community!"}
                   </button>
                 )}
               </button>
@@ -167,34 +167,8 @@ function CommunityAppTabContent(props) {
                 dispatch={props.DISPATCH_openArticle}
               />
             </ul>
-            {/*<ul>*/}
-            {/*  <li>Community Info</li>*/}
 
-            {/*  <ul>*/}
-            {/*    <li>Purpose</li>*/}
-            {/*    <li>Affiliated Topics</li>*/}
-            {/*    <li>Affiliated Communities</li>*/}
-            {/*    <li>Moderators</li>*/}
-            {/*  </ul>*/}
-            {/*  <li>Getting Started</li>*/}
-            {/*  <li>Main Concepts</li>*/}
-            {/*  <li>Walkthroughs</li>*/}
-            {/*  <li>Study Guides</li>*/}
-            {/*  <li>Q&A</li>*/}
-            {/*  <li>Reference</li>*/}
-            {/*</ul>*/}
-            {/*<div className={"card"}>*/}
-            {/*  <div className={"card-body"}>*/}
-            {/*    <button className="btn btn-dark">add article</button></div>*/}
-            {/*</div>*/}
-
-            {/*<div className={"card"}>*/}
-            {/*  <div className={"card-body"}>*/}
-            {/*    <button type="button" className="btn btn-secondary">*/}
-            {/*      Ask Question*/}
-            {/*    </button>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
+            {/*//TODO fix this. move logic to a function and call function here */}
 
             {props.user.logged_in ? (
               <button
