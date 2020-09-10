@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as store from "./Store_Actions";
 import LoginRegister_Container from "./LoginRegister_Container";
+import Spotlight from "./Spotlight";
 
 const mapStateToProps = (state) => {
   return {
@@ -86,7 +87,31 @@ function Home_Container(props) {
         <a className="btn btn-primary btn-lg" href="#" role="button">
           Click here to learn more about how the site was created
         </a>
+
+        <br />
+        <br />
+
+        <a className="btn btn-secondary" href="#" role="button">
+          Click here to see the source code on github
+        </a>
       </div>
+
+      <hr />
+
+      <div className="container-fluid" style={{ textAlign: "center" }}>
+        <div className={"row"}>
+          <div className={"col"}>
+            <Spotlight name={"Featured Communities"} />
+          </div>
+          <div className={"col"}>
+            <Spotlight name={"Featured Articles"} />
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <br />
 
       {/*<div className={!props.isLoggedIn ? "d-block" : "d-none"}>*/}
       {/*  <LoginRegister_Container />*/}

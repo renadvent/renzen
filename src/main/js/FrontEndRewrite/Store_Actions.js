@@ -18,7 +18,11 @@ export const ACTION_joinCommunity = "ACTION_joinCommunity";
 
 export const ACTION_addBookmark = "ACTION_addBookmark";
 
+export const ACTION_openCreateArticleTab = "ACTION_openCreateArticleTab";
+
 //ACTION CREATORS
+
+export function DISPATCH_openCreateArticleTab() {}
 
 export function DISPATCH_addBookmark(userId, articleId, name) {
   return (dispatch) => {
