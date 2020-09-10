@@ -6,7 +6,7 @@ import LoginRegister_Container from "./LoginRegister_Container";
 const mapStateToProps = (state) => {
   return {
     // open_communities: state.open_communities,
-    isLoggedIn: state.isLoggedIn,
+    // isLoggedIn: state.isLoggedIn,
 
     // loadedCommunities:state.tabs.open_communities,
     // loadedArticles:state.tabs.open_articles,
@@ -66,20 +66,37 @@ create communities
 function Home_Container(props) {
   return (
     <div>
-      <div className={props.isLoggedIn ? "d-block" : "d-none"}>
-        <InLine_NewCommunity />
-        {/*<Profile_Container/>*/}
+      {/*<div className={props.isLoggedIn ? "d-block" : "d-none"}>*/}
+      {/*  <InLine_NewCommunity />*/}
+      {/*  /!*<Profile_Container/>*!/*/}
+      {/*</div>*/}
+
+      <div className="jumbotron">
+        <h1 className="display-4">Welcome to Renzen!</h1>
+        <p className="lead">
+          A site to build communities, and write articles! Create an account and
+          get started!
+        </p>
+        <hr className="my-4" />
+        <p>
+          Built with Java Spring Boot on the back end, MongoDB for the database,
+          React and Bootstrap for site design, Redux for state management, and
+          hosted on Azure.
+        </p>
+        <a className="btn btn-primary btn-lg" href="#" role="button">
+          Click here to learn more about how the site was created
+        </a>
       </div>
 
-      <div className={!props.isLoggedIn ? "d-block" : "d-none"}>
-        <LoginRegister_Container />
-        {/*<RegisterContainer action={props.onRegister}/>*/}
-      </div>
+      {/*<div className={!props.isLoggedIn ? "d-block" : "d-none"}>*/}
+      {/*  <LoginRegister_Container />*/}
+      {/*  /!*<RegisterContainer action={props.onRegister}/>*!/*/}
+      {/*</div>*/}
 
       <div className="container-fluid" style={{ textAlign: "center" }}>
         <div className={"row"}>
           <div className={"col"}>
-            <div className="card" style={{ width: "18rem;" }}>
+            <div className="card" style={{ width: "18rem" }}>
               <div className="card-header">
                 <h4>All Users</h4>
               </div>
@@ -92,7 +109,7 @@ function Home_Container(props) {
           </div>
 
           <div className={"col"}>
-            <div className="card" style={{ width: "18rem;" }}>
+            <div className="card" style={{ width: "18rem" }}>
               <div className="card-header">
                 <h4>All Articles</h4>
               </div>
@@ -104,7 +121,7 @@ function Home_Container(props) {
             </div>
           </div>
           <div className={"col"}>
-            <div className="card" style={{ width: "18rem;" }}>
+            <div className="card" style={{ width: "18rem" }}>
               <div className="card-header">
                 <h4>All Communities</h4>
               </div>

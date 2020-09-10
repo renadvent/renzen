@@ -41,6 +41,8 @@ function Profile_Container(props) {
               dispatch={props.DISPATCH_openCommunity}
             />
 
+            <hr />
+
             <div>
               <input
                 value={communityName}
@@ -48,6 +50,7 @@ function Profile_Container(props) {
                 type="communityName"
                 className="form-control"
                 name="communityName"
+                placeholder="Enter the name of a new Community!"
               />
               <br />
             </div>
@@ -117,7 +120,7 @@ function Stream(props) {
   }
 
   return (
-    <ul>
+    <ul className="list-group">
       {!jQuery.isEmptyObject(props.source)
         ? props.source.map((single) => {
             return (
@@ -126,7 +129,7 @@ function Stream(props) {
                   props.dispatch(single._links["Tab_Version"].href)
                 }
               >
-                <li>
+                <li className={"list-group-item"}>
                   <a>+{single.name}</a>
                 </li>
               </div>
