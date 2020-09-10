@@ -22,6 +22,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(
         store.DISPATCH_createArticle(payload, user, community, sectionData)
       ),
+    DISPATCH_removeOpenTabById: (id) =>
+      dispatch(store.DISPATCH_removeOpenTabById(id)),
   };
 };
 
@@ -175,7 +177,8 @@ function CreateArticleArea(props) {
               thisCommunity,
               sectionData
             );
-            props.show(false);
+            props.DISPATCH_removeOpenTabById(props.community + props.community);
+            // props.show(false);
           }}
           className="btn btn-secondary"
         >

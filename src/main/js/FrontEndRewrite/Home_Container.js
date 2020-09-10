@@ -91,7 +91,12 @@ function Home_Container(props) {
         <br />
         <br />
 
-        <a className="btn btn-secondary" href="#" role="button">
+        <a
+          className="btn btn-secondary"
+          href="https://github.com/renadvent/renzen"
+          role="button"
+          target={"_blank"}
+        >
           Click here to see the source code on github
         </a>
       </div>

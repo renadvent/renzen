@@ -20,6 +20,8 @@ const mapDispatchToProps = (dispatch) => {
       ),
     DISPATCH_createArticle: () => dispatch(store.DISPATCH_createArticle()),
     DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
+    DISPATCH_openCreateArticleTab: (comid) =>
+      dispatch(store.DISPATCH_openCreateArticleTab(comid)),
   };
 };
 
@@ -177,7 +179,10 @@ function CommunityAppTabContent(props) {
               props.user.logged_in ? (
                 <button
                   type="button"
-                  onClick={() => setShowCreateArticle(!showCreateArticle)}
+                  onClick={() =>
+                    props.DISPATCH_openCreateArticleTab(props.payload._id)
+                  }
+                  // onClick={() => setShowCreateArticle(!showCreateArticle)}
                   className="btn btn-secondary"
                 >
                   {showCreateArticle ? "Cancel Article" : "Write New Article"}
@@ -205,14 +210,14 @@ function CommunityAppTabContent(props) {
         ...
       </div>
 
-      <div>
-        {showCreateArticle ? (
-          <CreateArticleArea
-            show={setShowCreateArticle}
-            community={props.payload._id}
-          />
-        ) : null}
-      </div>
+      {/*<div>*/}
+      {/*  {showCreateArticle ? (*/}
+      {/*    <CreateArticleArea*/}
+      {/*      show={setShowCreateArticle}*/}
+      {/*      community={props.payload._id}*/}
+      {/*    />*/}
+      {/*  ) : null}*/}
+      {/*</div>*/}
     </div>
   );
 }

@@ -20,9 +20,27 @@ export const ACTION_addBookmark = "ACTION_addBookmark";
 
 export const ACTION_openCreateArticleTab = "ACTION_openCreateArticleTab";
 
+export const ACTION_removeOpenTabById = "ACTION_removeOpenTabById";
+
 //ACTION CREATORS
 
-export function DISPATCH_openCreateArticleTab() {}
+export function DISPATCH_removeOpenTabById(tabId) {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_removeOpenTabById,
+      id: tabId,
+    });
+  };
+}
+
+export function DISPATCH_openCreateArticleTab(communityId) {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_openCreateArticleTab,
+      id: communityId,
+    });
+  };
+}
 
 export function DISPATCH_addBookmark(userId, articleId, name) {
   return (dispatch) => {

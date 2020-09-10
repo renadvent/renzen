@@ -4,6 +4,8 @@ import AppTab from "./AppTab";
 import ProfileAppTabContent from "./ProfileAppTabContent";
 import CommunityAppTabContent from "./CommunityAppTabContent";
 import ArticleAppTabContent from "./ArticleAppTabContent";
+import { ACTION_openCreateArticleTab } from "./Store_Actions";
+import ArticleEditTab from "./ArticleEditTab";
 
 //INITIAL STATE
 
@@ -40,6 +42,43 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     //TODO concat bookmarks
+
+    //NOT WORKING
+    case at.ACTION_removeOpenTabById:
+      return {
+        ...state,
+        tabs: {
+          ...state.tabs,
+          open: state.tabs.open.filter((tab) => tab !== action.id),
+        },
+      };
+
+    case at.ACTION_openCreateArticleTab:
+      return {
+        ...state,
+        tabs: {
+          ...state.tabs,
+          open: state.tabs.open.concat({
+            data: {
+              _id: action.id + action.id,
+            },
+            type: "writing article",
+            id: action.id + action.id,
+            component: (
+              <ArticleEditTab
+                id={action.id}
+                href={"A" + action.id + action.id}
+              />
+            ),
+            tab: (
+              <AppTab
+                name={"Editing Article"}
+                href={"A" + action.id + action.id}
+              />
+            ),
+          }),
+        },
+      };
 
     case at.ACTION_addBookmark:
       return {
@@ -140,6 +179,7 @@ const reducer = (state = initialState, action) => {
             name: action.payload.name,
             data: action.payload,
             id: action.payload._id,
+
             tab: (
               <AppTab
                 name={action.payload.name}
