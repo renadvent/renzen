@@ -1,5 +1,6 @@
 package com.ren.renzen.BackEndRewrite.Services.Interfaces;
 
+import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleDO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ProfileDO;
 import org.bson.types.ObjectId;
 
@@ -24,6 +25,8 @@ public interface UserService {
     ProfileDO findProfileDOByNameAndPassword(String name,String password);
 
     ProfileDO saveAndReturnProfileDO(ProfileDO profileDO);
+
+    List<ProfileDO> findAllPage();
 
 
 }

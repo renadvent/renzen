@@ -242,15 +242,17 @@ public class IndexController {
 
         var articleContent = articleService.findAllPage();
         var communityContent = communityService.findAllPage();
+        var profileContent = userService.findAllPage();
 
 
 //        returnList.add(articleStreamCOAssembler.toCollectionModel(articleService.findAll()));
+//        returnList.add(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
 //        returnList.add(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
 
         //return only limited results
         //must be in this order for Javascript Collection Model read
         returnList.add(articleStreamCOAssembler.toCollectionModel(articleContent));
-        returnList.add(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
+        returnList.add(profileStreamCOAssembler.toCollectionModel(profileContent));
         returnList.add(communityStreamCOAssembler.toCollectionModel(communityContent));
 
         return ResponseEntity.ok(CollectionModel.of(returnList));

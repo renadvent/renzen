@@ -4,6 +4,8 @@ import com.ren.renzen.BackEndRewrite.DomainObjects.ProfileDO;
 import com.ren.renzen.BackEndRewrite.Repositories.UserRepository;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList){
+
+
+        //for deleting, might have to have findAllBy_id return an optional
+        //then if a profile is deleted, have it return a dummy object for "deleted user"
+        //so server/client doesn't crash
+        
+
+        //var test = userRepository.findAllBy_id(objectIdList);
+
+
+
+
         return userRepository.findAllBy_id(objectIdList);
     }
 
@@ -85,6 +99,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public ProfileDO saveAndReturnProfileDO(ProfileDO profileDO) {
         return userRepository.save(profileDO);
+    }
+
+    @Override
+    public List<ProfileDO> findAllPage() {
+        var paging = PageRequest.of(0,10, Sort.by("_id"));
+        return userRepository.findAll(paging).getContent();
     }
 
 }
