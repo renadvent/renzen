@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         //for deleting, might have to have findAllBy_id return an optional
         //then if a profile is deleted, have it return a dummy object for "deleted user"
         //so server/client doesn't crash
-        
+
 
         //var test = userRepository.findAllBy_id(objectIdList);
 
@@ -103,7 +103,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ProfileDO> findAllPage() {
-        var paging = PageRequest.of(0,10, Sort.by("_id"));
+
+//        Sort.by("_id");
+        //descending for recent
+        var paging = PageRequest.of(0,10, Sort.by("_id").descending());
         return userRepository.findAll(paging).getContent();
     }
 

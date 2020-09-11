@@ -89,7 +89,7 @@ function Home_Container(props) {
           <div className={"col"}>
             <div className="card" style={{ width: "18rem" }}>
               <div className="card-header">
-                <h4>All Users</h4>
+                <h4>New Users</h4>
               </div>
               <Stream
                 key={"userStream"}
@@ -102,7 +102,7 @@ function Home_Container(props) {
           <div className={"col"}>
             <div className="card" style={{ width: "18rem" }}>
               <div className="card-header">
-                <h4>All Articles</h4>
+                <h4>New Articles</h4>
               </div>
               <Stream
                 key={"articleStream"}
@@ -114,7 +114,7 @@ function Home_Container(props) {
           <div className={"col"}>
             <div className="card" style={{ width: "18rem" }}>
               <div className="card-header">
-                <h4>All Communities</h4>
+                <h4>New Communities</h4>
               </div>
               <Stream
                 key={"communityStream"}

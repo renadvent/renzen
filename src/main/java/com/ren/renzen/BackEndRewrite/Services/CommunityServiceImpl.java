@@ -84,7 +84,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<CommunityDO> findAllPage() {
-        var paging = PageRequest.of(0,10, Sort.by("_id"));
+        var paging = PageRequest.of(0,10, Sort.by("_id").descending());
         return communityRepository.findAll(paging).getContent();
     }
 
