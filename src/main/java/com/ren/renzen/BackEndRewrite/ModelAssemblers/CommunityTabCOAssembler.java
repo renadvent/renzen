@@ -1,6 +1,6 @@
 package com.ren.renzen.BackEndRewrite.ModelAssemblers;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs.CommunityTabComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.CommunityTabComponentCO;
 import com.ren.renzen.BackEndRewrite.Controllers.IndexController;
 import com.ren.renzen.BackEndRewrite.Converters.CommunityDO_to_CommunityTabComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.CommunityDO;

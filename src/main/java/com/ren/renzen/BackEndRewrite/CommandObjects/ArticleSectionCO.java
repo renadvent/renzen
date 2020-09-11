@@ -1,4 +1,4 @@
-package com.ren.renzen.BackEndRewrite.CommandObjects.ContentCOs;
+package com.ren.renzen.BackEndRewrite.CommandObjects;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

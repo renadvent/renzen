@@ -2,7 +2,7 @@ package com.ren.renzen.BackEndRewrite.ModelAssemblers;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ProfileStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.Controllers.IndexController;
 import com.ren.renzen.BackEndRewrite.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ProfileDO;

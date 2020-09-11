@@ -1,17 +1,11 @@
-package com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs;
+package com.ren.renzen.BackEndRewrite.CommandObjects;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
-import com.ren.renzen.BackEndRewrite.CommandObjects.SubCommunityComponentCOs.DiscussionComponentCO;
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This Command Object is used to return data to

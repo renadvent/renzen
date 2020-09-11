@@ -1,7 +1,6 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs.CommunityTabComponentCO;
-import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleDO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.CommunityTabComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.CommunityDO;
 import com.ren.renzen.BackEndRewrite.ModelAssemblers.ArticleStreamCOAssembler;
 import com.ren.renzen.BackEndRewrite.ModelAssemblers.ProfileStreamCOAssembler;
@@ -11,8 +10,6 @@ import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class CommunityDO_to_CommunityTabComponentCO implements Converter<CommunityDO, CommunityTabComponentCO> {

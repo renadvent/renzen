@@ -2,7 +2,7 @@ package com.ren.renzen.BackEndRewrite.ModelAssemblers;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs.ArticleTabComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.BackEndRewrite.Controllers.IndexController;
 import com.ren.renzen.BackEndRewrite.Converters.ArticleDO_to_ArticleTabComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleDO;

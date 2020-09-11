@@ -1,6 +1,5 @@
-package com.ren.renzen.BackEndRewrite.CommandObjects.SubCommunityComponentCOs;
+package com.ren.renzen.BackEndRewrite.CommandObjects;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.ContentCOs.DiscussionSectionCO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

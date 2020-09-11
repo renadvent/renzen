@@ -1,12 +1,9 @@
-package com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs;
+package com.ren.renzen.BackEndRewrite.CommandObjects;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.springframework.data.domain.Page;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 

@@ -1,8 +1,5 @@
-package com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs;
+package com.ren.renzen.BackEndRewrite.CommandObjects;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.CommunityStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.CommunityDO;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.ArticleService;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.CommunityService;

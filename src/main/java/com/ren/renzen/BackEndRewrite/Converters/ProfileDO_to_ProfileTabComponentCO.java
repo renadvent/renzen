@@ -1,8 +1,6 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
-import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleDO;
-import com.ren.renzen.BackEndRewrite.DomainObjects.CommunityDO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ProfileDO;
 import com.ren.renzen.BackEndRewrite.ModelAssemblers.ArticleStreamCOAssembler;
 import com.ren.renzen.BackEndRewrite.ModelAssemblers.CommunityStreamCOAssembler;

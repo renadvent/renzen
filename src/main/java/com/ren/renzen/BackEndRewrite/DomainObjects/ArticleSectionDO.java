@@ -1,4 +1,4 @@
-package com.ren.renzen.BackEndRewrite.DomainObjects.Subsections;
+package com.ren.renzen.BackEndRewrite.DomainObjects;
 
 import lombok.Getter;
 import lombok.Setter;

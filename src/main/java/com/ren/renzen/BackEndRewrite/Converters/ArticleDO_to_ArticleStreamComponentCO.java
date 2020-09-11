@@ -1,6 +1,6 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ArticleStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleDO;
 import com.ren.renzen.BackEndRewrite.Repositories.ArticleRepository;
 import com.ren.renzen.BackEndRewrite.Repositories.UserRepository;

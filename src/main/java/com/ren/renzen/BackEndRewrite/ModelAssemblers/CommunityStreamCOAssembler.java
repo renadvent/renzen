@@ -1,6 +1,6 @@
 package com.ren.renzen.BackEndRewrite.ModelAssemblers;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.CommunityStreamComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.CommunityStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.Controllers.IndexController;
 import com.ren.renzen.BackEndRewrite.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.CommunityDO;

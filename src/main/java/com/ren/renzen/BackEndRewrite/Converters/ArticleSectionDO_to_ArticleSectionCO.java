@@ -1,7 +1,7 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.ContentCOs.ArticleSectionCO;
-import com.ren.renzen.BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ArticleSectionCO;
+import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleSectionDO;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;

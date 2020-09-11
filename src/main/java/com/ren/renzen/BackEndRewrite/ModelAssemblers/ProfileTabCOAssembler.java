@@ -1,6 +1,6 @@
 package com.ren.renzen.BackEndRewrite.ModelAssemblers;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs.ProfileTabComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.BackEndRewrite.Controllers.IndexController;
 import com.ren.renzen.BackEndRewrite.Converters.ProfileDO_to_ProfileTabComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ProfileDO;

@@ -1,8 +1,8 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.SubCommunityComponentCOs.DiscussionComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.DiscussionComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.DiscussionDO;
-import com.ren.renzen.BackEndRewrite.DomainObjects.Subsections.DiscussionSectionDO;
+import com.ren.renzen.BackEndRewrite.DomainObjects.DiscussionSectionDO;
 import com.ren.renzen.BackEndRewrite.Repositories.DiscussionRepository;
 import com.mongodb.lang.Nullable;
 import lombok.Synchronized;

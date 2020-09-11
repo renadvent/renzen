@@ -1,8 +1,8 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.TabComponentCOs.ArticleTabComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleDO;
-import com.ren.renzen.BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
+import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleSectionDO;
 import com.ren.renzen.BackEndRewrite.Repositories.ArticleRepository;
 import com.ren.renzen.BackEndRewrite.Repositories.UserRepository;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.UserService;

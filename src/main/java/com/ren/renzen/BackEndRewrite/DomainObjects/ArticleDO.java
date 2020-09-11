@@ -1,6 +1,5 @@
 package com.ren.renzen.BackEndRewrite.DomainObjects;
 
-import com.ren.renzen.BackEndRewrite.DomainObjects.Subsections.ArticleSectionDO;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;

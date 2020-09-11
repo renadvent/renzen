@@ -1,6 +1,5 @@
 package com.ren.renzen.BackEndRewrite.DomainObjects;
 
-import com.ren.renzen.BackEndRewrite.DomainObjects.Subsections.DiscussionSectionDO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

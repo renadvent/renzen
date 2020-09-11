@@ -1,6 +1,6 @@
 package com.ren.renzen.BackEndRewrite.ModelAssemblers;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ArticleStreamComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ArticleStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.Controllers.IndexController;
 import com.ren.renzen.BackEndRewrite.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ArticleDO;

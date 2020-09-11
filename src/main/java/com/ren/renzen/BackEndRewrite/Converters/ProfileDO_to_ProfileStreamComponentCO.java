@@ -1,6 +1,6 @@
 package com.ren.renzen.BackEndRewrite.Converters;
 
-import com.ren.renzen.BackEndRewrite.CommandObjects.StreamComponentCOs.ProfileStreamComponentCO;
+import com.ren.renzen.BackEndRewrite.CommandObjects.ProfileStreamComponentCO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ProfileDO;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.UserService;
 import com.mongodb.lang.Nullable;
