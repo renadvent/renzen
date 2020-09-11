@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as store from "./Store_Actions";
 import LoginRegister_Container from "./LoginRegister_Container";
 import Spotlight from "./Spotlight";
+import Axios from "axios";
 
 const mapStateToProps = (state) => {
   return {
@@ -48,16 +49,27 @@ function Home_Container(props) {
           site design, MongoDB for the database, Redux for state management, and
           hosted on Azure.
         </p>
-        <a className="btn btn-primary btn-lg" href="#" role="button">
+        <button
+          className="btn btn-primary btn-lg"
+          // href="#"
+          role="button"
+          onClick={() => {
+            Axios.get(
+              "/getCommunityStreamComponentCO/5f5adffdf0976d10381e609d"
+            ).then((res) => {
+              props.DISPATCH_openCommunity(res.data._links["Tab_Version"].href);
+            });
+          }}
+        >
           Click here to learn more about how the site was created
-        </a>
+        </button>
 
         <br />
         <br />
 
         <a
           className="btn btn-secondary"
-          href="https://github.com/renadvent/renzen"
+          href="https://github.com/renadvent/renzen/tree/master/src/main"
           role="button"
           target={"_blank"}
         >
