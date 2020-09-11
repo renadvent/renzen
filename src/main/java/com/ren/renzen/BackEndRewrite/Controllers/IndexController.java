@@ -11,6 +11,7 @@ import com.ren.renzen.BackEndRewrite.DomainObjects.CommunityDO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.DiscussionDO;
 import com.ren.renzen.BackEndRewrite.DomainObjects.ProfileDO;
 import com.ren.renzen.BackEndRewrite.ModelAssemblers.*;
+import com.ren.renzen.BackEndRewrite.Repositories.ArticleRepository;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.ArticleService;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.CommunityService;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.DiscussionService;
@@ -18,6 +19,9 @@ import com.ren.renzen.BackEndRewrite.Services.Interfaces.UserService;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +56,7 @@ public class IndexController {
     final ArticleStreamCOAssembler articleStreamCOAssembler;
 
     //controllers
+    @Autowired
     public IndexController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
@@ -71,7 +76,40 @@ public class IndexController {
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
+
+    //------------------------------------------------
+//    @RequestMapping(value="INSERT YOUR LINK", method=RequestMethod.GET)
+//    public ArrayList  getAll(int page1) {
+//        Pageable pageable = new PageRequest.of(page1, 5); //get 5 profiles on a page
+//        Page<ArticleStreamComponentCO> page = articleService.findAll(pageable);
+//        return new ArrayList(page);
+//    }
+
     //-------------------------------------------BOOKMARKS
+
+
+    //    @GetMapping
+//    public ResponseEntity<List<EmployeeEntity>> getAllEmployees(
+//            @RequestParam(defaultValue = "0") Integer pageNo,
+//            @RequestParam(defaultValue = "10") Integer pageSize,
+//            @RequestParam(defaultValue = "id") String sortBy)
+//    {
+//        List<EmployeeEntity> list = service.getAllEmployees(pageNo, pageSize, sortBy);
+//
+//        return new ResponseEntity<List<EmployeeEntity>>(list, new HttpHeaders(), HttpStatus.OK);
+//    }
+
+
+    @GetMapping (path="/getSpotlight")
+    ResponseEntity<?> getSpotlight(){
+        var articleContent = articleService.findAllPage();
+        var communityContent = communityService.findAllPage();
+
+        return null;
+        //return ResponseEntity.ok(CollectionModel.of(articleContent,communityContent);
+    }
+
+    //---------------------------------------------------------------
 
     @PostMapping(path="/addBookmark")
     public ResponseEntity<?> addBookmark(@RequestBody addBookmarkPayload payload){
@@ -199,9 +237,21 @@ public class IndexController {
         ArrayList<CollectionModel<?>> returnList = new ArrayList<>();
 
         //TODO convert
-        returnList.add(articleStreamCOAssembler.toCollectionModel(articleService.findAll()));
+//        returnList.add(articleStreamCOAssembler.toCollectionModel(articleService.findAll(PageRequest.of(0,10))));
+
+
+        var articleContent = articleService.findAllPage();
+        var communityContent = communityService.findAllPage();
+
+
+//        returnList.add(articleStreamCOAssembler.toCollectionModel(articleService.findAll()));
+//        returnList.add(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
+
+        //return only limited results
+        //must be in this order for Javascript Collection Model read
+        returnList.add(articleStreamCOAssembler.toCollectionModel(articleContent));
         returnList.add(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
-        returnList.add(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
+        returnList.add(communityStreamCOAssembler.toCollectionModel(communityContent));
 
         return ResponseEntity.ok(CollectionModel.of(returnList));
     }

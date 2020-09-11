@@ -34,15 +34,60 @@ function Profile_Container(props) {
         <hr className="my-4" />
         <p>
           Here you can see the articles this user has written, and what
-          communities they belong to
+          communities they belong to!
         </p>
         <p>
-          If you are logged in, you can create new Communities at the bottom of
-          the page!
+          If you are logged in as this user, you can create communities here!
         </p>
       </div>
 
       <br />
+
+      {props.user.logged_in && props.user.id === props.data._id ? (
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                props.DISPATCH_createCommunity(props.data._id, communityName);
+                setCommunityName("");
+              }}
+            >
+              Create Community+
+            </button>{" "}
+          </div>
+          <input
+            value={communityName}
+            onChange={(event) => setCommunityName(event.target.value)}
+            type="communityName"
+            className="form-control"
+            name="communityName"
+            placeholder="Enter the name of a new Community!"
+          />
+        </div>
+      ) : null}
+
+      {/*<div>*/}
+      {/*  <input*/}
+      {/*    value={communityName}*/}
+      {/*    onChange={(event) => setCommunityName(event.target.value)}*/}
+      {/*    type="communityName"*/}
+      {/*    className="form-control"*/}
+      {/*    name="communityName"*/}
+      {/*    placeholder="Enter the name of a new Community!"*/}
+      {/*  />*/}
+      {/*  <br />*/}
+      {/*</div>*/}
+
+      {/*<button*/}
+      {/*  className="btn btn-secondary"*/}
+      {/*  onClick={() => {*/}
+      {/*    props.DISPATCH_createCommunity(props.data._id, communityName);*/}
+      {/*    setCommunityName("");*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  Create Community+*/}
+      {/*</button>*/}
 
       <div className="container-fluid">
         <div className={"row"}>
@@ -77,28 +122,6 @@ function Profile_Container(props) {
             />
 
             <hr />
-
-            <div>
-              <input
-                value={communityName}
-                onChange={(event) => setCommunityName(event.target.value)}
-                type="communityName"
-                className="form-control"
-                name="communityName"
-                placeholder="Enter the name of a new Community!"
-              />
-              <br />
-            </div>
-
-            <button
-              className="btn btn-secondary"
-              onClick={() => {
-                props.DISPATCH_createCommunity(props.data._id, communityName);
-                setCommunityName("");
-              }}
-            >
-              Create Community+
-            </button>
           </div>
 
           <div className={"col"}>

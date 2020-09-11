@@ -15,8 +15,27 @@ export const ACTION_joinCommunity = "ACTION_joinCommunity";
 export const ACTION_addBookmark = "ACTION_addBookmark";
 export const ACTION_openCreateArticleTab = "ACTION_openCreateArticleTab";
 export const ACTION_removeOpenTabById = "ACTION_removeOpenTabById";
+export const ACTION_addCommunityToLoggedInUser =
+  "ACTION_addCommunityToLoggedInUser";
+
+export const ACTION_getSpotlightContent = "ACTION_getSpotlightContent";
 
 //ACTION CREATORS
+
+/*
+gets featured content for front page carousels.
+
+ */
+export function DISPATCH_getSpotlightContent() {
+  return (dispatch) => {
+    Axios.get("/getSpotlight").then((res) => {
+      dispatch({
+        type: ACTION_getSpotlightContent,
+        data: res.data,
+      });
+    });
+  };
+}
 
 export function DISPATCH_removeOpenTabById(tabId) {
   return (dispatch) => {
@@ -63,6 +82,11 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
         type: ACTION_openArticle,
         payload: res.data,
       });
+
+      // dispatch({
+      //   type: ACTION_addCommunityToLoggedInUser,
+      //   id: res.data._id,
+      // });
     });
   };
 }
@@ -73,9 +97,12 @@ export function DISPATCH_joinCommunity(payload) {
       userId: payload.userId,
       communityId: payload.communityId,
     }).then((res) => {
+      console.log("JOIN COMMUNITY LOG");
+      console.log(res);
+
       dispatch({
-        type: ACTION_joinCommunity,
-        payload: res.data,
+        type: ACTION_addCommunityToLoggedInUser,
+        data: payload.communityId,
       });
     });
   };
@@ -251,6 +278,11 @@ export function DISPATCH_createCommunity(payload) {
       dispatch({
         type: ACTION_openCommunity,
         payload: res.data,
+      });
+
+      dispatch({
+        type: ACTION_addCommunityToLoggedInUser,
+        data: res.data._id,
       });
     });
   };

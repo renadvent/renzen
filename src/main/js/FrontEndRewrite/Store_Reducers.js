@@ -22,6 +22,11 @@ const initialState = {
     bookmarks: [],
   },
 
+  spotlight: {
+    articles: [],
+    communities: [],
+  },
+
   tabs: {
     open: [],
   },
@@ -35,13 +40,28 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    //TODO concat bookmarks
+    //TODO change redux state on loading spotlight content
+    case at.ACTION_getSpotlightContent:
+      return {
+        ...state,
+      };
+
+    case at.ACTION_addCommunityToLoggedInUser:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          communities: state.user.communities.concat({
+            _id: action.data,
+          }),
+        },
+      };
 
     //NOT WORKING
     case at.ACTION_removeOpenTabById:
-      console.log("ACTION_removeOpenTabById");
-      console.log(state.tabs.open);
-      console.log(action.id);
+      // console.log("ACTION_removeOpenTabById");
+      // console.log(state.tabs.open);
+      // console.log(action.id);
       return {
         ...state,
         tabs: {
@@ -112,6 +132,8 @@ const reducer = (state = initialState, action) => {
       break;
 
     case at.ACTION_openCommunity:
+      console.log("OPEN COMMUNITY REDUCER REC");
+      console.log(action);
       return {
         ...state,
         tabs: {
@@ -122,6 +144,7 @@ const reducer = (state = initialState, action) => {
             // data: action.payload.data,
             data: action.payload,
             id: action.payload._id,
+            //articles: payload.article_Article_streamComponentCOList._embedded.articleStreamComponentCoes,
             tab: (
               <AppTab
                 name={action.payload.name}

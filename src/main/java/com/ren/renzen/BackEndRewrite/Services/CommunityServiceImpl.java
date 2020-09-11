@@ -4,6 +4,8 @@ import com.ren.renzen.BackEndRewrite.DomainObjects.CommunityDO;
 import com.ren.renzen.BackEndRewrite.Repositories.CommunityRepository;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.CommunityService;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -78,6 +80,12 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<ObjectId> findAllByCommunityIDAndTopic(ObjectId communityID, String Topic) {
         return null;
+    }
+
+    @Override
+    public List<CommunityDO> findAllPage() {
+        var paging = PageRequest.of(0,10, Sort.by("_id"));
+        return communityRepository.findAll(paging).getContent();
     }
 
 

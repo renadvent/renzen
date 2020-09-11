@@ -6,9 +6,13 @@ import com.ren.renzen.BackEndRewrite.Repositories.ArticleRepository;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.ArticleService;
 import com.ren.renzen.BackEndRewrite.Services.Interfaces.DiscussionService;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,9 +83,49 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findAll();
     }
 
+
+    /**
+     * gets first 10 results
+     * @return
+     */
+    @Override
+    public List<ArticleDO> findAllPage() {
+        var paging = PageRequest.of(0,10, Sort.by("_id"));
+        return articleRepository.findAll(paging).getContent();
+    }
+
+
+//    public List<EmployeeEntity> getAllEmployees(Integer pageNo, Integer pageSize, String sortBy)
+//    {
+//        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+//
+//        Page<EmployeeEntity> pagedResult = repository.findAll(paging);
+//
+//        if(pagedResult.hasContent()) {
+//            return pagedResult.getContent();
+//        } else {
+//            return new ArrayList<EmployeeEntity>();
+//        }
+//    }
+
+
+
+
+
+
+//    @Override
+//    public Page<ArticleDO> findAll (PageRequest pageable) {
+//        return articleRepository.findAll(PageRequest.of(0,10));
+//    }
+
     @Override
     public List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String topic){
         return articleRepository.findAllByCommunityIDAndTopic(communityID,topic);
     }
+
+//    @Override
+//    public List<ArticleDO> find10(Pageable pageable) {
+//        return articleRepository.findAll(pageable);
+//    }
 
 }
