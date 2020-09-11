@@ -44,8 +44,8 @@ function Home_Container(props) {
         </p>
         <hr className="my-4" />
         <p>
-          Built with Java Spring Boot on the back end, MongoDB for the database,
-          React and Bootstrap for site design, Redux for state management, and
+          Built with Java Spring Boot on the back end, React and Bootstrap for
+          site design, MongoDB for the database, Redux for state management, and
           hosted on Azure.
         </p>
         <a className="btn btn-primary btn-lg" href="#" role="button">

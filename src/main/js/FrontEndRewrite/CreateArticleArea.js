@@ -30,7 +30,10 @@ function CreateArticleArea(props) {
 
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
-    <ArticleSection index={0} update={setSectionData} />,
+    <div>
+      <ArticleSection index={0} update={setSectionData} /> <br />
+      <hr />
+    </div>,
   ]);
 
   //used to save get article information
@@ -54,7 +57,7 @@ function CreateArticleArea(props) {
   return (
     <div>
       <div>
-        <label htmlFor="basic-url">{props.title}</label>
+        {/*<label htmlFor="basic-url">{props.title}</label>*/}
 
         {/*<div className="input-group mb-3">*/}
         {/*  <div className="input-group-prepend">*/}
@@ -86,6 +89,19 @@ function CreateArticleArea(props) {
         {/*    aria-describedby="basic-addon3"*/}
         {/*  />*/}
         {/*</div>*/}
+
+        <div className="jumbotron">
+          <h1 className="display-4">Write an Article!</h1>
+          <p className="lead">
+            Contribute to the Community and share your knowledge, by documenting
+            it here!
+          </p>
+          <hr className="my-4" />
+          <p>
+            Write as much as you want, splitting it up into sections! Each
+            section has a header and content, which helps keep it organized.
+          </p>
+        </div>
 
         <div className="input-group mb-3">
           <div className="input-group-prepend">
@@ -129,10 +145,14 @@ function CreateArticleArea(props) {
           onClick={() => {
             setSectionsCreated((x) =>
               x.concat(
-                <ArticleSection
-                  index={sectionData.length}
-                  update={setSectionData}
-                />
+                <div>
+                  <ArticleSection
+                    index={sectionData.length}
+                    update={setSectionData}
+                  />
+                  <br />
+                  <hr />
+                </div>
               )
             );
           }}

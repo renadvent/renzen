@@ -91,7 +91,7 @@ function Profile_Container(props) {
             </div>
 
             <button
-              className="btn btn-dark"
+              className="btn btn-secondary"
               onClick={() => {
                 props.DISPATCH_createCommunity(props.data._id, communityName);
                 setCommunityName("");

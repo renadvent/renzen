@@ -28,6 +28,15 @@ const mapDispatchToProps = (dispatch) => {
 function BookmarksComponent(props) {
   return (
     <div>
+      <div className={props.user.logged_in ? "d-block" : "d-none"}>
+        <div className="jumbotron">
+          <h5>Keep Track of what matters to you!</h5>
+          <p className="lead">
+            Add bookmarks below to articles you want to come back to!
+          </p>
+        </div>
+      </div>
+
       <div id="addTo">
         <div className={!props.user.logged_in ? "d-block" : "d-none"}>
           <LoginRegister_Container />

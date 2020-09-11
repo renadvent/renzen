@@ -83,7 +83,7 @@ function CommunityAppTabContent(props) {
               <div className="jumbotron">
                 <h1 className="display-4">Welcome to the Community!</h1>
                 <p className="lead">
-                  Here you can see the articles and content the the community
+                  Here you can see the articles and content the community
                   creates and write articles of your own!
                 </p>
                 <hr className="my-4" />
@@ -123,7 +123,7 @@ function CommunityAppTabContent(props) {
                 </div>
               ) : (
                 <button
-                  className="btn btn-dark"
+                  className="btn btn-secondary"
                   onClick={() => {
                     props.DISPATCH_joinCommunity(
                       props.user.id,
@@ -153,6 +153,7 @@ function CommunityAppTabContent(props) {
                 {showCreateArticle ? "Cancel Article" : "Write New Article"}
               </button>
             ) : null}
+            <br />
             <br />
             <p>
               Number of Articles in community: {props.payload.numberOfArticles}

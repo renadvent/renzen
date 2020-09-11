@@ -28,7 +28,7 @@ function ArticleAppTabContent(props) {
       <br />
       {props.user.logged_in ? (
         <button
-          className="btn btn-dark"
+          className="btn btn-secondary"
           onClick={() =>
             props.DISPATCH_addBookmark(
               props.state.user.id,

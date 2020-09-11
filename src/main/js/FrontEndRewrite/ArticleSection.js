@@ -32,20 +32,23 @@ function ArticleSection(props) {
 
   return (
     <div>
-      <label>Heading</label>
+      {/*<label>Heading</label>*/}
       <div className="input-group mb-3">
+        {/*<div className="input-group-prepend">*/}
+        {/*  <select className="input-group-text">*/}
+        {/*    <option></option>*/}
+        {/*    <option>Topic:</option>*/}
+        {/*    <option>Background on:</option>*/}
+        {/*    <option>How Do I...</option>*/}
+        {/*    <option>What is...</option>*/}
+        {/*    <option>When Do I...</option>*/}
+        {/*    <option>What About When...</option>*/}
+        {/*    <option>Does That Mean...</option>*/}
+        {/*    <option>So Then How Does...</option>*/}
+        {/*  </select>*/}
+        {/*</div>*/}
         <div className="input-group-prepend">
-          <select className="input-group-text">
-            <option></option>
-            <option>Topic:</option>
-            <option>Background on:</option>
-            <option>How Do I...</option>
-            <option>What is...</option>
-            <option>When Do I...</option>
-            <option>What About When...</option>
-            <option>Does That Mean...</option>
-            <option>So Then How Does...</option>
-          </select>
+          <span className="input-group-text">Heading</span>
         </div>
         <input
           type="text"
@@ -53,7 +56,7 @@ function ArticleSection(props) {
           value={info.header}
           onChange={handleChange}
           rows={5}
-          placeholder={"Enter a Heading"}
+          // placeholder={"Enter a Heading"}
           className="form-control"
           aria-label="Enter question"
         />
