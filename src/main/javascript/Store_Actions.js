@@ -140,6 +140,9 @@ export function DISPATCH_init() {
 export function DISPATCH_openCommunity(com_url) {
   return (dispatch, getState) => {
     Axios.get(com_url).then((res) => {
+      // Axios.get("https" + com_url.slice(4, com_url.length)).then((res) => {
+      console.log(res);
+
       getState().tabs.open.find((x) => {
         return x.id === res.data._id;
       })
