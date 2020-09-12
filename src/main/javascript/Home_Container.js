@@ -84,10 +84,20 @@ function Home_Container(props) {
       <div className="container-fluid" style={{ textAlign: "center" }}>
         <div className={"row"}>
           <div className={"col"}>
-            <Spotlight name={"Featured Communities"} />
+            <Spotlight
+              name={"Featured Communities"}
+              one={"How It's Made"}
+              two={"Hazel"}
+              title={"Say Hello!"}
+            />
           </div>
           <div className={"col"}>
-            <Spotlight name={"Featured Articles"} />
+            <Spotlight
+              name={"Featured Articles"}
+              one={"How To Use This Site"}
+              two={"My Experience"}
+              title={"Check It Out!"}
+            />
           </div>
         </div>
       </div>

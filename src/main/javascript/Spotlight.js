@@ -28,31 +28,31 @@ function Spotlight(props) {
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <h1 className="display-4">{props.name}</h1>
-          <p className="lead">Say Hello!</p>
+          <p className="lead">{props.title}</p>
           <div
             id="carouselExampleIndicators"
             className="carousel slide"
             data-ride="carousel"
           >
             <ol className="carousel-indicators">
-              <li
-                data-target="#carouselExampleIndicators"
-                data-slide-to="0"
-                className="active"
-              ></li>
-              <li
-                data-target="#carouselExampleIndicators"
-                data-slide-to="1"
-              ></li>
+              {/*<li*/}
+              {/*  data-target="#carouselExampleIndicators"*/}
+              {/*  data-slide-to="0"*/}
+              {/*  className="active"*/}
+              {/*></li>*/}
+              {/*<li*/}
+              {/*  data-target="#carouselExampleIndicators"*/}
+              {/*  data-slide-to="1"*/}
+              {/*></li>*/}
               {/*<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>*/}
             </ol>
 
             <div className="carousel-inner">
               <div className="carousel-item active">
-                <h1 className="d-block w-100">How It's Made</h1>
+                <h1 className="d-block w-100">{props.one}</h1>
               </div>
               <div className="carousel-item">
-                <h1 className="d-block w-100">Hazel</h1>
+                <h1 className="d-block w-100">{props.two}</h1>
               </div>
             </div>
 
