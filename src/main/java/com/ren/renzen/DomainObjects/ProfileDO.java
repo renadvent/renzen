@@ -9,6 +9,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class ProfileDO {
 
     @MongoId
     ObjectId _id;
+
+    @NotBlank(message = "username must not be blank")
+            @NotNull(message = "username must not be null")
     String username;
     String password;
     List<ObjectId> articleIDList = new ArrayList<>();

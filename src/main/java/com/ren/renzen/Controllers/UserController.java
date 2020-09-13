@@ -12,11 +12,13 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 public class UserController {
-
 
     //services
     final UserService userService;
@@ -59,21 +61,27 @@ public class UserController {
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
+    @RequestMapping(path="/register")
+    public Object Register(@Valid @RequestBody ProfileDO profileDO, BindingResult result){
+
+        if (result.hasErrors()){
+            return userService.errorMap(result);
+        }
+
+        if (userService.checkIfUsernameTaken(profileDO.getUsername())){
+            throw new RuntimeException("user name taken");
+        }else{
+            return profileTabCOAssembler.toModel(userService.save(new ProfileDO(profileDO.getUsername(),profileDO.getUsername())));
+        }
+    }
 
     @RequestMapping(path="/login")
     public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody SiteController.SitePayloads.UserNamePassword payload){
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.username, payload.password)));
     }
 
-    @RequestMapping(path="/register")
-    public ResponseEntity<ProfileTabComponentCO> Register(@RequestBody SiteController.SitePayloads.UserNamePassword payload){
-        if (userService.checkIfUsernameTaken(payload.username)){
-            throw new RuntimeException("user name taken");
-        }else{
-            return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.save(new ProfileDO(payload.username,payload.password))));
-        }
-    }
-    
+
+
     @GetMapping(path="/getProfiles")
     public ResponseEntity<CollectionModel<?>> getAllProfiles(){
         return ResponseEntity
@@ -89,6 +97,4 @@ public class UserController {
     public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id){
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findBy_id(id)));
     }
-
-
 }

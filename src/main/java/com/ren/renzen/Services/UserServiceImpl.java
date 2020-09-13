@@ -8,8 +8,14 @@ import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,6 +85,19 @@ public class UserServiceImpl implements UserService {
     public List<ProfileDO> findAllPage() {
         var paging = PageRequest.of(0,10, Sort.by("_id").descending());
         return userRepository.findAll(paging).getContent();
+    }
+
+    //----------------------------------
+
+    @Override
+    public ResponseEntity<?> errorMap(BindingResult result){
+        var errorM = new HashMap<>();
+
+        for (FieldError error : result.getFieldErrors()){
+            errorM.put(error.getField(),error.getDefaultMessage());
+        }
+
+        return new ResponseEntity<>(errorM, HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 public class ArticleController {
 
-
     //services
     final UserService userService;
     final ArticleService articleService;
