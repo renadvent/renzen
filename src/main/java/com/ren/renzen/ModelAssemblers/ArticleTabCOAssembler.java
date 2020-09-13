@@ -4,10 +4,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.Controllers.ArticleController;
-import com.ren.renzen.Controllers.SiteController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
-import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,14 +29,14 @@ import java.util.List;
  *
  */
 @Component
-public class ArticleTabCOAssembler extends RepresentationModelAssemblerSupport<ArticleDO, ArticleTabComponentCO> {
+public class ArticleTabCOAssembler implements RepresentationModelAssembler<ArticleDO, ArticleTabComponentCO> {
 
     final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
 
     public ArticleTabCOAssembler(ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO) {
-        super(SiteController.class, ArticleTabComponentCO.class);
         this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
     }
+
 
     @Override
     public ArticleTabComponentCO toModel(ArticleDO articleDO) {

@@ -6,21 +6,19 @@ import com.ren.renzen.CommandObjects.ProfileStreamComponentCO;
 import com.ren.renzen.Controllers.ArticleController;
 import com.ren.renzen.Controllers.CommunityController;
 import com.ren.renzen.Controllers.UserController;
-import com.ren.renzen.Controllers.SiteController;
 import com.ren.renzen.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import com.ren.renzen.DomainObjects.ProfileDO;
-import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class ProfileStreamCOAssembler extends RepresentationModelAssemblerSupport<ProfileDO, ProfileStreamComponentCO> {
+public class ProfileStreamCOAssembler implements RepresentationModelAssembler<ProfileDO, ProfileStreamComponentCO> {
 
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
     public ProfileStreamCOAssembler(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
-        super(SiteController.class, ProfileStreamComponentCO.class);
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
     }
 

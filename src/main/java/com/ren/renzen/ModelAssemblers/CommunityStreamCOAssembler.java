@@ -2,11 +2,9 @@ package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.CommunityStreamComponentCO;
 import com.ren.renzen.Controllers.CommunityController;
-import com.ren.renzen.Controllers.SiteController;
 import com.ren.renzen.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import com.ren.renzen.DomainObjects.CommunityDO;
-import com.ren.renzen.Services.Interfaces.CommunityService;
-import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,12 +13,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class CommunityStreamCOAssembler extends RepresentationModelAssemblerSupport<CommunityDO, CommunityStreamComponentCO> {
+public class CommunityStreamCOAssembler implements RepresentationModelAssembler<CommunityDO, CommunityStreamComponentCO> {
 
     final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
     public CommunityStreamCOAssembler(CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO) {
-        super(SiteController.class, CommunityStreamComponentCO.class);
         this.communityDO_to_communityStreamComponentCO = communityDO_to_communityStreamComponentCO;
     }
 
