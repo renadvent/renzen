@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as store from "./Store_Actions";
-import LoginRegister_Container from "./LoginRegister_Container";
+import LoginRegister_Container from "./Login_Register";
 import Spotlight from "./Spotlight";
 import Axios from "axios";
 
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function Home_Container(props) {
+function Home_Page(props) {
   return (
     <div>
       <div className="jumbotron">
@@ -174,4 +174,4 @@ function Stream(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home_Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Home_Page);

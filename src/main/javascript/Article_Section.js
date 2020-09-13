@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function ArticleSection(props) {
+function Article_Section(props) {
   const [info, setInfo] = useState({ header: "", body: "" });
 
   //adds info state to parent state array on first render
@@ -64,4 +64,4 @@ function ArticleSection(props) {
   );
 }
 
-export default ArticleSection;
+export default Article_Section;

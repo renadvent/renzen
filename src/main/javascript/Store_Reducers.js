@@ -1,11 +1,11 @@
 import * as at from "./Store_Actions";
 import React from "react";
-import AppTab from "./AppTab";
-import ProfileAppTabContent from "./ProfileAppTabContent";
+import AppTab from "./Tab";
+import Profile_Page from "./Profile_Page";
 import CommunityAppTabContent from "./CommunityAppTabContent";
-import ArticleAppTabContent from "./ArticleAppTabContent";
+import ArticleAppTabContent from "./Article_Page";
 import { ACTION_openCreateArticleTab } from "./Store_Actions";
-import ArticleEditTab from "./ArticleEditTab";
+import ArticleEditTab from "./Create_Article_Page";
 
 //INITIAL STATE
 
@@ -167,21 +167,21 @@ const reducer = (state = initialState, action) => {
           ...state.tabs,
           open: state.tabs.open.concat({
             type: "profile",
-            name: action.payload.name,
-            data: action.payload,
-            id: action.payload._id,
+            name: action.data.name,
+            data: action.data,
+            id: action.data._id,
             tab: (
               <AppTab
-                name={action.payload.name}
-                href={"A" + action.payload._id}
-                id={action.payload._id}
+                name={action.data.name}
+                href={"A" + action.data._id}
+                id={action.data._id}
               />
             ),
             component: (
-              <ProfileAppTabContent
-                payload={action.payload}
-                href={"A" + action.payload._id}
-                id={action.payload._id}
+              <Profile_Page
+                data={action.data}
+                href={"A" + action.data._id}
+                id={action.data._id}
               />
             ),
           }),
@@ -291,7 +291,7 @@ const reducer = (state = initialState, action) => {
             data: action.payload,
             id: action.payload._id,
             component: (
-              <ProfileAppTabContent
+              <Profile_Page
                 payload={action.payload}
                 href={"A" + action.payload._id}
                 id={action.payload._id}

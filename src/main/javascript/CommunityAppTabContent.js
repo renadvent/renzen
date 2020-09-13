@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as store from "./Store_Actions";
-import CreateArticleArea from "./CreateArticleArea";
 
 const mapStateToProps = (state) => {
   return {

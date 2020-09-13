@@ -3,7 +3,7 @@ import React from "react";
 import WebsiteTab from "./WebsiteTab";
 import * as store from "./Store_Actions";
 import { connect } from "react-redux";
-import LoginRegister_Container from "./LoginRegister_Container";
+import LoginRegister_Container from "./Login_Register";
 
 /*
  * Show the bookmark on the right side of the screen
@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function BookmarksComponent(props) {
+function Bookmarks(props) {
   return (
     <div>
       <div className={props.user.logged_in ? "d-block" : "d-none"}>
@@ -77,4 +77,4 @@ function BookmarksComponent(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookmarksComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(Bookmarks);

@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function ArticleAppTabContent(props) {
+function Article_Page(props) {
   return (
     <div
       style={{ textAlign: "center" }}
@@ -79,7 +79,4 @@ function ArticleAppTabContent(props) {
   );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ArticleAppTabContent);
+export default connect(mapStateToProps, mapDispatchToProps)(Article_Page);

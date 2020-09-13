@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function Header_Container(props) {
+function Header(props) {
   return (
     <nav
       id={"header-component"}
@@ -33,4 +33,4 @@ function Header_Container(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header_Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -165,7 +165,8 @@ export function DISPATCH_openUser(url) {
         ? $("#tabA" + res.data._id).tab("show")
         : dispatch({
             type: ACTION_openUser,
-            payload: res.data,
+            data: res.data,
+            //payload: res.data,
           });
     });
   };

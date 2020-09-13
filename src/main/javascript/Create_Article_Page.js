@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import CreateArticleArea from "./CreateArticleArea";
 import * as store from "./Store_Actions";
-import ArticleSection from "./ArticleSection";
+import Article_Section from "./Article_Section";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
@@ -23,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function ArticleEditTab(props) {
+function Create_Article_Page(props) {
   const [thisCommunity, setThisCommunity] = useState(props.id);
 
   //used for saving
@@ -32,7 +31,7 @@ function ArticleEditTab(props) {
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
     <div>
-      <ArticleSection index={0} update={setSectionData} /> <br />
+      <Article_Section index={0} update={setSectionData} /> <br />
       <hr />
     </div>,
   ]);
@@ -122,7 +121,7 @@ function ArticleEditTab(props) {
               setSectionsCreated((x) =>
                 x.concat(
                   <div>
-                    <ArticleSection
+                    <Article_Section
                       index={sectionData.length}
                       update={setSectionData}
                     />
@@ -156,4 +155,7 @@ function ArticleEditTab(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleEditTab);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Create_Article_Page);

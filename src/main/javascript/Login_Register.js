@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function LoginRegister_Container(props) {
+function Login_Register(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -152,7 +152,4 @@ function LoginRegister_Container(props) {
   );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginRegister_Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Login_Register);

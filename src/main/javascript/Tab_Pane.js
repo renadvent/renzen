@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import Home_Container from "./Home_Container";
+import Home_Container from "./Home_Page";
 import * as store from "./Store_Actions";
 
 /*
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function TabPane_Container(props) {
+function Tab_Pane(props) {
   //initial load of site
 
   //loads initially, and updates article names etc when a new tab is opened
@@ -77,4 +77,4 @@ function TabPane_Container(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TabPane_Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Tab_Pane);

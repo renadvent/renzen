@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import Axios from "axios";
-import Header_Container from "./Header_Container";
-import TabPane_Container from "./TabPane_Container";
-import Footer_Container from "./Footer_Container";
-import BookmarksComponent from "./BookmarksComponent";
+import Header_Container from "./Header";
+import TabPane_Container from "./Tab_Pane";
+import Footer from "./Footer";
+import BookmarksComponent from "./Bookmarks";
 
 /*
 sets up page and divisions
@@ -24,7 +24,7 @@ function App2(props) {
           </div>
         </div>
       </div>
-      <Footer_Container key={"app-footer"} />
+      <Footer key={"app-footer"} />
     </div>
   );
 }
