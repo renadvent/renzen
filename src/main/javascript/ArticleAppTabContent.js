@@ -52,7 +52,6 @@ function ArticleAppTabContent(props) {
       <hr />
 
       {props.payload.articleSectionCOList.map((section) => {
-        //style={{ textAlign: "center" }}
         return (
           <div className="d-flex justify-content-center">
             <div className="card" style={{ width: "18rem" }}>

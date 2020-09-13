@@ -6,8 +6,7 @@ import { connect } from "react-redux";
 import LoginRegister_Container from "./LoginRegister_Container";
 
 /*
- * Show the study guide on the right side of the screen
- *
+ * Show the bookmark on the right side of the screen
  * */
 
 const mapStateToProps = (state) => {
@@ -19,8 +18,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    DISPATCH_addBookmark: (userId, articleId) =>
-      dispatch(store.DISPATCH_addBookmark),
     DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
   };
 };
@@ -40,7 +37,6 @@ function BookmarksComponent(props) {
       <div id="addTo">
         <div className={!props.user.logged_in ? "d-block" : "d-none"}>
           <LoginRegister_Container />
-          {/*<RegisterContainer action={props.onRegister}/>*/}
         </div>
 
         <div className={props.user.logged_in ? "d-block" : "d-none"}>
@@ -50,7 +46,6 @@ function BookmarksComponent(props) {
               linkTo={"#AnnoSec"}
               active={"active"}
             />
-            {/*<WebsiteTab name={"+"} linkTo={""} active={""} />*/}
           </ul>
         </div>
 

@@ -24,7 +24,6 @@ export const ACTION_getSpotlightContent = "ACTION_getSpotlightContent";
 
 /*
 gets featured content for front page carousels.
-
  */
 export function DISPATCH_getSpotlightContent() {
   return (dispatch) => {
@@ -202,12 +201,6 @@ export function DISPATCH_logIn(payload) {
       //   return (x.id === res.data._id)
       // }) && getState().user.logged_in ? $("#tabA"+res.data._id).tab("show") :
 
-      // console.log("I AM WORKING ON HERE");
-      // console.log(res.data);
-      let base = res.data;
-
-      // console.log(base[0]);
-
       //annoying HATEOS COLLECTIONMODEL logic
 
       let articles = jQuery.isEmptyObject(res.data.articleHomePageCOList)
@@ -229,7 +222,6 @@ export function DISPATCH_logIn(payload) {
         type: ACTION_logIn,
         payload: res.data,
         articles: articles,
-        // users: profiles,
         communities: communities,
         bookmarks: bookmarks,
       });

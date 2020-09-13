@@ -26,57 +26,16 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function CommunityAppTabContent(props) {
-  const [showCreateArticle, setShowCreateArticle] = useState(false);
-
   return (
     <div
       className="tab-pane fade"
       id={props.href}
       role="tabpanel"
-      //aria-labelledby="profile-tab"
+      aria-labelledby="community-tab"
     >
       <h1 style={{ textAlign: "center" }}>{props.payload.name} Homepage</h1>
       <hr></hr>
       <div className="row">
-        {/*<div className={"col-5"}>*/}
-        {/*  <ul className="nav nav-tabs" id="myTab" role="tablist">*/}
-        {/*    <li className="nav-item">*/}
-        {/*      <a*/}
-        {/*        className="nav-link active"*/}
-        {/*        id="comDiscTag"*/}
-        {/*        data-toggle="tab"*/}
-        {/*        href="#comDisc"*/}
-        {/*        role="tab"*/}
-        {/*        aria-controls="home"*/}
-        {/*        aria-selected="true"*/}
-        {/*      >*/}
-        {/*        Community Discussion*/}
-        {/*      </a>*/}
-        {/*    </li>*/}
-        {/*  </ul>*/}
-
-        {/*  <div className="tab-content" id="myTabContent2">*/}
-        {/*    <div*/}
-        {/*      className="tab-pane fade show active"*/}
-        {/*      id="comDisc"*/}
-        {/*      role="tabpanel"*/}
-        {/*      aria-labelledby="home-tab"*/}
-        {/*    >*/}
-        {/*      <div>*/}
-        {/*        <h2>Community Updates</h2>*/}
-        {/*        <ul>*/}
-        {/*          <li>Article Requests</li>*/}
-        {/*          <li>New Articles</li>*/}
-        {/*          <li>New Members</li>*/}
-        {/*          <li>Unanswered Questions</li>*/}
-        {/*          <li>Accepted Answers</li>*/}
-        {/*          <li>Events</li>*/}
-        {/*          <li>Questions about the Community</li>*/}
-        {/*        </ul>*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
         <div className={"col-5"}>
           <div id="comDisc" role="tabpanel" aria-labelledby="home-tab">
             <div>
@@ -91,23 +50,7 @@ function CommunityAppTabContent(props) {
                   More functionality will be coming soon! Such as the ability to
                   comment on articles, and have discussions on the homepage!
                 </p>
-                {/*<a className="btn btn-primary btn-lg" href="#" role="button">*/}
-                {/*  Learn more*/}
-                {/*</a>*/}
               </div>
-
-              {/*  <h2>Community Updates</h2>*/}
-              {/*  <ul>*/}
-              {/*    <li>Welcome to the community!</li>*/}
-              {/*    /!*<li>Article Requests</li>*!/*/}
-              {/*    /!*<li>New Articles</li>*!/*/}
-              {/*    /!*<li>New Members</li>*!/*/}
-              {/*    /!*<li>Unanswered Questions</li>*!/*/}
-              {/*    /!*<li>Accepted Answers</li>*!/*/}
-              {/*    /!*<li>Events</li>*!/*/}
-              {/*    /!*<li>Questions about the Community</li>*!/*/}
-              {/*  </ul>*/}
-              {/*</div>*/}
             </div>
           </div>
         </div>
@@ -167,7 +110,6 @@ function CommunityAppTabContent(props) {
             </ul>
           </div>
         </div>
-        {/*<div className={"col-3"}></div>*/}
       </div>
     </div>
   );

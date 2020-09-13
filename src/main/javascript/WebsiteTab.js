@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import * as store from "./Store_Actions";
 
 const mapStateToProps = (state) => {
-  return {
-    // open: state.tabs.open,
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -28,10 +26,6 @@ function WebsiteTab(props) {
         aria-selected="true"
       >
         {props.name}
-        {/*<span className="close"*/}
-
-        {/*onClick={()=>props.DISPATCH_removeOpenTabById(props.)}*/}
-        {/*>×</span>*/}
       </a>
     </li>
   );

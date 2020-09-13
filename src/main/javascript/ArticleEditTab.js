@@ -7,7 +7,7 @@ function ArticleEditTab(props) {
       className="tab-pane fade"
       id={props.href}
       role="tabpanel"
-      //aria-labelledby="profile-tab"
+      aria-labelledby="article-edit-tab"
     >
       <CreateArticleArea community={props.id} />
     </div>

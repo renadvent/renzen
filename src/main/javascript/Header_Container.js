@@ -25,20 +25,10 @@ function Header_Container(props) {
       </a>
 
       {props.user.logged_in ? (
-        // <div className={"row"}>
         <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
           Log Out
         </button>
       ) : null}
-
-      {/*<button*/}
-      {/*  className="navbar-toggler"*/}
-      {/*  type="button"*/}
-      {/*  data-toggle="collapse"*/}
-      {/*  data-target="#navbarSupportedContent"*/}
-      {/*>*/}
-      {/*  <span className="navbar-toggler-icon"></span>*/}
-      {/*</button>*/}
     </nav>
   );
 }

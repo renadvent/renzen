@@ -59,9 +59,6 @@ const reducer = (state = initialState, action) => {
 
     //NOT WORKING
     case at.ACTION_removeOpenTabById:
-      // console.log("ACTION_removeOpenTabById");
-      // console.log(state.tabs.open);
-      // console.log(action.id);
       return {
         ...state,
         tabs: {
@@ -144,7 +141,6 @@ const reducer = (state = initialState, action) => {
             // data: action.payload.data,
             data: action.payload,
             id: action.payload._id,
-            //articles: payload.article_Article_streamComponentCOList._embedded.articleStreamComponentCoes,
             tab: (
               <AppTab
                 name={action.payload.name}

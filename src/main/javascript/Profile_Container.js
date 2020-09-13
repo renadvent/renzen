@@ -67,42 +67,9 @@ function Profile_Container(props) {
         </div>
       ) : null}
 
-      {/*<div>*/}
-      {/*  <input*/}
-      {/*    value={communityName}*/}
-      {/*    onChange={(event) => setCommunityName(event.target.value)}*/}
-      {/*    type="communityName"*/}
-      {/*    className="form-control"*/}
-      {/*    name="communityName"*/}
-      {/*    placeholder="Enter the name of a new Community!"*/}
-      {/*  />*/}
-      {/*  <br />*/}
-      {/*</div>*/}
-
-      {/*<button*/}
-      {/*  className="btn btn-secondary"*/}
-      {/*  onClick={() => {*/}
-      {/*    props.DISPATCH_createCommunity(props.data._id, communityName);*/}
-      {/*    setCommunityName("");*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  Create Community+*/}
-      {/*</button>*/}
-
       <div className="container-fluid">
         <div className={"row"}>
-          {/*<h4>username: </h4>*/}
-
           <br />
-
-          {/*{props.user.logged_in ? (*/}
-          {/*  <div className={"row"}>*/}
-          {/*    <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>*/}
-          {/*      Log Out*/}
-          {/*    </button>*/}
-          {/*  </div>*/}
-          {/*) : null}*/}
-
           <hr />
         </div>
 
@@ -125,7 +92,6 @@ function Profile_Container(props) {
           </div>
 
           <div className={"col"}>
-            {/*<p>number of articles: {props.data.numberOfArticles}</p>*/}
             <h4>Articles: {props.data.numberOfArticles}</h4>
             <Stream
               source={
