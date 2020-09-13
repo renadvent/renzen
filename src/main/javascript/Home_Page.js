@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as store from "./Store_Actions";
-import LoginRegister_Container from "./Login_Register";
 import Spotlight from "./Spotlight";
 import Axios from "axios";
 
@@ -109,7 +108,7 @@ function Home_Page(props) {
       <div className="container-fluid" style={{ textAlign: "center" }}>
         <div className={"row"}>
           <div className={"col"}>
-            <div className="card" style={{ width: "18rem" }}>
+            <div className="card">
               <div className="card-header">
                 <h4>New Users</h4>
               </div>
@@ -122,7 +121,7 @@ function Home_Page(props) {
           </div>
 
           <div className={"col"}>
-            <div className="card" style={{ width: "18rem" }}>
+            <div className="card">
               <div className="card-header">
                 <h4>New Articles</h4>
               </div>
@@ -134,7 +133,7 @@ function Home_Page(props) {
             </div>
           </div>
           <div className={"col"}>
-            <div className="card" style={{ width: "18rem" }}>
+            <div className="card">
               <div className="card-header">
                 <h4>New Communities</h4>
               </div>

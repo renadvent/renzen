@@ -61,8 +61,6 @@ function Create_Article_Page(props) {
       role="tabpanel"
       aria-labelledby="article-edit-tab"
     >
-      {/*<CreateArticleArea community={props.id} />*/}
-
       <div>
         <div>
           <div className="jumbotron">

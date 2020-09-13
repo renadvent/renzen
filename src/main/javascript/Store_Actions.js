@@ -112,8 +112,6 @@ export function DISPATCH_init() {
     Axios.get("/getHomeStreams").then((res) => {
       let base = res.data._embedded.collectionModels;
 
-      // console.log(base[0]);
-
       let articles = !Object.keys(base[0]).length
         ? null
         : base[0]._embedded.articleStreamComponentCoes;
