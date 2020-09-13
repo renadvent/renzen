@@ -31,7 +31,6 @@ function Profile_Page(props) {
       role="tabpanel"
       aria-labelledby="profile-tab"
     >
-      {/*<Profile_Container data={props.payload} />*/}
       <div>
         <br />
 
