@@ -2,11 +2,10 @@ package com.ren.renzen.Converters;
 
 import com.ren.renzen.CommandObjects.ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
-import com.ren.renzen.Repositories.ArticleRepository;
-import com.ren.renzen.Repositories.UserRepository;
+import com.ren.renzen.Services.Interfaces.ArticleService;
+import com.ren.renzen.Services.Interfaces.UserService;
 import lombok.Synchronized;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -19,29 +18,15 @@ import java.util.stream.StreamSupport;
 @Component
 public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleDO, ArticleStreamComponentCO> {
 
-    final UserRepository userRepository;
-    final ArticleRepository articleRepository;
-    final ProfileDO_to_ProfileStreamComponentCO profileConverter;
+    final UserService userService;
+    final ArticleService articleService;
 
-    @Autowired
-    public ArticleDO_to_ArticleStreamComponentCO(UserRepository userRepository, ArticleRepository articleRepository, ProfileDO_to_ProfileStreamComponentCO profileConverter) {
-        this.userRepository = userRepository;
-        this.articleRepository = articleRepository;
-        this.profileConverter = profileConverter;
-    }
+    final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
-    @Synchronized@Nullable
-    public List<ArticleStreamComponentCO> convert(Iterable<ArticleDO> sourceList){
-        ArrayList<ArticleStreamComponentCO> articleComponentCOList = new ArrayList<>();
-        for (ArticleDO articleDO : sourceList){
-            articleComponentCOList.add(convert(articleDO));
-        }
-        return articleComponentCOList;
-    }
-
-    public List<ArticleStreamComponentCO> convert(List<ObjectId> source){
-        return StreamSupport.stream(articleRepository.findAllById(source).spliterator(), false)
-                .map(this::convert).collect(Collectors.toList());
+    public ArticleDO_to_ArticleStreamComponentCO(UserService userService, ArticleService articleService, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
+        this.userService = userService;
+        this.articleService = articleService;
+        this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
     }
 
     @Synchronized
@@ -56,9 +41,11 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
         co.setAuthorID(source.getUserID().toHexString());
-        co.setAuthorName(userRepository.findBy_id(source.getUserID()).getUsername());
-        userRepository.findById(source.getUserID()).ifPresent(user->co.setProfileStreamComponentCO(profileConverter.convert(user)));
+        co.setAuthorName(userService.findBy_id(source.getUserID()).getUsername());
+//        userService.findBy_id(source.getUserID()).ifPresent(user->co.setProfileStreamComponentCO(profileDO_to_profileStreamComponentCO.convert(user)));
+        co.setProfileStreamComponentCO(profileDO_to_profileStreamComponentCO.convert(userService.findBy_id(source.getUserID())));
 
         return co;
+
     }
 }

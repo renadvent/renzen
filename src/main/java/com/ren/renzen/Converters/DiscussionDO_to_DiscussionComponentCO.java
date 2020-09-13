@@ -19,19 +19,6 @@ public class DiscussionDO_to_DiscussionComponentCO implements Converter<Discussi
         this.discussionRepository = discussionRepository;
     }
 
-    /**
-     * converts discussionID to discussionComponentCO
-     * @param discussionID
-     * @return
-     */
-    @Synchronized
-    @Nullable
-    public DiscussionComponentCO convert(ObjectId discussionID){
-        return discussionRepository.findById(discussionID)
-                .map(this::convert)
-                .orElse(null);
-    }
-
     @Synchronized
     @Nullable
     @Override

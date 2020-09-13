@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,13 +35,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Iterable<ArticleDO> getArticleDOList() {
+    public List<ArticleDO> getArticleDOList() {
         return articleRepository.findAll();
-    }
-
-    @Override
-    public Iterable<ArticleDO> findArticleDOsByCommunityID(ObjectId communityId) {
-        return articleRepository.findArticleDOSByCommunityID(communityId);
     }
 
     @Override
@@ -61,15 +57,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void delete(ArticleDO articleDO) {
-        articleRepository.delete(articleDO);
+    public List<ArticleDO> findAll() {
+        return (articleRepository.findAll());
     }
-
-    @Override
-    public Iterable<ArticleDO> findAll() {
-        return articleRepository.findAll();
-    }
-
 
     /**
      * gets first 10 results

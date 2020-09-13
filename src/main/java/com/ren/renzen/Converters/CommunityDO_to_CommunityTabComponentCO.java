@@ -35,12 +35,6 @@ public class CommunityDO_to_CommunityTabComponentCO implements Converter<Communi
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
-    /**
-     * Should Discussion section be sent seperately???? not right now
-     *
-     * @param source
-     * @return
-     */
     @Synchronized
     @Nullable
     @Override
@@ -54,11 +48,12 @@ public class CommunityDO_to_CommunityTabComponentCO implements Converter<Communi
         co.setArticle_Article_streamComponentCOList(articleStreamCOAssembler
                         .toCollectionModel(articleService.findBy_idIn(source.getArticleDOList())));
         co.setNumberOfArticles(source.getArticleDOList().size());
-        //TODO change to findALlBy_idIn
         co.setUser_streamComponentCOList(profileStreamCOAssembler
                 .toCollectionModel(userService.findAllBy_Id(source.getProfileDOList())));
         co.setNumberOfUsers(source.getProfileDOList().size());
-        co.setDiscussionDiscussionComponentCO(discussionDO_to_discussionComponentCO.convert(source.getDiscussionID()));
+
+        //no discussion service yet
+//        co.setDiscussionDiscussionComponentCO(discussionDO_to_discussionComponentCO.convert(source.getDiscussionID()));
 
         return co;
     }

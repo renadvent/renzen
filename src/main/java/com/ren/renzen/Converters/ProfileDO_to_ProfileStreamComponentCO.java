@@ -26,18 +26,6 @@ public class ProfileDO_to_ProfileStreamComponentCO implements Converter<ProfileD
 
     @Synchronized
     @Nullable
-    public List<ProfileStreamComponentCO> convert(List<ObjectId> sourceList){
-        return sourceList.stream().map(e-> convert(userService.findBy_id(e))).collect(Collectors.toList());
-    }
-
-    @Synchronized@Nullable
-    public List<ProfileStreamComponentCO> convert(Iterable<ProfileDO> sourceIterable){
-        return StreamSupport.stream(sourceIterable.spliterator(),false)
-                .map(this::convert).collect(Collectors.toList());
-    }
-
-    @Synchronized
-    @Nullable
     @Override
     public ProfileStreamComponentCO convert(ProfileDO source){
 

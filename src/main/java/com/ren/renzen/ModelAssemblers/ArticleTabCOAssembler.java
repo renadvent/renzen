@@ -3,6 +3,7 @@ package com.ren.renzen.ModelAssemblers;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
+import com.ren.renzen.Controllers.ArticleController;
 import com.ren.renzen.Controllers.SiteController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
@@ -46,8 +47,8 @@ public class ArticleTabCOAssembler extends RepresentationModelAssemblerSupport<A
         return articleTabComponentCO
 
                 .add(List.of(
-                        linkTo(methodOn(SiteController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
-                        linkTo(methodOn(SiteController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
+                        linkTo(methodOn(ArticleController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
+                        linkTo(methodOn(ArticleController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
     }
 
 }

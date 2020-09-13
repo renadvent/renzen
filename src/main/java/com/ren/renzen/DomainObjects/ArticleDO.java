@@ -1,6 +1,8 @@
 package com.ren.renzen.DomainObjects;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -12,7 +14,8 @@ import java.util.List;
 /**
  * Data for an Article
  */
-@Getter@Setter
+@Data
+@NoArgsConstructor
 @Document(collection = "Articles")
 public class ArticleDO {
 

@@ -34,19 +34,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityDO findDOByName(String name) {
-
-        Optional<CommunityDO> communityDOOptional = communityRepository.findByName(name);
-
-        if (communityDOOptional.isPresent()){
-            return communityDOOptional.get();
-        }else{
-            throw new ResourceNotFoundException("Community not found");
-        }
-    }
-
-    @Override
-    public Iterable<CommunityDO> findAll() {
+    public List<CommunityDO> findAll() {
         return communityRepository.findAll();
     }
 
@@ -63,11 +51,6 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public CommunityDO save(CommunityDO communityDO) {
         return communityRepository.save(communityDO);
-    }
-
-    @Override
-    public List<CommunityDO> findByCreatorID(ObjectId objectId) {
-        return communityRepository.findByCreatorID(objectId);
     }
 
     //TODO this

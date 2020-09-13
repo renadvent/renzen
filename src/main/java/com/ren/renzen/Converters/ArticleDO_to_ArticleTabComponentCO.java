@@ -39,19 +39,6 @@ public class ArticleDO_to_ArticleTabComponentCO implements Converter<ArticleDO, 
         this.articleSectionDO_to_articleSectionCO = articleSectionDO_to_articleSectionCO;
     }
 
-@Synchronized
-@Nullable
-    public List<ArticleTabComponentCO> convert(List<ObjectId> articleDOIds){
-
-        ArrayList<ArticleTabComponentCO> articleTabComponentCOList = new ArrayList<>();
-
-        articleRepo.findAllById(articleDOIds).forEach(e->{
-            articleTabComponentCOList.add(convert(e));
-        });
-
-        return articleTabComponentCOList;
-    }
-
     @Synchronized@Nullable@Override
     public ArticleTabComponentCO convert(ArticleDO source){
 

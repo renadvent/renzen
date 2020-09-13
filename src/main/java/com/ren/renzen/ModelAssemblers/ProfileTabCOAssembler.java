@@ -1,6 +1,9 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
+import com.ren.renzen.Controllers.ArticleController;
+import com.ren.renzen.Controllers.CommunityController;
+import com.ren.renzen.Controllers.UserController;
 import com.ren.renzen.Controllers.SiteController;
 import com.ren.renzen.Converters.ProfileDO_to_ProfileTabComponentCO;
 import com.ren.renzen.DomainObjects.ProfileDO;
@@ -28,11 +31,11 @@ public class ProfileTabCOAssembler extends RepresentationModelAssemblerSupport<P
         ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convert(profileDO);
 
         return profileTabComponentCO.add(List.of(
-                linkTo(methodOn(SiteController.class).getAllProfiles()).withSelfRel(),
-                linkTo(methodOn(SiteController.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(SiteController.class).getAllCommunities()).withRel("All_Communities"),
-                linkTo(methodOn(SiteController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId())).withRel("Stream_Version"),
-                linkTo(methodOn(SiteController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId())).withRel("Tab_Version")));
+                linkTo(methodOn(UserController.class).getAllProfiles()).withSelfRel(),
+                linkTo(methodOn(ArticleController.class).getAllArticles()).withSelfRel(),
+                linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("All_Communities"),
+                linkTo(methodOn(UserController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId())).withRel("Stream_Version"),
+                linkTo(methodOn(UserController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId())).withRel("Tab_Version")));
 
     }
 

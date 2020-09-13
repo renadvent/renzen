@@ -1,6 +1,7 @@
 package com.ren.renzen.Services;
 
 import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.Exceptions.ProfileNotFoundException;
 import com.ren.renzen.Repositories.UserRepository;
 import com.ren.renzen.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
@@ -27,18 +28,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Iterable<ProfileDO> getProfileDOList() {
+    public List<ProfileDO> getProfileDOList() {
         return userRepository.findAll();
     }
 
     @Override
-    public Iterable<ProfileDO> findAll() {
+    public List<ProfileDO> findAll() {
         return userRepository.findAll();
     }
 
     @Override
     public ProfileDO findBy_id(ObjectId id) {
-        return userRepository.findBy_id(id);
+
+        return userRepository.findBy_id(id)
+                .orElseThrow(()->new ProfileNotFoundException("Profile with id: "+id+" not found"));
     }
 
     @Override
@@ -49,19 +52,6 @@ public class UserServiceImpl implements UserService {
         //so server/client doesn't crash
 
         return userRepository.findAllBy_id(objectIdList);
-    }
-
-    @Override
-    public ProfileDO findProfileDOByName(String profileName) {
-
-        Optional<ProfileDO> profileDOOptional = userRepository.findByUsername(profileName);
-
-        if (profileDOOptional.isEmpty()){
-            throw new ResourceNotFoundException("id not found");
-        }else {
-            System.out.println(profileDOOptional.get());
-            return profileDOOptional.get();
-        }
     }
 
     @Override
@@ -85,12 +75,6 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("username/password not found");
         }
     }
-
-    @Override
-    public ProfileDO saveAndReturnProfileDO(ProfileDO profileDO) {
-        return userRepository.save(profileDO);
-    }
-
     @Override
     public List<ProfileDO> findAllPage() {
         var paging = PageRequest.of(0,10, Sort.by("_id").descending());

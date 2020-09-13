@@ -1,6 +1,7 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ArticleStreamComponentCO;
+import com.ren.renzen.Controllers.ArticleController;
 import com.ren.renzen.Controllers.SiteController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
@@ -29,7 +30,7 @@ public class ArticleStreamCOAssembler extends RepresentationModelAssemblerSuppor
 
         return articleStreamComponentCO
                 .add(List.of(
-                        linkTo(methodOn(SiteController.class).getArticleStreamComponentCO(articleStreamComponentCO.getObjectId())).withRel("Stream_Version"),
-                        linkTo(methodOn(SiteController.class).getArticleTabComponentCO(articleStreamComponentCO.getObjectId())).withRel("Tab_Version")));
+                        linkTo(methodOn(ArticleController.class).getArticleStreamComponentCO(articleStreamComponentCO.getObjectId())).withRel("Stream_Version"),
+                        linkTo(methodOn(ArticleController.class).getArticleTabComponentCO(articleStreamComponentCO.getObjectId())).withRel("Tab_Version")));
     }
 }

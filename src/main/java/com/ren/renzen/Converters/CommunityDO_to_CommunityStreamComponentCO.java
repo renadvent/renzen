@@ -35,30 +35,6 @@ public class CommunityDO_to_CommunityStreamComponentCO implements Converter<Comm
         this.communityService = communityService;
     }
 
-    /**
-     * allows for multiple conversions
-     *
-     * @param sourceList
-     * @return
-     */
-    @Synchronized
-    @Nullable
-    public List<CommunityStreamComponentCO> convert(Iterable<CommunityDO> sourceList) {
-        ArrayList<CommunityStreamComponentCO> communityStreamComponentCOList = new ArrayList<CommunityStreamComponentCO>();
-        for (CommunityDO communityDO : sourceList) {
-            communityStreamComponentCOList.add(convert(communityDO));
-        }
-        return communityStreamComponentCOList;
-    }
-
-    @Synchronized
-    @Nullable
-    public List<CommunityStreamComponentCO> convert(List<ObjectId> sourceList){
-        return sourceList.stream().map(e->{
-            return convert(communityService.findBy_id(e));
-        }).collect(Collectors.toList());
-    }
-
     @Synchronized
     @Nullable
     @Override
