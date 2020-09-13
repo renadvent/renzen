@@ -292,7 +292,7 @@ const reducer = (state = initialState, action) => {
             id: action.payload._id,
             component: (
               <Profile_Page
-                payload={action.payload}
+                data={action.payload}
                 href={"A" + action.payload._id}
                 id={action.payload._id}
               />
