@@ -2,6 +2,11 @@ import React from "react";
 import * as store from "./Store_Actions";
 import { connect } from "react-redux";
 
+/*
+Actual tab parts that a user can click on.
+Also allows the user to close the tab by clicking on the "x"
+ */
+
 const mapStateToProps = (state) => {
   return {};
 };

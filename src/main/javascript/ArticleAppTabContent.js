@@ -2,6 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import * as store from "./Store_Actions";
 
+/*
+renders the article content as tab content
+ */
+
 const mapStateToProps = (state) => {
   return {
     state: state,
@@ -65,7 +69,6 @@ function ArticleAppTabContent(props) {
             <div className="card" style={{ width: "18rem" }}>
               <div className="card-body">
                 <h5 className="card-title">{section.header}</h5>
-                {/*<h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>*/}
                 <p className="card-text">{section.body}</p>
               </div>
             </div>
