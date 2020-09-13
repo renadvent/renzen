@@ -93,7 +93,7 @@ function CommunityAppTabContent(props) {
                 }
                 className="btn btn-secondary"
               >
-                {showCreateArticle ? "Cancel Article" : "Write New Article"}
+                {"Write New Article"}
               </button>
             ) : null}
             <br />

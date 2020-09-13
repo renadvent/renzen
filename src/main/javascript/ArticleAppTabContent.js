@@ -27,18 +27,26 @@ function ArticleAppTabContent(props) {
     >
       <br />
       {props.user.logged_in ? (
-        <button
-          className="btn btn-secondary"
-          onClick={() =>
-            props.DISPATCH_addBookmark(
-              props.state.user.id,
-              props.payload._id,
-              props.payload.name
-            )
-          }
-        >
-          Add Bookmark
-        </button>
+        props.user.bookmarks.find((x) => {
+          return x._id === props.payload._id;
+        }) ? (
+          <div className="alert alert-secondary" role="alert">
+            Bookmarked!
+          </div>
+        ) : (
+          <button
+            className="btn btn-secondary"
+            onClick={() =>
+              props.DISPATCH_addBookmark(
+                props.state.user.id,
+                props.payload._id,
+                props.payload.name
+              )
+            }
+          >
+            Add Bookmark
+          </button>
+        )
       ) : (
         <div className="alert alert-secondary" role="alert">
           Log in to bookmark articles!!
