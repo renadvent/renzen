@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function Tab(props) {
+function Page_Tab(props) {
   return (
     <li className="nav-item">
       <a
@@ -42,4 +42,4 @@ function Tab(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tab);
+export default connect(mapStateToProps, mapDispatchToProps)(Page_Tab);

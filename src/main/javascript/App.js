@@ -10,7 +10,7 @@ import BookmarksComponent from "./Bookmarks";
 sets up page and divisions
  */
 
-function App2(props) {
+function App(props) {
   return (
     <div id={"app-container"} className="container-fluid">
       <Header_Container key={"app-header"} />
@@ -29,4 +29,4 @@ function App2(props) {
   );
 }
 
-export default App2;
+export default App;

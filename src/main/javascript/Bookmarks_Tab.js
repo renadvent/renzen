@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function WebsiteTab(props) {
+function Bookmarks_Tab(props) {
   return (
     <li className="nav-item" role="presentation">
       <a
@@ -31,4 +31,4 @@ function WebsiteTab(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WebsiteTab);
+export default connect(mapStateToProps, mapDispatchToProps)(Bookmarks_Tab);

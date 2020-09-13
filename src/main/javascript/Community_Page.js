@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function CommunityAppTabContent(props) {
+function Community_Page(props) {
   return (
     <div
       className="tab-pane fade"
@@ -134,7 +134,4 @@ function Stream(props) {
   );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CommunityAppTabContent);
+export default connect(mapStateToProps, mapDispatchToProps)(Community_Page);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as store from "./Store_Actions";
-import Article_Section from "./Article_Section";
+import Create_Article_Section from "./Create_Article_Section";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
@@ -31,7 +31,7 @@ function Create_Article_Page(props) {
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
     <div>
-      <Article_Section index={0} update={setSectionData} /> <br />
+      <Create_Article_Section index={0} update={setSectionData} /> <br />
       <hr />
     </div>,
   ]);
@@ -121,7 +121,7 @@ function Create_Article_Page(props) {
               setSectionsCreated((x) =>
                 x.concat(
                   <div>
-                    <Article_Section
+                    <Create_Article_Section
                       index={sectionData.length}
                       update={setSectionData}
                     />
