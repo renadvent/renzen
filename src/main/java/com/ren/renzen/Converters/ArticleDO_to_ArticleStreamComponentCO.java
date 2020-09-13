@@ -41,11 +41,12 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
         co.setAuthorID(source.getUserID().toHexString());
-        co.setAuthorName(userService.findBy_id(source.getUserID()).getUsername());
-//        userService.findBy_id(source.getUserID()).ifPresent(user->co.setProfileStreamComponentCO(profileDO_to_profileStreamComponentCO.convert(user)));
-        co.setProfileStreamComponentCO(profileDO_to_profileStreamComponentCO.convert(userService.findBy_id(source.getUserID())));
+
+        var author= userService.findBy_id(source.getUserID());
+
+        co.setAuthorName(author.getUsername());
+        co.setProfileStreamComponentCO(profileDO_to_profileStreamComponentCO.convert(author));
 
         return co;
-
     }
 }

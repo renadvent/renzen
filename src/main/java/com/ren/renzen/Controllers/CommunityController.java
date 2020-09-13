@@ -132,16 +132,16 @@ public class CommunityController {
 //    }
 
 
-    @GetMapping(path="/getAllByCommunityIDAndTopic")
-    public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
-
-        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
-
-        for (ArticleDO articleDO : articleService.findAllByCommunityIDAndTopic(payload.communityID,payload.topic)){
-            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
-        }
-        return returnList;
-    }
+//    @GetMapping(path="/getAllByCommunityIDAndTopic")
+//    public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
+//
+//        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
+//
+//        for (ArticleDO articleDO : articleService.findAllByCommunityIDAndTopic(payload.communityID,payload.topic)){
+//            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
+//        }
+//        return returnList;
+//    }
 
     @Getter@Setter
     static class getAllByCommunityIDAndTopicPayload{

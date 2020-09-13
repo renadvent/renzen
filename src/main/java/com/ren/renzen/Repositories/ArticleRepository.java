@@ -13,5 +13,4 @@ import java.util.Optional;
 public interface ArticleRepository extends MongoRepository<ArticleDO, ObjectId> {
     Optional<ArticleDO> findBy_id(ObjectId id);
     List<ArticleDO> findBy_idIn(List<ObjectId> objectIdList);
-    List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String Topic);
 }

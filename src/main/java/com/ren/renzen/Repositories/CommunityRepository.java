@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 public interface CommunityRepository extends MongoRepository<CommunityDO, ObjectId> {
     Optional<CommunityDO> findByName(String name);
-    ObjectId findBy_id(ObjectId objectId);
-    List<CommunityDO> findByCreatorID(ObjectId objectId);
+    Optional<CommunityDO> findBy_id(ObjectId objectId);
     List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList);
 }

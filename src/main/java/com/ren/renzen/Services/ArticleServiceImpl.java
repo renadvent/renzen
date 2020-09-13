@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -35,12 +36,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDO> getArticleDOList() {
-        return articleRepository.findAll();
-    }
-
-    @Override
     public ArticleDO findBy_id(ObjectId Id) {
+
+        //return articleRepository.findBy_id(Id).stream().map(Optional::get)
 
         Optional<ArticleDO> articleDOOptional = articleRepository.findBy_id(Id);
 
@@ -53,6 +51,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDO> findBy_idIn(List<ObjectId> objectIdList) {
+
+        //for now skips missing objects if deleted
+
+//        return articleRepository.findBy_idIn(objectIdList).stream()
+//                .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+
         return articleRepository.findBy_idIn(objectIdList);
     }
 
@@ -71,8 +75,4 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findAll(paging).getContent();
     }
 
-    @Override
-    public List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String topic){
-        return articleRepository.findAllByCommunityIDAndTopic(communityID,topic);
-    }
 }
