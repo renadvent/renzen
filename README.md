@@ -10,7 +10,8 @@ Also, I was able to get experience deploying a site on Azure, and going through 
 
 ## Homepage
 
-The homepage allows you to sign up or login. It also has links to the github repository and a persisent bookmarks section that stays on every page. 
+The homepage allows you to sign up or login. It also has links to the github repository and a persisent bookmarks section that stays on every page. Also, on the bottom of the page is a list of recently created users, communities, and articles.
+
 The focus of the site is on the tabbed way of navigating it. When researching, for example, you will be able to have all your information on one web page.
 Soon to be added is the ability to open a set of articles as a saved group.
 
