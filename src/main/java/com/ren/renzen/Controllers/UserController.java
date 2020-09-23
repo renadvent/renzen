@@ -14,6 +14,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -75,12 +76,10 @@ public class UserController {
         }
     }
 
-    @RequestMapping(path="/login")
+    @PostMapping(path="/login",consumes = {"multipart/form-data","application/json"})
     public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody SiteController.SitePayloads.UserNamePassword payload){
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.username, payload.password)));
     }
-
-
 
     @GetMapping(path="/getProfiles")
     public ResponseEntity<CollectionModel<?>> getAllProfiles(){

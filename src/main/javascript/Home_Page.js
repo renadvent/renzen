@@ -39,8 +39,8 @@ function Home_Page(props) {
       <div className="jumbotron">
         <h1 className="display-4">Welcome to Renzen!</h1>
         <p className="lead">
-          A site to build communities, and write articles! Create an account and
-          get started!
+          A site to build communities, write articles, and upload art from
+          Renzen Ink! Create an account and get started! (beta)
         </p>
         <hr className="my-4" />
         <p>
