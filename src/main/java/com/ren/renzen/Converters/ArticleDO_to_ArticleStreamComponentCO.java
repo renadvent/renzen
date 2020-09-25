@@ -5,15 +5,9 @@ import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import lombok.Synchronized;
-import org.bson.types.ObjectId;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Component
 public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleDO, ArticleStreamComponentCO> {
@@ -32,7 +26,7 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
     @Synchronized
     @Nullable
     @Override
-    public ArticleStreamComponentCO convert(ArticleDO source){
+    public ArticleStreamComponentCO convert(ArticleDO source) {
 
         final ArticleStreamComponentCO co = new ArticleStreamComponentCO();
 
@@ -42,7 +36,7 @@ public class ArticleDO_to_ArticleStreamComponentCO implements Converter<ArticleD
         co.setObjectId(source.get_id());
         co.setAuthorID(source.getUserID().toHexString());
 
-        var author= userService.findBy_id(source.getUserID());
+        var author = userService.findBy_id(source.getUserID());
 
         co.setAuthorName(author.getUsername());
         co.setProfileStreamComponentCO(profileDO_to_profileStreamComponentCO.convert(author));

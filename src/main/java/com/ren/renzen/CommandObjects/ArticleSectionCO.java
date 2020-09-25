@@ -8,7 +8,8 @@ import org.bson.types.ObjectId;
 /**
  * This CO is used to return a section of an article for rendering
  */
-@Getter@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class ArticleSectionCO {
     String _id;

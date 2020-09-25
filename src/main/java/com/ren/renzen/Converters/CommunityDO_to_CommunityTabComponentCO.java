@@ -1,12 +1,12 @@
 package com.ren.renzen.Converters;
 
+import com.mongodb.lang.Nullable;
 import com.ren.renzen.CommandObjects.CommunityTabComponentCO;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.UserService;
-import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -46,7 +46,7 @@ public class CommunityDO_to_CommunityTabComponentCO implements Converter<Communi
         co.setObjectId(source.get_id());
         co.setName(source.getName());
         co.setArticle_Article_streamComponentCOList(articleStreamCOAssembler
-                        .toCollectionModel(articleService.findBy_idIn(source.getArticleDOList())));
+                .toCollectionModel(articleService.findBy_idIn(source.getArticleDOList())));
         co.setNumberOfArticles(source.getArticleDOList().size());
         co.setUser_streamComponentCOList(profileStreamCOAssembler
                 .toCollectionModel(userService.findAllBy_Id(source.getProfileDOList())));

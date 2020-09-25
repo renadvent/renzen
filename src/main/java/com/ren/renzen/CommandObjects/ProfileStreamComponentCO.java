@@ -12,7 +12,8 @@ import java.util.List;
 /***
  *
  */
-@Getter@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamComponentCO> {
     String _id;

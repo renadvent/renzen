@@ -12,9 +12,8 @@ import java.util.List;
 /**
  * This CO is used to return data needed to LIST a community (metadata)
  * Used where knowledge of the article is necessary, but not the contents
- *
+ * <p>
  * It is used on the Index Page and Profile Page
- *
  */
 @Getter
 @Setter

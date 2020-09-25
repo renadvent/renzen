@@ -1,20 +1,15 @@
 package com.ren.renzen.Converters;
 
+import com.mongodb.lang.Nullable;
 import com.ren.renzen.CommandObjects.CommunityStreamComponentCO;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
-import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CommunityDO_to_CommunityStreamComponentCO implements Converter<CommunityDO, CommunityStreamComponentCO> {

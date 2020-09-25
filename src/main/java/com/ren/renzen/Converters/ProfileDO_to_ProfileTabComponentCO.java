@@ -1,5 +1,6 @@
 package com.ren.renzen.Converters;
 
+import com.mongodb.lang.Nullable;
 import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
@@ -7,7 +8,6 @@ import com.ren.renzen.ModelAssemblers.CommunityStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Repositories.CommunityRepository;
-import com.mongodb.lang.Nullable;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import lombok.Synchronized;
@@ -45,7 +45,7 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
     @Synchronized
     @Nullable
     @Override
-    public ProfileTabComponentCO convert(ProfileDO source){
+    public ProfileTabComponentCO convert(ProfileDO source) {
 
         final ProfileTabComponentCO co = new ProfileTabComponentCO();
 

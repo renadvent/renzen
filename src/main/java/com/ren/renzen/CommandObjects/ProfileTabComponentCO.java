@@ -13,7 +13,8 @@ import java.util.List;
 /***
  *
  */
-@Getter@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class ProfileTabComponentCO extends RepresentationModel<ProfileTabComponentCO> {
     String name;

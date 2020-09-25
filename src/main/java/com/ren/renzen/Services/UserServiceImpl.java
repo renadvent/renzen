@@ -7,14 +7,12 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -47,11 +45,11 @@ public class UserServiceImpl implements UserService {
     public ProfileDO findBy_id(ObjectId id) {
 
         return userRepository.findBy_id(id)
-                .orElseThrow(()->new ProfileNotFoundException("Profile with id: "+id+" not found"));
+                .orElseThrow(() -> new ProfileNotFoundException("Profile with id: " + id + " not found"));
     }
 
     @Override
-    public List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList){
+    public List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList) {
 
         //for deleting, might have to have findAllBy_id return an optional
         //then if a profile is deleted, have it return a dummy object for "deleted user"
@@ -70,31 +68,32 @@ public class UserServiceImpl implements UserService {
 
         Optional<ProfileDO> profileDOOptional = userRepository.findByUsername(name);
 
-        if (profileDOOptional.isPresent()){
-            if (profileDOOptional.get().getPassword().equals(password)){
+        if (profileDOOptional.isPresent()) {
+            if (profileDOOptional.get().getPassword().equals(password)) {
                 System.out.println(profileDOOptional.get().toString());
                 return profileDOOptional.get();
-            }else{
+            } else {
                 throw new RuntimeException("username/password not found");
             }
-        }else{
+        } else {
             throw new RuntimeException("username/password not found");
         }
     }
+
     @Override
     public List<ProfileDO> findAllPage() {
-        var paging = PageRequest.of(0,10, Sort.by("_id").descending());
+        var paging = PageRequest.of(0, 10, Sort.by("_id").descending());
         return userRepository.findAll(paging).getContent();
     }
 
     //----------------------------------
 
     @Override
-    public ResponseEntity<?> errorMap(BindingResult result){
+    public ResponseEntity<?> errorMap(BindingResult result) {
         var errorM = new HashMap<>();
 
-        for (FieldError error : result.getFieldErrors()){
-            errorM.put(error.getField(),error.getDefaultMessage());
+        for (FieldError error : result.getFieldErrors()) {
+            errorM.put(error.getField(), error.getDefaultMessage());
         }
 
         return new ResponseEntity<>(errorM, HttpStatus.BAD_REQUEST);

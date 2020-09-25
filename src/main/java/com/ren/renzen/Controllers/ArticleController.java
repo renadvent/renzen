@@ -66,6 +66,7 @@ public class ArticleController {
 
     @PostMapping(path = "/createArticle")
     public ResponseEntity<?> createArticle(@RequestBody ArticleDO articleDO) {
+        //public ResponseEntity<?> createArticle(@RequestPart ArticleDO articleDO) {
 
         //check if provided ids exist
         ProfileDO profileDO = userService.findBy_id(articleDO.getUserID());
@@ -90,10 +91,10 @@ public class ArticleController {
 
 
     @GetMapping("/getArticles")
-    public ResponseEntity<CollectionModel<?>> getAllArticles(){
+    public ResponseEntity<CollectionModel<?>> getAllArticles() {
 
         List<ArticleStreamComponentCO> returnList = new ArrayList<>();
-        for (ArticleDO articleDO : articleService.findAll()){
+        for (ArticleDO articleDO : articleService.findAll()) {
             returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
         }
         return ResponseEntity.ok(CollectionModel.of(returnList));
@@ -101,19 +102,16 @@ public class ArticleController {
 
 
     //TODO update toModel
-    @GetMapping(path="/getArticleStreamComponentCO/{id}")
-    public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id){
+    @GetMapping(path = "/getArticleStreamComponentCO/{id}")
+    public ArticleStreamComponentCO getArticleStreamComponentCO(@PathVariable ObjectId id) {
         return articleStreamCOAssembler.toModel(articleService.findBy_id(id));
     }
 
     //TODO update toModel
-    @GetMapping(path="/getArticleTabComponentCO/{id}")
-    public ArticleTabComponentCO getArticleTabComponentCO(@PathVariable ObjectId id){
+    @GetMapping(path = "/getArticleTabComponentCO/{id}")
+    public ArticleTabComponentCO getArticleTabComponentCO(@PathVariable ObjectId id) {
         return articleTabCOAssembler.toModel(articleService.findBy_id(id));
     }
-
-
-
 
 
 }

@@ -1,15 +1,6 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ArticleStreamComponentCO;
-import com.ren.renzen.CommandObjects.CommunityStreamComponentCO;
-import com.ren.renzen.CommandObjects.ProfileStreamComponentCO;
-import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
-import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.Converters.*;
-import com.ren.renzen.DomainObjects.ArticleDO;
-import com.ren.renzen.DomainObjects.CommunityDO;
-import com.ren.renzen.DomainObjects.DiscussionDO;
-import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
@@ -20,16 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 //@CrossOrigin("*")
@@ -79,16 +68,16 @@ public class SiteController {
     }
 
     //TODO implement
-    @GetMapping (path="/getSpotlight")
-    ResponseEntity<?> getSpotlight(){
+    @GetMapping(path = "/getSpotlight")
+    ResponseEntity<?> getSpotlight() {
 //        var articleContent = articleService.findAllPage();
 //        var communityContent = communityService.findAllPage();
         return null;
         //return ResponseEntity.ok(CollectionModel.of(articleContent,communityContent);
     }
 
-    @PostMapping(path="/addBookmark")
-    public ResponseEntity<?> addBookmark(@RequestBody addBookmarkPayload payload){
+    @PostMapping(path = "/addBookmark")
+    public ResponseEntity<?> addBookmark(@RequestBody addBookmarkPayload payload) {
 
         var profileDO = userService.findBy_id(payload.getUserId());
         var articleDO = articleService.findBy_id(payload.getArticleId());
@@ -99,14 +88,8 @@ public class SiteController {
         return ResponseEntity.ok(null);
     }
 
-    @Getter@Setter
-    static class addBookmarkPayload{
-        ObjectId userId;
-        ObjectId articleId;
-    }
-
-    @GetMapping(path="/getHomeStreams")
-    public ResponseEntity<CollectionModel<?>> getHomeStreams(){
+    @GetMapping(path = "/getHomeStreams")
+    public ResponseEntity<CollectionModel<?>> getHomeStreams() {
 
         ArrayList<CollectionModel<?>> returnList = new ArrayList<>();
 
@@ -124,15 +107,23 @@ public class SiteController {
     }
 
     @Getter
-    @Setter@NoArgsConstructor
+    @Setter
+    static class addBookmarkPayload {
+        ObjectId userId;
+        ObjectId articleId;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
     public static class SitePayloads {
-        static class UserNamePassword{
+        static class UserNamePassword {
             String username;
             String password;
 
-            public UserNamePassword(String username,String password){
-                this.username=username;
-                this.password=password;
+            public UserNamePassword(String username, String password) {
+                this.username = username;
+                this.password = password;
             }
         }
     }

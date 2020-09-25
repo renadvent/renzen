@@ -1,7 +1,5 @@
 package com.ren.renzen.ModelAssemblers;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.Controllers.ArticleController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
@@ -11,22 +9,24 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 /**
  * Test Assembler for Rest
  * adds a link to the response
- *
+ * <p>
  * use in future
- *  /profile
- *      links:
- *             /ProfileStreamCO
- *             /ProfileTabCO
- *
- *             /ListOfArticles
- *             etc....
- *
- *so use a single profile id, and get a list of possible responses.
+ * /profile
+ * links:
+ * /ProfileStreamCO
+ * /ProfileTabCO
+ * <p>
+ * /ListOfArticles
+ * etc....
+ * <p>
+ * so use a single profile id, and get a list of possible responses.
  * in this case, possible responses are different CO's
- *
  */
 @Component
 public class ArticleTabCOAssembler implements RepresentationModelAssembler<ArticleDO, ArticleTabComponentCO> {

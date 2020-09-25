@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ProfileAdvice {
     @ResponseBody
     @ExceptionHandler(ProfileNotFoundException.class)
-    public final ResponseEntity<ProfileNotFoundResponse> profileNotFoundResponseResponseEntity(ProfileNotFoundException ex){
+    public final ResponseEntity<ProfileNotFoundResponse> profileNotFoundResponseResponseEntity(ProfileNotFoundException ex) {
         ProfileNotFoundResponse response = new ProfileNotFoundResponse((ex.getMessage()));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }

@@ -9,12 +9,19 @@ import java.util.List;
 
 public interface UserService {
     ProfileDO save(ProfileDO profileDO);
+
     List<ProfileDO> getProfileDOList();
+
     List<ProfileDO> findAll();
+
     ProfileDO findBy_id(ObjectId id);
+
     List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList);
+
     boolean checkIfUsernameTaken(String name);
-    ProfileDO findProfileDOByNameAndPassword(String name,String password);
+
+    ProfileDO findProfileDOByNameAndPassword(String name, String password);
+
     List<ProfileDO> findAllPage();
 
     ResponseEntity<?> errorMap(BindingResult result);

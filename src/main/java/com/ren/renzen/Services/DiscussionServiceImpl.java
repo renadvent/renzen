@@ -28,9 +28,9 @@ public class DiscussionServiceImpl implements DiscussionService {
 
         Optional<DiscussionDO> discussionDO = discussionRepository.findById(id);
 
-        if (discussionDO.isPresent()){
+        if (discussionDO.isPresent()) {
             return discussionDO.get();
-        }else{
+        } else {
             throw new ResourceNotFoundException("discussion id not found");
         }
 

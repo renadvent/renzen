@@ -1,12 +1,11 @@
 package com.ren.renzen.Converters;
 
+import com.mongodb.lang.Nullable;
 import com.ren.renzen.CommandObjects.DiscussionComponentCO;
 import com.ren.renzen.DomainObjects.DiscussionDO;
 import com.ren.renzen.DomainObjects.DiscussionSectionDO;
 import com.ren.renzen.Repositories.DiscussionRepository;
-import com.mongodb.lang.Nullable;
 import lombok.Synchronized;
-import org.bson.types.ObjectId;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

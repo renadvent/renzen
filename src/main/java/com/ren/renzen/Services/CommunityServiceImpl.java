@@ -26,9 +26,9 @@ public class CommunityServiceImpl implements CommunityService {
 
         Optional<CommunityDO> communityDOOptional = communityRepository.findById(id);
 
-        if (communityDOOptional.isPresent()){
+        if (communityDOOptional.isPresent()) {
             return communityDOOptional.get();
-        }else{
+        } else {
             throw new ResourceNotFoundException("Community not found");
         }
     }
@@ -39,7 +39,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public boolean checkIfCommunityNameUsed(String name){
+    public boolean checkIfCommunityNameUsed(String name) {
         return communityRepository.findByName(name).isPresent();
     }
 
@@ -61,7 +61,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<CommunityDO> findAllPage() {
-        var paging = PageRequest.of(0,10, Sort.by("_id").descending());
+        var paging = PageRequest.of(0, 10, Sort.by("_id").descending());
         return communityRepository.findAll(paging).getContent();
     }
 }

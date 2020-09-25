@@ -1,9 +1,7 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ArticleStreamComponentCO;
 import com.ren.renzen.CommandObjects.CommunityStreamComponentCO;
 import com.ren.renzen.Converters.*;
-import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.DomainObjects.DiscussionDO;
 import com.ren.renzen.DomainObjects.ProfileDO;
@@ -18,9 +16,6 @@ import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class CommunityController {
@@ -68,10 +63,10 @@ public class CommunityController {
     }
 
 
-    @PostMapping(path="/joinCommunity")
-    public ResponseEntity<?> joinCommunity(@RequestBody JoinCommunityPayload payload){
+    @PostMapping(path = "/joinCommunity")
+    public ResponseEntity<?> joinCommunity(@RequestBody JoinCommunityPayload payload) {
 
-        var profileDO=userService.findBy_id(payload.userId);
+        var profileDO = userService.findBy_id(payload.userId);
         var communityDO = communityService.findBy_id(payload.communityId);
 
         profileDO.getCommunityIDList().add(communityDO.get_id());
@@ -84,23 +79,16 @@ public class CommunityController {
         return ResponseEntity.ok(null);
     }
 
-    @Getter
-    @Setter
-    static class JoinCommunityPayload{
-        ObjectId userId;
-        ObjectId communityId;
-    }
-
-    @PostMapping(path="/createCommunity")
-    public ResponseEntity<?> createCommunity(@RequestBody CommunityDO communityDO){
+    @PostMapping(path = "/createCommunity")
+    public ResponseEntity<?> createCommunity(@RequestBody CommunityDO communityDO) {
 
         //check if community name already exists
-        if (communityService.checkIfCommunityNameUsed(communityDO.getName())){
+        if (communityService.checkIfCommunityNameUsed(communityDO.getName())) {
             throw new RuntimeException("Community Name already in use");
         }
 
         //create new discussion for this community
-        DiscussionDO discussionDO=discussionService.save(new DiscussionDO());
+        DiscussionDO discussionDO = discussionService.save(new DiscussionDO());
 
         //add discussion id to community
         communityDO.setDiscussionID(discussionDO.get_id());
@@ -121,8 +109,14 @@ public class CommunityController {
     }
 
     @GetMapping("/getCommunities")
-    public CollectionModel<CommunityStreamComponentCO> getAllCommunities(){
+    public CollectionModel<CommunityStreamComponentCO> getAllCommunities() {
         return (communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
+    }
+
+    //TODO update toModel
+    @GetMapping(path = "/getCommunityStreamComponentCO/{id}")
+    public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id) {
+        return communityStreamCOAssembler.toModel(communityService.findBy_id(id));
     }
 
 //    @GetMapping("/getCommunities")
@@ -143,30 +137,31 @@ public class CommunityController {
 //        return returnList;
 //    }
 
-    @Getter@Setter
-    static class getAllByCommunityIDAndTopicPayload{
-        ObjectId communityID;
-        String topic;
-        public getAllByCommunityIDAndTopicPayload(ObjectId communityID,String topic){
-            this.communityID=communityID;
-            this.topic=topic;
-        }
-    }
-
-
     //TODO update toModel
-    @GetMapping(path="/getCommunityStreamComponentCO/{id}")
-    public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id){
-        return communityStreamCOAssembler.toModel(communityService.findBy_id(id));
-    }
-
-    //TODO update toModel
-    @RequestMapping(path="/communityTabComponent/{id}")
-    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id){
+    @RequestMapping(path = "/communityTabComponent/{id}")
+    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id) {
         return ResponseEntity
                 .ok(communityTabCOAssembler.toModel(communityService.findBy_id(id)));
     }
 
+    @Getter
+    @Setter
+    static class JoinCommunityPayload {
+        ObjectId userId;
+        ObjectId communityId;
+    }
+
+    @Getter
+    @Setter
+    static class getAllByCommunityIDAndTopicPayload {
+        ObjectId communityID;
+        String topic;
+
+        public getAllByCommunityIDAndTopicPayload(ObjectId communityID, String topic) {
+            this.communityID = communityID;
+            this.topic = topic;
+        }
+    }
 
 
 }

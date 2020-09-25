@@ -14,7 +14,6 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -62,38 +61,38 @@ public class UserController {
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
-    @RequestMapping(path="/register")
-    public Object Register(@Valid @RequestBody ProfileDO profileDO, BindingResult result){
+    @RequestMapping(path = "/register")
+    public Object Register(@Valid @RequestBody ProfileDO profileDO, BindingResult result) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return userService.errorMap(result);
         }
 
-        if (userService.checkIfUsernameTaken(profileDO.getUsername())){
+        if (userService.checkIfUsernameTaken(profileDO.getUsername())) {
             throw new RuntimeException("user name taken");
-        }else{
-            return profileTabCOAssembler.toModel(userService.save(new ProfileDO(profileDO.getUsername(),profileDO.getUsername())));
+        } else {
+            return profileTabCOAssembler.toModel(userService.save(new ProfileDO(profileDO.getUsername(), profileDO.getUsername())));
         }
     }
 
-    @PostMapping(path="/login",consumes = {"multipart/form-data","application/json"})
-    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody SiteController.SitePayloads.UserNamePassword payload){
+    @PostMapping(path = "/login", consumes = {"multipart/form-data", "application/json"})
+    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody SiteController.SitePayloads.UserNamePassword payload) {
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.username, payload.password)));
     }
 
-    @GetMapping(path="/getProfiles")
-    public ResponseEntity<CollectionModel<?>> getAllProfiles(){
+    @GetMapping(path = "/getProfiles")
+    public ResponseEntity<CollectionModel<?>> getAllProfiles() {
         return ResponseEntity
                 .ok(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
     }
 
-    @GetMapping(path="/getProfileStreamComponentCO/{id}")
-    public ProfileStreamComponentCO getProfileStreamComponentCO(@PathVariable ObjectId id){
+    @GetMapping(path = "/getProfileStreamComponentCO/{id}")
+    public ProfileStreamComponentCO getProfileStreamComponentCO(@PathVariable ObjectId id) {
         return profileStreamCOAssembler.toModel(userService.findBy_id(id));
     }
 
-    @RequestMapping(path="/profileTabComponentCO/{id}")
-    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id){
+    @RequestMapping(path = "/profileTabComponentCO/{id}")
+    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id) {
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findBy_id(id)));
     }
 }

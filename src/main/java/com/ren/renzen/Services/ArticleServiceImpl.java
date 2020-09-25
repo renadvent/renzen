@@ -11,10 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -42,9 +40,9 @@ public class ArticleServiceImpl implements ArticleService {
 
         Optional<ArticleDO> articleDOOptional = articleRepository.findBy_id(Id);
 
-        if (articleDOOptional.isPresent()){
+        if (articleDOOptional.isPresent()) {
             return articleDOOptional.get();
-        }else{
+        } else {
             throw new ResourceNotFoundException("Article Not Found");
         }
     }
@@ -67,11 +65,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * gets first 10 results
+     *
      * @return
      */
     @Override
     public List<ArticleDO> findAllPage() {
-        var paging = PageRequest.of(0,10, Sort.by("_id").descending());
+        var paging = PageRequest.of(0, 10, Sort.by("_id").descending());
         return articleRepository.findAll(paging).getContent();
     }
 
