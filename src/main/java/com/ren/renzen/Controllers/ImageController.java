@@ -9,6 +9,7 @@ import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
 import com.azure.storage.common.sas.SasProtocol;
 import com.ren.renzen.DomainObjects.ImageDO;
 import com.ren.renzen.Services.Interfaces.*;
+import com.ren.renzen.additional.KEYS;
 import lombok.Data;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,7 @@ public class ImageController {
         this.imageService = imageService;
 
         // Create a BlobServiceClient object which will be used to create a container client
-        String connectStr="DefaultEndpointsProtocol=https;AccountName=renzenblob;AccountKey=75sYRhsaFVIOhqGeOzKkm4YqRMTkFFCavrg2WSuVR64lT/tKJSQM5j/HQUdkYcxuWuyx61BI47u+2VBjYhp4rw==;EndpointSuffix=core.windows.net";
+        String connectStr= KEYS.CONNECTSTR;
         blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
 
         //Create a unique name for the container
