@@ -97,7 +97,7 @@ public class ArticleController {
         for (ArticleDO articleDO : articleService.findAll()) {
             returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
         }
-        return ResponseEntity.ok(CollectionModel.of(returnList));
+        return ResponseEntity.ok(CollectionModel.wrap(returnList));
     }
 
 

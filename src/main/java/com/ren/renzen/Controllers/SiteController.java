@@ -103,7 +103,7 @@ public class SiteController {
         returnList.add(profileStreamCOAssembler.toCollectionModel(profileContent));
         returnList.add(communityStreamCOAssembler.toCollectionModel(communityContent));
 
-        return ResponseEntity.ok(CollectionModel.of(returnList));
+        return ResponseEntity.ok(CollectionModel.wrap(returnList));
     }
 
     @Getter

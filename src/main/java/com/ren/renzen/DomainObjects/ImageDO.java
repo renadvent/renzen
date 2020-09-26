@@ -13,6 +13,6 @@ public class ImageDO {
     @Id
     String _id;
     String title;
-    Binary image;
+    String image;
 //    Binary image;
 }
