@@ -4,6 +4,9 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.blob.sas.BlobSasPermission;
+import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
+import com.azure.storage.common.sas.SasProtocol;
 import com.ren.renzen.DomainObjects.ImageDO;
 import com.ren.renzen.Services.Interfaces.*;
 import lombok.Data;
@@ -16,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.time.OffsetDateTime;
 import java.util.Base64;
 import java.util.Map;
 
@@ -53,19 +57,6 @@ public class ImageController {
     @GetMapping(path = "/getImage")
     public String getImageTest(String id){
 
-//        // Download the blob to a local file
-//// Append the string "DOWNLOAD" before the .txt extension so that you can see both files.
-//        String downloadFileName = "downloadeddddd.png"//fileName.replace(".txt", "DOWNLOAD.txt");
-//        File downloadedFile = new File("C:/"+downloadFileName);
-//
-//        System.out.println("\nDownloading blob to\n\t " + localPath + downloadFileName);
-//
-//        blobClient.downloadToFile(localPath + downloadFileName);
-
-
-
-
-
         ImageDO imageDO = imageService.getImage("5f6e49fc5abf1a24db808a01").get();
 
         try {
@@ -80,6 +71,11 @@ public class ImageController {
         return "failed";
     }
 
+    /**
+     * returns link to image that was saved
+     * @param payload
+     * @return
+     */
     @PostMapping(path = "/addImage", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String addImageToProfile(@RequestBody Map<String, Object> payload) {
 
@@ -114,32 +110,19 @@ public class ImageController {
                     System.out.println("rewritten file");
                     System.out.println(file.getAbsoluteFile());
 
+                    BlobSasPermission blobPermission = new BlobSasPermission().setReadPermission(true);
 
-//                    var x = new BlobServiceSasSignatureValues()
-//                            .setProtocol(SasProtocol.HTTPS_ONLY) // Users MUST use HTTPS (not HTTP).
-//                            .setExpiryTime(OffsetDateTime.now().plusDays(2))
-//                            .setContainerName("my-container")
-//                            .setBlobName("HelloWorld.txt")
-//                            .setPermissions(blobPermission);
+                    var x = new BlobServiceSasSignatureValues()
+                            .setProtocol(SasProtocol.HTTPS_ONLY) // Users MUST use HTTPS (not HTTP).
+                            .setExpiryTime(OffsetDateTime.now().plusDays(2))
+                            .setPermissions(blobPermission);;
 
-//                    SharedAccessAccountPolicy sharedAccessAccountPolicy = new SharedAccessAccountPolicy();
-//                    sharedAccessAccountPolicy.setPermissionsFromString("racwdlup");
-//                    long date = new Date().getTime();
-//                    long expiryDate = new Date(date + 8640000).getTime();
-//                    sharedAccessAccountPolicy.setSharedAccessStartTime(new Date(date));
-//                    sharedAccessAccountPolicy.setSharedAccessExpiryTime(new Date(expiryDate));
-//                    sharedAccessAccountPolicy.setResourceTypeFromString("sco");
-//                    sharedAccessAccountPolicy.setServiceFromString("bfqt");
-//                    String sasToken = "?" + storageAccount.generateSharedAccessSignature(sharedAccessAccountPolicy);
-//
-
-
-
-//                    String url2 = blobClient.
+                    var y = blobClient.generateSas(x);
 
                     String url = blobClient.getBlobUrl();
 
-                    return url;
+                    var withper = url+"?"+y;
+                    return withper; // link with sas
 
                 }catch (Exception e) {
                     e.printStackTrace();
