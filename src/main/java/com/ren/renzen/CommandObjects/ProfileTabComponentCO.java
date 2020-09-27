@@ -29,4 +29,6 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
     CollectionModel<ArticleStreamComponentCO> articleHomePageCOList;
     CollectionModel<CommunityStreamComponentCO> communityStreamComponentCOList;
     CollectionModel<ArticleStreamComponentCO> articleBookmarksCM;
+
+    List<String> screenshotLinks = new ArrayList<>();
 }

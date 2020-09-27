@@ -113,6 +113,9 @@ function Profile_Page(props) {
               <hr />
             </div>
           </div>
+          {props.data.screenshotLinks.map((link) => {
+            return <img src={link} height={250} alt={"a screenshot"} />;
+          })}
         </div>
       </div>
     </div>
