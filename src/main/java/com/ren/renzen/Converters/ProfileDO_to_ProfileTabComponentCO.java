@@ -10,9 +10,12 @@ import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Repositories.CommunityRepository;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
+import com.ren.renzen.Services.Interfaces.ImageService;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 @Component
 public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, ProfileTabComponentCO> {
@@ -25,18 +28,20 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
 
     final ArticleService articleService;
     final CommunityService communityService;
+    final ImageService imageService;
 
     final ArticleStreamCOAssembler articleStreamCOAssembler;
     final ProfileStreamCOAssembler profileStreamCOAssembler;
     final CommunityStreamCOAssembler communityStreamCOAssembler;
 
-    public ProfileDO_to_ProfileTabComponentCO(CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityRepository communityRepository, ArticleRepository articleRepository, ArticleService articleService, CommunityService communityService, ArticleStreamCOAssembler articleStreamCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
+    public ProfileDO_to_ProfileTabComponentCO(CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityRepository communityRepository, ArticleRepository articleRepository, ArticleService articleService, CommunityService communityService, ImageService imageService, ArticleStreamCOAssembler articleStreamCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
         this.communityDO_to_communityStreamComponentCO = communityDO_to_communityStreamComponentCO;
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
         this.communityRepository = communityRepository;
         this.articleRepository = articleRepository;
         this.articleService = articleService;
         this.communityService = communityService;
+        this.imageService = imageService;
         this.articleStreamCOAssembler = articleStreamCOAssembler;
         this.profileStreamCOAssembler = profileStreamCOAssembler;
         this.communityStreamCOAssembler = communityStreamCOAssembler;
@@ -62,6 +67,20 @@ public class ProfileDO_to_ProfileTabComponentCO implements Converter<ProfileDO, 
                 .toCollectionModel(articleService.findBy_idIn(source.getArticleIDList())));
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .toCollectionModel(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
+
+
+        var corrected = new ArrayList<String>();
+
+        for (var link : source.getScreenshotsIDList()){
+
+            String name = link.substring(link.lastIndexOf('/') + 1);
+
+            corrected.add(imageService.generateSAS(name));
+        }
+
+        co.setScreenshotLinks(corrected);
+
+        //co.setScreenshotLinks(source.getScreenshotsIDList().stream().toArray()(imageService::generateSAS));
 
         return co;
     }
