@@ -113,6 +113,7 @@ function Profile_Page(props) {
               <hr />
             </div>
           </div>
+          <h4>Uploads from Renzen Ink</h4>
           {props.data.screenshotLinks.map((link) => {
             return <img src={link} height={250} alt={"a screenshot"} />;
           })}
