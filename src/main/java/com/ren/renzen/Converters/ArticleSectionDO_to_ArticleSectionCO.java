@@ -32,7 +32,7 @@ public class ArticleSectionDO_to_ArticleSectionCO implements Converter<ArticleSe
 
             co.setImageID(imageService.generateSAS(name));
         } catch (Exception e){
-            co.setImageID("");
+            co.setImageID(null);
         }
 
 

@@ -73,7 +73,7 @@ function Article_Page(props) {
                 <h5 className="card-title">{section.header}</h5>
                 <p className="card-text">{section.body}</p>
 
-                {section.ImageID !== "" || section.ImageID !== null ? (
+                {section.imageID !== null ? (
                   <img
                     height={250}
                     src={section.imageID}
