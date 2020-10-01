@@ -1,9 +1,14 @@
 package com.ren.renzen.Controllers;
 
+import com.azure.storage.blob.BlobClient;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobServiceClient;
+import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.ren.renzen.CommandObjects.ArticleStreamComponentCO;
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.DomainObjects.ArticleSectionDO;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
@@ -11,12 +16,16 @@ import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
+import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -44,6 +53,9 @@ public class ArticleController {
     final CommunityStreamCOAssembler communityStreamCOAssembler;
     final ArticleStreamCOAssembler articleStreamCOAssembler;
 
+    BlobServiceClient blobServiceClient;
+    BlobContainerClient containerClient;
+
     public ArticleController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
@@ -61,6 +73,16 @@ public class ArticleController {
         this.communityTabCOAssembler = communityTabCOAssembler;
         this.communityStreamCOAssembler = communityStreamCOAssembler;
         this.articleStreamCOAssembler = articleStreamCOAssembler;
+
+
+        // Create a BlobServiceClient object which will be used to create a container client
+        String connectStr= KEYS.CONNECTSTR;
+        blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
+        //Create a unique name for the container
+        String containerName = "renzen-test";
+        // Create the container and return a container client object
+        containerClient = blobServiceClient.getBlobContainerClient(containerName);
+
     }
 
 
@@ -111,6 +133,34 @@ public class ArticleController {
     @GetMapping(path = "/getArticleTabComponentCO/{id}")
     public ArticleTabComponentCO getArticleTabComponentCO(@PathVariable ObjectId id) {
         return articleTabCOAssembler.toModel(articleService.findBy_id(id));
+    }
+
+    //TODO upload to azure
+    @PostMapping(path="/addScreenshotToArticle/{id}")
+    public String addScreenshotToArticle(@PathVariable ObjectId id,@RequestBody String screenshot) {
+
+        File file=null;
+
+        try {
+            file = File.createTempFile("image", ".png");
+            Files.write(file.toPath(), Base64.getDecoder().decode(screenshot.toString()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        BlobClient blobClient = containerClient.getBlobClient(file.getName());
+        blobClient.uploadFromFile(file.getAbsolutePath());
+        file.delete();
+
+        var article = articleService.findBy_id(id);
+
+
+        article.getArticleSectionDOList().add (new ArticleSectionDO(blobClient.getBlobUrl()));
+        articleService.save(article);
+
+        return blobClient.getBlobUrl();
+
+
     }
 
 

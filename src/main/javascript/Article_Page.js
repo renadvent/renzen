@@ -64,12 +64,22 @@ function Article_Page(props) {
       <hr />
 
       {props.payload.articleSectionCOList.map((section) => {
+        console.log(section);
+
         return (
           <div className="d-flex justify-content-center">
             <div className="card" style={{ width: "18rem" }}>
               <div className="card-body">
                 <h5 className="card-title">{section.header}</h5>
                 <p className="card-text">{section.body}</p>
+
+                {section.ImageID !== "" || section.ImageID !== null ? (
+                  <img
+                    height={250}
+                    src={section.imageID}
+                    alt={"IMAGE HERE! " + section.imageID}
+                  />
+                ) : null}
               </div>
             </div>
           </div>

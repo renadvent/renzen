@@ -11,9 +11,14 @@ import lombok.NoArgsConstructor;
 public class ArticleSectionDO {
     String header;
     String body;
+    String imageID;
 
     ArticleSectionDO(String header, String body) {
         this.header = header;
         this.setBody(body);
+    }
+
+    public ArticleSectionDO(String imageID){
+        this.imageID=imageID;
     }
 }

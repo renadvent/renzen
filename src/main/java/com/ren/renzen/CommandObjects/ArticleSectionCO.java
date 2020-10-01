@@ -19,4 +19,5 @@ public class ArticleSectionCO {
     ObjectId authorID;
     Integer upvotes;
     Integer downvotes;
+    String imageID;
 }
