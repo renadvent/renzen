@@ -75,6 +75,8 @@ public class UserController {
         }
     }
 
+    //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
+    //TODO web will have to process this page differently to allow changing password etc
     @PostMapping(path = "/login", consumes = {"multipart/form-data", "application/json"})
     public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody SiteController.SitePayloads.UserNamePassword payload) {
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.username, payload.password)));

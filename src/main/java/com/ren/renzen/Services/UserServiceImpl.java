@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -44,6 +45,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ProfileDO save(ProfileDO profileDO) {
+
+        String pw_hash = BCrypt.hashpw(profileDO.getPassword(), BCrypt.gensalt());
+        profileDO.setPassword(pw_hash);
+
         return userRepository.save(profileDO);
     }
 
@@ -93,8 +98,12 @@ public class UserServiceImpl implements UserService {
 
         Optional<ProfileDO> profileDOOptional = userRepository.findByUsername(name);
 
+        //String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+
+        //BCrypt.checkpw(entered_pw, stored_hash)
+
         if (profileDOOptional.isPresent()) {
-            if (profileDOOptional.get().getPassword().equals(password)) {
+            if (BCrypt.checkpw(profileDOOptional.get().getPassword(),password)) {
                 System.out.println(profileDOOptional.get().toString());
                 return profileDOOptional.get();
             } else {

@@ -54,7 +54,7 @@ function Home_Page(props) {
           role="button"
           onClick={() => {
             Axios.get(
-              "/getCommunityStreamComponentCO/5f5adffdf0976d10381e609d"
+              "/getCommunityStreamComponentCO/5f75f709b95e14569c4332a8"
             ).then((res) => {
               props.DISPATCH_openCommunity(res.data._links["Tab_Version"].href);
             });
@@ -86,15 +86,15 @@ function Home_Page(props) {
             <Spotlight
               name={"Featured Communities"}
               one={"How It's Made"}
-              two={"Hazel"}
+              two={"Eri's House"}
               title={"Say Hello!"}
             />
           </div>
           <div className={"col"}>
             <Spotlight
               name={"Featured Articles"}
-              one={"How To Use This Site"}
-              two={"My Experience"}
+              one={"Renzen"}
+              two={"Learning Curve Post #1"}
               title={"Check It Out!"}
             />
           </div>
