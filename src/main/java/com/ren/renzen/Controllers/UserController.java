@@ -5,6 +5,7 @@ import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.Payload.userNamePassword;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
@@ -78,8 +79,8 @@ public class UserController {
     //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
     //TODO web will have to process this page differently to allow changing password etc
     @PostMapping(path = "/login", consumes = {"multipart/form-data", "application/json"})
-    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody SiteController.SitePayloads.UserNamePassword payload) {
-        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.username, payload.password)));
+    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody userNamePassword payload) {
+        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.getUsername(), payload.getPassword())));
     }
 
     @GetMapping(path = "/getProfiles")

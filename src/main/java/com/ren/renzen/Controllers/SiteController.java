@@ -2,14 +2,11 @@ package com.ren.renzen.Controllers;
 
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.Payload.addBookmarkPayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -106,25 +103,4 @@ public class SiteController {
         return ResponseEntity.ok(CollectionModel.wrap(returnList));
     }
 
-    @Getter
-    @Setter
-    static class addBookmarkPayload {
-        ObjectId userId;
-        ObjectId articleId;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class SitePayloads {
-        static class UserNamePassword {
-            String username;
-            String password;
-
-            public UserNamePassword(String username, String password) {
-                this.username = username;
-                this.password = password;
-            }
-        }
-    }
 }
