@@ -29,9 +29,9 @@ public class ProfileDO implements UserDetails {
     @MongoId
     ObjectId _id;
 
-    @NotBlank(message = "username must not be blank")
+    //@NotBlank(message = "username must not be blank")
     String username;
-    @NotBlank(message = "password must not be blank")
+    //@NotBlank(message = "password must not be blank")
     String password;
 
 //    @Email(meessage="need to be an email")

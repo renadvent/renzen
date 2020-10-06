@@ -5,12 +5,13 @@ import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
-import com.ren.renzen.Payload.userNamePassword;
+import com.ren.renzen.Payload.UserNamePassword;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
+import com.ren.renzen.Validator.UserNamePasswordValidator;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
@@ -45,10 +46,13 @@ public class UserController {
     final CommunityStreamCOAssembler communityStreamCOAssembler;
     final ArticleStreamCOAssembler articleStreamCOAssembler;
 
-    //validation service
+    //Error service
     final MapValidationErrorService mapValidationErrorService;
 
-    public UserController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
+    //Validation Service
+    final UserNamePasswordValidator userNamePasswordValidator;
+
+    public UserController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -66,32 +70,32 @@ public class UserController {
         this.communityStreamCOAssembler = communityStreamCOAssembler;
         this.articleStreamCOAssembler = articleStreamCOAssembler;
         this.mapValidationErrorService = mapValidationErrorService;
+        this.userNamePasswordValidator = userNamePasswordValidator;
     }
 
     @RequestMapping(path = "/register")
-    public ResponseEntity<?> Register(@Valid @RequestBody ProfileDO profileDO, BindingResult result) {
+    public ResponseEntity<?> Register(@Valid @RequestBody UserNamePassword userNamePassword, BindingResult result) {
 
 //        if (result.hasErrors()) {
 //            return userService.errorMap(result);
 //        }
 
+        userNamePasswordValidator.validate(userNamePassword,result);
+
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap!=null) return errorMap;
 
-        if (userService.checkIfUsernameTaken(profileDO.getUsername())) {
-            throw new RuntimeException("user name taken");
-        } else {
             return new ResponseEntity<>(profileTabCOAssembler
                     .toModel(userService
-                            .save(new ProfileDO(profileDO.getUsername(), profileDO.getUsername()))), HttpStatus.CREATED
+                            .save(new ProfileDO(userNamePassword.getUsername(), userNamePassword.getUsername()))),
+                    HttpStatus.CREATED
             );
-        }
     }
 
     //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
     //TODO web will have to process this page differently to allow changing password etc
     @PostMapping(path = "/login", consumes = {"multipart/form-data", "application/json"})
-    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody userNamePassword payload) {
+    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody UserNamePassword payload) {
         return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.getUsername(), payload.getPassword())));
     }
 

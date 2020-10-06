@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
     @Setter
     @NoArgsConstructor
-        public class userNamePassword {
+        public class UserNamePassword {
 
     @NotBlank(message = "username must not be blank")
             String username;
@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 
             String confirmPassword; //?
 
-            public userNamePassword(String username, String password) {
+            public UserNamePassword(String username, String password) {
                 this.username = username;
                 this.password = password;
             }
