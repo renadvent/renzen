@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -87,7 +88,7 @@ public class ArticleController {
 
 
     @PostMapping(path = "/createArticle")
-    public ResponseEntity<?> createArticle(@RequestBody ArticleDO articleDO) {
+    public ResponseEntity<?> createArticle(@RequestBody ArticleDO articleDO, Principal principal) {
         //public ResponseEntity<?> createArticle(@RequestPart ArticleDO articleDO) {
 
         //check if provided ids exist
@@ -104,7 +105,7 @@ public class ArticleController {
 
         //add article to community
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
-        communityService.save(communityDO);
+        communityService.saveOrUpdateCommunity(communityDO, principal.getName());
 
         return ResponseEntity.ok(articleTabCOAssembler.toModel(savedArticleDO));
         //return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));

@@ -10,12 +10,17 @@ import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
+import com.ren.renzen.Services.MapValidationErrorService;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 public class CommunityController {
@@ -43,7 +48,10 @@ public class CommunityController {
     final CommunityStreamCOAssembler communityStreamCOAssembler;
     final ArticleStreamCOAssembler articleStreamCOAssembler;
 
-    public CommunityController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
+    //
+    final MapValidationErrorService mapValidationErrorService;
+
+    public CommunityController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -60,11 +68,12 @@ public class CommunityController {
         this.communityTabCOAssembler = communityTabCOAssembler;
         this.communityStreamCOAssembler = communityStreamCOAssembler;
         this.articleStreamCOAssembler = articleStreamCOAssembler;
+        this.mapValidationErrorService = mapValidationErrorService;
     }
 
 
     @PostMapping(path = "/joinCommunity")
-    public ResponseEntity<?> joinCommunity(@RequestBody JoinCommunityPayload payload) {
+    public ResponseEntity<?> joinCommunity(@RequestBody JoinCommunityPayload payload, Principal principal) {
 
         var profileDO = userService.findBy_id(payload.userId);
         var communityDO = communityService.findBy_id(payload.communityId);
@@ -73,14 +82,18 @@ public class CommunityController {
         communityDO.getProfileDOList().add(profileDO.get_id());
 
         userService.save(profileDO);
-        communityService.save(communityDO);
+        communityService.saveOrUpdateCommunity(communityDO, principal.getName());
 
         //?
         return ResponseEntity.ok(null);
     }
 
     @PostMapping(path = "/createCommunity")
-    public ResponseEntity<?> createCommunity(@RequestBody CommunityDO communityDO) {
+    public ResponseEntity<?> createCommunity(@Valid @RequestBody CommunityDO communityDO, BindingResult bindingResult,
+                                             Principal principal) {
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
+        if (errorMap!=null) return errorMap;
 
         //check if community name already exists
         if (communityService.checkIfCommunityNameUsed(communityDO.getName())) {
@@ -96,7 +109,7 @@ public class CommunityController {
         discussionService.save(discussionDO);
 
         //save community
-        communityDO = communityService.save(communityDO);
+        communityDO = communityService.saveOrUpdateCommunity(communityDO,principal.getName());
 
         ProfileDO profileDO = userService.findBy_id(communityDO.getCreatorID());
         profileDO.getCommunityIDList().add(communityDO.get_id());
@@ -109,8 +122,8 @@ public class CommunityController {
     }
 
     @GetMapping("/getCommunities")
-    public CollectionModel<CommunityStreamComponentCO> getAllCommunities() {
-        return (communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
+    public CollectionModel<CommunityStreamComponentCO> getAllCommunities(Principal principal) {
+        return (communityStreamCOAssembler.toCollectionModel(communityService.findAll(principal.getName())));
     }
 
     //TODO update toModel

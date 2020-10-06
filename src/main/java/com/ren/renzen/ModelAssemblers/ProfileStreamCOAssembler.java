@@ -31,7 +31,7 @@ public class ProfileStreamCOAssembler implements RepresentationModelAssembler<Pr
         return profileStreamComponentCO.add(List.of(
                 linkTo(methodOn(UserController.class).getAllProfiles()).withRel("other"),
                 linkTo(methodOn(ArticleController.class).getAllArticles()).withRel("other"),
-                linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("other"),
+                //linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("other"),
                 linkTo(methodOn(UserController.class).getProfileStreamComponentCO(profileStreamComponentCO.getObjectId())).withRel("Stream_Version"),
                 linkTo(methodOn(UserController.class).getProfileTabComponentCO(profileStreamComponentCO.getObjectId())).withRel("Tab_Version"))
         );

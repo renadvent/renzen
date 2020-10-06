@@ -31,7 +31,7 @@ public class ProfileTabCOAssembler implements RepresentationModelAssembler<Profi
         return profileTabComponentCO.add(List.of(
                 linkTo(methodOn(UserController.class).getAllProfiles()).withSelfRel(),
                 linkTo(methodOn(ArticleController.class).getAllArticles()).withSelfRel(),
-                linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("All_Communities"),
+                //linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("All_Communities"),
                 linkTo(methodOn(UserController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId())).withRel("Stream_Version"),
                 linkTo(methodOn(UserController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId())).withRel("Tab_Version")));
 

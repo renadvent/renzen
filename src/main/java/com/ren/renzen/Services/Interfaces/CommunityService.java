@@ -8,13 +8,15 @@ import java.util.List;
 public interface CommunityService {
     CommunityDO findBy_id(ObjectId id);
 
-    List<CommunityDO> findAll();
+    List<CommunityDO> findAll(String username);
 
     boolean checkIfCommunityNameUsed(String name);
 
     List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList);
 
-    CommunityDO save(CommunityDO communityDO);
+//    CommunityDO save(CommunityDO communityDO);
+
+    CommunityDO saveOrUpdateCommunity(CommunityDO communityDO, String principalName);
 
     List<ObjectId> findAllByCommunityIDAndTopic(ObjectId communityID, String Topic);
 

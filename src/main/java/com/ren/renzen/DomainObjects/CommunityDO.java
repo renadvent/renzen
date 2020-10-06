@@ -25,6 +25,8 @@ public class CommunityDO {
     List<ObjectId> articleDOList = new ArrayList<>();
     ObjectId discussionID;
 
+    String creatorName;
+
     public CommunityDO(String name, ObjectId creatorID) {
         this.name = name;
         this.creatorID = creatorID;
