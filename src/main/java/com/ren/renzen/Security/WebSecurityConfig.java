@@ -14,8 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.ren.renzen.additional.KEYS.LOGIN_URLS;
-import static com.ren.renzen.additional.KEYS.SIGN_UP_URLS;
+import static com.ren.renzen.additional.KEYS.*;
 
 @Configuration
 @EnableWebSecurity
@@ -75,9 +74,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/favicon.ico") // might have to add more
+                .antMatchers(                       "/",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js",
+                        "/built/**") // might have to add more
         .permitAll()
-                .antMatchers(SIGN_UP_URLS,LOGIN_URLS).permitAll() //permits login
+                .antMatchers(SIGN_UP_URLS,LOGIN_URLS,HOME_PAGE).permitAll() //permits login
                 .anyRequest().authenticated(); //all others require authentication
 
 
