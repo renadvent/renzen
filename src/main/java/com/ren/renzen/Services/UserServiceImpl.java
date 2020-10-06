@@ -1,28 +1,20 @@
 package com.ren.renzen.Services;
 
-import com.azure.storage.blob.BlobClient;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.BlobServiceClientBuilder;
-import com.azure.storage.blob.sas.BlobSasPermission;
-import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
-import com.azure.storage.common.sas.SasProtocol;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Exceptions.ProfileNotFoundException;
 import com.ren.renzen.Repositories.UserRepository;
 import com.ren.renzen.Services.Interfaces.UserService;
-import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -31,13 +23,15 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
+    final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
         this.userRepository = userRepository;
 
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
 
@@ -46,8 +40,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public ProfileDO save(ProfileDO profileDO) {
 
-        String pw_hash = BCrypt.hashpw(profileDO.getPassword(), BCrypt.gensalt());
-        profileDO.setPassword(pw_hash);
+        profileDO.setPassword(bCryptPasswordEncoder.encode(profileDO.getPassword()));
+
+        //username must be unique //exception
+        //make sure that password and confirm password match
 
         return userRepository.save(profileDO);
     }

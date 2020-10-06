@@ -35,8 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/favicon.ico") // might have to add more
-        .permitAll().
-                anyRequest().authenticated();
+        .permitAll()
+                .antMatchers("/register").permitAll() //permits login
+                .anyRequest().authenticated(); //all others require authentication
 
 
         //http.authorizeRequests().anyRequest().permitAll();

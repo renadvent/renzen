@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,8 +30,8 @@ public class ProfileDO implements UserDetails {
     ObjectId _id;
 
     @NotBlank(message = "username must not be blank")
-    @NotNull(message = "username must not be null")
     String username;
+    @NotBlank(message = "password must not be blank")
     String password;
 
 //    @Email(meessage="need to be an email")

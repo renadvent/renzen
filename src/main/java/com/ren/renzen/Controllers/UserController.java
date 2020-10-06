@@ -10,8 +10,10 @@ import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
+import com.ren.renzen.Services.MapValidationErrorService;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +45,10 @@ public class UserController {
     final CommunityStreamCOAssembler communityStreamCOAssembler;
     final ArticleStreamCOAssembler articleStreamCOAssembler;
 
-    public UserController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
+    //validation service
+    final MapValidationErrorService mapValidationErrorService;
+
+    public UserController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -60,19 +65,26 @@ public class UserController {
         this.communityTabCOAssembler = communityTabCOAssembler;
         this.communityStreamCOAssembler = communityStreamCOAssembler;
         this.articleStreamCOAssembler = articleStreamCOAssembler;
+        this.mapValidationErrorService = mapValidationErrorService;
     }
 
     @RequestMapping(path = "/register")
-    public Object Register(@Valid @RequestBody ProfileDO profileDO, BindingResult result) {
+    public ResponseEntity<?> Register(@Valid @RequestBody ProfileDO profileDO, BindingResult result) {
 
-        if (result.hasErrors()) {
-            return userService.errorMap(result);
-        }
+//        if (result.hasErrors()) {
+//            return userService.errorMap(result);
+//        }
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap!=null) return errorMap;
 
         if (userService.checkIfUsernameTaken(profileDO.getUsername())) {
             throw new RuntimeException("user name taken");
         } else {
-            return profileTabCOAssembler.toModel(userService.save(new ProfileDO(profileDO.getUsername(), profileDO.getUsername())));
+            return new ResponseEntity<>(profileTabCOAssembler
+                    .toModel(userService
+                            .save(new ProfileDO(profileDO.getUsername(), profileDO.getUsername()))), HttpStatus.CREATED
+            );
         }
     }
 
