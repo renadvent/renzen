@@ -12,6 +12,8 @@ import org.bson.types.ObjectId;
             String username;
             String password;
 
+            String confirmPassword; //?
+
             public userNamePassword(String username, String password) {
                 this.username = username;
                 this.password = password;
