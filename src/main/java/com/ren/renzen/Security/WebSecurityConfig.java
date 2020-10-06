@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import static com.ren.renzen.additional.KEYS.LOGIN_URLS;
 import static com.ren.renzen.additional.KEYS.SIGN_UP_URLS;
 
 @Configuration
@@ -64,8 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/favicon.ico") // might have to add more
         .permitAll()
-                .antMatchers(SIGN_UP_URLS).permitAll() //permits login
-                .anyRequest().authenticated(); //all others require authentication
+                .antMatchers(SIGN_UP_URLS,LOGIN_URLS).permitAll() //permits login
+                .anyRequest().permitAll(); //all others require authentication
 
 
         //http.authorizeRequests().anyRequest().permitAll();

@@ -4,6 +4,7 @@ import com.ren.renzen.DomainObjects.ProfileDO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 import static com.ren.renzen.additional.KEYS.EXPIRATION_TIME;
 import static com.ren.renzen.additional.KEYS.SECRET;
 
+@Component
 public class JwtTokenProvider {
 
     //Generate the token
@@ -30,7 +32,7 @@ public class JwtTokenProvider {
         //can throw in roles
         claims.put("id",userId);
         claims.put("username",profileDO.getUsername());
-        
+
         return Jwts.builder()
                 .setSubject(userId)
                 .setClaims(claims)

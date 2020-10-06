@@ -5,21 +5,31 @@ import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.Payload.JWTLoginSuccessResponse;
+import com.ren.renzen.Payload.LoginRequest;
 import com.ren.renzen.Payload.UserNamePassword;
+import com.ren.renzen.Security.JwtTokenProvider;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.Validator.UserNamePasswordValidator;
+import com.ren.renzen.additional.KEYS.*;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static com.ren.renzen.additional.KEYS.TOKEN_PREFIX;
 
 @RestController
 public class UserController {
@@ -52,7 +62,13 @@ public class UserController {
     //Validation Service
     final UserNamePasswordValidator userNamePasswordValidator;
 
-    public UserController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator) {
+    //Token Provider
+    final JwtTokenProvider jwtTokenProvider;
+
+    //Authentication Manager
+    final AuthenticationManager authenticationManager;
+
+    public UserController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -71,6 +87,8 @@ public class UserController {
         this.articleStreamCOAssembler = articleStreamCOAssembler;
         this.mapValidationErrorService = mapValidationErrorService;
         this.userNamePasswordValidator = userNamePasswordValidator;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.authenticationManager = authenticationManager;
     }
 
     @RequestMapping(path = "/register")
@@ -87,7 +105,7 @@ public class UserController {
 
             return new ResponseEntity<>(profileTabCOAssembler
                     .toModel(userService
-                            .save(new ProfileDO(userNamePassword.getUsername(), userNamePassword.getUsername()))),
+                            .save(new ProfileDO(userNamePassword.getUsername(), userNamePassword.getPassword()))),
                     HttpStatus.CREATED
             );
     }
@@ -95,8 +113,27 @@ public class UserController {
     //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
     //TODO web will have to process this page differently to allow changing password etc
     @PostMapping(path = "/login", consumes = {"multipart/form-data", "application/json"})
-    public ResponseEntity<ProfileTabComponentCO> Login(@RequestBody UserNamePassword payload) {
-        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(payload.getUsername(), payload.getPassword())));
+    public ResponseEntity<?> Login(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
+
+
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap!=null) return errorMap;
+
+        Authentication authentication = authenticationManager.authenticate(
+
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
+
+        //pass back token
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true,jwt));
+
+        //return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(loginRequest.getUsername(), loginRequest.getPassword())));
     }
 
     @GetMapping(path = "/getProfiles")
