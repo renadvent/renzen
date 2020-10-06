@@ -1,11 +1,19 @@
 package com.ren.renzen.Security;
 
+import com.ren.renzen.Services.CustomUserDetailService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import static com.ren.renzen.additional.KEYS.SIGN_UP_URLS;
 
 @Configuration
 @EnableWebSecurity
@@ -18,9 +26,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //unauthorized handler
     final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    final CustomUserDetailService customUserDetailService;
+    final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+    public WebSecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, CustomUserDetailService customUserDetailService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.customUserDetailService = customUserDetailService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        //super.configure(auth);
+        authenticationManagerBuilder
+                .userDetailsService(customUserDetailService)
+                .passwordEncoder(bCryptPasswordEncoder);
+    }
+
+    @Override
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
     @Override
@@ -36,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/favicon.ico") // might have to add more
         .permitAll()
-                .antMatchers("/register").permitAll() //permits login
+                .antMatchers(SIGN_UP_URLS).permitAll() //permits login
                 .anyRequest().authenticated(); //all others require authentication
 
 
