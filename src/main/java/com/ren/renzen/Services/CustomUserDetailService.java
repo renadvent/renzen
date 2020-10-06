@@ -33,7 +33,7 @@ public class CustomUserDetailService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDetails loadUserById(ObjectId id){
+    public ProfileDO loadUserById(ObjectId id){
 
         var profileDO = userRepository.findBy_id(id);
 

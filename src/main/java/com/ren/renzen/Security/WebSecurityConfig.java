@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static com.ren.renzen.additional.KEYS.LOGIN_URLS;
 import static com.ren.renzen.additional.KEYS.SIGN_UP_URLS;
@@ -30,10 +31,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     final CustomUserDetailService customUserDetailService;
     final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, CustomUserDetailService customUserDetailService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+//    @Bean
+//    public JwtAuthenticationFilter jwtAuthenticationFilter(){
+//        return new JwtAuthenticationFilter();
+//    }
+
+    public WebSecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, CustomUserDetailService customUserDetailService, BCryptPasswordEncoder bCryptPasswordEncoder, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.customUserDetailService = customUserDetailService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+
+        //this.jwtAuthenticationFilter = new JwtAuthenticationFilter()
+
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
 
@@ -66,7 +78,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico") // might have to add more
         .permitAll()
                 .antMatchers(SIGN_UP_URLS,LOGIN_URLS).permitAll() //permits login
-                .anyRequest().permitAll(); //all others require authentication
+                .anyRequest().authenticated(); //all others require authentication
+
+
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
         //http.authorizeRequests().anyRequest().permitAll();
