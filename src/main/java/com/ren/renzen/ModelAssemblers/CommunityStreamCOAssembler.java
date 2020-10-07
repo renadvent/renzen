@@ -1,19 +1,15 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.CommunityStreamComponentCO;
-import com.ren.renzen.Controllers.CommunityController;
+import com.ren.renzen.CommandObjects.CommunityInfoComponentCO;
 import com.ren.renzen.Converters.CommunityDO_to_CommunityStreamComponentCO;
 import com.ren.renzen.DomainObjects.CommunityDO;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
+import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class CommunityStreamCOAssembler implements RepresentationModelAssembler<CommunityDO, CommunityStreamComponentCO> {
+public class CommunityStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<CommunityDO, CommunityInfoComponentCO> {
 
     final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
@@ -22,13 +18,31 @@ public class CommunityStreamCOAssembler implements RepresentationModelAssembler<
     }
 
     @Override
-    public CommunityStreamComponentCO toModel(CommunityDO entity) {
+    public CommunityInfoComponentCO assembleDomainToPublicModelView(CommunityDO entity) {
+        CommunityInfoComponentCO communityInfoComponentCO = communityDO_to_communityStreamComponentCO.convertDomainToPublicView(entity);
 
-        CommunityStreamComponentCO communityStreamComponentCO = communityDO_to_communityStreamComponentCO.convert(entity);
-        return communityStreamComponentCO
-                .add(List.of(
-                        linkTo(methodOn(CommunityController.class).getCommunityStreamComponentCO(communityStreamComponentCO.getObjectId())).withRel("Stream_Version"),
-                        linkTo(methodOn(CommunityController.class).getCommunityTabComponentCO(communityStreamComponentCO.getObjectId())).withRel("Tab_Version")));
+        return communityInfoComponentCO;
+
+        //        return communityInfoComponentCO
+//                .add(List.of(
+//                        linkTo(methodOn(CommunityEditorController.class).getCommunityStreamComponentCO(communityInfoComponentCO.getObjectId())).withRel("Stream_Version"),
+//                        linkTo(methodOn(CommunityEditorController.class).getCommunityTabComponentCO(communityInfoComponentCO.getObjectId())).withRel("Tab_Version")));
+
+    }
+
+    @Override
+    public CommunityInfoComponentCO assembleDomainToFullModelView(CommunityDO entity) {
+        CommunityInfoComponentCO communityInfoComponentCO = communityDO_to_communityStreamComponentCO.convertDomainToFullView(entity);
+
+        return communityInfoComponentCO;
+
+
+//        return communityInfoComponentCO
+//                .add(List.of(
+//                        linkTo(methodOn(CommunityEditorController.class).getCommunityStreamComponentCO(communityInfoComponentCO.getObjectId())).withRel("Stream_Version"),
+//                        linkTo(methodOn(CommunityEditorController.class).getCommunityTabComponentCO(communityInfoComponentCO.getObjectId())).withRel("Tab_Version")));
+//
+//
     }
 }
 

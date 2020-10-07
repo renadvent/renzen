@@ -1,5 +1,6 @@
 package com.ren.renzen.CommandObjects;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,22 +14,29 @@ import java.util.List;
 /***
  *
  */
-@Getter
-@Setter
+
+@Data
 @NoArgsConstructor
 public class ProfileTabComponentCO extends RepresentationModel<ProfileTabComponentCO> {
-    String name;
-    String _id;
-    ObjectId objectId;
-    Integer numberOfArticles;
-    Integer numberOfCommunities;
-    Integer numberOfDiscussionContentPosts;
-    List<ObjectId> articleIDList = new ArrayList<>();
-    List<ObjectId> communityIDList = new ArrayList<>();
-    List<ObjectId> discussionContentIDList = new ArrayList<>();
-    CollectionModel<ArticleStreamComponentCO> articleHomePageCOList;
-    CollectionModel<CommunityStreamComponentCO> communityStreamComponentCOList;
-    CollectionModel<ArticleStreamComponentCO> articleBookmarksCM;
 
-    List<String> screenshotLinks = new ArrayList<>();
+        //react uses this to know what component type/component render
+        String ACCESS_TYPE;//Public or Private //normalized state regardless
+
+    //----------------------------------
+
+        String name;
+        String _id;
+        ObjectId objectId;
+        Integer numberOfArticles;
+        Integer numberOfCommunities;
+        Integer numberOfDiscussionContentPosts;
+        List<ObjectId> articleIDList = new ArrayList<>();
+        List<ObjectId> communityIDList = new ArrayList<>();
+        List<ObjectId> discussionContentIDList = new ArrayList<>();
+        CollectionModel<ArticleInfoComponentCO> articleStreamComponentCOS;
+        CollectionModel<CommunityInfoComponentCO> communityInfoComponentCOS;
+        CollectionModel<ArticleInfoComponentCO> articleBookmarksCM;
+
+        List<String> screenshotLinks = new ArrayList<>();
+
 }

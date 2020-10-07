@@ -1,7 +1,5 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ProfileStreamComponentCO;
-import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
@@ -15,9 +13,6 @@ import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.Validator.UserNamePasswordValidator;
-import com.ren.renzen.additional.KEYS.*;
-import org.bson.types.ObjectId;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +27,7 @@ import javax.validation.Valid;
 import static com.ren.renzen.additional.KEYS.TOKEN_PREFIX;
 
 @RestController
-public class UserController {
+public class UserEditorController {
 
     //services
     final UserService userService;
@@ -68,7 +63,7 @@ public class UserController {
     //Authentication Manager
     final AuthenticationManager authenticationManager;
 
-    public UserController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public UserEditorController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -136,19 +131,4 @@ public class UserController {
         //return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(loginRequest.getUsername(), loginRequest.getPassword())));
     }
 
-    @GetMapping(path = "/getProfiles")
-    public ResponseEntity<CollectionModel<?>> getAllProfiles() {
-        return ResponseEntity
-                .ok(profileStreamCOAssembler.toCollectionModel(userService.findAll()));
-    }
-
-    @GetMapping(path = "/getProfileStreamComponentCO/{id}")
-    public ProfileStreamComponentCO getProfileStreamComponentCO(@PathVariable ObjectId id) {
-        return profileStreamCOAssembler.toModel(userService.findBy_id(id));
-    }
-
-    @RequestMapping(path = "/profileTabComponentCO/{id}")
-    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id) {
-        return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findBy_id(id)));
-    }
 }

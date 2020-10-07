@@ -1,5 +1,6 @@
 package com.ren.renzen.CommandObjects;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,15 +13,19 @@ import org.springframework.hateoas.RepresentationModel;
  * <p>
  * It is used on the Index Page, the Profile Page, and Community Page
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class ArticleStreamComponentCO extends RepresentationModel<ArticleStreamComponentCO> {
+public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoComponentCO> {
+
+    String ACCESS_TYPE;
+
+    //---------------
+
     String _id;
     ObjectId objectId;
     String name;
     String description;
     String authorID;
     String authorName;
-    ProfileStreamComponentCO profileStreamComponentCO;
+    ProfileInfoComponentCO profileInfoComponentCO;
 }

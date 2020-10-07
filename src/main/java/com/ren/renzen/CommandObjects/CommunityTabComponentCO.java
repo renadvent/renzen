@@ -1,5 +1,6 @@
 package com.ren.renzen.CommandObjects;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,10 +11,13 @@ import org.springframework.hateoas.RepresentationModel;
 /**
  * This CO is used to return data needed to render an article to community component
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class CommunityTabComponentCO extends RepresentationModel<CommunityTabComponentCO> {
+
+    String ACCESS_TYPE;
+
+    //---------------
 
     String _id;
     ObjectId objectId;
@@ -23,7 +27,7 @@ public class CommunityTabComponentCO extends RepresentationModel<CommunityTabCom
      * This List is used by the React Application to render the
      * names of the articles and to provide links to those articles
      */
-    CollectionModel<ArticleStreamComponentCO> article_Article_streamComponentCOList;
+    CollectionModel<ArticleInfoComponentCO> articleInfoComponentCOS;
 
     Integer numberOfArticles;
     /**
@@ -31,13 +35,10 @@ public class CommunityTabComponentCO extends RepresentationModel<CommunityTabCom
      * names of the members of this community and provide Links
      */
 
-    CollectionModel
-            <ProfileStreamComponentCO> user_streamComponentCOList;
+    CollectionModel <ProfileInfoComponentCO> profileInfoComponentCOS;
     Integer numberOfUsers;
     /**
      * This Object is used to render the Community Discussion section
      * on the homepage
      */
-    DiscussionComponentCO discussionDiscussionComponentCO;
-
 }

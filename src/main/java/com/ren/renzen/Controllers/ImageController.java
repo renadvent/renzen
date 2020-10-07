@@ -7,17 +7,13 @@ import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.sas.BlobSasPermission;
 import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
 import com.azure.storage.common.sas.SasProtocol;
-import com.ren.renzen.DomainObjects.ImageDO;
 import com.ren.renzen.Services.Interfaces.*;
 import com.ren.renzen.additional.KEYS;
-import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -53,23 +49,6 @@ public class ImageController {
         containerClient = blobServiceClient.getBlobContainerClient(containerName);
 
     }
-
-//    @GetMapping(path = "/getImage")
-//    public String getImageTest(String id){
-//
-//        ImageDO imageDO = imageService.getImage("5f6e49fc5abf1a24db808a01").get();
-//
-//        try {
-//            File file = File.createTempFile("image", ".png");
-//            Files.write(file.toPath(),Base64.getDecoder().decode(imageDO.getImage()));
-//            System.out.println();
-//            return file.getAbsolutePath();
-//        }catch (Exception exception){
-//            //
-//        }
-//
-//        return "failed";
-//    }
 
     /**
      * returns link to image that was saved
@@ -130,41 +109,11 @@ public class ImageController {
         String url = blobClient.getBlobUrl();
 
         var user = userService.findBy_id(userId);
-        user.getScreenshotsIDList().add(url); // adds url without sas. wiil have to be generated when retrieving
+        user.getPublicScreenshotsIDList().add(url); // adds url without sas. wiil have to be generated when retrieving
         userService.save(user);
 
         var urlWithPermissions = url+"?"+SAS;
         return urlWithPermissions; // link with sas
     }
 
-//    public String generateSAS(String name){
-//
-//        BlobClient blobClient = containerClient.getBlobClient(name);
-//
-//        BlobSasPermission blobPermission = new BlobSasPermission().setReadPermission(true);
-//
-//        //generate link
-//        var blobServiceSasSignatureValues = new BlobServiceSasSignatureValues()
-//                .setProtocol(SasProtocol.HTTPS_ONLY) // Users MUST use HTTPS (not HTTP).
-//                .setExpiryTime(OffsetDateTime.now().plusDays(2))
-//                .setPermissions(blobPermission);;
-//
-//        var SAS = blobClient.generateSas(blobServiceSasSignatureValues);
-//        return SAS;
-//    }
-
-//    public String getSASLinkForImage(String imageLink){
-//
-//    }
-
-    @Data
-    public static class imageUpload {
-        String title;
-        MultipartFile file;
-
-        imageUpload(String title, MultipartFile file) {
-            this.title = title;
-            this.file = file;
-        }
-    }
 }

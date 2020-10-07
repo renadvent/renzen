@@ -3,11 +3,11 @@ package com.ren.renzen.ModelAssemblers;
 import com.ren.renzen.CommandObjects.CommunityTabComponentCO;
 import com.ren.renzen.Converters.CommunityDO_to_CommunityTabComponentCO;
 import com.ren.renzen.DomainObjects.CommunityDO;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
+import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommunityTabCOAssembler implements RepresentationModelAssembler<CommunityDO, CommunityTabComponentCO> {
+public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<CommunityDO, CommunityTabComponentCO> {
 
     final CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
 
@@ -16,9 +16,15 @@ public class CommunityTabCOAssembler implements RepresentationModelAssembler<Com
     }
 
     @Override
-    public CommunityTabComponentCO toModel(CommunityDO entity) {
+    public CommunityTabComponentCO assembleDomainToPublicModelView(CommunityDO entity) {
+        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToPublicView(entity);
 
-        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convert(entity);
+        return communityTabComponentCO;
+    }
+
+    @Override
+    public CommunityTabComponentCO assembleDomainToFullModelView(CommunityDO entity) {
+        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToFullView(entity);
 
         return communityTabComponentCO;
     }

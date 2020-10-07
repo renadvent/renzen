@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,24 +18,21 @@ import java.util.List;
 @Document(collection = "Articles")
 public class ArticleDO {
 
-    @Id
+    @MongoId
     ObjectId _id;
+
+    String articleName;
     String topic;
-    String name;
     String description;
-    ObjectId userID;
+
+    ObjectId creatorID;
     ObjectId communityID;
     ObjectId discussionID;
+
     List<ArticleSectionDO> articleSectionDOList;
 
-    List<ObjectId> imageIDs = new ArrayList<ObjectId>();
+    //public article view setting
+    boolean visibleInCommunity = true;
 
-    public ArticleDO(String name, String description, ObjectId userID, ObjectId communityID,
-                     List<ArticleSectionDO> articleSectionDOList) {
-        this.name = name;
-        this.description = description;
-        this.userID = userID;
-        this.communityID = communityID;
-        this.articleSectionDOList = articleSectionDOList;
-    }
+    List<ObjectId> imageIDs = new ArrayList<ObjectId>();
 }

@@ -1,5 +1,6 @@
 package com.ren.renzen.CommandObjects;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,10 +13,14 @@ import java.util.List;
 /***
  *
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamComponentCO> {
+public class ProfileInfoComponentCO extends RepresentationModel<ProfileInfoComponentCO> {
+
+    String ACCESS_TYPE;
+
+    //---------------
+
     String _id;
     ObjectId objectId;
     String name;

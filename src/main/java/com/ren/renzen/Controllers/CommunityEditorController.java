@@ -1,9 +1,7 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.CommunityStreamComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.CommunityDO;
-import com.ren.renzen.DomainObjects.DiscussionDO;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -11,10 +9,6 @@ import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
-import lombok.Getter;
-import lombok.Setter;
-import org.bson.types.ObjectId;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +17,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
-public class CommunityController {
+public class CommunityEditorController {
 
 
     //services
@@ -51,7 +45,7 @@ public class CommunityController {
     //
     final MapValidationErrorService mapValidationErrorService;
 
-    public CommunityController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
+    public CommunityEditorController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
         this.discussionService = discussionService;
@@ -116,65 +110,9 @@ public class CommunityController {
         userService.save(profileDO);
 
         return ResponseEntity.ok(communityTabCOAssembler.toModel(communityDO));
-//        return ResponseEntity
-//                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-//                .body(entityModel);
     }
 
-    @GetMapping("/getCommunities")
-    public CollectionModel<CommunityStreamComponentCO> getAllCommunities(Principal principal) {
-        return (communityStreamCOAssembler.toCollectionModel(communityService.findAll(principal.getName())));
-    }
 
-    //TODO update toModel
-    @GetMapping(path = "/getCommunityStreamComponentCO/{id}")
-    public CommunityStreamComponentCO getCommunityStreamComponentCO(@PathVariable ObjectId id) {
-        return communityStreamCOAssembler.toModel(communityService.findBy_id(id));
-    }
-
-//    @GetMapping("/getCommunities")
-//    public ResponseEntity<CollectionModel<RepresentationModel<?>>> getAllCommunities(){
-//        return ResponseEntity
-//                .ok(communityStreamCOAssembler.toCollectionModel(communityService.findAll()));
-//    }
-
-
-//    @GetMapping(path="/getAllByCommunityIDAndTopic")
-//    public List<ArticleStreamComponentCO> getAllByCommunityIDAndTopic(@RequestBody getAllByCommunityIDAndTopicPayload payload){
-//
-//        List<ArticleStreamComponentCO> returnList = new ArrayList<>();
-//
-//        for (ArticleDO articleDO : articleService.findAllByCommunityIDAndTopic(payload.communityID,payload.topic)){
-//            returnList.add(articleDO_to_articleStreamComponentCO.convert(articleDO));
-//        }
-//        return returnList;
-//    }
-
-    //TODO update toModel
-    @RequestMapping(path = "/communityTabComponent/{id}")
-    public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id) {
-        return ResponseEntity
-                .ok(communityTabCOAssembler.toModel(communityService.findBy_id(id)));
-    }
-
-    @Getter
-    @Setter
-    static class JoinCommunityPayload {
-        ObjectId userId;
-        ObjectId communityId;
-    }
-
-    @Getter
-    @Setter
-    static class getAllByCommunityIDAndTopicPayload {
-        ObjectId communityID;
-        String topic;
-
-        public getAllByCommunityIDAndTopicPayload(ObjectId communityID, String topic) {
-            this.communityID = communityID;
-            this.topic = topic;
-        }
-    }
 
 
 }

@@ -1,6 +1,5 @@
 package com.ren.renzen.Services.Interfaces;
 
-import com.ren.renzen.DomainObjects.DiscussionDO;
 import org.bson.types.ObjectId;
 
 public interface DiscussionService {

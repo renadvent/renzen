@@ -1,5 +1,6 @@
 package com.ren.renzen.CommandObjects;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +14,17 @@ import java.util.List;
  * This Command Object is used to return data to
  * React Application needed to render the main index page at (/index)
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class HomeTabComponentCO extends RepresentationModel<HomeTabComponentCO> {
+
+    String ACCESS_TYPE;
+
+    //---------------
+
     String _id;
     ObjectId objectId;
-    List<ArticleStreamComponentCO> article_Article_streamComponentCOList = new ArrayList<>();
-    List<ProfileStreamComponentCO> user_streamComponentCOList = new ArrayList<>();
-    List<CommunityStreamComponentCO> community_streamComponentCOList = new ArrayList<>();
+    List<ArticleInfoComponentCO> articleInfoComponentCOList = new ArrayList<>();
+    List<ProfileInfoComponentCO> profileInfoComponentCOList = new ArrayList<>();
+    List<CommunityInfoComponentCO> communityInfoComponentCOList = new ArrayList<>();
 }

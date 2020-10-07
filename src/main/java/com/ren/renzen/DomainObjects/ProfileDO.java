@@ -22,36 +22,33 @@ import java.util.List;
  * DO for Users
  */
 @Data
-@Document(collection = "Profiles")
 @NoArgsConstructor
+@Document(collection = "Profiles")
 public class ProfileDO implements UserDetails {
 
     @MongoId
     ObjectId _id;
 
-    //@NotBlank(message = "username must not be blank")
     String username;
-    //@NotBlank(message = "password must not be blank")
     String password;
+    String email;
 
-//    @Email(meessage="need to be an email")
-//    String email;
+    //toggles for converter
+    //public profile view settings toggle (used when converting)
+    boolean profileIsPublic = true;
+    boolean communityListIsPublic = true;
+    boolean articleListIsPublic = true;
+    boolean articleBookmarkListIsPublic=false;
 
-//    private Date created_At;
-//    private Date updated_At;
-
-
-    List<ObjectId> articleIDList = new ArrayList<>();
+    //lists for contents
     List<ObjectId> communityIDList = new ArrayList<>();
-    List<ObjectId> discussionContentIDs = new ArrayList<>();
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();
+    List<ObjectId> articleIDList = new ArrayList<>(); // private setting is in article
 
-    List<String> screenshotsIDList = new ArrayList<>();
+    List<String> publicScreenshotsIDList = new ArrayList<>();
 
-    public ProfileDO(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+    //not loaded on profile page unless logged in
+    List<String> privateScreenshotIDList = new ArrayList<>();
 
     /*
     User details implment methods

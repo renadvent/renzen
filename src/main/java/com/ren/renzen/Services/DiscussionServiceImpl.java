@@ -1,7 +1,5 @@
 package com.ren.renzen.Services;
 
-import com.ren.renzen.DomainObjects.DiscussionDO;
-import com.ren.renzen.Repositories.DiscussionRepository;
 import com.ren.renzen.Services.Interfaces.DiscussionService;
 import org.bson.types.ObjectId;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;

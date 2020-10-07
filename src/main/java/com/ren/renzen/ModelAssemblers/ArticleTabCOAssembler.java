@@ -1,16 +1,12 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
-import com.ren.renzen.Controllers.ArticleController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
+import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * Test Assembler for Rest
@@ -29,7 +25,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  * in this case, possible responses are different CO's
  */
 @Component
-public class ArticleTabCOAssembler implements RepresentationModelAssembler<ArticleDO, ArticleTabComponentCO> {
+public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleTabComponentCO> {
 
     final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
 
@@ -37,18 +33,34 @@ public class ArticleTabCOAssembler implements RepresentationModelAssembler<Artic
         this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
     }
 
-
     @Override
-    public ArticleTabComponentCO toModel(ArticleDO articleDO) {
+    public ArticleTabComponentCO assembleDomainToPublicModelView(ArticleDO articleDO) {
 
-        ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convert(articleDO);
+            ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToPublicView(articleDO);
 
-        return articleTabComponentCO
+            return articleTabComponentCO;
 
-                .add(List.of(
-                        linkTo(methodOn(ArticleController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
-                        linkTo(methodOn(ArticleController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
+//            return articleTabComponentCO
+//
+//                    .add(List.of(
+//                            linkTo(methodOn(ArticleEditorController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
+//                            linkTo(methodOn(ArticleEditorController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
+//
     }
 
+    @Override
+    public ArticleTabComponentCO assembleDomainToFullModelView(ArticleDO articleDO) {
+
+            ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToFullView(articleDO);
+
+            return articleTabComponentCO;
+
+//            return articleTabComponentCO
+//
+//                    .add(List.of(
+//                            linkTo(methodOn(ArticleEditorController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
+//                            linkTo(methodOn(ArticleEditorController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
+//
+    }
 }
 
