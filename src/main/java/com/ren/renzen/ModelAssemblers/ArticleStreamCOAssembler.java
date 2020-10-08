@@ -1,7 +1,6 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
-import com.ren.renzen.Controllers.ArticleEditorController;
 import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
@@ -28,38 +27,21 @@ public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Arti
     @Override
     public ArticleInfoComponentCO assembleDomainToPublicModelView(ArticleDO entity) {
         ArticleInfoComponentCO articleInfoComponentCO = articleDO_to_articleStreamComponentCO.convertDomainToPublicView(entity);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        //class coEXT extends RepresentationModelAssembler<ArticleDO>
-
-//        return articleInfoComponentCO;
-
-        return articleInfoComponentCO
-                   .add(List.of(
-                linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(articleInfoComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(articleInfoComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
-
-
+        return addLinksWithCurrentAuthentication(articleInfoComponentCO);
     }
 
     @Override
     public ArticleInfoComponentCO assembleDomainToFullModelView(ArticleDO entity) {
         ArticleInfoComponentCO articleInfoComponentCO = articleDO_to_articleStreamComponentCO.convertDomainToPublicView(entity);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return addLinksWithCurrentAuthentication(articleInfoComponentCO);
+    }
 
-//        return articleInfoComponentCO;
-
-//        return articleInfoComponentCO
-//                .add(List.of(
-//                        linkTo(methodOn(ArticleEditorController.class).getArticleStreamComponentCO(articleInfoComponentCO.getObjectId())).withRel("Stream_Version"),
-//                        linkTo(methodOn(ArticleEditorController.class).getArticleTabComponentCO(articleInfoComponentCO.getObjectId())).withRel("Tab_Version")));
-//
-
-        return articleInfoComponentCO
+    @Override
+    public ArticleInfoComponentCO addLinksWithCurrentAuthentication(ArticleInfoComponentCO entity){
+        return entity
                 .add(List.of(
-                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(articleInfoComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(articleInfoComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
-
+                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version")));
 
     }
 }

@@ -1,5 +1,6 @@
 package com.ren.renzen.ModelAssemblers;
 
+import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_FULL;
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_PUBLIC;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -42,16 +45,8 @@ public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Article
     public ArticleTabComponentCO assembleDomainToPublicModelView(ArticleDO articleDO) {
 
             ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToPublicView(articleDO);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-
-
-//            return articleTabComponentCO;
-
-            return articleTabComponentCO
-
-                   .add(List.of(
-                            linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                            linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+            articleTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+            return addLinksWithCurrentAuthentication(articleTabComponentCO);
 
     }
 
@@ -59,16 +54,17 @@ public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Article
     public ArticleTabComponentCO assembleDomainToFullModelView(ArticleDO articleDO) {
 
             ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToFullView(articleDO);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        articleTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
+        return addLinksWithCurrentAuthentication(articleTabComponentCO);
+    }
 
-//            return articleTabComponentCO;
-
-            return articleTabComponentCO
-
-                   .add(List.of(
-                linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+    @Override
+    public ArticleTabComponentCO addLinksWithCurrentAuthentication(ArticleTabComponentCO entity) {
+        return entity
+                .add(List.of(
+                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version")));
 
     }
 }

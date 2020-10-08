@@ -29,14 +29,7 @@ public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Commu
         CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToPublicView(entity);
 
         communityTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        //return communityTabComponentCO;
-
-        return communityTabComponentCO
-                .add(List.of(
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(communityTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(communityTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+        return addLinksWithCurrentAuthentication(communityTabComponentCO);
 
     }
 
@@ -45,13 +38,15 @@ public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Commu
         CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToFullView(entity);
 
         communityTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return addLinksWithCurrentAuthentication(communityTabComponentCO);
+    }
 
-        //return communityTabComponentCO;
-        return communityTabComponentCO
+    @Override
+    public CommunityTabComponentCO addLinksWithCurrentAuthentication(CommunityTabComponentCO entity) {
+        return entity
                 .add(List.of(
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(communityTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(communityTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version")));
 
     }
 }

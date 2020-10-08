@@ -34,24 +34,7 @@ public class CommunityStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Co
         CommunityInfoComponentCO communityInfoComponentCO = communityDO_to_communityStreamComponentCO.convertDomainToPublicView(entity);
 
         communityInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
-
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-
-
-        //var principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-//            String currentUserName = authentication.getName();
-//            authentication.getPrincipal();
-//            //return currentUserName;
-//        }
-
-//        return communityInfoComponentCO;
-
-                return communityInfoComponentCO
-                .add(List.of(
-                       linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(communityInfoComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(communityInfoComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+        return addLinksWithCurrentAuthentication(communityInfoComponentCO);
 
     }
 
@@ -60,22 +43,16 @@ public class CommunityStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Co
         CommunityInfoComponentCO communityInfoComponentCO = communityDO_to_communityStreamComponentCO.convertDomainToFullView(entity);
 
         communityInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return addLinksWithCurrentAuthentication(communityInfoComponentCO);
+    }
 
-
-        //return communityInfoComponentCO;
-
-        return communityInfoComponentCO
+    @Override
+    public CommunityInfoComponentCO addLinksWithCurrentAuthentication(CommunityInfoComponentCO entity) {
+        return entity
                 .add(List.of(
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(communityInfoComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(communityInfoComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version")));
 
-//        return communityInfoComponentCO
-//                .add(List.of(
-//                        linkTo(methodOn(CommunityEditorController.class).getCommunityStreamComponentCO(communityInfoComponentCO.getObjectId())).withRel("Stream_Version"),
-//                        linkTo(methodOn(CommunityEditorController.class).getCommunityTabComponentCO(communityInfoComponentCO.getObjectId())).withRel("Tab_Version")));
-//
-//
     }
 }
 

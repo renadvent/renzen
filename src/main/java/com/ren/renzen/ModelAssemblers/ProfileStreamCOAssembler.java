@@ -29,17 +29,8 @@ public class ProfileStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Prof
         ProfileInfoComponentCO profileInfoComponentCO = profileDO_to_profileStreamComponentCO.convertDomainToPublicView(profileDO);
 
         profileInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return addLinksWithCurrentAuthentication(profileInfoComponentCO);
 
-//        return profileInfoComponentCO;
-
-        return profileInfoComponentCO.add(List.of(
-//                linkTo(methodOn(UserEditorController.class).getAllProfiles()).withRel("other"),
-//                linkTo(methodOn(ArticleEditorController.class).getAllArticles()).withRel("other"),
-//                //linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("other"),
-                linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(profileInfoComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(profileInfoComponentCO.getObjectId(),authentication)).withRel("Tab_Version"))
-        );
     }
 
     @Override
@@ -47,17 +38,15 @@ public class ProfileStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Prof
         ProfileInfoComponentCO profileInfoComponentCO = profileDO_to_profileStreamComponentCO.convertDomainToFullView(profileDO);
 
         profileInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return addLinksWithCurrentAuthentication(profileInfoComponentCO);
 
+    }
 
-//        return profileInfoComponentCO;
-
-        return profileInfoComponentCO.add(List.of(
-//                linkTo(methodOn(UserEditorController.class).getAllProfiles()).withRel("other"),
-//                linkTo(methodOn(ArticleEditorController.class).getAllArticles()).withRel("other"),
-//                //linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("other"),
-                linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(profileInfoComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
-                linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(profileInfoComponentCO.getObjectId(),authentication)).withRel("Tab_Version"))
+    @Override
+    public ProfileInfoComponentCO addLinksWithCurrentAuthentication(ProfileInfoComponentCO entity) {
+        return entity.add(List.of(
+                linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
+                linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version"))
         );
     }
 }

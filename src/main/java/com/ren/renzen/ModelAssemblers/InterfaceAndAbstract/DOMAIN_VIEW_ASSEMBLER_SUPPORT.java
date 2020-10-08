@@ -1,7 +1,10 @@
 package com.ren.renzen.ModelAssemblers.InterfaceAndAbstract;
 
+import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,4 +26,10 @@ public abstract class DOMAIN_VIEW_ASSEMBLER_SUPPORT<DOMAIN,CO extends Representa
     public CollectionModel<CO> assembleDomainToFullModelViewCollection(List<DOMAIN> entities){
         return new CollectionModel<>(entities.stream().map(this::assembleDomainToFullModelView).collect(Collectors.toList()));
     }
+
+    public Authentication getAuth(){
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    public abstract CO addLinksWithCurrentAuthentication(CO entity);
 }
