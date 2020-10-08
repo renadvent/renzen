@@ -8,6 +8,6 @@ import org.bson.types.ObjectId;
 @Setter
 public class addBookmarkPayload {
 
-        ObjectId userId;
-        ObjectId articleId;
-    }
+    ObjectId userId;
+    ObjectId articleId;
+}

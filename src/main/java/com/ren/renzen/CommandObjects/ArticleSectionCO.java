@@ -1,9 +1,7 @@
 package com.ren.renzen.CommandObjects;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.types.ObjectId;
 
 /**

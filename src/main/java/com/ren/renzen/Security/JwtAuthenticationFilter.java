@@ -36,15 +36,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
 
-        try{
+        try {
             String jwt = getJwtFromRequest(httpServletRequest);
 
-            if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)){
+            if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
                 ObjectId userId = new ObjectId(jwtTokenProvider.getUserIdFromJWT(jwt)); //?
                 ProfileDO profileDO = customUserDetailService.loadUserById(userId);
 
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        profileDO,null, Collections.emptyList()
+                        profileDO, null, Collections.emptyList()
                 );
 
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
@@ -54,18 +54,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 //ObjectId userId = (ObjectId) jwtTokenProvider.getUserIdFromJWT(jwt);
             }
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             logger.error("Could not set user authentication in security context");
         }
 
-        filterChain.doFilter(httpServletRequest,httpServletResponse);
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    private String getJwtFromRequest(HttpServletRequest request){
+    private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader(HEADER_STRING);
 
-        if (StringUtils.hasText(bearerToken)&&bearerToken.startsWith(TOKEN_PREFIX)){
-            return bearerToken.substring(7,bearerToken.length());
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)) {
+            return bearerToken.substring(7);
         }
 
         return null;

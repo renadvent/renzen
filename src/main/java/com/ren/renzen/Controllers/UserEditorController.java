@@ -19,7 +19,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -86,23 +89,23 @@ public class UserEditorController {
     @RequestMapping(path = "/register")
     public ResponseEntity<?> Register(@Valid @RequestBody UserNamePassword userNamePassword, BindingResult result) {
 
-        userNamePasswordValidator.validate(userNamePassword,result);
+        userNamePasswordValidator.validate(userNamePassword, result);
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap!=null) return errorMap;
+        if (errorMap != null) return errorMap;
 
         var profileDO = new ProfileDO();
         profileDO.setUsername(userNamePassword.getUsername());
         profileDO.setPassword(userNamePassword.getPassword());
 
-            return new ResponseEntity<>(profileTabCOAssembler
-                    .assembleDomainToFullModelView(
-                            userService
-                            .save
-                                    (profileDO)
-                    ),
-                    HttpStatus.CREATED
-            );
+        return new ResponseEntity<>(profileTabCOAssembler
+                .assembleDomainToFullModelView(
+                        userService
+                                .save
+                                        (profileDO)
+                ),
+                HttpStatus.CREATED
+        );
     }
 
     //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
@@ -112,7 +115,7 @@ public class UserEditorController {
 
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap!=null) return errorMap;
+        if (errorMap != null) return errorMap;
 
         Authentication authentication = authenticationManager.authenticate(
 
@@ -126,7 +129,7 @@ public class UserEditorController {
         String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
 
         //pass back token
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true,jwt));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
 
         //return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(loginRequest.getUsername(), loginRequest.getPassword())));
     }

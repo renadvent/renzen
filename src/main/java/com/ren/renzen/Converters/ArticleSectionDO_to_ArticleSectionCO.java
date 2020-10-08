@@ -9,7 +9,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 
-
 @Component
 public class ArticleSectionDO_to_ArticleSectionCO implements Converter<ArticleSectionDO, ArticleSectionCO> {
 
@@ -27,11 +26,11 @@ public class ArticleSectionDO_to_ArticleSectionCO implements Converter<ArticleSe
         co.setHeader(source.getHeader());
         co.setBody(source.getBody());
 
-        try{
+        try {
             String name = source.getImageID().substring(source.getImageID().lastIndexOf('/') + 1);
 
             co.setImageID(imageService.generateSAS(name));
-        } catch (Exception e){
+        } catch (Exception e) {
             co.setImageID(null);
         }
 

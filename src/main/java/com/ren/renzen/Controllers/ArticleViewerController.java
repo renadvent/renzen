@@ -1,7 +1,5 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
-import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ArticleTabCOAssembler;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -35,10 +33,10 @@ public class ArticleViewerController {
 
         var articleDO = articleService.findBy_id(id);
 
-        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())){
+        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleStreamCOAssembler.assembleDomainToPublicModelView(articleDO));
-        }else{
+        } else {
             //GET FULL VERSION
             return ResponseEntity.ok(articleStreamCOAssembler.assembleDomainToFullModelView(articleDO));
         }
@@ -46,13 +44,13 @@ public class ArticleViewerController {
 
     //TODO update toModel
     @GetMapping(path = "/getArticleTabComponentCO/{id}")
-    public ResponseEntity<?>  getArticleTabComponentCO(@PathVariable ObjectId id, Principal principal) {
+    public ResponseEntity<?> getArticleTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var articleDO = articleService.findBy_id(id);
 
-        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())){
+        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToPublicModelView(articleDO));
-        }else{
+        } else {
             //GET FULL VERSION
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(articleDO));
         }

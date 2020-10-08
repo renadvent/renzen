@@ -26,13 +26,13 @@ public class ReactAndSpringDataRestApplication {
 //            registration.setMultipartConfig(multipartConfigElement);
 //        } }
 
-    @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
+    }
+
+    @Bean
+    BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 

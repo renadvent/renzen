@@ -7,9 +7,10 @@ package com.ren.renzen.Converters.InterfaceAndAbstract;
  */
 public interface DOMAIN_VIEW_CONVERTER<DOMAIN, CO> {
 
-    public static final String ACCESS_TYPE_PUBLIC = "ACCESS_TYPE_PUBLIC";
-    public static final String ACCESS_TYPE_FULL = "ACCESS_TYPE_FULL";
+    String ACCESS_TYPE_PUBLIC = "ACCESS_TYPE_PUBLIC";
+    String ACCESS_TYPE_FULL = "ACCESS_TYPE_FULL";
 
     CO convertDomainToPublicView(DOMAIN domain);
+
     CO convertDomainToFullView(DOMAIN domain);
 }

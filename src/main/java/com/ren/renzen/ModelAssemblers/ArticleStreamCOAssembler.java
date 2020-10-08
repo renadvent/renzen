@@ -5,7 +5,6 @@ import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Arti
     }
 
 
-
     @Override
     public ArticleInfoComponentCO assembleDomainToPublicModelView(ArticleDO entity) {
         ArticleInfoComponentCO articleInfoComponentCO = articleDO_to_articleStreamComponentCO.convertDomainToPublicView(entity);
@@ -37,11 +35,11 @@ public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Arti
     }
 
     @Override
-    public ArticleInfoComponentCO addLinksWithCurrentAuthentication(ArticleInfoComponentCO entity){
+    public ArticleInfoComponentCO addLinksWithCurrentAuthentication(ArticleInfoComponentCO entity) {
         return entity
                 .add(List.of(
-                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
-                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version")));
+                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
 
     }
 }

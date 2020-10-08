@@ -20,7 +20,10 @@ import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -52,13 +55,11 @@ public class ArticleEditorController {
     final CommunityTabCOAssembler communityTabCOAssembler;
     final CommunityStreamCOAssembler communityStreamCOAssembler;
     final ArticleStreamCOAssembler articleStreamCOAssembler;
-
+    //ERROR MAP
+    final MapValidationErrorService mapValidationErrorService;
     //AZURE
     BlobServiceClient blobServiceClient;
     BlobContainerClient containerClient;
-
-    //ERROR MAP
-    final MapValidationErrorService mapValidationErrorService;
 
     public ArticleEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
@@ -80,7 +81,7 @@ public class ArticleEditorController {
 
 
         // Create a BlobServiceClient object which will be used to create a container client
-        String connectStr= KEYS.CONNECTSTR;
+        String connectStr = KEYS.CONNECTSTR;
         blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
         //Create a unique name for the container
         String containerName = CONTAINER_NAME;
@@ -94,7 +95,7 @@ public class ArticleEditorController {
 
         //CHECK BINDING RESULTS OF PAYLOAD
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap!=null) return errorMap;
+        if (errorMap != null) return errorMap;
 
         //BUILD PAYLOAD TO ARTICLE
         var articleDO = new ArticleDO();
@@ -127,22 +128,22 @@ public class ArticleEditorController {
 
     }
 
-    @PostMapping(path="/addScreenshotToArticle/{id}")
-    public String addScreenshotToArticle(@PathVariable ObjectId id,@RequestBody String screenshot, Principal principal) {
+    @PostMapping(path = "/addScreenshotToArticle/{id}")
+    public String addScreenshotToArticle(@PathVariable ObjectId id, @RequestBody String screenshot, Principal principal) {
 
         //CHECK IF LOGGED ON USER IS THE OWNDER OF THE ARTICLE
-        if(!userService.findByUsername(principal.getName()).equals(articleService.findBy_id(id).getCreatorName())){
+        if (!userService.findByUsername(principal.getName()).equals(articleService.findBy_id(id).getCreatorName())) {
             throw new OwnerMismatchException("Logged In User Does Not Own Article");
         }
 
         //UPLOAD IMAGE TO AZURE
 
-        File file=null;
+        File file = null;
 
         try {
             file = File.createTempFile("image", ".png");
-            Files.write(file.toPath(), Base64.getDecoder().decode(screenshot.toString()));
-        }catch (Exception e){
+            Files.write(file.toPath(), Base64.getDecoder().decode(screenshot));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -154,7 +155,7 @@ public class ArticleEditorController {
 
         var article = articleService.findBy_id(id);
 
-        article.getArticleSectionDOList().add (new ArticleSectionDO(blobClient.getBlobUrl()));
+        article.getArticleSectionDOList().add(new ArticleSectionDO(blobClient.getBlobUrl()));
         articleService.save(article);
 
         return blobClient.getBlobUrl();

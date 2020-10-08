@@ -1,12 +1,10 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -44,16 +42,16 @@ public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Article
     @Override
     public ArticleTabComponentCO assembleDomainToPublicModelView(ArticleDO articleDO) {
 
-            ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToPublicView(articleDO);
-            articleTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
-            return addLinksWithCurrentAuthentication(articleTabComponentCO);
+        ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToPublicView(articleDO);
+        articleTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+        return addLinksWithCurrentAuthentication(articleTabComponentCO);
 
     }
 
     @Override
     public ArticleTabComponentCO assembleDomainToFullModelView(ArticleDO articleDO) {
 
-            ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToFullView(articleDO);
+        ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToFullView(articleDO);
         articleTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
         return addLinksWithCurrentAuthentication(articleTabComponentCO);
@@ -63,8 +61,8 @@ public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Article
     public ArticleTabComponentCO addLinksWithCurrentAuthentication(ArticleTabComponentCO entity) {
         return entity
                 .add(List.of(
-                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
-                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version")));
+                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
 
     }
 }

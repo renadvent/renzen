@@ -24,22 +24,22 @@ public class CustomUserDetailService implements UserDetailsService {
 
         var profileDO = userRepository.findByUsername(username);
 
-        if (profileDO.isEmpty()){
+        if (profileDO.isEmpty()) {
             throw new ProfileNotFoundException("User not found");
-        }else{
+        } else {
             return profileDO.get();
         }
 
     }
 
     @Transactional
-    public ProfileDO loadUserById(ObjectId id){
+    public ProfileDO loadUserById(ObjectId id) {
 
         var profileDO = userRepository.findBy_id(id);
 
-        if (profileDO.isEmpty()){
+        if (profileDO.isEmpty()) {
             throw new ProfileNotFoundException("User not found");
-        }else{
+        } else {
             return profileDO.get();
         }
 

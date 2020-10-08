@@ -17,47 +17,47 @@ public class JwtTokenProvider {
 
     //Generate the token
 
-    public String generateToken(Authentication authentication){
+    public String generateToken(Authentication authentication) {
         ProfileDO profileDO = (ProfileDO) authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
 
-        Date expiryDate = new Date(now.getTime()+EXPIRATION_TIME);
+        Date expiryDate = new Date(now.getTime() + EXPIRATION_TIME);
 
         String userId = profileDO.get_id().toHexString(); //???
 
-        Map<String,Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>();
 
         //information to include in token to get when you decode token
         //can throw in roles
-        claims.put("id",userId);
-        claims.put("username",profileDO.getUsername());
+        claims.put("id", userId);
+        claims.put("username", profileDO.getUsername());
 
         return Jwts.builder()
                 .setSubject(userId)
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512,SECRET)
+                .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact()
                 ;
     }
 
     //Validate the token
 
-    public boolean validateToken(String token){
+    public boolean validateToken(String token) {
 
-        try{
+        try {
             Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
             return true;
-        }catch (SignatureException ex){
+        } catch (SignatureException ex) {
             System.out.println("Invalid JWT Signature");
-        }catch (MalformedJwtException ex){
+        } catch (MalformedJwtException ex) {
             System.out.println("Invalid JWT Token");
-        }catch (ExpiredJwtException ex){
+        } catch (ExpiredJwtException ex) {
             System.out.println("Expired JWT Token");
-        }catch (UnsupportedJwtException ex){
+        } catch (UnsupportedJwtException ex) {
             System.out.println("Unsupported JWT Token");
-        }catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             System.out.println("JWT claims string is empty");
         }
         return false;
@@ -65,7 +65,7 @@ public class JwtTokenProvider {
 
     //Get user Id from token
 
-    public String getUserIdFromJWT(String token){
+    public String getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
         String id = (String) claims.get("id");
         return id;

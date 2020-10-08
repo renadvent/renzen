@@ -1,7 +1,5 @@
 package com.ren.renzen.DomainObjects;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +18,7 @@ public class ArticleSectionDO {
         this.setBody(body);
     }
 
-    public ArticleSectionDO(String imageID){
-        this.imageID=imageID;
+    public ArticleSectionDO(String imageID) {
+        this.imageID = imageID;
     }
 }

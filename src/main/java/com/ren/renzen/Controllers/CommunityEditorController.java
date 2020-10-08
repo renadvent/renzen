@@ -12,7 +12,9 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -70,7 +72,7 @@ public class CommunityEditorController {
 
         //CHECK BINDING RESULTS OF PAYLOAD
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap!=null) return errorMap;
+        if (errorMap != null) return errorMap;
 
         //ADD LOGGED IN USER TO COMMUNITY
         var profileDO = userService.findByUsername(principal.getName());
@@ -90,7 +92,7 @@ public class CommunityEditorController {
                                              Principal principal) {
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
-        if (errorMap!=null) return errorMap;
+        if (errorMap != null) return errorMap;
 
         //check if community name already exists
         if (communityService.checkIfCommunityNameUsed(payload.getName())) {
@@ -110,8 +112,6 @@ public class CommunityEditorController {
 
         return ResponseEntity.ok(communityTabCOAssembler.assembleDomainToFullModelView(communityDO));
     }
-
-
 
 
 }

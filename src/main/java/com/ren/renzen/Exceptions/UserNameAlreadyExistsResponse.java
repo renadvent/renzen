@@ -6,8 +6,8 @@ import lombok.Data;
 public class UserNameAlreadyExistsResponse {
     private String username;
 
-    UserNameAlreadyExistsResponse(String username){
-        this.username=username;
+    UserNameAlreadyExistsResponse(String username) {
+        this.username = username;
     }
 
 }

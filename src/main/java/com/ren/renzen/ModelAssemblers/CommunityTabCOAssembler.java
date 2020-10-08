@@ -5,7 +5,6 @@ import com.ren.renzen.Controllers.CommunityViewerController;
 import com.ren.renzen.Converters.CommunityDO_to_CommunityTabComponentCO;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -45,8 +44,8 @@ public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Commu
     public CommunityTabComponentCO addLinksWithCurrentAuthentication(CommunityTabComponentCO entity) {
         return entity
                 .add(List.of(
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(entity.getObjectId(),getAuth())).withRel("Stream_Version"),
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(entity.getObjectId(),getAuth())).withRel("Tab_Version")));
+                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
 
     }
 }

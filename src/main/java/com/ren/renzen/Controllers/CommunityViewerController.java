@@ -1,6 +1,5 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.CommunityInfoComponentCO;
 import com.ren.renzen.ModelAssemblers.CommunityStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.CommunityTabCOAssembler;
 import com.ren.renzen.Services.Interfaces.CommunityService;
@@ -9,7 +8,6 @@ import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -38,11 +36,11 @@ public class CommunityViewerController {
 
         var communityDO = communityService.findBy_id(id);
 
-        if (principal == null || !principal.getName().equals(communityDO.getCreatorName())){
+        if (principal == null || !principal.getName().equals(communityDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return getPublicCommunityStreamComponentCO(id);
             //return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToPublicModelView(communityDO));
-        }else{
+        } else {
             //GET FULL VERSION
             return getFullCommunityStreamComponentCO(id);
             //ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
@@ -60,7 +58,6 @@ public class CommunityViewerController {
         //GET FULL VERSION
         return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
     }
-
 
 
     //TODO update toModel

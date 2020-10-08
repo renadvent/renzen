@@ -2,7 +2,6 @@ package com.ren.renzen.Converters;
 
 import com.mongodb.lang.Nullable;
 import com.ren.renzen.CommandObjects.CommunityTabComponentCO;
-import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
@@ -43,7 +42,7 @@ public class CommunityDO_to_CommunityTabComponentCO
 
         co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
 
-        if (source.isCommunityIsPublic()){
+        if (source.isCommunityIsPublic()) {
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
             co.setName(source.getName());
