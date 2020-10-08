@@ -133,16 +133,6 @@ export function DISPATCH_init() {
       } catch {
         communities = [];
       }
-      //
-      // let articles = !Object.keys(base[0]).length
-      //   ? null
-      //   : base[0]._embedded.articleInfoComponentCoes;
-      // let profiles = !Object.keys(base[1]).length
-      //   ? null
-      //   : base[1]._embedded.profileInfoComponentCoes;
-      // let communities = !Object.keys(base[2]).length
-      //   ? null
-      //   : base[2]._embedded.communityInfoComponentCoes;
 
       dispatch({
         type: ACTION_init,
@@ -265,6 +255,9 @@ export function DISPATCH_logOut() {
 }
 
 export function DISPATCH_register(payload) {
+  //TODO also needs to dispatch login after register to get token
+  //NEED global Axios
+
   return (dispatch) => {
     Axios.post("/register", {
       password: payload.password,
