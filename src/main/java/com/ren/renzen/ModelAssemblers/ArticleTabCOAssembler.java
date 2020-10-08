@@ -1,12 +1,17 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
+import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * Test Assembler for Rest
@@ -37,30 +42,34 @@ public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Article
     public ArticleTabComponentCO assembleDomainToPublicModelView(ArticleDO articleDO) {
 
             ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToPublicView(articleDO);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            return articleTabComponentCO;
 
-//            return articleTabComponentCO
-//
-//                    .add(List.of(
-//                            linkTo(methodOn(ArticleEditorController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
-//                            linkTo(methodOn(ArticleEditorController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
-//
+//            return articleTabComponentCO;
+
+            return articleTabComponentCO
+
+                   .add(List.of(
+                            linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
+                            linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+
     }
 
     @Override
     public ArticleTabComponentCO assembleDomainToFullModelView(ArticleDO articleDO) {
 
             ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToFullView(articleDO);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            return articleTabComponentCO;
 
-//            return articleTabComponentCO
-//
-//                    .add(List.of(
-//                            linkTo(methodOn(ArticleEditorController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId())).withRel("Stream_Version"),
-//                            linkTo(methodOn(ArticleEditorController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId())).withRel("Tab_Version")));
-//
+//            return articleTabComponentCO;
+
+            return articleTabComponentCO
+
+                   .add(List.of(
+                linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
+                linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(articleTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version")));
+
     }
 }
 
