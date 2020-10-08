@@ -33,7 +33,7 @@ public class UserViewerController {
 
         var profileDO = userService.findBy_id(id);
 
-        if (principal == null || principal.getName().equals(profileDO.getUsername())){
+        if (principal == null || !principal.getName().equals(profileDO.getUsername())){
             //GET PUBLIC VERSION
             return ResponseEntity.ok(profileStreamCOAssembler.assembleDomainToPublicModelView(profileDO));
         }else{
@@ -42,11 +42,11 @@ public class UserViewerController {
         }
     }
 
-    @RequestMapping(path = "/profileTabComponentCO/{id}")
+    @RequestMapping(path = "/getProfileTabComponentCO/{id}")
     public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var profileDO = userService.findBy_id(id);
 
-        if (principal == null || principal.getName().equals(profileDO.getUsername())){
+        if (principal == null || !principal.getName().equals(profileDO.getUsername())){
             //GET PUBLIC VERSION
             return ResponseEntity.ok(profileTabCOAssembler.assembleDomainToPublicModelView(profileDO));
         }else{

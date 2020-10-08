@@ -84,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/getProfileStreamComponentCO/",
                         "/getProfileStreamComponentCO/**",
 
-                        "/profileTabComponentCO/",
-                        "/profileTabComponentCO/**",
+                        "/getProfileTabComponentCO/",
+                        "/getProfileTabComponentCO/**",
 
                         "/createArticle",
                         "/addScreenshotToArticle/",
