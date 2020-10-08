@@ -74,10 +74,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(                       "/",
+                .antMatchers(
+                        "/getCommunityStreamComponentCO/",
+                        "/getCommunityStreamComponentCO/**",
+
+                        "/getCommunityTabComponent/",
+                        "/getCommunityTabComponent/**",
+
+                        "/getProfileStreamComponentCO/",
+                        "/getProfileStreamComponentCO/**",
+
+                        "/profileTabComponentCO/",
+                        "/profileTabComponentCO/**",
+
+                        "/",
                         "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
+                        "/**/*.png", "/**/*.gif",
                         "/**/*.svg",
                         "/**/*.jpg",
                         "/**/*.html",

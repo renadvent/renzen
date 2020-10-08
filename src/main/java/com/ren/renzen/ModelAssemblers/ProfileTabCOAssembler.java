@@ -1,14 +1,19 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
+import com.ren.renzen.Controllers.UserViewerController;
 import com.ren.renzen.Converters.ProfileDO_to_ProfileTabComponentCO;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_FULL;
 import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_PUBLIC;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class ProfileTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ProfileDO, ProfileTabComponentCO> {
@@ -24,16 +29,21 @@ public class ProfileTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Profile
         ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convertDomainToPublicView(profileDO);
 
         profileTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return profileTabComponentCO;
 
-//        return profileTabComponentCO.add(List.of(
+//        return profileTabComponentCO;
+
+        return profileTabComponentCO.add(List.of(
 //                linkTo(methodOn(UserEditorController.class).getAllProfiles()).withSelfRel(),
 //                linkTo(methodOn(ArticleEditorController.class).getAllArticles()).withSelfRel(),
-//                //linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("All_Communities"),
-//                linkTo(methodOn(UserEditorController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId())).withRel("Stream_Version"),
-//                linkTo(methodOn(UserEditorController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId())).withRel("Tab_Version")));
-//
+                //linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("All_Communities"),
+
+
+
+                linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
+                linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version"))
+        );
 
     }
 
@@ -42,16 +52,19 @@ public class ProfileTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Profile
         ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convertDomainToFullView(profileDO);
 
         profileTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return profileTabComponentCO;
+//        return profileTabComponentCO;
 
-//        return profileTabComponentCO.add(List.of(
+        return profileTabComponentCO.add(List.of(
 //                linkTo(methodOn(UserEditorController.class).getAllProfiles()).withSelfRel(),
 //                linkTo(methodOn(ArticleEditorController.class).getAllArticles()).withSelfRel(),
 //                //linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("All_Communities"),
 //                linkTo(methodOn(UserEditorController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId())).withRel("Stream_Version"),
 //                linkTo(methodOn(UserEditorController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId())).withRel("Tab_Version")));
 //
-
+                linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(profileTabComponentCO.getObjectId(),authentication)).withRel("Stream_Version"),
+                linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(profileTabComponentCO.getObjectId(),authentication)).withRel("Tab_Version"))
+        );
     }
 }

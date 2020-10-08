@@ -38,26 +38,57 @@ public class CommunityViewerController {
 
         var communityDO = communityService.findBy_id(id);
 
-        if (!userService.findByUsername(principal.getName()).equals(communityDO.getCreatorName())){
+        if (principal == null || !principal.getName().equals(communityDO.getCreatorName())){
             //GET PUBLIC VERSION
-            return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToPublicModelView(communityDO));
+            return getPublicCommunityStreamComponentCO(id);
+            //return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToPublicModelView(communityDO));
         }else{
             //GET FULL VERSION
-            return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
+            return getFullCommunityStreamComponentCO(id);
+            //ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
         }
     }
 
+    public ResponseEntity<?> getPublicCommunityStreamComponentCO(ObjectId id) {
+        var communityDO = communityService.findBy_id(id);
+        //GET PUBLIC VERSION
+        return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToPublicModelView(communityDO));
+    }
+
+    public ResponseEntity<?> getFullCommunityStreamComponentCO(ObjectId id) {
+        var communityDO = communityService.findBy_id(id);
+        //GET FULL VERSION
+        return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
+    }
+
+
+
     //TODO update toModel
-    @RequestMapping(path = "/communityTabComponent/{id}")
+    @GetMapping(path = "/getCommunityTabComponent/{id}")
     public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id, Principal principal) {
         var communityDO = communityService.findBy_id(id);
 
-        if (!userService.findByUsername(principal.getName()).equals(communityDO.getCreatorName())) {
+        if (principal == null || !principal.getName().equals(communityDO.getCreatorName())) {
             //GET PUBLIC VERSION
-            return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToPublicModelView(communityDO));
+            return ResponseEntity.ok(communityTabCOAssembler.assembleDomainToPublicModelView(communityDO));
         } else {
             //GET FULL VERSION
-            return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
+            return ResponseEntity.ok(communityTabCOAssembler.assembleDomainToFullModelView(communityDO));
         }
     }
+
+
+//    public ResponseEntity<?> getPublicCommunityTabComponentCO(ObjectId id) {
+//        var communityDO = communityService.findBy_id(id);
+//        //GET PUBLIC VERSION
+//        return ResponseEntity.ok(communityTabCOAssembler.assembleDomainToPublicModelView(communityDO));
+//    }
+
+//    public ResponseEntity<?> getFullCommunityStreamComponentCO(ObjectId id) {
+//        var communityDO = communityService.findBy_id(id);
+//        //GET PUBLIC VERSION
+//        return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
+//    }
+
+
 }
