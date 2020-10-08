@@ -112,15 +112,37 @@ export function DISPATCH_init() {
     Axios.get("/getHomeStreams").then((res) => {
       let base = res.data._embedded.collectionModels;
 
-      let articles = !Object.keys(base[0]).length
-        ? null
-        : base[0]._embedded.articleStreamComponentCoes;
-      let profiles = !Object.keys(base[1]).length
-        ? null
-        : base[1]._embedded.profileStreamComponentCoes;
-      let communities = !Object.keys(base[2]).length
-        ? null
-        : base[2]._embedded.communityStreamComponentCoes;
+      let articles = [];
+      let profiles = [];
+      let communities = [];
+
+      try {
+        articles = base[0]._embedded.articleInfoComponentCoes;
+      } catch {
+        articles = [];
+      }
+
+      try {
+        profiles = base[1]._embedded.profileInfoComponentCoes;
+      } catch {
+        profiles = [];
+      }
+
+      try {
+        communities = base[2]._embedded.communityInfoComponentCoes;
+      } catch {
+        communities = [];
+      }
+      //
+      // let articles = !Object.keys(base[0]).length
+      //   ? null
+      //   : base[0]._embedded.articleInfoComponentCoes;
+      // let profiles = !Object.keys(base[1]).length
+      //   ? null
+      //   : base[1]._embedded.profileInfoComponentCoes;
+      // let communities = !Object.keys(base[2]).length
+      //   ? null
+      //   : base[2]._embedded.communityInfoComponentCoes;
 
       dispatch({
         type: ACTION_init,
