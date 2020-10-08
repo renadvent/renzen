@@ -6,6 +6,8 @@ import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_FULL;
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_PUBLIC;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Component
@@ -21,6 +23,8 @@ public class CommunityStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Co
     public CommunityInfoComponentCO assembleDomainToPublicModelView(CommunityDO entity) {
         CommunityInfoComponentCO communityInfoComponentCO = communityDO_to_communityStreamComponentCO.convertDomainToPublicView(entity);
 
+        communityInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+
         return communityInfoComponentCO;
 
         //        return communityInfoComponentCO
@@ -33,6 +37,8 @@ public class CommunityStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Co
     @Override
     public CommunityInfoComponentCO assembleDomainToFullModelView(CommunityDO entity) {
         CommunityInfoComponentCO communityInfoComponentCO = communityDO_to_communityStreamComponentCO.convertDomainToFullView(entity);
+
+        communityInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
         return communityInfoComponentCO;
 

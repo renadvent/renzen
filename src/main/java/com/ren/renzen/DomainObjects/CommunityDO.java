@@ -16,9 +16,7 @@ import java.util.List;
  * DO for community
  */
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Document(collection = "Communities")
 public class CommunityDO {
 

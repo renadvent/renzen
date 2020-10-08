@@ -6,6 +6,8 @@ import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_FULL;
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_PUBLIC;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Component
@@ -20,6 +22,8 @@ public class ProfileTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Profile
     @Override
     public ProfileTabComponentCO assembleDomainToPublicModelView(ProfileDO profileDO) {
         ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convertDomainToPublicView(profileDO);
+
+        profileTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
 
         return profileTabComponentCO;
 
@@ -36,6 +40,8 @@ public class ProfileTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Profile
     @Override
     public ProfileTabComponentCO assembleDomainToFullModelView(ProfileDO profileDO) {
         ProfileTabComponentCO profileTabComponentCO = profileDO_to_profileTabComponentCO.convertDomainToFullView(profileDO);
+
+        profileTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
         return profileTabComponentCO;
 

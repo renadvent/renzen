@@ -97,16 +97,15 @@ public class ArticleEditorController {
         if (errorMap!=null) return errorMap;
 
         //BUILD PAYLOAD TO ARTICLE
-        var articleDO = ArticleDO.builder()
-        .articleName(payload.getArticleName())
-        .topic(payload.getTopic())
-        .description(payload.getDescription())
-        .communityID(payload.getCommunityID())
-        .articleSectionDOList(payload.getArticleSectionDOList())
+        var articleDO = new ArticleDO();
+        articleDO.setArticleName(payload.getArticleName());
+        articleDO.setTopic(payload.getTopic());
+        articleDO.setDescription(payload.getDescription());
+        articleDO.setCommunityID(payload.getCommunityID());
+        articleDO.setArticleSectionDOList(payload.getArticleSectionDOList());
         //USES PRINCIPAL LOGIN TO SET
-        .creatorName(principal.getName())
-        .creatorID(userService.findByUsername(principal.getName()).get_id())
-                .build();
+        articleDO.setCreatorName(principal.getName());
+        articleDO.setCreatorID(userService.findByUsername(principal.getName()).get_id());
 
         //GET REFERENCED OBJECTS
         ProfileDO profileDO = userService.findBy_id(articleDO.getCreatorID());

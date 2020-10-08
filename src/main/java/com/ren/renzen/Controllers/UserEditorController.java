@@ -91,12 +91,15 @@ public class UserEditorController {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap!=null) return errorMap;
 
+        var profileDO = new ProfileDO();
+        profileDO.setUsername(userNamePassword.getUsername());
+        profileDO.setPassword(userNamePassword.getPassword());
+
             return new ResponseEntity<>(profileTabCOAssembler
                     .assembleDomainToFullModelView(
                             userService
                             .save
-                                    (ProfileDO.builder().username(userNamePassword.getUsername())
-                                    .password(userNamePassword.getPassword()).build())
+                                    (profileDO)
                     ),
                     HttpStatus.CREATED
             );

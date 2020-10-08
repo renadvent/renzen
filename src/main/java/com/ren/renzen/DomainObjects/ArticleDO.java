@@ -17,9 +17,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Document(collection = "Articles")
-@Builder
 public class ArticleDO {
 
     @MongoId

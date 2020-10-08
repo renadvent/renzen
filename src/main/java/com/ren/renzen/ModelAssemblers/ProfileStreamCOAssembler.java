@@ -6,6 +6,8 @@ import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_FULL;
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_PUBLIC;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Component
@@ -21,6 +23,8 @@ public class ProfileStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Prof
     public ProfileInfoComponentCO assembleDomainToPublicModelView(ProfileDO profileDO) {
         ProfileInfoComponentCO profileInfoComponentCO = profileDO_to_profileStreamComponentCO.convertDomainToPublicView(profileDO);
 
+        profileInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+
         return profileInfoComponentCO;
 
 //        return profileInfoComponentCO.add(List.of(
@@ -35,6 +39,8 @@ public class ProfileStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Prof
     @Override
     public ProfileInfoComponentCO assembleDomainToFullModelView(ProfileDO profileDO) {
         ProfileInfoComponentCO profileInfoComponentCO = profileDO_to_profileStreamComponentCO.convertDomainToFullView(profileDO);
+
+        profileInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
         return profileInfoComponentCO;
 

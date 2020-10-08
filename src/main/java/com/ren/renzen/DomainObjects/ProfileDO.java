@@ -24,9 +24,7 @@ import java.util.List;
  * DO for Users
  */
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Document(collection = "Profiles")
 public class ProfileDO implements UserDetails {
 

@@ -98,10 +98,11 @@ public class CommunityEditorController {
         }
 
         //save community
-        var communityDO = communityService.save(CommunityDO.builder()
-                .creatorName(payload.getName())
-                .creatorID(userService.findByUsername(payload.getName()).get_id())
-                .build());
+        var communityDO = new CommunityDO();
+        communityDO.setCreatorName(payload.getName());
+        communityDO.setCreatorID(userService.findByUsername(payload.getName()).get_id());
+
+        communityService.save(communityDO);
 
         ProfileDO profileDO = userService.findBy_id(communityDO.getCreatorID());
         profileDO.getCommunityIDList().add(communityDO.get_id());
