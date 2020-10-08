@@ -9,14 +9,17 @@ import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.Exceptions.OwnerMismatchException;
 import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.Payload.CreateArticlePayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
-import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
+import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -24,13 +27,14 @@ import java.nio.file.Files;
 import java.security.Principal;
 import java.util.Base64;
 
+import static com.ren.renzen.additional.KEYS.CONTAINER_NAME;
+
 @RestController
 public class ArticleEditorController {
 
     //services
     final UserService userService;
     final ArticleService articleService;
-    final DiscussionService discussionService;
     final CommunityService communityService;
 
     //converters
@@ -49,13 +53,16 @@ public class ArticleEditorController {
     final CommunityStreamCOAssembler communityStreamCOAssembler;
     final ArticleStreamCOAssembler articleStreamCOAssembler;
 
+    //AZURE
     BlobServiceClient blobServiceClient;
     BlobContainerClient containerClient;
 
-    public ArticleEditorController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
+    //ERROR MAP
+    final MapValidationErrorService mapValidationErrorService;
+
+    public ArticleEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
-        this.discussionService = discussionService;
         this.communityService = communityService;
         this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
@@ -69,25 +76,40 @@ public class ArticleEditorController {
         this.communityTabCOAssembler = communityTabCOAssembler;
         this.communityStreamCOAssembler = communityStreamCOAssembler;
         this.articleStreamCOAssembler = articleStreamCOAssembler;
+        this.mapValidationErrorService = mapValidationErrorService;
 
 
         // Create a BlobServiceClient object which will be used to create a container client
         String connectStr= KEYS.CONNECTSTR;
         blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
         //Create a unique name for the container
-        String containerName = "renzen-test";
+        String containerName = CONTAINER_NAME;
         // Create the container and return a container client object
         containerClient = blobServiceClient.getBlobContainerClient(containerName);
     }
 
 
     @PostMapping(path = "/createArticle")
-    public ResponseEntity<?> createArticle(@RequestBody ArticleDO articleDO, Principal principal) {
-        //public ResponseEntity<?> createArticle(@RequestPart ArticleDO articleDO) {
+    public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload, BindingResult result, Principal principal) {
 
-        //check if provided ids exist
+        //CHECK BINDING RESULTS OF PAYLOAD
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap!=null) return errorMap;
+
+        //BUILD PAYLOAD TO ARTICLE
+        var articleDO = ArticleDO.builder()
+        .articleName(payload.getArticleName())
+        .topic(payload.getTopic())
+        .description(payload.getDescription())
+        .communityID(payload.getCommunityID())
+        .articleSectionDOList(payload.getArticleSectionDOList())
+        //USES PRINCIPAL LOGIN TO SET
+        .creatorName(principal.getName())
+        .creatorID(userService.findByUsername(principal.getName()).get_id())
+                .build();
+
+        //GET REFERENCED OBJECTS
         ProfileDO profileDO = userService.findBy_id(articleDO.getCreatorID());
-
         CommunityDO communityDO = communityService.findBy_id(articleDO.getCommunityID());
 
         //save ArticleDO to get an ID from mongodb for it
@@ -101,13 +123,20 @@ public class ArticleEditorController {
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
         communityService.saveOrUpdateCommunity(communityDO, principal.getName());
 
-        return ResponseEntity.ok(articleTabCOAssembler.toModel(savedArticleDO));
+        return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
         //return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
 
     }
 
     @PostMapping(path="/addScreenshotToArticle/{id}")
-    public String addScreenshotToArticle(@PathVariable ObjectId id,@RequestBody String screenshot) {
+    public String addScreenshotToArticle(@PathVariable ObjectId id,@RequestBody String screenshot, Principal principal) {
+
+        //CHECK IF LOGGED ON USER IS THE OWNDER OF THE ARTICLE
+        if(!userService.findByUsername(principal.getName()).equals(articleService.findBy_id(id).getCreatorName())){
+            throw new OwnerMismatchException("Logged In User Does Not Own Article");
+        }
+
+        //UPLOAD IMAGE TO AZURE
 
         File file=null;
 
@@ -122,8 +151,9 @@ public class ArticleEditorController {
         blobClient.uploadFromFile(file.getAbsolutePath());
         file.delete();
 
-        var article = articleService.findBy_id(id);
+        //ADD IMAGE TO ARTICLE
 
+        var article = articleService.findBy_id(id);
 
         article.getArticleSectionDOList().add (new ArticleSectionDO(blobClient.getBlobUrl()));
         articleService.save(article);

@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import java.util.List;
 
 public interface CommunityService {
+    CommunityDO save(CommunityDO communityDO);
+
     CommunityDO findBy_id(ObjectId id);
 
     List<CommunityDO> findAll(String username);

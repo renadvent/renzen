@@ -3,7 +3,6 @@ package com.ren.renzen.Services;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Services.Interfaces.ArticleService;
-import com.ren.renzen.Services.Interfaces.DiscussionService;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,22 +16,13 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
 
     final ArticleRepository articleRepository;
-    final DiscussionService discussionService;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository, DiscussionService discussionService) {
+    public ArticleServiceImpl(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
-        this.discussionService = discussionService;
-
-
-;
-
     }
 
     @Override
     public ArticleDO save(ArticleDO articleDO) {
-        DiscussionDO discussionDO = new DiscussionDO();
-        discussionService.save(discussionDO);
-        articleDO.setDiscussionID(discussionDO.get_id());
         return articleRepository.save(articleDO);
     }
 

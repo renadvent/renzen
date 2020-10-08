@@ -25,7 +25,6 @@ import java.util.Map;
 public class ImageController {
     final UserService userService;
     final ArticleService articleService;
-    final DiscussionService discussionService;
     final CommunityService communityService;
 
     final ImageService imageService;
@@ -33,10 +32,9 @@ public class ImageController {
     BlobServiceClient blobServiceClient;
     BlobContainerClient containerClient;
 
-    public ImageController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ImageService imageService) {
+    public ImageController(UserService userService, ArticleService articleService, CommunityService communityService, ImageService imageService) {
         this.userService = userService;
         this.articleService = articleService;
-        this.discussionService = discussionService;
         this.communityService = communityService;
         this.imageService = imageService;
 

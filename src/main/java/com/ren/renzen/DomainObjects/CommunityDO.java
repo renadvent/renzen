@@ -1,5 +1,7 @@
 package com.ren.renzen.DomainObjects;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -14,7 +16,9 @@ import java.util.List;
  * DO for community
  */
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "Communities")
 public class CommunityDO {
 

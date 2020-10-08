@@ -9,7 +9,6 @@ import com.ren.renzen.Payload.UserNamePassword;
 import com.ren.renzen.Security.JwtTokenProvider;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
-import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.Validator.UserNamePasswordValidator;
@@ -32,7 +31,6 @@ public class UserEditorController {
     //services
     final UserService userService;
     final ArticleService articleService;
-    final DiscussionService discussionService;
     final CommunityService communityService;
 
     //converters
@@ -63,10 +61,9 @@ public class UserEditorController {
     //Authentication Manager
     final AuthenticationManager authenticationManager;
 
-    public UserEditorController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public UserEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.articleService = articleService;
-        this.discussionService = discussionService;
         this.communityService = communityService;
         this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
@@ -89,18 +86,18 @@ public class UserEditorController {
     @RequestMapping(path = "/register")
     public ResponseEntity<?> Register(@Valid @RequestBody UserNamePassword userNamePassword, BindingResult result) {
 
-//        if (result.hasErrors()) {
-//            return userService.errorMap(result);
-//        }
-
         userNamePasswordValidator.validate(userNamePassword,result);
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap!=null) return errorMap;
 
             return new ResponseEntity<>(profileTabCOAssembler
-                    .toModel(userService
-                            .save(new ProfileDO(userNamePassword.getUsername(), userNamePassword.getPassword()))),
+                    .assembleDomainToFullModelView(
+                            userService
+                            .save
+                                    (ProfileDO.builder().username(userNamePassword.getUsername())
+                                    .password(userNamePassword.getPassword()).build())
+                    ),
                     HttpStatus.CREATED
             );
     }

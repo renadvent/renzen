@@ -1,5 +1,7 @@
 package com.ren.renzen.DomainObjects;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -15,7 +17,9 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "Articles")
+@Builder
 public class ArticleDO {
 
     @MongoId
@@ -24,6 +28,8 @@ public class ArticleDO {
     String articleName;
     String topic;
     String description;
+
+    String creatorName;
 
     ObjectId creatorID;
     ObjectId communityID;

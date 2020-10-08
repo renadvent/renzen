@@ -140,4 +140,10 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(errorM, HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    public ProfileDO findByUsername(String username) {
+        //need to test if exists
+        return userRepository.findByUsername(username).get();
+    }
+
 }

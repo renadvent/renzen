@@ -1,5 +1,7 @@
 package com.ren.renzen.DomainObjects;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +9,9 @@ import lombok.NoArgsConstructor;
  * contains the content for a section of an article
  */
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class ArticleSectionDO {
     String header;
     String body;

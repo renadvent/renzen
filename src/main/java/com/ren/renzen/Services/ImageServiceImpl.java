@@ -8,6 +8,7 @@ import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.sas.BlobSasPermission;
 import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
 import com.azure.storage.common.sas.SasProtocol;
+import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.additional.KEYS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,7 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 
 @Service
-
-public class ImageServiceImpl{
+public class ImageServiceImpl implements ImageService {
 
     BlobServiceClient blobServiceClient;
     BlobContainerClient containerClient;
