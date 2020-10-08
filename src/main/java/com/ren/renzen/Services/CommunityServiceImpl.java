@@ -1,7 +1,6 @@
 package com.ren.renzen.Services;
 
 import com.ren.renzen.DomainObjects.CommunityDO;
-import com.ren.renzen.Payload.CreateCommunityPayload;
 import com.ren.renzen.Repositories.CommunityRepository;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import org.bson.types.ObjectId;
@@ -23,7 +22,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityDO save(CommunityDO communityDO){
+    public CommunityDO save(CommunityDO communityDO) {
         return communityRepository.save(communityDO);
     }
 

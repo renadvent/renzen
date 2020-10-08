@@ -1,8 +1,6 @@
 package com.ren.renzen.DomainObjects;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -11,13 +9,8 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,7 +33,7 @@ public class ProfileDO implements UserDetails {
     boolean profileIsPublic = true;
     boolean communityListIsPublic = true;
     boolean articleListIsPublic = true;
-    boolean articleBookmarkListIsPublic=false;
+    boolean articleBookmarkListIsPublic = false;
 
     //lists for contents
     List<ObjectId> communityIDList = new ArrayList<>();

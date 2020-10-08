@@ -26,7 +26,7 @@ public class ImageServiceImpl implements ImageService {
     public ImageServiceImpl() {
 
         // Create a BlobServiceClient object which will be used to create a container client
-        String connectStr= KEYS.CONNECTSTR;
+        String connectStr = KEYS.CONNECTSTR;
         blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
         //Create a unique name for the container
         String containerName = "renzen-test";
@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService {
 
     }
 
-    public String generateSAS(String name){
+    public String generateSAS(String name) {
 
         var uri = URI.create(name);
         uri.getFragment();
@@ -48,10 +48,10 @@ public class ImageServiceImpl implements ImageService {
         var blobServiceSasSignatureValues = new BlobServiceSasSignatureValues()
                 .setProtocol(SasProtocol.HTTPS_ONLY) // Users MUST use HTTPS (not HTTP).
                 .setExpiryTime(OffsetDateTime.now().plusDays(2))
-                .setPermissions(blobPermission);;
+                .setPermissions(blobPermission);
 
         var SAS = blobClient.generateSas(blobServiceSasSignatureValues);
-        return blobClient.getBlobUrl()+"?"+SAS;
+        return blobClient.getBlobUrl() + "?" + SAS;
     }
 
 }

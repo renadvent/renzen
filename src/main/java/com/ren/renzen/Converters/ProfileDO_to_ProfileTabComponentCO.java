@@ -1,7 +1,6 @@
 package com.ren.renzen.Converters;
 
 import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
-import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
@@ -65,7 +64,7 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
         var corrected = new ArrayList<String>();
 
-        for (var link : source.getPublicScreenshotsIDList()){
+        for (var link : source.getPublicScreenshotsIDList()) {
 
             String name = link.substring(link.lastIndexOf('/') + 1);
 
@@ -100,7 +99,7 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
         var corrected = new ArrayList<String>();
 
-        for (var link : source.getPublicScreenshotsIDList()){
+        for (var link : source.getPublicScreenshotsIDList()) {
 
             String name = link.substring(link.lastIndexOf('/') + 1);
 

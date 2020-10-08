@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
     final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-
     public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
         this.userRepository = userRepository;
@@ -36,21 +35,19 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
-
     @Override
     public ProfileDO save(ProfileDO profileDO) {
 
-            profileDO.setPassword(bCryptPasswordEncoder.encode(profileDO.getPassword()));
-            profileDO.setUsername(profileDO.getUsername()); //
+        profileDO.setPassword(bCryptPasswordEncoder.encode(profileDO.getPassword()));
+        profileDO.setUsername(profileDO.getUsername()); //
 
 
         //throw error if name already exists
-            if (checkIfUsernameTaken(profileDO.getUsername())) {
-                throw new UserNameAlreadyExistsException("Username  '"+profileDO.getUsername()+"' already exists");
-            }
+        if (checkIfUsernameTaken(profileDO.getUsername())) {
+            throw new UserNameAlreadyExistsException("Username  '" + profileDO.getUsername() + "' already exists");
+        }
 
-            return userRepository.save(profileDO);
+        return userRepository.save(profileDO);
 
 
         //username must be unique //exception
@@ -75,7 +72,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findBy_id(id)
                 .orElseThrow(() -> new ProfileNotFoundException("Profile with id: " + id + " not found"));
     }
-
 
 
 //    @Override
@@ -110,7 +106,7 @@ public class UserServiceImpl implements UserService {
         //BCrypt.checkpw(entered_pw, stored_hash)
 
         if (profileDOOptional.isPresent()) {
-            if (BCrypt.checkpw(profileDOOptional.get().getPassword(),password)) {
+            if (BCrypt.checkpw(profileDOOptional.get().getPassword(), password)) {
                 System.out.println(profileDOOptional.get().toString());
                 return profileDOOptional.get();
             } else {

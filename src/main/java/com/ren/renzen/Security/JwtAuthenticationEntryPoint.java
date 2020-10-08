@@ -30,7 +30,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         httpServletResponse.getWriter().print(jsonLoginLoginResponse);
 
 
-
         //create invalid login response
 
 

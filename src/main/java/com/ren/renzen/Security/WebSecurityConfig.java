@@ -48,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         //super.configure(auth);
@@ -120,8 +119,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js",
                         "/built/**") // might have to add more
-        .permitAll()
-                .antMatchers(SIGN_UP_URLS,LOGIN_URLS,HOME_PAGE).permitAll() //permits login
+                .permitAll()
+                .antMatchers(SIGN_UP_URLS, LOGIN_URLS, HOME_PAGE).permitAll() //permits login
                 .anyRequest().authenticated(); //all others require authentication
 
 

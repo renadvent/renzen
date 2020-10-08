@@ -20,8 +20,8 @@ public class UserNamePasswordValidator implements Validator {
 
         // can check for password confirmation/validation etc...
 
-        if (userNamePassword.getPassword().length() < 6){
-            errors.rejectValue("password","length", "Password must be at least 6 characters");
+        if (userNamePassword.getPassword().length() < 6) {
+            errors.rejectValue("password", "length", "Password must be at least 6 characters");
         }
 
     }
