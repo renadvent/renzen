@@ -1,6 +1,6 @@
-# renzen
+# Renzen
 
-[renzen.io](renzen.io) 
+[renzen.io](https://renzen.io) 
 (Currently Adding Spring Security with JWT)
 
 ## What is it?
