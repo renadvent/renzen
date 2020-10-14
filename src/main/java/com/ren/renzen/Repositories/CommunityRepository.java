@@ -15,4 +15,6 @@ public interface CommunityRepository extends MongoRepository<CommunityDO, Object
     Optional<CommunityDO> findBy_id(ObjectId objectId);
 
     List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList);
+
+    List<CommunityDO> findAllByCreatorName(String username);
 }

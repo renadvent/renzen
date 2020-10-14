@@ -2,14 +2,10 @@ package com.ren.renzen.Controllers;
 
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.Payload.addBookmarkPayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
-import com.ren.renzen.Services.Interfaces.DiscussionService;
 import com.ren.renzen.Services.Interfaces.UserService;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +18,11 @@ import java.util.ArrayList;
 
 @RestController
 //@CrossOrigin("*")
-public class SiteController {
+public class HomepagePublicController {
 
     //services
     final UserService userService;
     final ArticleService articleService;
-    final DiscussionService discussionService;
     final CommunityService communityService;
 
     //converters
@@ -48,10 +43,9 @@ public class SiteController {
 
     //controllers
     @Autowired
-    public SiteController(UserService userService, ArticleService articleService, DiscussionService discussionService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
+    public HomepagePublicController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
-        this.discussionService = discussionService;
         this.communityService = communityService;
         this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
@@ -99,32 +93,11 @@ public class SiteController {
 
         //return only limited results
         //must be in this order for Javascript Collection Model read
-        returnList.add(articleStreamCOAssembler.toCollectionModel(articleContent));
-        returnList.add(profileStreamCOAssembler.toCollectionModel(profileContent));
-        returnList.add(communityStreamCOAssembler.toCollectionModel(communityContent));
+        returnList.add(articleStreamCOAssembler.assembleDomainToPublicModelViewCollection(articleContent));
+        returnList.add(profileStreamCOAssembler.assembleDomainToPublicModelViewCollection(profileContent));
+        returnList.add(communityStreamCOAssembler.assembleDomainToPublicModelViewCollection(communityContent));
 
         return ResponseEntity.ok(CollectionModel.wrap(returnList));
     }
 
-    @Getter
-    @Setter
-    static class addBookmarkPayload {
-        ObjectId userId;
-        ObjectId articleId;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class SitePayloads {
-        static class UserNamePassword {
-            String username;
-            String password;
-
-            public UserNamePassword(String username, String password) {
-                this.username = username;
-                this.password = password;
-            }
-        }
-    }
 }

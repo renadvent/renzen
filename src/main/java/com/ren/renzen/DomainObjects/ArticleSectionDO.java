@@ -18,7 +18,7 @@ public class ArticleSectionDO {
         this.setBody(body);
     }
 
-    public ArticleSectionDO(String imageID){
-        this.imageID=imageID;
+    public ArticleSectionDO(String imageID) {
+        this.imageID = imageID;
     }
 }

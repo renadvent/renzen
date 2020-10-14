@@ -83,14 +83,7 @@ function Profile_Page(props) {
             <div className={"col"}>
               <h4>Communities: {props.data.numberOfCommunities} </h4>
               <Stream
-                source={
-                  !jQuery.isEmptyObject(
-                    props.data.communityStreamComponentCOList._embedded
-                  )
-                    ? props.data.communityStreamComponentCOList._embedded
-                        .communityStreamComponentCoes
-                    : []
-                }
+                source={props.communities}
                 dispatch={props.DISPATCH_openCommunity}
               />
 
@@ -100,14 +93,7 @@ function Profile_Page(props) {
             <div className={"col"}>
               <h4>Articles: {props.data.numberOfArticles}</h4>
               <Stream
-                source={
-                  !jQuery.isEmptyObject(
-                    props.data.articleHomePageCOList._embedded
-                  )
-                    ? props.data.articleHomePageCOList._embedded
-                        .articleStreamComponentCoes
-                    : null
-                }
+                source={props.articles}
                 dispatch={props.DISPATCH_openArticle}
               />
               <hr />

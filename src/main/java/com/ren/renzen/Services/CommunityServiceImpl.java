@@ -22,6 +22,11 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public CommunityDO save(CommunityDO communityDO) {
+        return communityRepository.save(communityDO);
+    }
+
+    @Override
     public CommunityDO findBy_id(ObjectId id) {
 
         Optional<CommunityDO> communityDOOptional = communityRepository.findById(id);
@@ -34,8 +39,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityDO> findAll() {
-        return communityRepository.findAll();
+    public List<CommunityDO> findAll(String username) {
+
+        return communityRepository.findAllByCreatorName(username);
     }
 
     @Override
@@ -49,7 +55,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityDO save(CommunityDO communityDO) {
+    public CommunityDO saveOrUpdateCommunity(CommunityDO communityDO, String principalName) {
         return communityRepository.save(communityDO);
     }
 

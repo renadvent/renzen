@@ -1,10 +1,10 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ArticleStreamComponentCO;
-import com.ren.renzen.Controllers.ArticleController;
+import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
+import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
+import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class ArticleStreamCOAssembler implements RepresentationModelAssembler<ArticleDO, ArticleStreamComponentCO> {
+public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleInfoComponentCO> {
 
     final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
 
@@ -21,14 +21,25 @@ public class ArticleStreamCOAssembler implements RepresentationModelAssembler<Ar
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
     }
 
+
     @Override
-    public ArticleStreamComponentCO toModel(ArticleDO entity) {
+    public ArticleInfoComponentCO assembleDomainToPublicModelView(ArticleDO entity) {
+        ArticleInfoComponentCO articleInfoComponentCO = articleDO_to_articleStreamComponentCO.convertDomainToPublicView(entity);
+        return addLinksWithCurrentAuthentication(articleInfoComponentCO);
+    }
 
-        ArticleStreamComponentCO articleStreamComponentCO = articleDO_to_articleStreamComponentCO.convert(entity);
+    @Override
+    public ArticleInfoComponentCO assembleDomainToFullModelView(ArticleDO entity) {
+        ArticleInfoComponentCO articleInfoComponentCO = articleDO_to_articleStreamComponentCO.convertDomainToPublicView(entity);
+        return addLinksWithCurrentAuthentication(articleInfoComponentCO);
+    }
 
-        return articleStreamComponentCO
+    @Override
+    public ArticleInfoComponentCO addLinksWithCurrentAuthentication(ArticleInfoComponentCO entity) {
+        return entity
                 .add(List.of(
-                        linkTo(methodOn(ArticleController.class).getArticleStreamComponentCO(articleStreamComponentCO.getObjectId())).withRel("Stream_Version"),
-                        linkTo(methodOn(ArticleController.class).getArticleTabComponentCO(articleStreamComponentCO.getObjectId())).withRel("Tab_Version")));
+                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
+
     }
 }

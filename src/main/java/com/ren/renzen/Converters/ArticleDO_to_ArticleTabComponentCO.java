@@ -1,6 +1,7 @@
 package com.ren.renzen.Converters;
 
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
+import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
 import com.ren.renzen.Repositories.ArticleRepository;
@@ -8,7 +9,6 @@ import com.ren.renzen.Repositories.UserRepository;
 import com.ren.renzen.Services.Interfaces.UserService;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ArticleDO_to_ArticleTabComponentCO implements Converter<ArticleDO, ArticleTabComponentCO> {
+public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleTabComponentCO> {
 
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
@@ -38,17 +38,38 @@ public class ArticleDO_to_ArticleTabComponentCO implements Converter<ArticleDO, 
     @Synchronized
     @Nullable
     @Override
-    public ArticleTabComponentCO convert(ArticleDO source) {
-
+    public ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
         final ArticleTabComponentCO co = new ArticleTabComponentCO();
 
-        co.setName(source.getName());
+        co.setName(source.getArticleName());
         co.setDescription(source.getDescription());
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
-        co.setUserID(source.getUserID());
-        userRepo.findById(source.getUserID()).ifPresent(user -> co.setUser_streamComponentCO(profileDO_to_profileStreamComponentCO.convert(user)));
-        co.setUserName(co.getUser_streamComponentCO().getName());
+        co.setUserID(source.getCreatorID());
+        userRepo.findById(source.getCreatorID()).ifPresent(user -> co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(user)));
+        co.setUserName(co.getProfileInfoComponentCO().getName());
+        co.setDiscussionID(source.getDiscussionID());
+
+        for (ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()) {
+            co.getArticleSectionCOList().add(articleSectionDO_to_articleSectionCO.convert(articleSectionDO));
+        }
+
+        return co;
+    }
+
+    @Synchronized
+    @Nullable
+    @Override
+    public ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
+        final ArticleTabComponentCO co = new ArticleTabComponentCO();
+
+        co.setName(source.getArticleName());
+        co.setDescription(source.getDescription());
+        co.set_id(source.get_id().toHexString());
+        co.setObjectId(source.get_id());
+        co.setUserID(source.getCreatorID());
+        userRepo.findById(source.getCreatorID()).ifPresent(user -> co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToFullView(user)));
+        co.setUserName(co.getProfileInfoComponentCO().getName());
         co.setDiscussionID(source.getDiscussionID());
 
         for (ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()) {

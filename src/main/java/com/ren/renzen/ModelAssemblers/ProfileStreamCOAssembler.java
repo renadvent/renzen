@@ -1,21 +1,21 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ProfileStreamComponentCO;
-import com.ren.renzen.Controllers.ArticleController;
-import com.ren.renzen.Controllers.CommunityController;
-import com.ren.renzen.Controllers.UserController;
+import com.ren.renzen.CommandObjects.ProfileInfoComponentCO;
+import com.ren.renzen.Controllers.UserViewerController;
 import com.ren.renzen.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import com.ren.renzen.DomainObjects.ProfileDO;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
+import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_FULL;
+import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_PUBLIC;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class ProfileStreamCOAssembler implements RepresentationModelAssembler<ProfileDO, ProfileStreamComponentCO> {
+public class ProfileStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ProfileDO, ProfileInfoComponentCO> {
 
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
@@ -24,18 +24,28 @@ public class ProfileStreamCOAssembler implements RepresentationModelAssembler<Pr
     }
 
     @Override
-    public ProfileStreamComponentCO toModel(ProfileDO profileDO) {
+    public ProfileInfoComponentCO assembleDomainToPublicModelView(ProfileDO profileDO) {
+        ProfileInfoComponentCO profileInfoComponentCO = profileDO_to_profileStreamComponentCO.convertDomainToPublicView(profileDO);
 
-        ProfileStreamComponentCO profileStreamComponentCO = profileDO_to_profileStreamComponentCO.convert(profileDO);
+        profileInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+        return addLinksWithCurrentAuthentication(profileInfoComponentCO);
 
-        return profileStreamComponentCO.add(List.of(
-                linkTo(methodOn(UserController.class).getAllProfiles()).withRel("other"),
-                linkTo(methodOn(ArticleController.class).getAllArticles()).withRel("other"),
-                linkTo(methodOn(CommunityController.class).getAllCommunities()).withRel("other"),
-                linkTo(methodOn(UserController.class).getProfileStreamComponentCO(profileStreamComponentCO.getObjectId())).withRel("Stream_Version"),
-                linkTo(methodOn(UserController.class).getProfileTabComponentCO(profileStreamComponentCO.getObjectId())).withRel("Tab_Version"))
-        );
     }
 
+    @Override
+    public ProfileInfoComponentCO assembleDomainToFullModelView(ProfileDO profileDO) {
+        ProfileInfoComponentCO profileInfoComponentCO = profileDO_to_profileStreamComponentCO.convertDomainToFullView(profileDO);
 
+        profileInfoComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
+        return addLinksWithCurrentAuthentication(profileInfoComponentCO);
+
+    }
+
+    @Override
+    public ProfileInfoComponentCO addLinksWithCurrentAuthentication(ProfileInfoComponentCO entity) {
+        return entity.add(List.of(
+                linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
+                linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version"))
+        );
+    }
 }

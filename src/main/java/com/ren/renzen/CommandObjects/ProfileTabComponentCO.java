@@ -1,8 +1,7 @@
 package com.ren.renzen.CommandObjects;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
@@ -13,10 +12,16 @@ import java.util.List;
 /***
  *
  */
-@Getter
-@Setter
+
+@Data
 @NoArgsConstructor
 public class ProfileTabComponentCO extends RepresentationModel<ProfileTabComponentCO> {
+
+    //react uses this to know what component type/component render
+    String ACCESS_TYPE;//Public or Private //normalized state regardless
+
+    //----------------------------------
+
     String name;
     String _id;
     ObjectId objectId;
@@ -26,9 +31,10 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
     List<ObjectId> articleIDList = new ArrayList<>();
     List<ObjectId> communityIDList = new ArrayList<>();
     List<ObjectId> discussionContentIDList = new ArrayList<>();
-    CollectionModel<ArticleStreamComponentCO> articleHomePageCOList;
-    CollectionModel<CommunityStreamComponentCO> communityStreamComponentCOList;
-    CollectionModel<ArticleStreamComponentCO> articleBookmarksCM;
+    CollectionModel<ArticleInfoComponentCO> articleInfoComponentCOS;
+    CollectionModel<CommunityInfoComponentCO> communityInfoComponentCOS;
+    CollectionModel<ArticleInfoComponentCO> articleBookmarksCM;
 
     List<String> screenshotLinks = new ArrayList<>();
+
 }

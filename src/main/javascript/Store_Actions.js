@@ -112,15 +112,27 @@ export function DISPATCH_init() {
     Axios.get("/getHomeStreams").then((res) => {
       let base = res.data._embedded.collectionModels;
 
-      let articles = !Object.keys(base[0]).length
-        ? null
-        : base[0]._embedded.articleStreamComponentCoes;
-      let profiles = !Object.keys(base[1]).length
-        ? null
-        : base[1]._embedded.profileStreamComponentCoes;
-      let communities = !Object.keys(base[2]).length
-        ? null
-        : base[2]._embedded.communityStreamComponentCoes;
+      let articles = [];
+      let profiles = [];
+      let communities = [];
+
+      try {
+        articles = base[0]._embedded.articleInfoComponentCoes;
+      } catch {
+        articles = [];
+      }
+
+      try {
+        profiles = base[1]._embedded.profileInfoComponentCoes;
+      } catch {
+        profiles = [];
+      }
+
+      try {
+        communities = base[2]._embedded.communityInfoComponentCoes;
+      } catch {
+        communities = [];
+      }
 
       dispatch({
         type: ACTION_init,
@@ -156,6 +168,30 @@ export function DISPATCH_openUser(url) {
   //USING getstate
   return (dispatch, getState) => {
     Axios.get(url).then((res) => {
+      let articles = [];
+      let profiles = [];
+      let communities = [];
+
+      let base = res.data;
+
+      try {
+        articles = base.articleStreamComponentCoes;
+      } catch {
+        articles = [];
+      }
+
+      try {
+        profiles = base.profileInfoComponentCoes;
+      } catch {
+        profiles = [];
+      }
+
+      try {
+        communities = base.communityInfoComponentCoes;
+      } catch {
+        communities = [];
+      }
+
       //check if already open
       getState().tabs.open.find((x) => {
         return x.id === res.data._id;
@@ -164,6 +200,10 @@ export function DISPATCH_openUser(url) {
         : dispatch({
             type: ACTION_openUser,
             data: res.data,
+
+            articles: articles,
+            profiles: profiles,
+            communities: communities,
             //payload: res.data,
           });
     });
@@ -199,6 +239,11 @@ export function DISPATCH_logIn(payload) {
 
       //annoying HATEOS COLLECTIONMODEL logic
 
+      //TODO get auth token etc
+      //ALSO NEEDS TO RETURN AN URL
+
+      //DISPATCH_openUser();
+
       let articles = jQuery.isEmptyObject(res.data.articleHomePageCOList)
         ? []
         : res.data.articleHomePageCOList._embedded.articleStreamComponentCoes;
@@ -214,6 +259,7 @@ export function DISPATCH_logIn(payload) {
         ? []
         : res.data.articleBookmarksCM._embedded.articleStreamComponentCoes;
 
+      //TODO change to openuser
       dispatch({
         type: ACTION_logIn,
         payload: res.data,
@@ -243,6 +289,9 @@ export function DISPATCH_logOut() {
 }
 
 export function DISPATCH_register(payload) {
+  //TODO also needs to dispatch login after register to get token
+  //NEED global Axios
+
   return (dispatch) => {
     Axios.post("/register", {
       password: payload.password,

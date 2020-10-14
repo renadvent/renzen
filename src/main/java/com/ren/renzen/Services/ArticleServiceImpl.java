@@ -1,25 +1,14 @@
 package com.ren.renzen.Services;
 
-import com.azure.storage.blob.BlobClient;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.BlobServiceClientBuilder;
-import com.azure.storage.blob.sas.BlobSasPermission;
-import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
-import com.azure.storage.common.sas.SasProtocol;
 import com.ren.renzen.DomainObjects.ArticleDO;
-import com.ren.renzen.DomainObjects.DiscussionDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Services.Interfaces.ArticleService;
-import com.ren.renzen.Services.Interfaces.DiscussionService;
-import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,22 +16,13 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
 
     final ArticleRepository articleRepository;
-    final DiscussionService discussionService;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository, DiscussionService discussionService) {
+    public ArticleServiceImpl(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
-        this.discussionService = discussionService;
-
-
-;
-
     }
 
     @Override
     public ArticleDO save(ArticleDO articleDO) {
-        DiscussionDO discussionDO = new DiscussionDO();
-        discussionService.save(discussionDO);
-        articleDO.setDiscussionID(discussionDO.get_id());
         return articleRepository.save(articleDO);
     }
 
@@ -59,10 +39,6 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ResourceNotFoundException("Article Not Found");
         }
     }
-
-
-
-
 
 
     @Override

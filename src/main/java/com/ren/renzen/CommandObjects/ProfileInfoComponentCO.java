@@ -1,8 +1,7 @@
 package com.ren.renzen.CommandObjects;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -12,10 +11,14 @@ import java.util.List;
 /***
  *
  */
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class ProfileStreamComponentCO extends RepresentationModel<ProfileStreamComponentCO> {
+public class ProfileInfoComponentCO extends RepresentationModel<ProfileInfoComponentCO> {
+
+    String ACCESS_TYPE;
+
+    //---------------
+
     String _id;
     ObjectId objectId;
     String name;

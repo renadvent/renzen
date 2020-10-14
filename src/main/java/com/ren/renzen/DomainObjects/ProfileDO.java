@@ -6,36 +6,71 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * DO for Users
  */
 @Data
-@Document(collection = "Profiles")
 @NoArgsConstructor
-public class ProfileDO {
+@Document(collection = "Profiles")
+public class ProfileDO implements UserDetails {
 
     @MongoId
     ObjectId _id;
 
-    @NotBlank(message = "username must not be blank")
-    @NotNull(message = "username must not be null")
     String username;
     String password;
-    List<ObjectId> articleIDList = new ArrayList<>();
+    String email;
+
+    //toggles for converter
+    //public profile view settings toggle (used when converting)
+    boolean profileIsPublic = true;
+    boolean communityListIsPublic = true;
+    boolean articleListIsPublic = true;
+    boolean articleBookmarkListIsPublic = false;
+
+    //lists for contents
     List<ObjectId> communityIDList = new ArrayList<>();
-    List<ObjectId> discussionContentIDs = new ArrayList<>();
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();
+    List<ObjectId> articleIDList = new ArrayList<>(); // private setting is in article
 
-    List<String> screenshotsIDList = new ArrayList<>();
+    List<String> publicScreenshotsIDList = new ArrayList<>();
 
-    public ProfileDO(String username, String password) {
-        this.username = username;
-        this.password = password;
+    //not loaded on profile page unless logged in
+    List<String> privateScreenshotIDList = new ArrayList<>();
+
+    /*
+    User details implment methods
+     */
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

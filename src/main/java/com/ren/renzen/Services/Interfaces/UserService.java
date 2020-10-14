@@ -25,4 +25,8 @@ public interface UserService {
     List<ProfileDO> findAllPage();
 
     ResponseEntity<?> errorMap(BindingResult result);
+
+    ProfileDO findByUsername(String username);
+
+
 }
