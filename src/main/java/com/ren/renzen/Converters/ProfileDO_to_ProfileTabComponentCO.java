@@ -56,7 +56,7 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         co.setNumberOfCommunities(source.getCommunityIDList().size());
         co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
-        co.setArticleStreamComponentCOS(articleStreamCOAssembler
+        co.setArticleInfoComponentCOS(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleIDList())));
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
@@ -91,7 +91,7 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
         co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
-        co.setArticleStreamComponentCOS(articleStreamCOAssembler
+        co.setArticleInfoComponentCOS(articleStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleIDList())));
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));

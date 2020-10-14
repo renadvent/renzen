@@ -168,6 +168,30 @@ export function DISPATCH_openUser(url) {
   //USING getstate
   return (dispatch, getState) => {
     Axios.get(url).then((res) => {
+      let articles = [];
+      let profiles = [];
+      let communities = [];
+
+      let base = res.data;
+
+      try {
+        articles = base.articleStreamComponentCoes;
+      } catch {
+        articles = [];
+      }
+
+      try {
+        profiles = base.profileInfoComponentCoes;
+      } catch {
+        profiles = [];
+      }
+
+      try {
+        communities = base.communityInfoComponentCoes;
+      } catch {
+        communities = [];
+      }
+
       //check if already open
       getState().tabs.open.find((x) => {
         return x.id === res.data._id;
@@ -176,6 +200,10 @@ export function DISPATCH_openUser(url) {
         : dispatch({
             type: ACTION_openUser,
             data: res.data,
+
+            articles: articles,
+            profiles: profiles,
+            communities: communities,
             //payload: res.data,
           });
     });
@@ -211,6 +239,11 @@ export function DISPATCH_logIn(payload) {
 
       //annoying HATEOS COLLECTIONMODEL logic
 
+      //TODO get auth token etc
+      //ALSO NEEDS TO RETURN AN URL
+
+      //DISPATCH_openUser();
+
       let articles = jQuery.isEmptyObject(res.data.articleHomePageCOList)
         ? []
         : res.data.articleHomePageCOList._embedded.articleStreamComponentCoes;
@@ -226,6 +259,7 @@ export function DISPATCH_logIn(payload) {
         ? []
         : res.data.articleBookmarksCM._embedded.articleStreamComponentCoes;
 
+      //TODO change to openuser
       dispatch({
         type: ACTION_logIn,
         payload: res.data,

@@ -84,7 +84,7 @@ public class CommunityEditorController {
         userService.save(profileDO);
         communityService.saveOrUpdateCommunity(communityDO, principal.getName());
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok("success");
     }
 
     @PostMapping(path = "/createCommunity")

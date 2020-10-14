@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
  */
 
 public abstract class DOMAIN_VIEW_ASSEMBLER_SUPPORT<DOMAIN, CO extends RepresentationModel<CO>>
-//    extends CollectionModel<CO>
         implements DOMAIN_VIEW_ASSEMBLER<DOMAIN, CO> {
 
     public CollectionModel<CO> assembleDomainToPublicModelViewCollection(List<DOMAIN> entities) {

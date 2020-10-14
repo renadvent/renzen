@@ -161,6 +161,9 @@ const reducer = (state = initialState, action) => {
       break;
 
     case at.ACTION_openUser:
+      console.log("opening");
+      console.log(action);
+
       return {
         ...state,
         tabs: {
@@ -180,6 +183,9 @@ const reducer = (state = initialState, action) => {
             component: (
               <Profile_Page
                 data={action.data}
+                articles={action.articles}
+                profiles={action.profiles}
+                communities={action.communities}
                 href={"A" + action.data._id}
                 id={action.data._id}
               />
@@ -265,6 +271,9 @@ const reducer = (state = initialState, action) => {
     case at.ACTION_logIn:
       //TODO redo
 
+      console.log("opening");
+      console.log(action);
+
       return {
         ...state,
         user: {
@@ -293,6 +302,9 @@ const reducer = (state = initialState, action) => {
             component: (
               <Profile_Page
                 data={action.payload}
+                articles={action.articles}
+                profiles={action.profiles}
+                communities={action.communities}
                 href={"A" + action.payload._id}
                 id={action.payload._id}
               />
