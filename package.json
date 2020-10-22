@@ -16,6 +16,7 @@
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "eslint": "^7.9.0",
+    "jwt-decode": "^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.1.0",

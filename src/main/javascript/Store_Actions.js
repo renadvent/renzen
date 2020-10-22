@@ -1,4 +1,5 @@
 import Axios from "axios";
+import setJWTToken from "./securityUtils/setJWTToken";
 
 //POSSIBLE ACTIONS
 
@@ -168,6 +169,9 @@ export function DISPATCH_openUser(url) {
   //USING getstate
   return (dispatch, getState) => {
     Axios.get(url).then((res) => {
+      console.log("data");
+      console.log(res.data);
+
       let articles = [];
       let profiles = [];
       let communities = [];
@@ -175,19 +179,22 @@ export function DISPATCH_openUser(url) {
       let base = res.data;
 
       try {
-        articles = base.articleStreamComponentCoes;
+        articles = base.articleInfoComponentCOS;
+        if (articles === undefined) articles = [];
       } catch {
         articles = [];
       }
 
       try {
         profiles = base.profileInfoComponentCoes;
+        if (profiles === undefined) profiles = [];
       } catch {
         profiles = [];
       }
 
       try {
         communities = base.communityInfoComponentCoes;
+        if (communities === undefined) communities = [];
       } catch {
         communities = [];
       }
@@ -240,6 +247,12 @@ export function DISPATCH_logIn(payload) {
       //annoying HATEOS COLLECTIONMODEL logic
 
       //TODO get auth token etc
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      setJWTToken(token);
+      const decoded = jwt_decode(token);
+      //TODO set current user using decoded token??
+
       //ALSO NEEDS TO RETURN AN URL
 
       //DISPATCH_openUser();
@@ -297,6 +310,9 @@ export function DISPATCH_register(payload) {
       password: payload.password,
       username: payload.username,
     }).then((res) => {
+      console.log("register data");
+      console.log(res.data);
+
       dispatch({
         type: ACTION_register,
         payload: res.data,
@@ -304,6 +320,7 @@ export function DISPATCH_register(payload) {
       dispatch({
         type: ACTION_openUser,
         payload: res.data,
+        data: res.data,
       });
     });
   };
