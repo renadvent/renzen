@@ -1,11 +1,11 @@
-import * as at from "./actions/Store_Actions";
+import * as at from "../actions/Store_Actions";
 import React from "react";
-import AppTab from "./Page_Tab";
-import Profile_Page from "./Profile_Page";
-import CommunityAppTabContent from "./Community_Page";
-import ArticleAppTabContent from "./Article_Page";
-import { ACTION_openCreateArticleTab } from "./actions/Store_Actions";
-import ArticleEditTab from "./Create_Article_Page";
+import AppTab from "../Page_Tab";
+import Profile_Page from "../Profile_Page";
+import CommunityAppTabContent from "../Community_Page";
+import ArticleAppTabContent from "../Article_Page";
+import { ACTION_openCreateArticleTab } from "../actions/Store_Actions";
+import ArticleEditTab from "../Create_Article_Page";
 
 //INITIAL STATE
 
@@ -37,6 +37,8 @@ const initialState = {
     stream_articles: [],
   },
 };
+
+//export const firstNamedReducer = (state = 1, action) => state;
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

@@ -8,8 +8,8 @@ renders the article content as tab content
 
 const mapStateToProps = (state) => {
   return {
-    state: state,
-    user: state.user,
+    state: state.reducer,
+    user: state.reducer.user,
   };
 };
 

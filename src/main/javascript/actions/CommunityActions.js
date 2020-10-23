@@ -39,7 +39,7 @@ export function DISPATCH_openCommunity(com_url) {
         articles = [];
       }
 
-      getState().tabs.open.find((x) => {
+      getState().reducer.tabs.open.find((x) => {
         return x.id === res.data._id;
       })
         ? $("#tabA" + res.data._id).tab("show")

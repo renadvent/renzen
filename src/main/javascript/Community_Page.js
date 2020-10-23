@@ -4,7 +4,7 @@ import * as store from "./actions/Store_Actions";
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.reducer.user,
   };
 };
 

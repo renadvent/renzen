@@ -10,7 +10,7 @@ hosts other opened tabs when they are opened
 
 const mapStateToProps = (state) => {
   return {
-    open: state.tabs.open,
+    open: state.reducer.tabs.open,
   };
 };
 

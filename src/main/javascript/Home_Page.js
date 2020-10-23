@@ -6,9 +6,9 @@ import Axios from "axios";
 
 const mapStateToProps = (state) => {
   return {
-    loadedCommunities: state.homeTabData.stream_communities,
-    loadedArticles: state.homeTabData.stream_articles,
-    loadedUsers: state.homeTabData.stream_users,
+    loadedCommunities: state.reducer.homeTabData.stream_communities,
+    loadedArticles: state.reducer.homeTabData.stream_articles,
+    loadedUsers: state.reducer.homeTabData.stream_users,
   };
 };
 

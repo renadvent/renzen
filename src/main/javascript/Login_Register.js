@@ -4,8 +4,8 @@ import * as store from "./actions/Store_Actions";
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.isLoggedIn,
-    user: state.user,
+    isLoggedIn: state.reducer.isLoggedIn,
+    user: state.reducer.user,
   };
 };
 

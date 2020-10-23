@@ -10,9 +10,12 @@ import LoginRegister_Container from "./Login_Register";
  * */
 
 const mapStateToProps = (state) => {
+  console.log("STATE");
+  console.log(state);
+
   return {
-    state: state,
-    user: state.user,
+    state: state.reducer,
+    user: state.reducer.user,
   };
 };
 

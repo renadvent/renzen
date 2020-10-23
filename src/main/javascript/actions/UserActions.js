@@ -29,7 +29,7 @@ export function DISPATCH_openUser(url) {
       let vars = getVarsFromResponse(base);
 
       //check if already open
-      getState().tabs.open.find((x) => {
+      getState().reducer.tabs.open.find((x) => {
         return x.id === res.data._id;
       })
         ? $("#tabA" + res.data._id).tab("show")

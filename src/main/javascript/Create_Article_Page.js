@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
-    open: state.tabs.open,
-    user_communities: state.user.communities,
-    user: state.user,
+    open: state.reducer.tabs.open,
+    user_communities: state.reducer.user.communities,
+    user: state.reducer.user,
   };
 };
 
