@@ -285,7 +285,7 @@ const reducer = (state = initialState, action) => {
           //   action.payload.articleBookmarksCM._embedded
           //     .articleStreamComponentCoes,
 
-          //bookmarks: action.bookmarks,
+          bookmarks: action.bookmarks,
           articles: action.articles,
           communities: action.communities,
           logged_in: true,

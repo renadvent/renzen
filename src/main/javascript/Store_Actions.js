@@ -70,7 +70,7 @@ export function DISPATCH_openCreateArticleTab(communityId) {
 export function DISPATCH_addBookmark(userId, articleId, name) {
   return (dispatch) => {
     Axios.post("/addBookmark", {
-      userId: userId,
+      //userId: userId,
       articleId: articleId,
     }).then((res) => {
       dispatch({
@@ -339,7 +339,19 @@ export function DISPATCH_logIn(payload) {
             let profiles = [];
             let communities = [];
 
+            let bookmarks = [];
+
             let base = secondRes.data;
+
+            //articleBookmarksCM._embedded.articleInfoComponentCoes
+
+            try {
+              bookmarks =
+                base.articleBookmarksCM._embedded.articleInfoComponentCoes;
+              if (bookmarks === undefined) bookmarks = [];
+            } catch {
+              bookmarks = [];
+            }
 
             try {
               articles =
@@ -370,7 +382,7 @@ export function DISPATCH_logIn(payload) {
               payload: secondRes.data,
               articles: articles,
               communities: communities,
-              //bookmarks: bookmarks,
+              bookmarks: bookmarks,
             });
           }
         );

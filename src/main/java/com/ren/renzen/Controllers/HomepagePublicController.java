@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @RestController
@@ -71,13 +73,15 @@ public class HomepagePublicController {
     }
 
     @PostMapping(path = "/addBookmark")
-    public ResponseEntity<?> addBookmark(@RequestBody addBookmarkPayload payload) {
+    public ResponseEntity<?> addBookmark(@RequestBody @Valid addBookmarkPayload payload, Principal principal) {
 
-        var profileDO = userService.findBy_id(payload.getUserId());
+        //var profileDO = userService.findBy_id(payload.getUserId());
+        var profileDO = userService.findByUsername(principal.getName());
+
         var articleDO = articleService.findBy_id(payload.getArticleId());
 
         profileDO.getArticleBookmarkIDList().add(articleDO.get_id());
-        userService.save(profileDO);
+        userService.update(profileDO);
 
         return ResponseEntity.ok(null);
     }
