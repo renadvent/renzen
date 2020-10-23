@@ -103,7 +103,7 @@ function Community_Page(props) {
 
             <ul className="list-group">
               <Stream
-                source={props.payload.articleInfoComponentCOS}
+                source={props.articles}
                 dispatch={props.DISPATCH_openArticle}
               />
             </ul>
@@ -119,19 +119,15 @@ function Stream(props) {
 
   return (
     <div>
-      {!jQuery.isEmptyObject(props.source._embedded)
-        ? props.source.map((single) => {
-            return (
-              <div
-                onClick={() =>
-                  props.dispatch(single._links["Tab_Version"].href)
-                }
-              >
-                <li className={"list-group-item"}>{single.name}</li>
-              </div>
-            );
-          })
-        : null}
+      {props.source.map((single) => {
+        return (
+          <div
+            onClick={() => props.dispatch(single._links["Tab_Version"].href)}
+          >
+            <li className={"list-group-item"}>{single.name}</li>
+          </div>
+        );
+      })}
     </div>
   );
 }

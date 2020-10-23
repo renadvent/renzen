@@ -153,6 +153,7 @@ const reducer = (state = initialState, action) => {
                 payload={action.payload}
                 href={"A" + action.payload._id}
                 id={action.payload._id}
+                articles={action.articles}
               />
             ),
           }),

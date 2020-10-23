@@ -179,6 +179,16 @@ export function DISPATCH_openCommunity(com_url) {
       // Axios.get("https" + com_url.slice(4, com_url.length)).then((res) => {
       console.log(res);
 
+      let articles = [];
+
+      try {
+        articles =
+          res.data.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
+        if (articles == null) articles = [];
+      } catch {
+        articles = [];
+      }
+
       getState().tabs.open.find((x) => {
         return x.id === res.data._id;
       })
@@ -186,6 +196,7 @@ export function DISPATCH_openCommunity(com_url) {
         : dispatch({
             type: ACTION_openCommunity,
             payload: res.data,
+            articles: articles,
           });
     });
   };
