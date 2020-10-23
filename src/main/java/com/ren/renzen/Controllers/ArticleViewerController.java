@@ -8,9 +8,11 @@ import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+@RestController
 public class ArticleViewerController {
 
     //SERVICES
@@ -33,7 +35,8 @@ public class ArticleViewerController {
 
         var articleDO = articleService.findBy_id(id);
 
-        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
+//        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
+        if (!principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleStreamCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {
@@ -47,7 +50,8 @@ public class ArticleViewerController {
     public ResponseEntity<?> getArticleTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var articleDO = articleService.findBy_id(id);
 
-        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
+        //if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
+        if (!principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {

@@ -258,6 +258,9 @@ export function DISPATCH_openUser(url) {
 }
 
 export function DISPATCH_openArticle(url) {
+  console.log("open article");
+  console.log(url);
+
   return (dispatch, getState) => {
     Axios.get(url).then((res) => {
       //check if already open
