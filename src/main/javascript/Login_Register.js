@@ -34,6 +34,9 @@ function Login_Register(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
+  const [email, setEmail] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   function resetFields() {
     setPassword("");
     setUserName("");
@@ -125,6 +128,18 @@ function Login_Register(props) {
                   name="username"
                 />
               </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  type="email"
+                  className="form-control"
+                  name="email"
+                />
+              </div>
+
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
@@ -135,6 +150,18 @@ function Login_Register(props) {
                   name="password"
                 />
               </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Confirm Password</label>
+                <input
+                  value={confirmPassword}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  type="password"
+                  className="form-control"
+                  name="confirmPassword"
+                />
+              </div>
+
               <button
                 className="btn btn-dark"
                 onClick={() => {
