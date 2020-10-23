@@ -98,7 +98,7 @@ export function DISPATCH_addBookmarkASYNC(userId, articleId, name) {
 export function DISPATCH_createArticle(payload, user, community, sectionData) {
   return (dispatch) => {
     Axios.post("/createArticle", {
-      name: payload.articleName,
+      articleName: payload.articleName,
       description: payload.articleDescription,
       //userID: user,
       communityID: community,

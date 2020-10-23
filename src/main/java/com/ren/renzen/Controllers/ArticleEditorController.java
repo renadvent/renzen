@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.nio.file.Files;
 import java.security.Principal;
@@ -91,7 +92,7 @@ public class ArticleEditorController {
 
 
     @PostMapping(path = "/createArticle")
-    public ResponseEntity<?> createArticle(@RequestBody CreateArticlePayload payload, BindingResult result, Principal principal) {
+    public ResponseEntity<?> createArticle(@RequestBody @Valid CreateArticlePayload payload, BindingResult result, Principal principal) {
 
         //CHECK BINDING RESULTS OF PAYLOAD
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
@@ -117,7 +118,7 @@ public class ArticleEditorController {
 
         //add article to user
         profileDO.getArticleIDList().add(savedArticleDO.get_id());
-        userService.save(profileDO);
+        userService.update(profileDO);
 
         //add article to community
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
