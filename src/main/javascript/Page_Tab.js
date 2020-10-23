@@ -1,5 +1,5 @@
 import React from "react";
-import * as store from "./Store_Actions";
+import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
 /*

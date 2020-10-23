@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import * as store from "./Store_Actions";
+import * as store from "./actions/Store_Actions";
 import Spotlight from "./Spotlight";
 import Axios from "axios";
 

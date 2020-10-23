@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Home_Container from "./Home_Page";
-import * as store from "./Store_Actions";
+import * as store from "./actions/Store_Actions";
 
 /*
 sets up main tab (HOME) and content
