@@ -120,7 +120,7 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
 export function DISPATCH_joinCommunity(payload) {
   return (dispatch) => {
     Axios.post("/joinCommunity", {
-      userId: payload.userId,
+      //userId: payload.userId,
       communityId: payload.communityId,
     }).then((res) => {
       console.log("JOIN COMMUNITY LOG");

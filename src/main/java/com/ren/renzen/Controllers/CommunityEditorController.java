@@ -81,7 +81,7 @@ public class CommunityEditorController {
         profileDO.getCommunityIDList().add(communityDO.get_id());
         communityDO.getProfileDOList().add(profileDO.get_id());
 
-        userService.save(profileDO);
+        userService.update(profileDO);
         communityService.saveOrUpdateCommunity(communityDO, principal.getName());
 
         return ResponseEntity.ok("success");
