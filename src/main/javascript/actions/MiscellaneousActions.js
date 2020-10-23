@@ -47,36 +47,46 @@ export function DISPATCH_init() {
     Axios.get("/getHomeStreams").then((res) => {
       let base = res.data._embedded.collectionModels;
 
-      let articles = [];
-      let profiles = [];
-      let communities = [];
-
-      try {
-        articles = base[0]._embedded.articleInfoComponentCoes;
-      } catch {
-        articles = [];
-      }
-
-      try {
-        profiles = base[1]._embedded.profileInfoComponentCoes;
-      } catch {
-        profiles = [];
-      }
-
-      try {
-        communities = base[2]._embedded.communityInfoComponentCoes;
-      } catch {
-        communities = [];
-      }
+      let init = getInitFromEmbedded(base);
 
       dispatch({
         type: ACTION_init,
         payload: {
-          articles: articles,
-          users: profiles,
-          communities: communities,
+          articles: init.articles,
+          users: init.profiles,
+          communities: init.communities,
         },
       });
     });
+  };
+}
+
+function getInitFromEmbedded(base) {
+  let articles = [];
+  let profiles = [];
+  let communities = [];
+
+  try {
+    articles = base[0]._embedded.articleInfoComponentCoes;
+  } catch {
+    articles = [];
+  }
+
+  try {
+    profiles = base[1]._embedded.profileInfoComponentCoes;
+  } catch {
+    profiles = [];
+  }
+
+  try {
+    communities = base[2]._embedded.communityInfoComponentCoes;
+  } catch {
+    communities = [];
+  }
+
+  return {
+    articles: articles,
+    profiles: profiles,
+    communities: communities,
   };
 }

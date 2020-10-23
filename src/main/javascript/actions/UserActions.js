@@ -24,34 +24,9 @@ export function DISPATCH_openUser(url) {
       console.log("data");
       console.log(res.data);
 
-      let articles = [];
-      let profiles = [];
-      let communities = [];
-
       let base = res.data;
 
-      try {
-        articles =
-          base.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
-        if (articles === undefined) articles = [];
-      } catch {
-        articles = [];
-      }
-
-      try {
-        profiles = base.profileInfoComponentCoes._embedded;
-        if (profiles === undefined) profiles = [];
-      } catch {
-        profiles = [];
-      }
-
-      try {
-        communities =
-          base.communityInfoComponentCOS._embedded.communityInfoComponentCoes;
-        if (communities === undefined) communities = [];
-      } catch {
-        communities = [];
-      }
+      let vars = getVarsFromResponse(base);
 
       //check if already open
       getState().tabs.open.find((x) => {
@@ -62,9 +37,9 @@ export function DISPATCH_openUser(url) {
             type: ACTION_openUser,
             data: res.data,
 
-            articles: articles,
-            profiles: profiles,
-            communities: communities,
+            articles: vars.articles,
+            profiles: vars.profiles,
+            communities: vars.communities,
             //payload: res.data,
           });
     });
@@ -101,54 +76,16 @@ export function DISPATCH_logIn(payload) {
             console.log("data");
             console.log(secondRes.data);
 
-            let articles = [];
-            let profiles = [];
-            let communities = [];
-
-            let bookmarks = [];
-
             let base = secondRes.data;
 
-            //articleBookmarksCM._embedded.articleInfoComponentCoes
-
-            try {
-              bookmarks =
-                base.articleBookmarksCM._embedded.articleInfoComponentCoes;
-              if (bookmarks === undefined) bookmarks = [];
-            } catch {
-              bookmarks = [];
-            }
-
-            try {
-              articles =
-                base.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
-              if (articles === undefined) articles = [];
-            } catch {
-              articles = [];
-            }
-
-            try {
-              profiles = base.profileInfoComponentCOS._embedded;
-              if (profiles === undefined) profiles = [];
-            } catch {
-              profiles = [];
-            }
-
-            try {
-              communities =
-                base.communityInfoComponentCOS._embedded
-                  .communityInfoComponentCoes;
-              if (communities === undefined) communities = [];
-            } catch {
-              communities = [];
-            }
+            let vars = getVarsFromResponse(base);
 
             dispatch({
               type: ACTION_logIn,
               payload: secondRes.data,
-              articles: articles,
-              communities: communities,
-              bookmarks: bookmarks,
+              articles: vars.articles,
+              communities: vars.communities,
+              bookmarks: vars.bookmarks,
             });
           }
         );
@@ -178,5 +115,51 @@ export function DISPATCH_register(payload) {
         data: res.data,
       });
     });
+  };
+}
+
+function getVarsFromResponse(base) {
+  let articles = [];
+  let profiles = [];
+  let communities = [];
+
+  let bookmarks = [];
+
+  //articleBookmarksCM._embedded.articleInfoComponentCoes
+
+  try {
+    bookmarks = base.articleBookmarksCM._embedded.articleInfoComponentCoes;
+    if (bookmarks === undefined) bookmarks = [];
+  } catch {
+    bookmarks = [];
+  }
+
+  try {
+    articles = base.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
+    if (articles === undefined) articles = [];
+  } catch {
+    articles = [];
+  }
+
+  try {
+    profiles = base.profileInfoComponentCOS._embedded;
+    if (profiles === undefined) profiles = [];
+  } catch {
+    profiles = [];
+  }
+
+  try {
+    communities =
+      base.communityInfoComponentCOS._embedded.communityInfoComponentCoes;
+    if (communities === undefined) communities = [];
+  } catch {
+    communities = [];
+  }
+
+  return {
+    articles: articles,
+    communities: communities,
+    profiles: profiles,
+    bookmarks: bookmarks,
   };
 }
