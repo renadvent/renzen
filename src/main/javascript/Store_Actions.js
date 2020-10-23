@@ -1,5 +1,6 @@
 import Axios from "axios";
 import setJWTToken from "./securityUtils/setJWTToken";
+import jwt_decode from "jwt-decode";
 
 //POSSIBLE ACTIONS
 
@@ -167,6 +168,7 @@ export function DISPATCH_openCommunity(com_url) {
 
 export function DISPATCH_openUser(url) {
   //USING getstate
+  console.log(url);
   return (dispatch, getState) => {
     Axios.get(url).then((res) => {
       console.log("data");
@@ -238,49 +240,97 @@ export function DISPATCH_logIn(payload) {
     Axios.post("/login", {
       password: payload.password,
       username: payload.username,
-    }).then((res) => {
-      //TODO will still open a second tab if not logged on first, and then logs on
-      // getState().tabs.open.find((x) => {
-      //   return (x.id === res.data._id)
-      // }) && getState().user.logged_in ? $("#tabA"+res.data._id).tab("show") :
+    })
+      .then((res) => {
+        //TODO will still open a second tab if not logged on first, and then logs on
+        // getState().tabs.open.find((x) => {
+        //   return (x.id === res.data._id)
+        // }) && getState().user.logged_in ? $("#tabA"+res.data._id).tab("show") :
 
-      //annoying HATEOS COLLECTIONMODEL logic
+        //annoying HATEOS COLLECTIONMODEL logic
 
-      //TODO get auth token etc
-      const { token } = res.data;
-      localStorage.setItem("jwtToken", token);
-      setJWTToken(token);
-      const decoded = jwt_decode(token);
-      //TODO set current user using decoded token??
+        //TODO get auth token etc
+        const { token } = res.data;
+        localStorage.setItem("jwtToken", token);
+        setJWTToken(token);
+        const decoded = jwt_decode(token);
+        console.log("decoded");
+        console.log(decoded);
 
-      //ALSO NEEDS TO RETURN AN URL
+        return decoded;
+        //TODO set current user using decoded token??
 
-      //DISPATCH_openUser();
+        //ALSO NEEDS TO RETURN AN URL
 
-      let articles = jQuery.isEmptyObject(res.data.articleHomePageCOList)
-        ? []
-        : res.data.articleHomePageCOList._embedded.articleStreamComponentCoes;
+        //DISPATCH_openUser("/getProfileTabComponentCO/" + decoded.id);
+        //
+        // let articles = jQuery.isEmptyObject(res.data.articleHomePageCOList)
+        //   ? []
+        //   : res.data.articleHomePageCOList._embedded.articleStreamComponentCoes;
+        //
+        // let communities = jQuery.isEmptyObject(
+        //   res.data.communityStreamComponentCOList
+        // )
+        //   ? []
+        //   : res.data.communityStreamComponentCOList._embedded
+        //       .communityStreamComponentCoes;
+        //
+        // let bookmarks = jQuery.isEmptyObject(res.data.articleBookmarksCM)
+        //   ? []
+        //   : res.data.articleBookmarksCM._embedded.articleStreamComponentCoes;
+        //
+        // //TODO change to openuser
+        // dispatch({
+        //   type: ACTION_logIn,
+        //   payload: res.data,
+        //   articles: articles,
+        //   communities: communities,
+        //   bookmarks: bookmarks,
+        // });
+      })
+      .then((decoded) => {
+        Axios.get("/getProfileTabComponentCO/" + decoded.id).then(
+          (secondRes) => {
+            console.log("data");
+            console.log(secondRes.data);
 
-      let communities = jQuery.isEmptyObject(
-        res.data.communityStreamComponentCOList
-      )
-        ? []
-        : res.data.communityStreamComponentCOList._embedded
-            .communityStreamComponentCoes;
+            let articles = [];
+            let profiles = [];
+            let communities = [];
 
-      let bookmarks = jQuery.isEmptyObject(res.data.articleBookmarksCM)
-        ? []
-        : res.data.articleBookmarksCM._embedded.articleStreamComponentCoes;
+            let base = secondRes.data;
 
-      //TODO change to openuser
-      dispatch({
-        type: ACTION_logIn,
-        payload: res.data,
-        articles: articles,
-        communities: communities,
-        bookmarks: bookmarks,
+            try {
+              articles = base.articleInfoComponentCOS;
+              if (articles === undefined) articles = [];
+            } catch {
+              articles = [];
+            }
+
+            try {
+              profiles = base.profileInfoComponentCoes;
+              if (profiles === undefined) profiles = [];
+            } catch {
+              profiles = [];
+            }
+
+            try {
+              communities = base.communityInfoComponentCoes;
+              if (communities === undefined) communities = [];
+            } catch {
+              communities = [];
+            }
+
+            dispatch({
+              type: ACTION_logIn,
+              payload: secondRes.data,
+              articles: articles,
+              communities: communities,
+              //bookmarks: bookmarks,
+            });
+          }
+        );
       });
-    });
   };
 }
 

@@ -129,7 +129,8 @@ public class UserEditorController {
         String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
 
         //pass back token
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
+//        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt,userService.findByUsername(loginRequest.getUsername()).get_id()));
 
         //return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(loginRequest.getUsername(), loginRequest.getPassword())));
     }
