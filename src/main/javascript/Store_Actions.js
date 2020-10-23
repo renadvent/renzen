@@ -299,35 +299,6 @@ export function DISPATCH_logIn(payload) {
         console.log(decoded);
 
         return decoded;
-        //TODO set current user using decoded token??
-
-        //ALSO NEEDS TO RETURN AN URL
-
-        //DISPATCH_openUser("/getProfileTabComponentCO/" + decoded.id);
-        //
-        // let articles = jQuery.isEmptyObject(res.data.articleHomePageCOList)
-        //   ? []
-        //   : res.data.articleHomePageCOList._embedded.articleStreamComponentCoes;
-        //
-        // let communities = jQuery.isEmptyObject(
-        //   res.data.communityStreamComponentCOList
-        // )
-        //   ? []
-        //   : res.data.communityStreamComponentCOList._embedded
-        //       .communityStreamComponentCoes;
-        //
-        // let bookmarks = jQuery.isEmptyObject(res.data.articleBookmarksCM)
-        //   ? []
-        //   : res.data.articleBookmarksCM._embedded.articleStreamComponentCoes;
-        //
-        // //TODO change to openuser
-        // dispatch({
-        //   type: ACTION_logIn,
-        //   payload: res.data,
-        //   articles: articles,
-        //   communities: communities,
-        //   bookmarks: bookmarks,
-        // });
       })
       .then((decoded) => {
         Axios.get("/getProfileTabComponentCO/" + decoded.id).then(

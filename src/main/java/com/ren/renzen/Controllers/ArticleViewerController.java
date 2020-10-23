@@ -33,10 +33,13 @@ public class ArticleViewerController {
     @GetMapping(path = "/getArticleStreamComponentCO/{id}")
     public ResponseEntity<?> getArticleStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
 
+
+
+
         var articleDO = articleService.findBy_id(id);
 
 //        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
-        if (!principal.getName().equals(articleDO.getCreatorName())) {
+        if (principal==null || !principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleStreamCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {
@@ -51,7 +54,7 @@ public class ArticleViewerController {
         var articleDO = articleService.findBy_id(id);
 
         //if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
-        if (!principal.getName().equals(articleDO.getCreatorName())) {
+        if (principal==null || !principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {
