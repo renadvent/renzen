@@ -10,6 +10,8 @@ import java.util.List;
 public interface UserService {
     ProfileDO save(ProfileDO profileDO);
 
+    ProfileDO update(ProfileDO profileDO);
+
     List<ProfileDO> getProfileDOList();
 
     List<ProfileDO> findAll();

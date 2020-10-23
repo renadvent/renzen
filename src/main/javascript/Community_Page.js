@@ -103,7 +103,7 @@ function Community_Page(props) {
 
             <ul className="list-group">
               <Stream
-                source={props.payload.article_Article_streamComponentCOList}
+                source={props.payload.articleInfoComponentCOS}
                 dispatch={props.DISPATCH_openArticle}
               />
             </ul>
@@ -115,10 +115,12 @@ function Community_Page(props) {
 }
 
 function Stream(props) {
+  console.log(props.source);
+
   return (
     <div>
       {!jQuery.isEmptyObject(props.source._embedded)
-        ? props.source._embedded.articleStreamComponentCoes.map((single) => {
+        ? props.source.map((single) => {
             return (
               <div
                 onClick={() =>

@@ -48,13 +48,25 @@ public class UserServiceImpl implements UserService {
         }
 
         return userRepository.save(profileDO);
-
-
-        //username must be unique //exception
-        //make sure that password and confirm password match
-
-//        return userRepository.save(profileDO);
     }
+
+
+    @Override
+    public ProfileDO update(ProfileDO profileDO) {
+
+//        profileDO.setPassword(bCryptPasswordEncoder.encode(profileDO.getPassword()));
+//        profileDO.setUsername(profileDO.getUsername()); //
+//
+//
+//        //throw error if name already exists
+//        if (checkIfUsernameTaken(profileDO.getUsername())) {
+//            throw new UserNameAlreadyExistsException("Username  '" + profileDO.getUsername() + "' already exists");
+//        }
+
+        return userRepository.save(profileDO);
+    }
+
+
 
     @Override
     public List<ProfileDO> getProfileDOList() {

@@ -38,6 +38,17 @@ export function DISPATCH_getSpotlightContent() {
   };
 }
 
+export async function DISPATCH_getSpotlightContentASYNC() {
+  let res = await Axios.get("/getSpotlight");
+
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_getSpotlightContent,
+      data: res.data,
+    });
+  };
+}
+
 export function DISPATCH_removeOpenTabById(tabId) {
   return (dispatch) => {
     dispatch({
@@ -70,12 +81,26 @@ export function DISPATCH_addBookmark(userId, articleId, name) {
   };
 }
 
+export function DISPATCH_addBookmarkASYNC(userId, articleId, name) {
+  let res = Axios.post("/addBookmark", {
+    userId: userId,
+    articleId: articleId,
+  });
+
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_addBookmark,
+      name: name,
+    });
+  };
+}
+
 export function DISPATCH_createArticle(payload, user, community, sectionData) {
   return (dispatch) => {
     Axios.post("/createArticle", {
       name: payload.articleName,
       description: payload.articleDescription,
-      userID: user,
+      //userID: user,
       communityID: community,
       articleSectionDOList: sectionData,
     }).then((res) => {
@@ -181,21 +206,23 @@ export function DISPATCH_openUser(url) {
       let base = res.data;
 
       try {
-        articles = base.articleInfoComponentCOS;
+        articles =
+          base.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
         if (articles === undefined) articles = [];
       } catch {
         articles = [];
       }
 
       try {
-        profiles = base.profileInfoComponentCoes;
+        profiles = base.profileInfoComponentCoes._embedded;
         if (profiles === undefined) profiles = [];
       } catch {
         profiles = [];
       }
 
       try {
-        communities = base.communityInfoComponentCoes;
+        communities =
+          base.communityInfoComponentCOS._embedded.communityInfoComponentCoes;
         if (communities === undefined) communities = [];
       } catch {
         communities = [];
@@ -301,21 +328,24 @@ export function DISPATCH_logIn(payload) {
             let base = secondRes.data;
 
             try {
-              articles = base.articleInfoComponentCOS;
+              articles =
+                base.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
               if (articles === undefined) articles = [];
             } catch {
               articles = [];
             }
 
             try {
-              profiles = base.profileInfoComponentCoes;
+              profiles = base.profileInfoComponentCOS._embedded;
               if (profiles === undefined) profiles = [];
             } catch {
               profiles = [];
             }
 
             try {
-              communities = base.communityInfoComponentCoes;
+              communities =
+                base.communityInfoComponentCOS._embedded
+                  .communityInfoComponentCoes;
               if (communities === undefined) communities = [];
             } catch {
               communities = [];
@@ -380,7 +410,6 @@ export function DISPATCH_createCommunity(payload) {
   return (dispatch, getState) => {
     Axios.post("/createCommunity", {
       name: payload.name,
-      creatorID: payload.creatorID,
     }).then((res) => {
       dispatch({
         type: ACTION_openCommunity,

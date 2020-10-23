@@ -91,6 +91,8 @@ public class CommunityEditorController {
     public ResponseEntity<?> createCommunity(@Valid @RequestBody CreateCommunityPayload payload, BindingResult bindingResult,
                                              Principal principal) {
 
+        System.out.println("create community");
+
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
         if (errorMap != null) return errorMap;
 
@@ -101,14 +103,18 @@ public class CommunityEditorController {
 
         //save community
         var communityDO = new CommunityDO();
-        communityDO.setCreatorName(payload.getName());
-        communityDO.setCreatorID(userService.findByUsername(payload.getName()).get_id());
+        communityDO.setName(payload.getName());
+        communityDO.setCreatorName(principal.getName());
+
+
+        communityDO.setCreatorID(userService.findByUsername(principal.getName()).get_id());
+        //communityDO.setCreatorID(userService.findByUsername(payload.getName()).get_id());
 
         communityService.save(communityDO);
 
         ProfileDO profileDO = userService.findBy_id(communityDO.getCreatorID());
         profileDO.getCommunityIDList().add(communityDO.get_id());
-        userService.save(profileDO);
+        userService.update(profileDO);
 
         return ResponseEntity.ok(communityTabCOAssembler.assembleDomainToFullModelView(communityDO));
     }

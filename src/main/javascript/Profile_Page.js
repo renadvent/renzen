@@ -14,7 +14,10 @@ const mapDispatchToProps = (dispatch) => {
     DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
     DISPATCH_createCommunity: (creatorID, name) =>
       dispatch(
-        store.DISPATCH_createCommunity({ creatorID: creatorID, name: name })
+        store.DISPATCH_createCommunity({
+          creatorID: creatorID,
+          name: name,
+        })
       ),
     DISPATCH_openCommunity: (url) =>
       dispatch(store.DISPATCH_openCommunity(url)),
@@ -110,23 +113,21 @@ function Profile_Page(props) {
 }
 
 function Stream(props) {
+  console.log(props);
+
   return (
     <ul className="list-group">
-      {!jQuery.isEmptyObject(props.source)
-        ? props.source.map((single) => {
-            return (
-              <div
-                onClick={() =>
-                  props.dispatch(single._links["Tab_Version"].href)
-                }
-              >
-                <li className={"list-group-item"}>
-                  <a>+{single.name}</a>
-                </li>
-              </div>
-            );
-          })
-        : null}
+      {props.source.map((single) => {
+        return (
+          <div
+            onClick={() => props.dispatch(single._links["Tab_Version"].href)}
+          >
+            <li className={"list-group-item"}>
+              <a>+{single.name}</a>
+            </li>
+          </div>
+        );
+      })}
     </ul>
   );
 }
