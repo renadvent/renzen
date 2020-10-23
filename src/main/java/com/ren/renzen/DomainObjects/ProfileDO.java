@@ -27,6 +27,7 @@ public class ProfileDO implements UserDetails {
     String username;
     String password;
     String email;
+    int phone;
 
     //toggles for converter
     //public profile view settings toggle (used when converting)
