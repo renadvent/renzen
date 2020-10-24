@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return {
-    open: state.reducer.tabs.open,
-    user_communities: state.reducer.user.communities,
-    user: state.reducer.user,
-  };
-};
+import { CreateArticlePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
+
+// const mapStateToProps = (state) => {
+//   return {
+//     open: state.reducer.tabs.open,
+//     user_communities: state.reducer.user.communities,
+//     user: state.reducer.user,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

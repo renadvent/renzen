@@ -2,16 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
 
+import { ArticlePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
+
 /**
 renders the article content as tab content
  */
 
-const mapStateToProps = (state) => {
-  return {
-    state: state.reducer,
-    user: state.reducer.user,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     state: state.reducer,
+//     user: state.reducer.user,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

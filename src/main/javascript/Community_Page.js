@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.reducer.user,
-  };
-};
+import { CommunityPage_StateToProps as mapStateToProps } from "./maps/StateToProps";
+
+// const mapStateToProps = (state) => {
+//   return {
+//     user: state.reducer.user,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

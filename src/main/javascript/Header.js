@@ -2,11 +2,13 @@ import React from "react";
 import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.reducer.user,
-  };
-};
+import { Header_StateToProps as mapStateToProps } from "./maps/StateToProps";
+
+// const mapStateToProps = (state) => {
+//   return {
+//     user: state.reducer.user,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

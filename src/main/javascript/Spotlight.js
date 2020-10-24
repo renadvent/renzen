@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
 
-const mapStateToProps = (state) => {
-  return {
-    loadedCommunities: state.reducer.homeTabData.stream_communities,
-    loadedArticles: state.reducer.homeTabData.stream_articles,
-    loadedUsers: state.reducer.homeTabData.stream_users,
+import { Spotlight_StateToProps as mapStateToProps } from "./maps/StateToProps";
 
-    user: state.user,
-    state: state,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     loadedCommunities: state.reducer.homeTabData.stream_communities,
+//     loadedArticles: state.reducer.homeTabData.stream_articles,
+//     loadedUsers: state.reducer.homeTabData.stream_users,
+//
+//     user: state.user,
+//     state: state,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

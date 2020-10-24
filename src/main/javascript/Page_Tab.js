@@ -2,14 +2,16 @@ import React from "react";
 import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
+import { PageTab_StateToProps as mapStateToProps } from "./maps/StateToProps";
+
 /*
 Actual tab parts that a user can click on.
 Also allows the user to close the tab by clicking on the "x"
  */
 
-const mapStateToProps = (state) => {
-  return {};
-};
+// const mapStateToProps = (state) => {
+//   return {};
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

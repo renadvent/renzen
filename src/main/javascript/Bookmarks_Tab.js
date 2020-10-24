@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
+import { BookmarksTab_StateToProps as mapStateToProps } from "./maps/StateToProps";
 
-const mapStateToProps = (state) => {
-  return {};
-};
+// const mapStateToProps = (state) => {
+//   return {};
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

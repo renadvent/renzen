@@ -4,13 +4,15 @@ import * as store from "./actions/Store_Actions";
 import Spotlight from "./Spotlight";
 import Axios from "axios";
 
-const mapStateToProps = (state) => {
-  return {
-    loadedCommunities: state.reducer.homeTabData.stream_communities,
-    loadedArticles: state.reducer.homeTabData.stream_articles,
-    loadedUsers: state.reducer.homeTabData.stream_users,
-  };
-};
+import { HomePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
+
+// const mapStateToProps = (state) => {
+//   return {
+//     loadedCommunities: state.reducer.homeTabData.stream_communities,
+//     loadedArticles: state.reducer.homeTabData.stream_articles,
+//     loadedUsers: state.reducer.homeTabData.stream_users,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch) => {
   return {
