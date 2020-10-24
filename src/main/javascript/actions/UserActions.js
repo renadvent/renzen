@@ -112,12 +112,20 @@ export function DISPATCH_register(payload) {
       let vars = getVarsFromResponse(base);
 
       dispatch({
-        type: ACTION_register,
+        type: ACTION_logIn,
         payload: res.data,
         articles: vars.articles,
         communities: vars.communities,
         bookmarks: vars.bookmarks,
       });
+
+      // dispatch({
+      //   type: ACTION_register,
+      //   payload: res.data,
+      //   articles: vars.articles,
+      //   communities: vars.communities,
+      //   bookmarks: vars.bookmarks,
+      // });
       dispatch({
         type: ACTION_openUser,
         payload: res.data,

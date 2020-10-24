@@ -104,14 +104,30 @@ public class UserEditorController {
         profileDO.setPassword(registerPayload.getPassword());
         profileDO.setEmail(registerPayload.getEmail());
 
-        return new ResponseEntity<>(profileTabCOAssembler
-                .assembleDomainToFullModelView(
-                        userService
-                                .save
-                                        (profileDO)
-                ),
-                HttpStatus.CREATED
+        Authentication authentication = authenticationManager.authenticate(
+
+                new UsernamePasswordAuthenticationToken(
+                        registerPayload.getUsername(),
+                        registerPayload.getPassword()
+                )
         );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
+
+        //pass back token
+//        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt,userService.findByUsername(registerPayload.getUsername()).get_id()));
+
+
+//        return new ResponseEntity<>(profileTabCOAssembler
+//                .assembleDomainToFullModelView(
+//                        userService
+//                                .save
+//                                        (profileDO)
+//                ),
+//                HttpStatus.CREATED
+//        );
     }
 
     //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
