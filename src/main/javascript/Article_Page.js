@@ -21,6 +21,35 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function Article_Page(props) {
+  function loginLogic() {
+    return props.user.logged_in ? (
+      props.user.bookmarks.find((x) => {
+        return x._id === props.payload._id;
+      }) ? (
+        <div className="alert alert-secondary" role="alert">
+          Bookmarked!
+        </div>
+      ) : (
+        <button
+          className="btn btn-secondary"
+          onClick={() =>
+            props.DISPATCH_addBookmark(
+              props.state.user.id,
+              props.payload._id,
+              props.payload.name
+            )
+          }
+        >
+          Add Bookmark
+        </button>
+      )
+    ) : (
+      <div className="alert alert-secondary" role="alert">
+        Log in to bookmark articles!!
+      </div>
+    );
+  }
+
   return (
     <div
       style={{ textAlign: "center" }}
@@ -30,32 +59,8 @@ function Article_Page(props) {
       aria-labelledby="article-tab"
     >
       <br />
-      {props.user.logged_in ? (
-        props.user.bookmarks.find((x) => {
-          return x._id === props.payload._id;
-        }) ? (
-          <div className="alert alert-secondary" role="alert">
-            Bookmarked!
-          </div>
-        ) : (
-          <button
-            className="btn btn-secondary"
-            onClick={() =>
-              props.DISPATCH_addBookmark(
-                props.state.user.id,
-                props.payload._id,
-                props.payload.name
-              )
-            }
-          >
-            Add Bookmark
-          </button>
-        )
-      ) : (
-        <div className="alert alert-secondary" role="alert">
-          Log in to bookmark articles!!
-        </div>
-      )}
+
+      {loginLogic()}
 
       <h1>{props.payload.name}</h1>
       <p>{props.payload.description}</p>
