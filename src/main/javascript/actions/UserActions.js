@@ -1,12 +1,7 @@
 import Axios from "axios";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
-import {
-  ACTION_logIn,
-  ACTION_logOut,
-  ACTION_openUser,
-  ACTION_register,
-} from "./StoreDefs";
+import { ACTION_logIn, ACTION_logOut, ACTION_openUser } from "./StoreDefs";
 
 export function DISPATCH_logOut() {
   $("#home-tab").tab("show");

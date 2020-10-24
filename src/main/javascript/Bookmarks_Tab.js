@@ -2,17 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
 import { BookmarksTab_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {};
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_removeOpenTabById: (id) =>
-      dispatch(store.DISPATCH_removeOpenTabById(id)),
-  };
-};
+import { BookmarksTab_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Bookmarks_Tab(props) {
   return (

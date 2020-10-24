@@ -1,6 +1,4 @@
 import Axios from "axios";
-import setJWTToken from "../securityUtils/setJWTToken";
-import jwt_decode from "jwt-decode";
 import {
   ACTION_addCommunityToLoggedInUser,
   ACTION_openCommunity,

@@ -5,35 +5,7 @@ import Spotlight from "./Spotlight";
 import Axios from "axios";
 
 import { HomePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     loadedCommunities: state.reducer.homeTabData.stream_communities,
-//     loadedArticles: state.reducer.homeTabData.stream_articles,
-//     loadedUsers: state.reducer.homeTabData.stream_users,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_openCommunity: (url) =>
-      dispatch(store.DISPATCH_openCommunity(url)),
-    DISPATCH_openUser: (url) => dispatch(store.DISPATCH_openUser(url)),
-    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
-
-    DISPATCH_logIn: (username, password) =>
-      dispatch(
-        store.DISPATCH_logIn({ username: username, password: password })
-      ),
-    DISPATCH_register: (username, password) =>
-      dispatch(
-        store.DISPATCH_register({ username: username, password: password })
-      ),
-
-    DISPATCH_createCommunity: (user, payload) =>
-      dispatch(store.DISPATCH_createCommunity(user, payload)),
-  };
-};
+import { HomePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Home_Page(props) {
   return (

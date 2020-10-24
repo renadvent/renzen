@@ -3,28 +3,7 @@ import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
 import { ProfilePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     user: state.reducer.user,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
-    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
-    DISPATCH_createCommunity: (creatorID, name) =>
-      dispatch(
-        store.DISPATCH_createCommunity({
-          creatorID: creatorID,
-          name: name,
-        })
-      ),
-    DISPATCH_openCommunity: (url) =>
-      dispatch(store.DISPATCH_openCommunity(url)),
-  };
-};
+import { ProfilePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Profile_Page(props) {
   const [communityName, setCommunityName] = useState("");

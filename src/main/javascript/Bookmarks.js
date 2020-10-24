@@ -6,25 +6,10 @@ import { connect } from "react-redux";
 import LoginRegister_Container from "./Login_Register";
 
 import { Bookmarks_StateToProps as mapStateToProps } from "./maps/StateToProps";
+import { Bookmarks_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 /*
  * Show the bookmark on the right side of the screen
  * */
-
-// const mapStateToProps = (state) => {
-//   console.log("STATE");
-//   console.log(state);
-//
-//   return {
-//     state: state.reducer,
-//     user: state.reducer.user,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
-  };
-};
 
 function Bookmarks(props) {
   return (

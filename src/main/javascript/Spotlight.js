@@ -3,26 +3,7 @@ import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
 
 import { Spotlight_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     loadedCommunities: state.reducer.homeTabData.stream_communities,
-//     loadedArticles: state.reducer.homeTabData.stream_articles,
-//     loadedUsers: state.reducer.homeTabData.stream_users,
-//
-//     user: state.user,
-//     state: state,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_openCommunity: (url) =>
-      dispatch(store.DISPATCH_openCommunity(url)),
-    DISPATCH_openUser: (url) => dispatch(store.DISPATCH_openUser(url)),
-    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
-  };
-};
+import { Spotlight_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Spotlight(props) {
   return (

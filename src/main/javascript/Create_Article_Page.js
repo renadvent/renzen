@@ -3,25 +3,7 @@ import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
 import { CreateArticlePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     open: state.reducer.tabs.open,
-//     user_communities: state.reducer.user.communities,
-//     user: state.reducer.user,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_createArticle: (payload, user, community, sectionData) =>
-      dispatch(
-        store.DISPATCH_createArticle(payload, user, community, sectionData)
-      ),
-    DISPATCH_removeOpenTabById: (id) =>
-      dispatch(store.DISPATCH_removeOpenTabById(id)),
-  };
-};
+import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Editable_Article_Section(props) {
   const [info, setInfo] = useState({ header: "", body: "" });

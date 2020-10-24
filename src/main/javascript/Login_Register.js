@@ -3,36 +3,7 @@ import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
 
 import { LoginRegister_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     isLoggedIn: state.reducer.isLoggedIn,
-//     user: state.reducer.user,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_logIn: (username, password) =>
-      dispatch(
-        store.DISPATCH_logIn({ username: username, password: password })
-      ),
-    DISPATCH_register: (username, password, confirmPassword, email) => {
-      dispatch(
-        store.DISPATCH_register({
-          username: username,
-          password: password,
-          confirmPassword: confirmPassword,
-          email: email,
-        })
-      );
-    },
-
-    DISPATCH_createCommunity: (user, payload) =>
-      dispatch(store.DISPATCH_createCommunity(user, payload)),
-    DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
-  };
-};
+import { LoginRegister_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Login_Register(props) {
   const [userName, setUserName] = useState("");

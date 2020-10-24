@@ -3,18 +3,7 @@ import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
 import { Header_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     user: state.reducer.user,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
-  };
-};
+import { Header_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Header(props) {
   return (

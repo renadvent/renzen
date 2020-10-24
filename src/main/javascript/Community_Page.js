@@ -3,28 +3,7 @@ import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
 
 import { CommunityPage_StateToProps as mapStateToProps } from "./maps/StateToProps";
-
-// const mapStateToProps = (state) => {
-//   return {
-//     user: state.reducer.user,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_joinCommunity: (userId, communityId) =>
-      dispatch(
-        store.DISPATCH_joinCommunity({
-          userId: userId,
-          communityId: communityId,
-        })
-      ),
-    DISPATCH_createArticle: () => dispatch(store.DISPATCH_createArticle()),
-    DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
-    DISPATCH_openCreateArticleTab: (comid) =>
-      dispatch(store.DISPATCH_openCreateArticleTab(comid)),
-  };
-};
+import { CommunityPage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Community_Page(props) {
   return (

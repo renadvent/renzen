@@ -3,22 +3,12 @@ import * as store from "./actions/Store_Actions";
 import { connect } from "react-redux";
 
 import { PageTab_StateToProps as mapStateToProps } from "./maps/StateToProps";
+import { PageTab_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 /*
 Actual tab parts that a user can click on.
 Also allows the user to close the tab by clicking on the "x"
  */
-
-// const mapStateToProps = (state) => {
-//   return {};
-// };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_removeOpenTabById: (id) =>
-      dispatch(store.DISPATCH_removeOpenTabById(id)),
-  };
-};
 
 function Page_Tab(props) {
   return (
