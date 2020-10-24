@@ -54,6 +54,8 @@ function Login_Register(props) {
   function resetFields() {
     setPassword("");
     setUserName("");
+    setConfirmPassword("");
+    setEmail("");
   }
 
   return (
