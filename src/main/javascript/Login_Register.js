@@ -12,9 +12,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    DISPATCH_openCommunity: () => dispatch(store.DISPATCH_openCommunity()),
-    DISPATCH_openUser: () => dispatch(store.DISPATCH_openUser()),
-    DISPATCH_openArticle: () => dispatch(store.DISPATCH_openArticle()),
+    // DISPATCH_openCommunity: () => dispatch(store.DISPATCH_openCommunity()),
+    // DISPATCH_openUser: () => dispatch(store.DISPATCH_openUser()),
+    // DISPATCH_openArticle: () => dispatch(store.DISPATCH_openArticle()),
 
     DISPATCH_logIn: (username, password) =>
       dispatch(
@@ -29,13 +29,6 @@ const mapDispatchToProps = (dispatch) => {
           email: email,
         })
       );
-
-      // dispatch(
-      //   DISPATCH_logIn({
-      //     username: username,
-      //     password: password,
-      //   })
-      // );
     },
 
     DISPATCH_createCommunity: (user, payload) =>

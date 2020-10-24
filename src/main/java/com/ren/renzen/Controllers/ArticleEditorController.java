@@ -133,7 +133,8 @@ public class ArticleEditorController {
     public String addScreenshotToArticle(@PathVariable ObjectId id, @RequestBody String screenshot, Principal principal) {
 
         //CHECK IF LOGGED ON USER IS THE OWNDER OF THE ARTICLE
-        if (!userService.findByUsername(principal.getName()).equals(articleService.findBy_id(id).getCreatorName())) {
+//        if (!userService.findByUsername(principal.getName()).equals(articleService.findBy_id(id).getCreatorName())) {
+        if (!principal.getName().equals(articleService.findBy_id(id).getCreatorName())) {
             throw new OwnerMismatchException("Logged In User Does Not Own Article");
         }
 

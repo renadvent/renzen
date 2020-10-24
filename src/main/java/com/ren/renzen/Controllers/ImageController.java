@@ -112,7 +112,7 @@ public class ImageController {
 
         var user = userService.findBy_id(userId);
         user.getPublicScreenshotsIDList().add(url); // adds url without sas. wiil have to be generated when retrieving
-        userService.save(user);
+        userService.update(user);
 
         var urlWithPermissions = url + "?" + SAS;
         return urlWithPermissions; // link with sas
