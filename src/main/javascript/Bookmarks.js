@@ -59,25 +59,31 @@ function Bookmarks(props) {
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <ul className="list-group">
-              {props.state.user.bookmarks.map((x) => {
-                return (
-                  <li
-                    className={"list-group-item"}
-                    onClick={() =>
-                      props.DISPATCH_openArticle(x._links.Tab_Version.href)
-                    }
-                  >
-                    {x.name}
-                  </li>
-                );
-              })}
-            </ul>
+            <ul className="list-group">{renderBookmarkLogic()}</ul>
           </div>
         </div>
       </div>
     </div>
   );
+
+  /**
+   * logic
+   * @param bookmarks
+   * @returns {unknown[]}
+   */
+
+  function renderBookmarkLogic(bookmarks) {
+    return props.state.user.bookmarks.map((x) => {
+      return (
+        <li
+          className={"list-group-item"}
+          onClick={() => props.DISPATCH_openArticle(x._links.Tab_Version.href)}
+        >
+          {x.name}
+        </li>
+      );
+    });
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bookmarks);

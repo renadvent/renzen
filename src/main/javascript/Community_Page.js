@@ -56,31 +56,7 @@ function Community_Page(props) {
         <div className={"col-5"}>
           <div>
             {/*works... but is a mess of logic*/}
-            {props.user.logged_in ? (
-              props.user.communities.find((x) => {
-                return x._id === props.payload._id;
-              }) ? (
-                <div className="alert alert-secondary" role="alert">
-                  Welcome Back!
-                </div>
-              ) : (
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => {
-                    props.DISPATCH_joinCommunity(
-                      props.user.id,
-                      props.payload._id
-                    );
-                  }}
-                >
-                  {"Join Community!"}
-                </button>
-              )
-            ) : (
-              <div className="alert alert-secondary" role="alert">
-                Login to write articles and participate in the community!
-              </div>
-            )}
+            {joinCommunityLogic()}
 
             <h2>Articles in this community:</h2>
             {/*//TODO fix this. move logic to a function and call function here */}
@@ -112,6 +88,36 @@ function Community_Page(props) {
       </div>
     </div>
   );
+
+  /**
+   * loic
+   * @returns {JSX.Element}
+   */
+
+  function joinCommunityLogic() {
+    return props.user.logged_in ? (
+      props.user.communities.find((x) => {
+        return x._id === props.payload._id;
+      }) ? (
+        <div className="alert alert-secondary" role="alert">
+          Welcome Back!
+        </div>
+      ) : (
+        <button
+          className="btn btn-secondary"
+          onClick={() => {
+            props.DISPATCH_joinCommunity(props.user.id, props.payload._id);
+          }}
+        >
+          {"Join Community!"}
+        </button>
+      )
+    ) : (
+      <div className="alert alert-secondary" role="alert">
+        Login to write articles and participate in the community!
+      </div>
+    );
+  }
 }
 
 function Stream(props) {
