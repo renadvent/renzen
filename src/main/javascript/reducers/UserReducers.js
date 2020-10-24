@@ -7,7 +7,14 @@ import ArticleAppTabContent from "../Article_Page";
 import { ACTION_openCreateArticleTab } from "../actions/Store_Actions";
 import ArticleEditTab from "../Create_Article_Page";
 
-const initialState = {};
+const initialState = {
+  logged_in: false,
+  username: "",
+  id: "",
+  communities: [],
+  articles: [],
+  bookmarks: [],
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
