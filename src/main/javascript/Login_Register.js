@@ -166,6 +166,7 @@ function Login_Register(props) {
                 className="btn btn-dark"
                 onClick={() => {
                   props.DISPATCH_register(userName, password);
+                  //props.DISPATCH_register(userName, email, password, confirmPassword);
                   resetFields();
                 }}
               >

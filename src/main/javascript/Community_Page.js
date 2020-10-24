@@ -115,6 +115,7 @@ function Community_Page(props) {
 }
 
 function Stream(props) {
+  console.log("STREAM COMMUNITY NEW PAGE STUFF");
   console.log(props.source);
 
   return (

@@ -57,9 +57,24 @@ export function DISPATCH_createCommunity(payload) {
     Axios.post("/createCommunity", {
       name: payload.name,
     }).then((res) => {
+      console.log("create com res");
+      console.log(res.data);
+
+      let articles = [];
+
+      try {
+        articles =
+          res.data.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
+        if (articles == null) articles = [];
+      } catch {
+        articles = [];
+      }
+
+      //if ((res.data.articleInfoComponentCOS = {}))
       dispatch({
         type: ACTION_openCommunity,
         payload: res.data,
+        articles: articles,
       });
 
       dispatch({
