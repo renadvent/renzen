@@ -36,22 +36,12 @@ function Community_Page(props) {
         </div>
         <div className={"col-5"}>
           <div>
-            {/*works... but is a mess of logic*/}
             {joinCommunityLogic()}
 
             <h2>Articles in this community:</h2>
-            {/*//TODO fix this. move logic to a function and call function here */}
-            {props.user.logged_in ? (
-              <button
-                type="button"
-                onClick={() =>
-                  props.DISPATCH_openCreateArticleTab(props.payload._id)
-                }
-                className="btn btn-secondary"
-              >
-                {"Write New Article"}
-              </button>
-            ) : null}
+
+            {NewArticleButtonLogic()}
+
             <br />
             <br />
             <p>
@@ -74,6 +64,18 @@ function Community_Page(props) {
    * loic
    * @returns {JSX.Element}
    */
+
+  function NewArticleButtonLogic() {
+    return props.user.logged_in ? (
+      <button
+        type="button"
+        onClick={() => props.DISPATCH_openCreateArticleTab(props.payload._id)}
+        className="btn btn-secondary"
+      >
+        {"Write New Article"}
+      </button>
+    ) : null;
+  }
 
   function joinCommunityLogic() {
     return props.user.logged_in ? (
