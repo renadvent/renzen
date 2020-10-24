@@ -1,24 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Home_Container from "./Home_Page";
-import * as store from "./actions/Store_Actions";
 
-/*
-sets up main tab (HOME) and content
-hosts other opened tabs when they are opened
- */
-
-const mapStateToProps = (state) => {
-  return {
-    open: state.reducer.tabs.open,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    DISPATCH_init: () => dispatch(store.DISPATCH_init()),
-  };
-};
+import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
+import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Tab_Pane(props) {
   //initial load of site
