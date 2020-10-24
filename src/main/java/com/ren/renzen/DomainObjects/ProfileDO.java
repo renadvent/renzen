@@ -24,10 +24,12 @@ public class ProfileDO implements UserDetails {
     @MongoId
     ObjectId _id;
 
-    String username;
-    String password;
-    String email;
-    int phone;
+    String username="";
+    String password="";
+    String email="";
+    int phone=0;
+
+    List<ObjectId> friends=new ArrayList<>();
 
     //toggles for converter
     //public profile view settings toggle (used when converting)

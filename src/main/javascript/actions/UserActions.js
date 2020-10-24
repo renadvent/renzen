@@ -10,6 +10,7 @@ import {
 
 export function DISPATCH_logOut() {
   $("#home-tab").tab("show");
+  localStorage.removeItem("jwtToken");
 
   return {
     type: ACTION_logOut,
@@ -114,7 +115,7 @@ export function DISPATCH_register(payload) {
   };
 }
 
-function getVarsFromResponse(base) {
+export function getVarsFromResponse(base) {
   let articles = [];
   let profiles = [];
   let communities = [];
