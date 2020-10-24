@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @Override
+    public Optional<ProfileDO> findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
 
     @Override
     public ProfileDO save(ProfileDO profileDO) {
