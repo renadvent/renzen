@@ -86,7 +86,7 @@ public class UserEditorController {
         this.authenticationManager = authenticationManager;
     }
 
-    @RequestMapping(path = "/register")
+    @PostMapping(path = "/register")
     public ResponseEntity<?> Register(@Valid @RequestBody RegisterPayload registerPayload, BindingResult result) {
 
         userNamePasswordValidator.validate(registerPayload, result);
@@ -95,7 +95,10 @@ public class UserEditorController {
         if (errorMap != null) return errorMap;
 
         //temp
-        if (!registerPayload.getPassword().equals(registerPayload.getConfirmPassword())){
+        if (!registerPayload.getPassword().equals(registerPayload.getConfirmPassword())
+        ||
+        userService.findByEmail(registerPayload.getEmail()).isPresent()
+        ){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -103,6 +106,8 @@ public class UserEditorController {
         profileDO.setUsername(registerPayload.getUsername());
         profileDO.setPassword(registerPayload.getPassword());
         profileDO.setEmail(registerPayload.getEmail());
+
+        userService.save(profileDO);
 
         Authentication authentication = authenticationManager.authenticate(
 

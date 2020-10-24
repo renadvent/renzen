@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as store from "./actions/Store_Actions";
+import { DISPATCH_logIn } from "./actions/Store_Actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -19,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(
         store.DISPATCH_logIn({ username: username, password: password })
       ),
-    DISPATCH_register: (username, password, confirmPassword, email) =>
+    DISPATCH_register: (username, password, confirmPassword, email) => {
       dispatch(
         store.DISPATCH_register({
           username: username,
@@ -27,7 +28,15 @@ const mapDispatchToProps = (dispatch) => {
           confirmPassword: confirmPassword,
           email: email,
         })
-      ),
+      );
+
+      // dispatch(
+      //   DISPATCH_logIn({
+      //     username: username,
+      //     password: password,
+      //   })
+      // );
+    },
 
     DISPATCH_createCommunity: (user, payload) =>
       dispatch(store.DISPATCH_createCommunity(user, payload)),

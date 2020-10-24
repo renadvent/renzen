@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
+    Optional<ProfileDO> findByEmail(String email);
+
     ProfileDO save(ProfileDO profileDO);
 
     ProfileDO update(ProfileDO profileDO);

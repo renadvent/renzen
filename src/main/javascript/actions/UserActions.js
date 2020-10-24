@@ -103,37 +103,13 @@ export function DISPATCH_register(payload) {
       username: payload.username,
       confirmPassword: payload.confirmPassword,
       email: payload.email,
-    }).then((res) => {
-      console.log("register data");
-      console.log(res.data);
-
-      let base = res.data;
-
-      let vars = getVarsFromResponse(base);
-
-      dispatch({
-        type: ACTION_logIn,
-        payload: res.data,
-        articles: vars.articles,
-        communities: vars.communities,
-        bookmarks: vars.bookmarks,
-      });
-
-      // dispatch({
-      //   type: ACTION_register,
-      //   payload: res.data,
-      //   articles: vars.articles,
-      //   communities: vars.communities,
-      //   bookmarks: vars.bookmarks,
-      // });
-      dispatch({
-        type: ACTION_openUser,
-        payload: res.data,
-        data: res.data,
-        articles: vars.articles,
-        communities: vars.communities,
-        bookmarks: vars.bookmarks,
-      });
+    }).then(() => {
+      return dispatch(
+        DISPATCH_logIn({
+          username: payload.username,
+          password: payload.password,
+        })
+      );
     });
   };
 }
