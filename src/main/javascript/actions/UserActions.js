@@ -11,6 +11,7 @@ import {
 export function DISPATCH_logOut() {
   $("#home-tab").tab("show");
   localStorage.removeItem("jwtToken");
+  setJWTToken();
 
   return {
     type: ACTION_logOut,

@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function Create_Article_Section(props) {
+function Editable_Article_Section(props) {
   const [info, setInfo] = useState({ header: "", body: "" });
 
   //adds info state to parent state array on first render
@@ -94,7 +94,7 @@ function Create_Article_Page(props) {
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
     <div>
-      <Create_Article_Section index={0} update={setSectionData} /> <br />
+      <Editable_Article_Section index={0} update={setSectionData} /> <br />
       <hr />
     </div>,
   ]);
@@ -182,7 +182,7 @@ function Create_Article_Page(props) {
               setSectionsCreated((x) =>
                 x.concat(
                   <div>
-                    <Create_Article_Section
+                    <Editable_Article_Section
                       index={sectionData.length}
                       update={setSectionData}
                     />

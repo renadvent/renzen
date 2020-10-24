@@ -68,11 +68,23 @@ function Home_Page(props) {
 
         <a
           className="btn btn-secondary"
-          href="https://github.com/renadvent/renzen/tree/master/src/main"
+          href="https://github.com/renadvent/renzen"
           role="button"
           target={"_blank"}
         >
-          Click here to see the source code on github
+          Click here to see the source code for Renzen.io on github
+        </a>
+
+        <br />
+        <br />
+
+        <a
+          className="btn btn-secondary"
+          href="https://github.com/renadvent/renzen"
+          role="button"
+          target={"_blank"}
+        >
+          Click here to see the source code for Renzen Ink on github
         </a>
       </div>
 
