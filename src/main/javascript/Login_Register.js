@@ -19,9 +19,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(
         store.DISPATCH_logIn({ username: username, password: password })
       ),
-    DISPATCH_register: (username, password) =>
+    DISPATCH_register: (username, password, confirmPassword, email) =>
       dispatch(
-        store.DISPATCH_register({ username: username, password: password })
+        store.DISPATCH_register({
+          username: username,
+          password: password,
+          confirmPassword: confirmPassword,
+          email: email,
+        })
       ),
 
     DISPATCH_createCommunity: (user, payload) =>
@@ -165,7 +170,12 @@ function Login_Register(props) {
               <button
                 className="btn btn-dark"
                 onClick={() => {
-                  props.DISPATCH_register(userName, password);
+                  props.DISPATCH_register(
+                    userName,
+                    password,
+                    confirmPassword,
+                    email
+                  );
                   //props.DISPATCH_register(userName, email, password, confirmPassword);
                   resetFields();
                 }}

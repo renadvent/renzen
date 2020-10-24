@@ -101,18 +101,30 @@ export function DISPATCH_register(payload) {
     Axios.post("/register", {
       password: payload.password,
       username: payload.username,
+      confirmPassword: payload.confirmPassword,
+      email: payload.email,
     }).then((res) => {
       console.log("register data");
       console.log(res.data);
 
+      let base = res.data;
+
+      let vars = getVarsFromResponse(base);
+
       dispatch({
         type: ACTION_register,
         payload: res.data,
+        articles: vars.articles,
+        communities: vars.communities,
+        bookmarks: vars.bookmarks,
       });
       dispatch({
         type: ACTION_openUser,
         payload: res.data,
         data: res.data,
+        articles: vars.articles,
+        communities: vars.communities,
+        bookmarks: vars.bookmarks,
       });
     });
   };

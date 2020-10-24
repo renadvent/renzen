@@ -5,7 +5,7 @@ import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
 import com.ren.renzen.Payload.JWTLoginSuccessResponse;
 import com.ren.renzen.Payload.LoginRequest;
-import com.ren.renzen.Payload.UserNamePassword;
+import com.ren.renzen.Payload.RegisterPayload;
 import com.ren.renzen.Security.JwtTokenProvider;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
@@ -87,16 +87,22 @@ public class UserEditorController {
     }
 
     @RequestMapping(path = "/register")
-    public ResponseEntity<?> Register(@Valid @RequestBody UserNamePassword userNamePassword, BindingResult result) {
+    public ResponseEntity<?> Register(@Valid @RequestBody RegisterPayload registerPayload, BindingResult result) {
 
-        userNamePasswordValidator.validate(userNamePassword, result);
+        userNamePasswordValidator.validate(registerPayload, result);
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap != null) return errorMap;
 
+        //temp
+        if (!registerPayload.getPassword().equals(registerPayload.getConfirmPassword())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         var profileDO = new ProfileDO();
-        profileDO.setUsername(userNamePassword.getUsername());
-        profileDO.setPassword(userNamePassword.getPassword());
+        profileDO.setUsername(registerPayload.getUsername());
+        profileDO.setPassword(registerPayload.getPassword());
+        profileDO.setEmail(registerPayload.getEmail());
 
         return new ResponseEntity<>(profileTabCOAssembler
                 .assembleDomainToFullModelView(
