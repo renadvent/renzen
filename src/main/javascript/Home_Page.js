@@ -80,7 +80,7 @@ function Home_Page(props) {
 
         <a
           className="btn btn-secondary"
-          href="https://github.com/renadvent/renzen"
+          href="https://github.com/renadvent/Renzen-Ink"
           role="button"
           target={"_blank"}
         >
@@ -110,6 +110,19 @@ function Home_Page(props) {
               title={"Check It Out!"}
             />
           </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <br />
+
+      <div>
+        <div className="card">
+          <div className="card-header">
+            <h4>Renzen Ink Demos</h4>
+          </div>
+          <div>Placeholder for gifs</div>
         </div>
       </div>
 

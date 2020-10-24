@@ -37,6 +37,26 @@ function Profile_Page(props) {
       <div>
         <br />
 
+        {ProfileHeader()}
+
+        <br />
+
+        {props.user.logged_in && props.user.id === props.data._id
+          ? CreateCommunityButton()
+          : null}
+
+        <div className="container-fluid">
+          {PublicProfileContents()}
+
+          {RenzenInkImages()}
+        </div>
+      </div>
+    </div>
+  );
+
+  function ProfileHeader() {
+    return (
+      <div>
         <div className="jumbotron">
           <h1 className="display-4">Hello!</h1>
           <p className="lead">Welcome to {props.data.name}'s Profile Page!</p>
@@ -49,67 +69,78 @@ function Profile_Page(props) {
             If you are logged in as this user, you can create communities here!
           </p>
         </div>
+      </div>
+    );
+  }
 
-        <br />
+  function RenzenInkImages() {
+    return (
+      <div>
+        <h4>Uploads from Renzen Ink</h4>
+        {props.data.screenshotLinks.map((link) => {
+          return <img src={link} height={250} alt={"a screenshot"} />;
+        })}
+      </div>
+    );
+  }
 
-        {props.user.logged_in && props.user.id === props.data._id ? (
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <button
-                className="btn btn-secondary"
-                onClick={() => {
-                  props.DISPATCH_createCommunity(props.data._id, communityName);
-                  setCommunityName("");
-                }}
-              >
-                Create Community+
-              </button>{" "}
-            </div>
-            <input
-              value={communityName}
-              onChange={(event) => setCommunityName(event.target.value)}
-              type="communityName"
-              className="form-control"
-              name="communityName"
-              placeholder="Enter the name of a new Community!"
+  function PublicProfileContents() {
+    return (
+      <div>
+        <div className={"row"}>
+          <br />
+          <hr />
+        </div>
+
+        <div className={"row"}>
+          <div className={"col"}>
+            <h4>Communities: {props.data.numberOfCommunities} </h4>
+            <Stream
+              source={props.communities}
+              dispatch={props.DISPATCH_openCommunity}
             />
-          </div>
-        ) : null}
 
-        <div className="container-fluid">
-          <div className={"row"}>
-            <br />
             <hr />
           </div>
 
-          <div className={"row"}>
-            <div className={"col"}>
-              <h4>Communities: {props.data.numberOfCommunities} </h4>
-              <Stream
-                source={props.communities}
-                dispatch={props.DISPATCH_openCommunity}
-              />
-
-              <hr />
-            </div>
-
-            <div className={"col"}>
-              <h4>Articles: {props.data.numberOfArticles}</h4>
-              <Stream
-                source={props.articles}
-                dispatch={props.DISPATCH_openArticle}
-              />
-              <hr />
-            </div>
+          <div className={"col"}>
+            <h4>Articles: {props.data.numberOfArticles}</h4>
+            <Stream
+              source={props.articles}
+              dispatch={props.DISPATCH_openArticle}
+            />
+            <hr />
           </div>
-          <h4>Uploads from Renzen Ink</h4>
-          {props.data.screenshotLinks.map((link) => {
-            return <img src={link} height={250} alt={"a screenshot"} />;
-          })}
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  function CreateCommunityButton() {
+    return (
+      <div className="input-group mb-3">
+        <div className="input-group-prepend">
+          <button
+            className="btn btn-secondary"
+            onClick={() => {
+              props.DISPATCH_createCommunity(props.data._id, communityName);
+              setCommunityName("");
+            }}
+          >
+            Create Community+
+          </button>{" "}
+        </div>
+        <input
+          value={communityName}
+          onChange={(event) => setCommunityName(event.target.value)}
+          type="communityName"
+          className="form-control"
+          name="communityName"
+          placeholder="Enter the name of a new Community!"
+        />
+      </div>
+    );
+  }
 }
 
 function Stream(props) {
