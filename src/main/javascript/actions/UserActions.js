@@ -146,6 +146,7 @@ export function DISPATCH_register(payload) {
         })
       );
     } catch (error) {
+      // error.response.statusText
       dispatch({
         type: GET_ERRORS,
         error: error,

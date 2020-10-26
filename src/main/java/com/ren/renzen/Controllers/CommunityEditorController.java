@@ -66,6 +66,8 @@ public class CommunityEditorController {
         this.mapValidationErrorService = mapValidationErrorService;
     }
 
+    //@PostMapping(path="/deleteCommunity"
+
 
     @PostMapping(path = "/joinCommunity")
     public ResponseEntity<?> joinCommunity(@RequestBody JoinCommunityPayload payload, BindingResult result, Principal principal) {

@@ -46,7 +46,12 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case at.GET_ERRORS:
       //update later
-      alert(action.error);
+      console.log("ACTION");
+      console.log(action);
+
+      //test alert for error
+      alert(JSON.stringify(action.payload, null, 5));
+
       return {
         ...state,
         errors: action.payload,

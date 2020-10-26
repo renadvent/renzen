@@ -40,6 +40,8 @@ public class AdminController {
     }
     //final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
+    //@PostMapping(path="/deleteArticle")
+
     @GetMapping("/getAdminArticles")
     public ResponseEntity<CollectionModel<?>> getAllArticles() {
 

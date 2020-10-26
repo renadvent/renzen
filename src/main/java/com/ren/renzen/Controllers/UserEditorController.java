@@ -86,6 +86,11 @@ public class UserEditorController {
         this.authenticationManager = authenticationManager;
     }
 
+    //@PostMapping(path="/changePassword")
+    //@PostMapping(path="/changeEmail")
+    //@PostMapping(path="/changePhone")
+    //@PostMapping(path="/deleteAccount")
+
     @PostMapping(path = "/register")
     public ResponseEntity<?> Register(@Valid @RequestBody RegisterPayload registerPayload, BindingResult result) {
 
