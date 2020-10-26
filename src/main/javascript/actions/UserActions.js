@@ -47,46 +47,46 @@ export function DISPATCH_openUser(url) {
     });
   };
 }
-
-export function DISPATCH_logInR(payload) {
-  return async (dispatch, getState) => {
-    Axios.post("/login", {
-      password: payload.password,
-      username: payload.username,
-    })
-      .then((res) => {
-        //TODO get auth token etc
-        const { token } = res.data;
-        localStorage.setItem("jwtToken", token);
-        setJWTToken(token);
-        const decoded = jwt_decode(token);
-        console.log("decoded");
-        console.log(decoded);
-
-        return decoded;
-      })
-      .then((decoded) => {
-        Axios.get("/getProfileTabComponentCO/" + decoded.id).then(
-          (secondRes) => {
-            console.log("data");
-            console.log(secondRes.data);
-
-            let base = secondRes.data;
-
-            let vars = getVarsFromResponse(base);
-
-            dispatch({
-              type: ACTION_logIn,
-              payload: secondRes.data,
-              articles: vars.articles,
-              communities: vars.communities,
-              bookmarks: vars.bookmarks,
-            });
-          }
-        );
-      });
-  };
-}
+//
+// export function DISPATCH_logInR(payload) {
+//   return async (dispatch, getState) => {
+//     Axios.post("/login", {
+//       password: payload.password,
+//       username: payload.username,
+//     })
+//       .then((res) => {
+//         //TODO get auth token etc
+//         const { token } = res.data;
+//         localStorage.setItem("jwtToken", token);
+//         setJWTToken(token);
+//         const decoded = jwt_decode(token);
+//         console.log("decoded");
+//         console.log(decoded);
+//
+//         return decoded;
+//       })
+//       .then((decoded) => {
+//         Axios.get("/getProfileTabComponentCO/" + decoded.id).then(
+//           (secondRes) => {
+//             console.log("data");
+//             console.log(secondRes.data);
+//
+//             let base = secondRes.data;
+//
+//             let vars = getVarsFromResponse(base);
+//
+//             dispatch({
+//               type: ACTION_logIn,
+//               payload: secondRes.data,
+//               articles: vars.articles,
+//               communities: vars.communities,
+//               bookmarks: vars.bookmarks,
+//             });
+//           }
+//         );
+//       });
+//   };
+// }
 
 export function DISPATCH_logIn(payload) {
   return async (dispatch, getState) => {
@@ -130,20 +130,42 @@ export function DISPATCH_register(payload) {
   //TODO also needs to dispatch login after register to get token
   //NEED global Axios
 
-  return (dispatch) => {
-    Axios.post("/register", {
-      password: payload.password,
-      username: payload.username,
-      confirmPassword: payload.confirmPassword,
-      email: payload.email,
-    }).then(() => {
+  return async (dispatch) => {
+    try {
+      await Axios.post("/register", {
+        password: payload.password,
+        username: payload.username,
+        confirmPassword: payload.confirmPassword,
+        email: payload.email,
+      });
+
       return dispatch(
         DISPATCH_logIn({
           username: payload.username,
           password: payload.password,
         })
       );
-    });
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        error: error,
+        payload: error.response.data,
+      });
+    }
+
+    // Axios.post("/register", {
+    //   password: payload.password,
+    //   username: payload.username,
+    //   confirmPassword: payload.confirmPassword,
+    //   email: payload.email,
+    // }).then(() => {
+    //   return dispatch(
+    //     DISPATCH_logIn({
+    //       username: payload.username,
+    //       password: payload.password,
+    //     })
+    //   );
+    // });
   };
 }
 
