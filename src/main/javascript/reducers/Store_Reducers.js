@@ -10,6 +10,8 @@ import ArticleEditTab from "../Create_Article_Page";
 //INITIAL STATE
 
 const initialState = {
+  errors: "",
+
   user: {
     logged_in: false,
     name: "",
@@ -42,6 +44,15 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case at.GET_ERRORS:
+      //update later
+      alert(action.error);
+      return {
+        ...state,
+        errors: action.payload,
+      };
+      break;
+
     //TODO change redux state on loading spotlight content
     case at.ACTION_getSpotlightContent:
       return {

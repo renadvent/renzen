@@ -1,7 +1,12 @@
 import Axios from "axios";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
-import { ACTION_logIn, ACTION_logOut, ACTION_openUser } from "./StoreDefs";
+import {
+  ACTION_logIn,
+  ACTION_logOut,
+  ACTION_openUser,
+  GET_ERRORS,
+} from "./StoreDefs";
 
 export function DISPATCH_logOut() {
   $("#home-tab").tab("show");
@@ -43,20 +48,13 @@ export function DISPATCH_openUser(url) {
   };
 }
 
-export function DISPATCH_logIn(payload) {
-  return (dispatch, getState) => {
+export function DISPATCH_logInR(payload) {
+  return async (dispatch, getState) => {
     Axios.post("/login", {
       password: payload.password,
       username: payload.username,
     })
       .then((res) => {
-        //TODO will still open a second tab if not logged on first, and then logs on
-        // getState().tabs.open.find((x) => {
-        //   return (x.id === res.data._id)
-        // }) && getState().user.logged_in ? $("#tabA"+res.data._id).tab("show") :
-
-        //annoying HATEOS COLLECTIONMODEL logic
-
         //TODO get auth token etc
         const { token } = res.data;
         localStorage.setItem("jwtToken", token);
@@ -87,6 +85,44 @@ export function DISPATCH_logIn(payload) {
           }
         );
       });
+  };
+}
+
+export function DISPATCH_logIn(payload) {
+  return async (dispatch, getState) => {
+    try {
+      let loginRes = await Axios.post("/login", {
+        password: payload.password,
+        username: payload.username,
+      });
+
+      const { token } = loginRes.data;
+      localStorage.setItem("jwtToken", token);
+      setJWTToken(token);
+      const decoded = jwt_decode(token);
+
+      let profileRes = await Axios.get(
+        "/getProfileTabComponentCO/" + decoded.id
+      );
+
+      let data = profileRes.data;
+
+      let vars = getVarsFromResponse(data);
+
+      dispatch({
+        type: ACTION_logIn,
+        payload: data,
+        articles: vars.articles,
+        communities: vars.communities,
+        bookmarks: vars.bookmarks,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        error: error,
+        payload: error.response.data,
+      });
+    }
   };
 }
 

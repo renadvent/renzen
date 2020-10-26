@@ -47,7 +47,7 @@ export function DISPATCH_addBookmarkASYNC(userId, articleId, name) {
 }
 
 export function DISPATCH_init() {
-  console.log("initing");
+  //console.log("initing");
 
   return (dispatch, getState) => {
     Axios.get("/getHomeStreams").then(async (res) => {
