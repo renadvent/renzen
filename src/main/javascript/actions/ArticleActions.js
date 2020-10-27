@@ -1,5 +1,40 @@
 import Axios from "axios";
-import { ACTION_openArticle, ACTION_openCreateArticleTab } from "./StoreDefs";
+import {
+  ACTION_openArticle,
+  ACTION_openCreateArticleTab,
+  GET_ERRORS,
+} from "./StoreDefs";
+
+export function DISPATCH_likeArticle(id) {
+  return async (dispatch) => {
+    try {
+      await Axios.post("/likeArticle/" + id);
+      dispatch({
+        type: "do nothing",
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        error: error,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function DISPATCH_dislikeArticle(id) {
+  return async (dispatch) => {
+    try {
+      await Axios.post("/dislikeArticle/" + id);
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        error: error,
+        payload: error.response.data,
+      });
+    }
+  };
+}
 
 export function DISPATCH_openArticle(url) {
   console.log("open article");

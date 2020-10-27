@@ -17,3 +17,6 @@ export const ACTION_addCommunityToLoggedInUser =
 export const ACTION_getSpotlightContent = "ACTION_getSpotlightContent";
 
 export const GET_ERRORS = "GET_ERRORS";
+
+export const ACTION_likeArticle = "ACTION_likeArticle";
+export const ACTION_dislikeArticle = "ACTION_dislikeArticle";

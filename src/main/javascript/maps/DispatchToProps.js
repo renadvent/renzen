@@ -10,6 +10,10 @@ export function ArticlePage_mapDispatchToProps(dispatch) {
   return {
     DISPATCH_addBookmark: (userId, articleId, name) =>
       dispatch(store.DISPATCH_addBookmark(userId, articleId, name)),
+    DISPATCH_likeArticle: (articleId) =>
+      dispatch(store.DISPATCH_likeArticle(articleId)),
+    DISPATCH_dislikeArticle: (articleId) =>
+      dispatch(store.DISPATCH_dislikeArticle(articleId)),
   };
 }
 

@@ -22,6 +22,8 @@ function Article_Page(props) {
 
       {bookmarkLogic()}
 
+      {LikeDislikeSection()}
+
       <h1>{props.payload.name}</h1>
       <p>{props.payload.description}</p>
       <p>by: {props.payload.userName}</p>
@@ -44,6 +46,29 @@ function Article_Page(props) {
       })}
     </div>
   );
+
+  function LikeDislikeSection() {
+    return (
+      <div>
+        <button
+          onClick={() => {
+            console.log(props.payload._id);
+            props.DISPATCH_likeArticle(props.payload._id);
+          }}
+        >
+          Likes {props.payload.likes}
+        </button>
+
+        <button
+          onClick={() => {
+            props.DISPATCH_dislikeArticle(props.payload._id);
+          }}
+        >
+          Disikes {props.payload.dislikes}
+        </button>
+      </div>
+    );
+  }
 
   /**
    * Logic
