@@ -3,6 +3,7 @@ package com.ren.renzen.Converters;
 import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import org.springframework.stereotype.Component;
@@ -31,9 +32,17 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         co.setDescription(source.getDescription());
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
-        co.setAuthorID(source.getCreatorID().toHexString());
 
+        co.setAuthorID(source.getCreatorID().toHexString());
         var author = userService.findBy_id(source.getCreatorID());
+
+        //ProfileDO author = null;
+//        source.getCreatorID().ifPresent(e->{
+//            co.setAuthorID(e.toHexString());
+//        });;
+//        var author=userService.findBy_id(co.getAuthorID());
+
+
 
         co.setAuthorName(author.getUsername());
         co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(author));

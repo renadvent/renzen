@@ -89,6 +89,10 @@ function Login_Register(props) {
             className="form-control"
             name="username"
           />
+
+          {/*{props.errors.username && (*/}
+          {/*  <div className="invalid-feedback">{props.errors.username}</div>*/}
+          {/*)}*/}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -100,6 +104,10 @@ function Login_Register(props) {
             name="password"
           />
         </div>
+
+        {/*{props.errors.username && (*/}
+        {/*  <div className="invalid-feedback">{props.errors.username}</div>*/}
+        {/*)}*/}
 
         <button
           className="btn btn-dark"

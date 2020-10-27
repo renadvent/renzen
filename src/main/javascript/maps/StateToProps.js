@@ -54,6 +54,7 @@ export function LoginRegister_StateToProps(state) {
   return {
     isLoggedIn: state.reducer.isLoggedIn,
     user: state.reducer.user,
+    errors: state.reducer.errors,
   };
 }
 

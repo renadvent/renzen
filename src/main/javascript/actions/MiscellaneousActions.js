@@ -4,6 +4,7 @@ import {
   ACTION_init,
   ACTION_logIn,
   ACTION_removeOpenTabById,
+  ACTION_logOut,
 } from "./StoreDefs";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
@@ -67,12 +68,22 @@ export function DISPATCH_init() {
 
       let token = localStorage.getItem("jwtToken");
 
-      console.log(token);
+      //console.log(token);
 
       if (token != null && getState().reducer.user.logged_in === false) {
         //let token = localStorage.getItem("jwtToken");
         setJWTToken(token);
         const decoded = jwt_decode(token);
+
+        //work on expired tokens
+
+        // const currentTime = Date.now() / 1000;
+        // if (decoded.exp < currentTime) {
+        //   return dispatch({
+        //     type: ACTION_logOut,
+        //   });
+        //   window.location.href = "/";
+        // }
 
         let res = await Axios.get("/getProfileTabComponentCO/" + decoded.id);
         let base = res.data;

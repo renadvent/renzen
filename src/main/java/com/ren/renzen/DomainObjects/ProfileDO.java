@@ -38,6 +38,8 @@ public class ProfileDO implements UserDetails {
     boolean articleListIsPublic = true;
     boolean articleBookmarkListIsPublic = false;
 
+    List<ObjectId> likedArticles = new ArrayList<>();
+
     //lists for contents
     List<ObjectId> communityIDList = new ArrayList<>();
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();

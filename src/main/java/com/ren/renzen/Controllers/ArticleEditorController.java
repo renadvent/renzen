@@ -20,10 +20,7 @@ import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -88,6 +85,39 @@ public class ArticleEditorController {
         String containerName = CONTAINER_NAME;
         // Create the container and return a container client object
         containerClient = blobServiceClient.getBlobContainerClient(containerName);
+    }
+
+    @PostMapping(path = "/likeArticle/{id}")
+    public ResponseEntity<?> likeArticle(@PathVariable ObjectId id,Principal principal){
+
+        var profile = userService.findByUsername(principal.getName());
+        var article = articleService.findBy_id(id);
+
+        if (article!=null){
+            profile.getLikedArticles().add(id);
+            article.setLikes(article.getLikes()+1);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
+
+    @PostMapping(path = "/dislikeArticle/{id}")
+    public ResponseEntity<?> dislikeArticle(@PathVariable ObjectId id,Principal principal){
+
+        var profile = userService.findByUsername(principal.getName());
+        var article = articleService.findBy_id(id);
+
+        if (article!=null){
+            profile.getLikedArticles().add(id);
+            article.setDislikes(article.getDislikes()+1);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 
