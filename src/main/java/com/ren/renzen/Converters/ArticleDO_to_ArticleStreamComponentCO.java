@@ -33,6 +33,9 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
 
+        co.setLikes(source.getLikes());
+        co.setDislikes(source.getDislikes());
+
         co.setAuthorID(source.getCreatorID().toHexString());
         var author = userService.findBy_id(source.getCreatorID());
 
@@ -54,6 +57,9 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
     public ArticleInfoComponentCO convertDomainToFullView(ArticleDO source) {
         final ArticleInfoComponentCO co = new ArticleInfoComponentCO();
         co.setACCESS_TYPE(ACCESS_TYPE_FULL);
+
+        co.setLikes(source.getLikes());
+        co.setDislikes(source.getDislikes());
 
         co.setName(source.getArticleName());
         co.setDescription(source.getDescription());

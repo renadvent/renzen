@@ -26,4 +26,7 @@ public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoCompo
     String authorID;
     String authorName;
     ProfileInfoComponentCO profileInfoComponentCO;
+
+    int likes;
+    int dislikes;
 }

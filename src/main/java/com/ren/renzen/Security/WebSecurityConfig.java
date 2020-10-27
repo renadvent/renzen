@@ -110,6 +110,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         "/addImage",
 
+                        "/likeArticle/",
+                        "/dislikeArticle/",
+
                         "/",
                         "/favicon.ico",
                         "/**/*.png", "/**/*.gif",

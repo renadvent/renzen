@@ -34,8 +34,8 @@ public class ArticleDO {
 
     List<ArticleSectionDO> articleSectionDOList;
 
-    int likes;
-    int dislikes;
+    int likes=0;
+    int dislikes=0;
 
     //public article view setting
     boolean visibleInCommunity = true;

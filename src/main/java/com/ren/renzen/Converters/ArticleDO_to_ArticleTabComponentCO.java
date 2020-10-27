@@ -50,6 +50,9 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         co.setUserName(co.getProfileInfoComponentCO().getName());
         co.setDiscussionID(source.getDiscussionID());
 
+        co.setLikes(source.getLikes());
+        co.setDislikes(source.getDislikes());
+
         for (ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()) {
             co.getArticleSectionCOList().add(articleSectionDO_to_articleSectionCO.convert(articleSectionDO));
         }
@@ -71,6 +74,9 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         userRepo.findById(source.getCreatorID()).ifPresent(user -> co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToFullView(user)));
         co.setUserName(co.getProfileInfoComponentCO().getName());
         co.setDiscussionID(source.getDiscussionID());
+
+        co.setLikes(source.getLikes());
+        co.setDislikes(source.getDislikes());
 
         for (ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()) {
             co.getArticleSectionCOList().add(articleSectionDO_to_articleSectionCO.convert(articleSectionDO));

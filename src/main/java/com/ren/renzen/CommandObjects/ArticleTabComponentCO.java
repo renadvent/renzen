@@ -28,4 +28,7 @@ public class ArticleTabComponentCO extends RepresentationModel<ArticleTabCompone
     ProfileInfoComponentCO profileInfoComponentCO;
     ObjectId discussionID;
     List<ArticleSectionCO> articleSectionCOList = new ArrayList<>();
+
+    int likes;
+    int dislikes;
 }
