@@ -51,6 +51,7 @@ function Article_Page(props) {
     return (
       <div>
         <button
+          className="btn btn-secondary"
           onClick={() => {
             console.log(props.payload._id);
             props.DISPATCH_likeArticle(props.payload._id);
@@ -60,6 +61,7 @@ function Article_Page(props) {
         </button>
 
         <button
+          className="btn btn-secondary"
           onClick={() => {
             props.DISPATCH_dislikeArticle(props.payload._id);
           }}

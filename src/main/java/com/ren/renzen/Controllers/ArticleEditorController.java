@@ -117,6 +117,10 @@ public class ArticleEditorController {
         if (article!=null){
             profile.getLikedArticles().add(id);
             article.setDislikes(article.getDislikes()+1);
+
+            userService.update(profile);
+            articleService.save(article);
+
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
