@@ -57,7 +57,8 @@ function Article_Page(props) {
             props.DISPATCH_likeArticle(props.payload._id);
           }}
         >
-          Likes {props.payload.likes}
+          {/*Likes {props.payload.likes}*/}
+          Likes {props.article.likes}
         </button>
 
         <button
@@ -66,7 +67,8 @@ function Article_Page(props) {
             props.DISPATCH_dislikeArticle(props.payload._id);
           }}
         >
-          Disikes {props.payload.dislikes}
+          {/*Dislikes {props.payload.dislikes}*/}
+          Dislikes {props.article.dislikes}
         </button>
       </div>
     );

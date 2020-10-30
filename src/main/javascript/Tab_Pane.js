@@ -11,7 +11,7 @@ function Tab_Pane(props) {
   //loads initially, and updates article names etc when a new tab is opened
   useEffect(() => {
     props.DISPATCH_init();
-  }, [props.open]);
+  }, []);
 
   //updates active tab when new ones are opened
   useEffect(() => {
@@ -37,7 +37,7 @@ function Tab_Pane(props) {
               Home
             </a>
           </li>
-
+          {console.log(props)}
           {props.open.map((open) => {
             return open.tab;
           })}

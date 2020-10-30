@@ -4,6 +4,8 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.File;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.security.Principal;
 import java.util.Base64;
@@ -100,7 +103,7 @@ public class ArticleEditorController {
             userService.update(profile);
             articleService.save(article);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(new Gson().toJson(article.getLikes()));
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -121,7 +124,7 @@ public class ArticleEditorController {
             userService.update(profile);
             articleService.save(article);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(new Gson().toJson(article.getDislikes()));
         } else {
             return ResponseEntity.badRequest().build();
         }

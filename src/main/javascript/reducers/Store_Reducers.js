@@ -7,6 +7,39 @@ import ArticleAppTabContent from "../Article_Page";
 import { ACTION_openCreateArticleTab } from "../actions/Store_Actions";
 import ArticleEditTab from "../Create_Article_Page";
 
+//state rewrite
+
+/*TODO
+
+add tab data to state first,
+
+the in mapState to props, map tabData
+
+ */
+
+const stateRe = {
+  //login/logout
+  user: {
+    logged_in: false,
+    name: "",
+    communities: [],
+    articles: [],
+    data: {},
+
+    loggedInComponent: {},
+    loggedInHeader: {},
+  },
+
+  homeTab: [],
+
+  tabData: [],
+
+  tabPages: {
+    tabHeaders: [],
+    tabComponents: [],
+  },
+};
+
 //INITIAL STATE
 
 const initialState = {
@@ -33,6 +66,8 @@ const initialState = {
     open: [],
   },
 
+  data: [],
+
   homeTabData: {
     stream_users: [],
     stream_communities: [],
@@ -44,6 +79,40 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case at.ACTION_likeArticle:
+      // console.log(action);
+      // console.log(state);
+
+      return {
+        ...state,
+        tabs: {
+          ...state.tabs,
+
+          open: state.tabs.open.map((x) => {
+            if (x.id === action.id) {
+              x.likes = action.likes;
+            }
+            return x;
+          }),
+        },
+      };
+      break;
+
+    case at.ACTION_dislikeArticle:
+      return {
+        ...state,
+        tabs: {
+          ...state.tabs,
+
+          open: state.tabs.open.map((x) => {
+            if (x.id === action.id) {
+              x.dislikes = action.dislikes;
+            }
+            return x;
+          }),
+        },
+      };
+
     case at.GET_ERRORS:
       //update later
       console.log("ACTION");
@@ -62,7 +131,11 @@ const reducer = (state = initialState, action) => {
     case at.ACTION_getSpotlightContent:
       return {
         ...state,
+        // tabs: {
+        //   ...state.tabs,
+        //   state.tabs.open.find((tab) +> tab.)
       };
+      break;
 
     case at.ACTION_addCommunityToLoggedInUser:
       return {
@@ -215,6 +288,7 @@ const reducer = (state = initialState, action) => {
       break;
 
     case at.ACTION_openArticle:
+      console.log(state);
       return {
         ...state,
         tabs: {
@@ -224,6 +298,9 @@ const reducer = (state = initialState, action) => {
             name: action.payload.name,
             data: action.payload,
             id: action.payload._id,
+
+            likes: action.payload.likes,
+            dislikes: action.payload.dislikes,
 
             tab: (
               <AppTab
@@ -237,9 +314,11 @@ const reducer = (state = initialState, action) => {
                 payload={action.payload}
                 href={"A" + action.payload._id}
                 id={action.payload._id}
+                likes={action.payload.likes}
+                dislikes={action.payload.dislikes}
               />
             ),
-          }),
+          }), //.lastItem.
         },
       };
       break;

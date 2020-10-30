@@ -1,5 +1,7 @@
 import Axios from "axios";
 import {
+  ACTION_dislikeArticle,
+  ACTION_likeArticle,
   ACTION_openArticle,
   ACTION_openCreateArticleTab,
   GET_ERRORS,
@@ -8,15 +10,18 @@ import {
 export function DISPATCH_likeArticle(id) {
   return async (dispatch) => {
     try {
-      await Axios.post("/likeArticle/" + id);
+      let res = await Axios.post("/likeArticle/" + id);
+      console.log(res.data);
       dispatch({
-        type: "do nothing",
+        type: ACTION_likeArticle,
+        likes: res.data,
+        id: id,
       });
     } catch (error) {
       dispatch({
         type: GET_ERRORS,
         error: error,
-        payload: error.response.data,
+        //payload: error.response.data,
       });
     }
   };
@@ -25,12 +30,17 @@ export function DISPATCH_likeArticle(id) {
 export function DISPATCH_dislikeArticle(id) {
   return async (dispatch) => {
     try {
-      await Axios.post("/dislikeArticle/" + id);
+      let res = await Axios.post("/dislikeArticle/" + id);
+      dispatch({
+        type: ACTION_dislikeArticle,
+        dislikes: res.data,
+        id: id,
+      });
     } catch (error) {
       dispatch({
         type: GET_ERRORS,
         error: error,
-        payload: error.response.data,
+        //payload: error.response.data,
       });
     }
   };

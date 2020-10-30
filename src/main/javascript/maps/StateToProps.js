@@ -4,10 +4,16 @@ export function TabPane_StateToProps(state) {
   };
 }
 
-export function ArticlePage_StateToProps(state) {
+//added ownProps
+export function ArticlePage_StateToProps(state, ownProps) {
   return {
     state: state.reducer,
     user: state.reducer.user,
+    //article: state.reducer.tabs.open[state.reducer.tabs.open.length - 1],
+    article: state.reducer.tabs.open.find(
+      (openArticle) => openArticle.id === ownProps.id
+    ),
+    //likes: state.reducer.
   };
 }
 
