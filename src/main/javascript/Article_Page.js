@@ -4,6 +4,7 @@ import * as store from "./actions/Store_Actions";
 
 import { ArticlePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { ArticlePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import MessageComponent from "./components/MessageComponent";
 
 /**
 renders the article content as tab content
@@ -44,6 +45,9 @@ function Article_Page(props) {
           </div>
         );
       })}
+
+      <h3>Comments</h3>
+      <MessageComponent />
     </div>
   );
 

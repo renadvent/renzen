@@ -4,6 +4,7 @@ import * as store from "./actions/Store_Actions";
 
 import { CommunityPage_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { CommunityPage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import MessageComponent from "./components/MessageComponent";
 
 function Community_Page(props) {
   return (
@@ -54,6 +55,9 @@ function Community_Page(props) {
                 dispatch={props.DISPATCH_openArticle}
               />
             </ul>
+
+            <h3>Comments</h3>
+            <MessageComponent />
           </div>
         </div>
       </div>

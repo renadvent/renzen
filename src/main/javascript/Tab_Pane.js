@@ -6,19 +6,13 @@ import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 import io from "socket.io-client";
+import MessageComponent from "./components/MessageComponent";
 
 let socket = io("https://comment-web-app-test.azurewebsites.net/"); //socket to host server
 
-// $("form").submit(function (e) {
-//   e.preventDefault();
-//   socket.emit("chat message", $("#m").val());
-//   $("#m").val("");
-//   return false;
+// socket.on("chat message", function (msg) {
+//   $("#messages").append($("<li>").text(msg));
 // });
-
-socket.on("chat message", function (msg) {
-  $("#messages").append($("<li>").text(msg));
-});
 
 function Tab_Pane(props) {
   //initial load of site
@@ -37,30 +31,32 @@ function Tab_Pane(props) {
     }
   }, [props.open]);
 
-  let [message, setMessage] = useState("");
-
-  function handleMessage(e) {
-    setMessage(e.target.value);
-  }
-
-  function onSubmitComment(e) {
-    e.preventDefault();
-    socket.emit("chat message", message);
-  }
+  // let [message, setMessage] = useState("");
+  //
+  // function handleMessage(e) {
+  //   setMessage(e.target.value);
+  // }
+  //
+  // function onSubmitComment(e) {
+  //   e.preventDefault();
+  //   socket.emit("chat message", message);
+  // }
 
   return (
     <div id={"tabsAndContents"}>
-      <div>Test Comment Section</div>
-      <ul id="messages"></ul>
-      <form action="">
-        <input
-          id="m"
-          autoComplete="off"
-          value={message}
-          onChange={handleMessage}
-        />
-        <button onClick={onSubmitComment}>Send</button>
-      </form>
+      {/*<div>Test Comment Section</div>*/}
+      {/*<ul id="messages"></ul>*/}
+      {/*<form action="">*/}
+      {/*  <input*/}
+      {/*    id="m"*/}
+      {/*    autoComplete="off"*/}
+      {/*    value={message}*/}
+      {/*    onChange={handleMessage}*/}
+      {/*  />*/}
+      {/*  <button onClick={onSubmitComment}>Send</button>*/}
+      {/*</form>*/}
+
+      {/*<MessageComponent />*/}
 
       {/*<embed*/}
       {/*  type="text/html"*/}
