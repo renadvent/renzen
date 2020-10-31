@@ -1,9 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Home_Container from "./Home_Page";
 
 import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+
+import io from "socket.io-client";
+
+let socket = io("https://comment-web-app-test.azurewebsites.net/"); //socket to host server
+
+// $("form").submit(function (e) {
+//   e.preventDefault();
+//   socket.emit("chat message", $("#m").val());
+//   $("#m").val("");
+//   return false;
+// });
+
+socket.on("chat message", function (msg) {
+  $("#messages").append($("<li>").text(msg));
+});
 
 function Tab_Pane(props) {
   //initial load of site
@@ -22,8 +37,38 @@ function Tab_Pane(props) {
     }
   }, [props.open]);
 
+  let [message, setMessage] = useState("");
+
+  function handleMessage(e) {
+    setMessage(e.target.value);
+  }
+
+  function onSubmitComment(e) {
+    e.preventDefault();
+    socket.emit("chat message", message);
+  }
+
   return (
     <div id={"tabsAndContents"}>
+      <div>Test Comment Section</div>
+      <ul id="messages"></ul>
+      <form action="">
+        <input
+          id="m"
+          autoComplete="off"
+          value={message}
+          onChange={handleMessage}
+        />
+        <button onClick={onSubmitComment}>Send</button>
+      </form>
+
+      {/*<embed*/}
+      {/*  type="text/html"*/}
+      {/*  src="https://comment-web-app-test.azurewebsites.net/"*/}
+      {/*  width="500"*/}
+      {/*  height="200"*/}
+      {/*/>*/}
+
       <div id={"tab-list"}>
         <ul className="nav nav-tabs" id="app-tabs" role="tablist">
           <li className="nav-item">

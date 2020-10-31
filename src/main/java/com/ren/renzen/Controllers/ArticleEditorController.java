@@ -96,6 +96,8 @@ public class ArticleEditorController {
         var profile = userService.findByUsername(principal.getName());
         var article = articleService.findBy_id(id);
 
+        //TODO check if user has already liked article
+
         if (article!=null){
             profile.getLikedArticles().add(id);
             article.setLikes(article.getLikes()+1);
@@ -103,6 +105,7 @@ public class ArticleEditorController {
             userService.update(profile);
             articleService.save(article);
 
+            //TODO just return whole page?
             return ResponseEntity.ok(new Gson().toJson(article.getLikes()));
         } else {
             return ResponseEntity.badRequest().build();

@@ -67,6 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable();
 
+        //TODO change some of these so they can only be used when logged in
+
         http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement()

@@ -159,7 +159,7 @@ function Stream(props) {
               className="list-group-item shadow-sm"
               onClick={() => props.dispatch(single._links["Tab_Version"].href)}
             >
-              {single.name}
+              {single.name} [^] {single.likes}
             </li>
           );
         })}

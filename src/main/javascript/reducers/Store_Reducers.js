@@ -80,9 +80,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case at.ACTION_likeArticle:
-      // console.log(action);
-      // console.log(state);
-
       return {
         ...state,
         tabs: {
