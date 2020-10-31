@@ -29,6 +29,8 @@ public class ProfileDO implements UserDetails {
     String email="";
     int phone=0;
 
+    String profilePictureLink="";
+
     List<ObjectId> friends=new ArrayList<>();
 
     //toggles for converter

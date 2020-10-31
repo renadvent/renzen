@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import io from "socket.io-client";
 
-const socket = io("https://comment-web-app-test.azurewebsites.net/");
+// const socket = io("https://comment-web-app-test.azurewebsites.net/");
+const socket = io("localhost:3000");
 
 function MessageComponent() {
   // const socket = useState(
