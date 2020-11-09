@@ -1,5 +1,6 @@
 package com.ren.renzen.CommandObjects;
 
+import com.ren.renzen.DomainObjects.ArticleDO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -34,8 +35,8 @@ public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoCompo
     List<String> tagList = new ArrayList<>();
     String postText="";
     String postType="none";
-    List<String> comments = new ArrayList<>();
-    List<String> pollOptions = new ArrayList<>();
+    List<ArticleDO.Comment> comments = new ArrayList<>();
+    List<ArticleDO.PollOption> pollOptions = new ArrayList<>();
     List<ObjectId> imageIDs = new ArrayList<>();
 
 
