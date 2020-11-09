@@ -7,6 +7,8 @@ export function HomePageStream_dtp(dispatch) {
 export const TabPane_mapDispatchToProps = (dispatch) => {
   return {
     DISPATCH_init: () => dispatch(store.DISPATCH_init()),
+    DISPATCH_openCreateArticleTab: (comid) =>
+      dispatch(store.DISPATCH_openCreateArticleTab(comid)),
   };
 };
 
@@ -69,6 +71,8 @@ export function Header_mapDispatchToProps(dispatch) {
 
 export const HomePage_mapDispatchToProps = (dispatch) => {
   return {
+    DISPATCH_createArticle: () => dispatch(store.DISPATCH_createArticle()),
+
     DISPATCH_openCommunity: (url) =>
       dispatch(store.DISPATCH_openCommunity(url)),
     DISPATCH_openUser: (url) => dispatch(store.DISPATCH_openUser(url)),

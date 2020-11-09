@@ -31,6 +31,12 @@ function Tab_Pane(props) {
     }
   }, [props.open]);
 
+  useEffect(() => {
+    if (OpenFromInkSource !== null) {
+      props.DISPATCH_openCreateArticleTab(0);
+    }
+  }, []);
+
   // let [message, setMessage] = useState("");
   //
   // function handleMessage(e) {

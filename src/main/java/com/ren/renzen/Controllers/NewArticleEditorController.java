@@ -77,6 +77,7 @@ public class NewArticleEditorController {
                                    Model model) {
         //might not need principal
 
+        model.addAttribute("source","createNewArticle");
         model.addAttribute("token",token);
         model.addAttribute("image",image);
 
