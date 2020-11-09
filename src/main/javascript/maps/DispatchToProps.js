@@ -1,5 +1,9 @@
 import * as store from "../actions/Store_Actions";
 
+export function HomePageStream_dtp(dispatch) {
+  return {};
+}
+
 export const TabPane_mapDispatchToProps = (dispatch) => {
   return {
     DISPATCH_init: () => dispatch(store.DISPATCH_init()),
@@ -81,6 +85,10 @@ export const HomePage_mapDispatchToProps = (dispatch) => {
 
     DISPATCH_createCommunity: (user, payload) =>
       dispatch(store.DISPATCH_createCommunity(user, payload)),
+    DISPATCH_likeArticle: (articleId) =>
+      dispatch(store.DISPATCH_likeArticle(articleId)),
+    DISPATCH_dislikeArticle: (articleId) =>
+      dispatch(store.DISPATCH_dislikeArticle(articleId)),
   };
 };
 

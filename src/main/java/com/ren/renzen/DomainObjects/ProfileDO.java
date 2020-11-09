@@ -47,6 +47,9 @@ public class ProfileDO implements UserDetails {
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();
     List<ObjectId> articleIDList = new ArrayList<>(); // private setting is in article
 
+    //NEW
+    List<ObjectId> WorkIDList = new ArrayList<>();
+
     List<String> publicScreenshotsIDList = new ArrayList<>();
 
     //not loaded on profile page unless logged in

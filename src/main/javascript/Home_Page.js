@@ -6,6 +6,7 @@ import Axios from "axios";
 
 import { HomePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { HomePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import HomePageStream from "./components/HomePageStream";
 
 function Home_Page(props) {
   return (
@@ -66,85 +67,92 @@ function Home_Page(props) {
 
       <br />
 
-      <div className="container-fluid" style={{ textAlign: "center" }}>
-        <div className={"row"}>
-          <div className={"col"}>
-            <Spotlight
-              name={"Featured Communities"}
-              one={"How It's Made"}
-              two={"Eri's House"}
-              title={"Say Hello!"}
-            />
-          </div>
-          <div className={"col"}>
-            <Spotlight
-              name={"Featured Articles"}
-              one={"Renzen"}
-              two={"Learning Curve Post #1"}
-              title={"Check It Out!"}
-            />
-          </div>
-        </div>
-      </div>
+      {/*<div className="container-fluid" style={{ textAlign: "center" }}>*/}
+      {/*  <div className={"row"}>*/}
+      {/*    <div className={"col"}>*/}
+      {/*      <Spotlight*/}
+      {/*        name={"Featured Communities"}*/}
+      {/*        one={"How It's Made"}*/}
+      {/*        two={"Eri's House"}*/}
+      {/*        title={"Say Hello!"}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*    <div className={"col"}>*/}
+      {/*      <Spotlight*/}
+      {/*        name={"Featured Articles"}*/}
+      {/*        one={"Renzen"}*/}
+      {/*        two={"Learning Curve Post #1"}*/}
+      {/*        title={"Check It Out!"}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
 
       <hr />
 
+      {/*<br />*/}
+
+      {/*<div>*/}
+      {/*  <div className="card">*/}
+      {/*    <div className="card-header">*/}
+      {/*      <h4>Renzen Ink Demos</h4>*/}
+      {/*    </div>*/}
+      {/*    <div>Placeholder for gifs</div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+
+      {/*<hr />*/}
+
+      {/*<br />*/}
+
+      {/*<HomePageStream />*/}
+
       <br />
 
-      <div>
-        <div className="card">
-          <div className="card-header">
-            <h4>Renzen Ink Demos</h4>
-          </div>
-          <div>Placeholder for gifs</div>
+      <div
+        className="container-fluid"
+        style={{ textAlign: "center", width: "75%" }}
+      >
+        {/*<div className={"row"}>*/}
+        {/*<div className={"col"}>*/}
+        {/*  <div className="card">*/}
+        {/*    <div className="card-header">*/}
+        {/*      <h4>New Users</h4>*/}
+        {/*    </div>*/}
+        {/*    <Stream*/}
+        {/*      key={"userStream"}*/}
+        {/*      source={props.loadedUsers}*/}
+        {/*      dispatch={props.DISPATCH_openUser}*/}
+        {/*    />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+
+        <div className={"col"}>
+          {/*<div className="card">*/}
+          {/*  <div className="card-header">*/}
+          {/*<h4>New Articles</h4>*/}
+          {/*</div>*/}
+          <HomePageStream
+            key={"articleStream"}
+            source={props.loadedArticles}
+            dispatch={props.DISPATCH_openArticle}
+          />
+          {/*</div>*/}
         </div>
-      </div>
-
-      <hr />
-
-      <br />
-
-      <div className="container-fluid" style={{ textAlign: "center" }}>
-        <div className={"row"}>
-          <div className={"col"}>
-            <div className="card">
-              <div className="card-header">
-                <h4>New Users</h4>
-              </div>
-              <Stream
-                key={"userStream"}
-                source={props.loadedUsers}
-                dispatch={props.DISPATCH_openUser}
-              />
+        <div className={"col"}>
+          <div className="card">
+            <div className="card-header">
+              <h4>New Communities</h4>
             </div>
-          </div>
-
-          <div className={"col"}>
-            <div className="card">
-              <div className="card-header">
-                <h4>New Articles</h4>
-              </div>
-              <Stream
-                key={"articleStream"}
-                source={props.loadedArticles}
-                dispatch={props.DISPATCH_openArticle}
-              />
-            </div>
-          </div>
-          <div className={"col"}>
-            <div className="card">
-              <div className="card-header">
-                <h4>New Communities</h4>
-              </div>
-              <Stream
-                key={"communityStream"}
-                source={props.loadedCommunities}
-                dispatch={props.DISPATCH_openCommunity}
-              />
-            </div>
+            <Stream
+              key={"communityStream"}
+              source={props.loadedCommunities}
+              dispatch={props.DISPATCH_openCommunity}
+            />
           </div>
         </div>
       </div>
+      {/*</div>*/}
     </div>
   );
 }

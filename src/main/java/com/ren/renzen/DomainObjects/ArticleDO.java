@@ -22,10 +22,19 @@ public class ArticleDO {
     ObjectId _id;
 
     String articleName;
-    String topic;
+    String topic="none";
     String description;
 
     String creatorName;
+
+
+    //NEW
+    List<String> tagList = new ArrayList<>();
+    String postText="";
+    String postType="none";
+    List<Comment> comments = new ArrayList<>();
+    List<PollOption> pollOptions = new ArrayList<>();
+
 
     ObjectId creatorID;
 //    Optional<ObjectId> creatorID;
@@ -41,4 +50,22 @@ public class ArticleDO {
     boolean visibleInCommunity = true;
 
     List<ObjectId> imageIDs = new ArrayList<ObjectId>();
+
+    @Data
+    @NoArgsConstructor
+    public static class Comment{
+        String comment;
+        ObjectId author;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class PollOption{
+        String name;
+        int votes;
+    }
+
+
+
+
 }

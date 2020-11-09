@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This CO is used to return data needed to LIST an article (metadata)
  * Used where knowledge of the article is necessary, but not the contents
@@ -26,6 +29,16 @@ public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoCompo
     String authorID;
     String authorName;
     ProfileInfoComponentCO profileInfoComponentCO;
+
+    //NEW
+    List<String> tagList = new ArrayList<>();
+    String postText="";
+    String postType="none";
+    List<String> comments = new ArrayList<>();
+    List<String> pollOptions = new ArrayList<>();
+    List<ObjectId> imageIDs = new ArrayList<>();
+
+
 
     int likes;
     int dislikes;

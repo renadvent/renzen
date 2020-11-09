@@ -22,11 +22,18 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
     }
 
+    //TODO set up to avoid code duplication in future
+    public void sharedSet(ArticleDO source){
+
+    }
+
     @Override
     public ArticleInfoComponentCO convertDomainToPublicView(ArticleDO source) {
 
         final ArticleInfoComponentCO co = new ArticleInfoComponentCO();
         co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+
+        //sharedSet(source)
 
         co.setName(source.getArticleName());
         co.setDescription(source.getDescription());
@@ -50,6 +57,14 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         co.setAuthorName(author.getUsername());
         co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(author));
 
+
+        co.setTagList(source.getTagList());
+        co.setPostText(source.getPostText());
+        co.setPostType(source.getPostType());
+        co.setComments(source.getComments());
+        co.setPollOptions(source.getPollOptions());
+        co.setImageIDs(source.getImageIDs());
+
         return co;
     }
 
@@ -71,6 +86,14 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
 
         co.setAuthorName(author.getUsername());
         co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToFullView(author));
+
+        co.setTagList(source.getTagList());
+        co.setPostText(source.getPostText());
+        co.setPostType(source.getPostType());
+        co.setComments(source.getComments());
+        co.setPollOptions(source.getPollOptions());
+        co.setImageIDs(source.getImageIDs());
+
 
         return co;
     }
