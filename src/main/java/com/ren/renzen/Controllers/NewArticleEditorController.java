@@ -11,15 +11,15 @@ import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
-@RestController
+@Controller
 public class NewArticleEditorController {
 
 
@@ -68,10 +68,19 @@ public class NewArticleEditorController {
         this.mapValidationErrorService = mapValidationErrorService;
     }
 
-    @PostMapping(path="/newCreateArticle")
-    public ResponseEntity<?> newCreateArticle(@RequestBody @Valid NewCreateArticlePayload payload, BindingResult result, Principal principal) {
+    @RequestMapping(path="/newCreateArticle")
+    public String newCreateArticle(
+//            @RequestBody NewCreateArticlePayload payload,
+                                   @RequestParam String image,
+                                   @RequestParam String token,
+//                                   BindingResult result, Principal principal,
+                                   Model model) {
+        //might not need principal
 
-        return null;
+        model.addAttribute("token",token);
+        model.addAttribute("image",image);
+
+        return "index";
 
     }
 

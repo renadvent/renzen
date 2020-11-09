@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<html lang="en" xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>renzen</title>
 
@@ -20,6 +21,8 @@
       crossorigin="anonymous"
     />
 
+
+
     <!-- JS, Popper.js, and jQuery -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -39,6 +42,19 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+    <!--THYMELEAAFE STUFF-->
+    <script th:inline="javascript">
+      // write code here
+
+      const OpenFromInkToken = [[${token}]];
+      const OpenFromInkImage = [[${image}]];
+
+      console.log(OpenFromInkToken)
+      console.log(OpenFromInkImage)
+
+    </script>
+
 
     <!--  <script src="/socket.io/socket.io.js"></script>-->
 
