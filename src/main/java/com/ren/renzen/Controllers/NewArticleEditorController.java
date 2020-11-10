@@ -73,6 +73,7 @@ public class NewArticleEditorController {
 //            @RequestBody NewCreateArticlePayload payload,
                                    @RequestParam String image,
                                    @RequestParam String token,
+                                    @RequestParam String link,
 //                                   BindingResult result, Principal principal,
                                    Model model) {
         //might not need principal
@@ -80,6 +81,7 @@ public class NewArticleEditorController {
         model.addAttribute("source","createNewArticle");
         model.addAttribute("token",token);
         model.addAttribute("image",image);
+        model.addAttribute("link",link);
 
         return "index";
 

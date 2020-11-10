@@ -5,8 +5,16 @@ import { connect } from "react-redux";
 import { CreateArticlePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
+// import image from "../resources/templates/index.html";
+
 function Editable_Article_Section(props) {
-  const [info, setInfo] = useState({ header: "", body: "" });
+  const [info, setInfo] = useState({
+    header: "",
+    body: "",
+    // workName: "",
+    // tags: "",
+    // pollOptions: "",
+  });
 
   //adds info state to parent state array on first render
   useEffect(() => {
@@ -38,6 +46,36 @@ function Editable_Article_Section(props) {
   return (
     <div>
       <div className="input-group mb-3">
+        {/*<div className="input-group-prepend">*/}
+        {/*  <span className="input-group-text">Work Name</span>*/}
+        {/*</div>*/}
+        {/*<input*/}
+        {/*  type="text"*/}
+        {/*  name={"workName"}*/}
+        {/*  value={info.workName}*/}
+        {/*  onChange={handleChange}*/}
+        {/*/>*/}
+
+        {/*<div className="input-group-prepend">*/}
+        {/*  <span className="input-group-text">Tags</span>*/}
+        {/*</div>*/}
+        {/*<input*/}
+        {/*  type="text"*/}
+        {/*  name={"tags"}*/}
+        {/*  value={info.tags}*/}
+        {/*  onChange={handleChange}*/}
+        {/*/>*/}
+
+        {/*<div className="input-group-prepend">*/}
+        {/*  <span className="input-group-text">Poll Options</span>*/}
+        {/*</div>*/}
+        {/*<input*/}
+        {/*  type="text"*/}
+        {/*  name={"pollOptions"}*/}
+        {/*  value={info.pollOptions}*/}
+        {/*  onChange={handleChange}*/}
+        {/*/>*/}
+
         <div className="input-group-prepend">
           <span className="input-group-text">Heading</span>
         </div>
@@ -89,6 +127,9 @@ function Create_Article_Page(props) {
     articleDescription: "",
     articleTags: "",
     articleAddToSection: "",
+    workName: "",
+    tags: "",
+    pollOptions: "",
   });
 
   function handleChange(event) {
@@ -123,12 +164,48 @@ function Create_Article_Page(props) {
             </p>
           </div>
 
+          <div>
+            SHOW IMAGE FROM RENZEN INK HERE. data from url: {OpenFromInkImage}
+            <img src={OpenFromInkImage} />
+          </div>
+
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text" id="basic-addon3">
                 Article Name:{" "}
               </span>
             </div>
+
+            <div className="input-group-prepend">
+              <span className="input-group-text">Work Name</span>
+            </div>
+            <input
+              type="text"
+              name={"workName"}
+              value={articleData.workName}
+              onChange={handleChange}
+            />
+
+            <div className="input-group-prepend">
+              <span className="input-group-text">Tags</span>
+            </div>
+            <input
+              type="text"
+              name={"tags"}
+              value={articleData.tags}
+              onChange={handleChange}
+            />
+
+            <div className="input-group-prepend">
+              <span className="input-group-text">Poll Options</span>
+            </div>
+            <input
+              type="text"
+              name={"pollOptions"}
+              value={articleData.pollOptions}
+              onChange={handleChange}
+            />
+
             <input
               name={"articleName"}
               value={articleData.articleName}

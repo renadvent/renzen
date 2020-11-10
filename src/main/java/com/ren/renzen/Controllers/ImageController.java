@@ -14,6 +14,7 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.time.OffsetDateTime;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -58,8 +60,8 @@ public class ImageController {
      * @return
      */
     @PostMapping(path = "/addImage", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String addImageToProfile(@RequestBody Map<String, Object> payload) {
-
+//    public String addImageToProfile(@RequestBody Map<String, Object> payload) {
+    public Map<String,String> addImageToProfile(@RequestBody Map<String, Object> payload) {
         String title = "no title";
         ObjectId userId = null;
         File file = null;
@@ -115,7 +117,15 @@ public class ImageController {
         userService.update(user);
 
         var urlWithPermissions = url + "?" + SAS;
-        return urlWithPermissions; // link with sas
+
+
+        var responseMap = new HashMap<String, String>();
+        responseMap.put("absoluteURL",url);
+        responseMap.put("SASUrl",urlWithPermissions);
+        return responseMap;
+
+
+        //return urlWithPermissions; // link with sas
     }
 
 }
