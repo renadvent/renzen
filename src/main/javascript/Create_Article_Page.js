@@ -130,6 +130,7 @@ function Create_Article_Page(props) {
     workName: "",
     tags: "",
     pollOptions: "",
+    image: "",
   });
 
   function handleChange(event) {
@@ -174,6 +175,15 @@ function Create_Article_Page(props) {
               <span className="input-group-text" id="basic-addon3">
                 Article Name:{" "}
               </span>
+              <input
+                name={"articleName"}
+                value={articleData.articleName}
+                onChange={handleChange}
+                type="text"
+                className="form-control"
+                id="basic-url"
+                aria-describedby="basic-addon3"
+              />
             </div>
 
             <div className="input-group-prepend">
@@ -204,16 +214,6 @@ function Create_Article_Page(props) {
               name={"pollOptions"}
               value={articleData.pollOptions}
               onChange={handleChange}
-            />
-
-            <input
-              name={"articleName"}
-              value={articleData.articleName}
-              onChange={handleChange}
-              type="text"
-              className="form-control"
-              id="basic-url"
-              aria-describedby="basic-addon3"
             />
           </div>
 

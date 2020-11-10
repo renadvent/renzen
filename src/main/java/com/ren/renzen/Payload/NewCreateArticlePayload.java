@@ -25,5 +25,6 @@ public class NewCreateArticlePayload {
     String tags;
     String image;
     String postText;
-    List<String> pollOptions = new ArrayList<>();
+    String pollOptions;
+    //List<String> pollOptions = new ArrayList<>();
 }

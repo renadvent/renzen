@@ -54,6 +54,13 @@ export function CommunityPage_mapDispatchToProps(dispatch) {
 
 export function CreateArticlePage_mapDispatchToProps(dispatch) {
   return {
+    // DISPATCH_createArticle:
+    //     (payload, user, community, sectionData)
+    //         =>
+    //     dispatch(
+    //         store.DISPATCH_createArticle(payload, user, community, sectionData)
+    //     ),
+
     DISPATCH_createArticle: (payload, user, community, sectionData) =>
       dispatch(
         store.DISPATCH_createArticle(payload, user, community, sectionData)

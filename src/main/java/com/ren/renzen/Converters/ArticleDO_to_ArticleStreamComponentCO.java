@@ -3,8 +3,8 @@ package com.ren.renzen.Converters;
 import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ArticleDO;
-import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
+import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +14,14 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
     final UserService userService;
     final ArticleService articleService;
 
+    final ImageService imageService;
+
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
-    public ArticleDO_to_ArticleStreamComponentCO(UserService userService, ArticleService articleService, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
+    public ArticleDO_to_ArticleStreamComponentCO(UserService userService, ArticleService articleService, ImageService imageService, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
         this.userService = userService;
         this.articleService = articleService;
+        this.imageService = imageService;
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
     }
 
@@ -42,6 +45,14 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
 
         co.setLikes(source.getLikes());
         co.setDislikes(source.getDislikes());
+
+        try {
+            String name = source.getImage().substring(source.getImage().lastIndexOf('/') + 1);
+
+            co.setImage(imageService.generateSAS(name));
+        } catch (Exception e) {
+            co.setImage(null);
+        }
 
         co.setAuthorID(source.getCreatorID().toHexString());
         var author = userService.findBy_id(source.getCreatorID());
@@ -72,6 +83,20 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
     public ArticleInfoComponentCO convertDomainToFullView(ArticleDO source) {
         final ArticleInfoComponentCO co = new ArticleInfoComponentCO();
         co.setACCESS_TYPE(ACCESS_TYPE_FULL);
+
+
+
+
+        try {
+            String name = source.getImage().substring(source.getImage().lastIndexOf('/') + 1);
+
+            co.setImage(imageService.generateSAS(name));
+        } catch (Exception e) {
+            co.setImage(null);
+        }
+
+
+        //co.setImage(source.getImage());
 
         co.setLikes(source.getLikes());
         co.setDislikes(source.getDislikes());

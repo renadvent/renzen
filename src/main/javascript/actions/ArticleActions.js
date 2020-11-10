@@ -70,6 +70,12 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
     Axios.post("/createArticle", {
       articleName: payload.articleName,
       description: payload.articleDescription,
+      workName: payload.workName,
+      tags: payload.tags,
+      pollOptions: payload.pollOptions,
+
+      image: OpenFromInkLink,
+
       //userID: user,
       communityID: community,
       articleSectionDOList: sectionData,

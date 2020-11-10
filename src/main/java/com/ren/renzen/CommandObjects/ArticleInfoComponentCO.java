@@ -40,6 +40,9 @@ public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoCompo
     List<ObjectId> imageIDs = new ArrayList<>();
 
 
+    String image="";
+
+
 
     int likes;
     int dislikes;

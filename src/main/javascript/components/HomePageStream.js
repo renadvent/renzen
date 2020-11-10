@@ -25,12 +25,13 @@ function HomePageStream(props) {
                 </div>
 
                 <img
-                  src={
-                    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
-                  }
+                  src={single.image}
+                  // src={
+                  //     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+                  // }
                   alt={"temp image"}
-                  width={100}
-                  height={100}
+                  width={500}
+                  height={500}
                 />
                 <li
                   style={{

@@ -51,6 +51,8 @@ public class ArticleDO {
 
     List<ObjectId> imageIDs = new ArrayList<ObjectId>();
 
+    String image="";
+
     @Data
     @NoArgsConstructor
     public static class Comment{
@@ -64,8 +66,4 @@ public class ArticleDO {
         String name;
         int votes;
     }
-
-
-
-
 }

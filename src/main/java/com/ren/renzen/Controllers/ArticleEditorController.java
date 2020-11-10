@@ -14,6 +14,7 @@ import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Exceptions.OwnerMismatchException;
 import com.ren.renzen.ModelAssemblers.*;
 import com.ren.renzen.Payload.CreateArticlePayload;
+import com.ren.renzen.Payload.NewCreateArticlePayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
@@ -136,7 +137,7 @@ public class ArticleEditorController {
 
 
     @PostMapping(path = "/createArticle")
-    public ResponseEntity<?> createArticle(@RequestBody @Valid CreateArticlePayload payload, BindingResult result, Principal principal) {
+    public ResponseEntity<?> createArticle(@RequestBody @Valid NewCreateArticlePayload payload, BindingResult result, Principal principal) {
 
         //CHECK BINDING RESULTS OF PAYLOAD
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
@@ -157,6 +158,10 @@ public class ArticleEditorController {
         ProfileDO profileDO = userService.findBy_id(articleDO.getCreatorID());
         CommunityDO communityDO = communityService.findBy_id(articleDO.getCommunityID());
 
+        //NEW
+        articleDO.setImage(payload.getImage());
+        //articleDO.
+
         //save ArticleDO to get an ID from mongodb for it
         ArticleDO savedArticleDO = articleService.save(articleDO);
 
@@ -167,6 +172,10 @@ public class ArticleEditorController {
         //add article to community
         communityDO.getArticleDOList().add(savedArticleDO.get_id());
         communityService.saveOrUpdateCommunity(communityDO, principal.getName());
+
+
+
+
 
         return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
         //return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
