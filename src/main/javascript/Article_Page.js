@@ -29,6 +29,12 @@ function Article_Page(props) {
       <p>{props.payload.description}</p>
       <p>by: {props.payload.userName}</p>
 
+      <img
+        height={500}
+        src={props.payload.image}
+        alt={"IMAGE HERE! " + props.payload.image}
+      />
+
       <hr />
 
       {props.payload.articleSectionCOList.map((section) => {

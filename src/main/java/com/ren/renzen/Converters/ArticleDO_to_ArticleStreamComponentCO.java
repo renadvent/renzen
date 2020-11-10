@@ -26,7 +26,7 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
     }
 
     //TODO set up to avoid code duplication in future
-    public void sharedSet(ArticleDO source){
+    public void common(ArticleDO source){
 
     }
 

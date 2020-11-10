@@ -5,10 +5,10 @@ import Home_Container from "./Home_Page";
 import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
-import io from "socket.io-client";
-import MessageComponent from "./components/MessageComponent";
-
-let socket = io("https://comment-web-app-test.azurewebsites.net/"); //socket to host server
+// import io from "socket.io-client";
+// import MessageComponent from "./components/MessageComponent";
+//
+// let socket = io("https://comment-web-app-test.azurewebsites.net/"); //socket to host server
 
 // socket.on("chat message", function (msg) {
 //   $("#messages").append($("<li>").text(msg));

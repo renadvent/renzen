@@ -15,16 +15,25 @@ function HomePageStream(props) {
                 <div className="card-header" style={{ textAlign: "left" }}>
                   By: {single.authorName}
                 </div>
-                <div>completion bar</div>
-                <hr />
-                <div>vote on tags / polls</div>
-                <hr />
                 <div>
-                  When user uploads a pic from Renzen Ink it takes them to a web
-                  page to make polls/text on their post that shows up
+                  Completion Status{" "}
+                  <progress id="file" max="100" value="70">
+                    {" "}
+                    70%{" "}
+                  </progress>{" "}
+                  70%
                 </div>
+                {/*<div>completion bar</div>*/}
+                {/*<hr />*/}
+                {/*<div>vote on tags / polls</div>*/}
+                {/*<hr />*/}
+                {/*<div>*/}
+                {/*  When user uploads a pic from Renzen Ink it takes them to a web*/}
+                {/*  page to make polls/text on their post that shows up*/}
+                {/*</div>*/}
 
                 <img
+                  className={"mx-auto d-block"}
                   src={single.image}
                   // src={
                   //     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
@@ -46,9 +55,9 @@ function HomePageStream(props) {
                   {single.name}
                 </li>
                 <div className={"row"}>
-                  <div className={"col-2"}>
+                  <div className={"col col-md-auto"}>
                     <LikeDislikeSection
-                      id={single._id}
+                      _id={single._id}
                       likes={single.likes}
                       dislikes={single.dislikes}
                     />
@@ -58,7 +67,7 @@ function HomePageStream(props) {
                       <div className={"row"}>
                         <div className={"col"}>
                           <div className={"card-header"}>Comments</div>
-                          ...
+                          <CommentSection />
                         </div>
                       </div>
                     </div>
@@ -74,9 +83,19 @@ function HomePageStream(props) {
     </div>
   );
 
-  function LikeDislikeSection(props2) {
+  function CommentSection(commentProps) {
     return (
       <div>
+        <input />
+        <br />
+        Comments here...
+      </div>
+    );
+  }
+
+  function LikeDislikeSection(props2) {
+    return (
+      <div style={{ textAlign: "left" }}>
         <button
           className="btn btn-secondary"
           onClick={() => {
@@ -88,6 +107,8 @@ function HomePageStream(props) {
         </button>
 
         {props2.likes}
+
+        <br />
 
         <button
           className="btn btn-secondary"

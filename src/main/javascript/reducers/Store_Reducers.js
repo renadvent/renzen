@@ -109,6 +109,7 @@ const reducer = (state = initialState, action) => {
           }),
         },
       };
+      break;
 
     case at.GET_ERRORS:
       //update later
