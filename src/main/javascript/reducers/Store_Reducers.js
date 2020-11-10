@@ -1,11 +1,11 @@
 import * as at from "../actions/Store_Actions";
 import React from "react";
-import AppTab from "../Page_Tab";
-import Profile_Page from "../Profile_Page";
-import CommunityAppTabContent from "../Community_Page";
-import ArticleAppTabContent from "../Article_Page";
+import AppTab from "../TabLabels/Page_Tab";
+import Profile_Page from "../MainTabs/Profile_Page";
+import CommunityAppTabContent from "../MainTabs/Community_Page";
+import ArticleAppTabContent from "../MainTabs/Article_Page";
 import { ACTION_openCreateArticleTab } from "../actions/Store_Actions";
-import ArticleEditTab from "../Create_Article_Page";
+import ArticleEditTab from "../MainTabs/Create_Article_Page";
 
 //state rewrite
 

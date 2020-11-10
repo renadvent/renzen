@@ -1,12 +1,12 @@
 import React from "react";
 
-import WebsiteTab from "./Bookmarks_Tab";
-import * as store from "./actions/Store_Actions";
+import WebsiteTab from "../TabLabels/Bookmarks_Tab";
+import * as store from "../actions/Store_Actions";
 import { connect } from "react-redux";
 import LoginRegister_Container from "./Login_Register";
 
-import { Bookmarks_StateToProps as mapStateToProps } from "./maps/StateToProps";
-import { Bookmarks_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import { Bookmarks_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { Bookmarks_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 /*
  * Show the bookmark on the right side of the screen
  * */

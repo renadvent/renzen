@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./CSS/index.css";
 import App from "./App";
 import { applyMiddleware, createStore, compose } from "redux";
 //import reducer from "./reducers/Store_Reducers";
@@ -15,8 +15,8 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 //TODO logout if token expired
 
-// const jwtToken = localStorage.jwtToken;
-//
+const jwtToken = localStorage.jwtToken;
+
 // if (jwtToken) {
 //     setJWTToken(jwtToken);
 //     const decoded_jwtToken = jwt_decode(jwtToken);

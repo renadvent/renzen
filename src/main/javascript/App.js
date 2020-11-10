@@ -2,8 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Tab_Pane from "./Tab_Pane";
 import Footer from "./Footer";
-import Bookmarks from "./Bookmarks";
-import setJWTToken from "./securityUtils/setJWTToken";
+import Bookmarks from "./SideTabs/Bookmarks";
 
 /*
 sets up page and divisions

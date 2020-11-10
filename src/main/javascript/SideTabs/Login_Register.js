@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import * as store from "./actions/Store_Actions";
+import * as store from "../actions/Store_Actions";
 
-import { LoginRegister_StateToProps as mapStateToProps } from "./maps/StateToProps";
-import { LoginRegister_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import { LoginRegister_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { LoginRegister_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
 function Login_Register(props) {
   const [userName, setUserName] = useState("");

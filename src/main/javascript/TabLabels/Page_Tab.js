@@ -1,9 +1,9 @@
 import React from "react";
-import * as store from "./actions/Store_Actions";
+import * as store from "../actions/Store_Actions";
 import { connect } from "react-redux";
 
-import { PageTab_StateToProps as mapStateToProps } from "./maps/StateToProps";
-import { PageTab_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import { PageTab_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { PageTab_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
 /*
 Actual tab parts that a user can click on.

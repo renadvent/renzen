@@ -23,22 +23,11 @@ function HomePageStream(props) {
                   </progress>{" "}
                   70%
                 </div>
-                {/*<div>completion bar</div>*/}
-                {/*<hr />*/}
-                {/*<div>vote on tags / polls</div>*/}
-                {/*<hr />*/}
-                {/*<div>*/}
-                {/*  When user uploads a pic from Renzen Ink it takes them to a web*/}
-                {/*  page to make polls/text on their post that shows up*/}
-                {/*</div>*/}
 
                 <img
                   className={"mx-auto d-block"}
                   src={single.image}
-                  // src={
-                  //     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
-                  // }
-                  alt={"temp image"}
+                  alt={"post image"}
                   width={500}
                   height={500}
                 />

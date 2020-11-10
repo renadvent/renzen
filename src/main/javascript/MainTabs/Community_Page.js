@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import * as store from "./actions/Store_Actions";
+import * as store from "../actions/Store_Actions";
 
-import { CommunityPage_StateToProps as mapStateToProps } from "./maps/StateToProps";
-import { CommunityPage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
-import MessageComponent from "./components/MessageComponent";
+import { CommunityPage_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { CommunityPage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
 function Community_Page(props) {
   return (
@@ -57,7 +56,6 @@ function Community_Page(props) {
             </ul>
 
             <h3>Comments</h3>
-            {/*<MessageComponent />*/}
           </div>
         </div>
       </div>

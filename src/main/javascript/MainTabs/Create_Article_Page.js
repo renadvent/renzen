@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import * as store from "./actions/Store_Actions";
+import * as store from "../actions/Store_Actions";
 import { connect } from "react-redux";
 
-import { CreateArticlePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
-import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import { CreateArticlePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
 // import image from "../resources/templates/index.html";
 

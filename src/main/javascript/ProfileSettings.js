@@ -1,8 +1,0 @@
-/*
-change password
-change email
-change phone number
-
-turn on text notifications
-turn on email notifications
- */

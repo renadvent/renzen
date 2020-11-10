@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import * as store from "./actions/Store_Actions";
+import * as store from "../actions/Store_Actions";
 import { connect } from "react-redux";
 
-import { ProfilePage_StateToProps as mapStateToProps } from "./maps/StateToProps";
-import { ProfilePage_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import { ProfilePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { ProfilePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
 function Profile_Page(props) {
   const [communityName, setCommunityName] = useState("");

@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as store from "./actions/Store_Actions";
-import { BookmarksTab_StateToProps as mapStateToProps } from "./maps/StateToProps";
-import { BookmarksTab_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import * as store from "../actions/Store_Actions";
+import { BookmarksTab_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { BookmarksTab_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
 function Bookmarks_Tab(props) {
   return (
