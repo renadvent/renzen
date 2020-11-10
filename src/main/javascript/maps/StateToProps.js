@@ -1,5 +1,6 @@
 export function TabPane_StateToProps(state) {
   return {
+    selectedTab: state.reducer.selectedTab,
     open: state.reducer.tabs.open,
   };
 }
@@ -7,6 +8,7 @@ export function TabPane_StateToProps(state) {
 //added ownProps
 export function ArticlePage_StateToProps(state, ownProps) {
   return {
+    selectedTab: state.reducer.selectedTab,
     state: state.reducer,
     user: state.reducer.user,
     //article: state.reducer.tabs.open[state.reducer.tabs.open.length - 1],

@@ -21,3 +21,22 @@ export const GET_ERRORS = "GET_ERRORS";
 export const ACTION_likeArticle = "ACTION_likeArticle";
 export const ACTION_dislikeArticle = "ACTION_dislikeArticle";
 export const ACTION_addComment = "ACTION_addComment";
+
+export const ACTION_switchTab = "ACTION_switchTab";
+
+/**
+ * openCommunity
+ * openUser
+ * openArticle
+ * LoginWithUsernamePassword
+ * LoginWithToken
+ * Logout
+ * register
+ * createCommunity
+ * createArticle
+ *
+ *
+ *
+ *
+ *
+ */

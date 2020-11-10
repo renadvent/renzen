@@ -66,6 +66,8 @@ const initialState = {
     open: [],
   },
 
+  selectedTab: "",
+
   data: [],
 
   homeTabData: {
@@ -159,6 +161,7 @@ const reducer = (state = initialState, action) => {
     case at.ACTION_openCreateArticleTab:
       return {
         ...state,
+        selectedTab: action.id,
         tabs: {
           ...state.tabs,
           open: state.tabs.open.concat({
@@ -220,8 +223,10 @@ const reducer = (state = initialState, action) => {
     case at.ACTION_openCommunity:
       console.log("OPEN COMMUNITY REDUCER REC");
       console.log(action);
+      //TODO selectedTab: action.payload._id,
       return {
         ...state,
+        selectedTab: action.payload._id,
         tabs: {
           ...state.tabs,
           open: state.tabs.open.concat({

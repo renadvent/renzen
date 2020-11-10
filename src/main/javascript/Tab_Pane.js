@@ -23,19 +23,29 @@ function Tab_Pane(props) {
   }, []);
 
   //updates active tab when new ones are opened
-  useEffect(() => {
-    if (props.open.length > 0) {
-      $("#tabA" + props.open[props.open.length - 1].data._id).tab("show");
-    } else {
-      $("#home-tab").tab("show");
-    }
-  }, [props.open]);
+  // useEffect(() => {
+  //   if (props.open.length > 0) {
+  //     $("#tabA" + props.open[props.open.length - 1].data._id).tab("show");
+  //   } else {
+  //     $("#home-tab").tab("show");
+  //   }
+  // }, [props.open]);
 
   useEffect(() => {
     if (OpenFromInkSource !== null) {
       props.DISPATCH_openCreateArticleTab("5f92319abce4e159c51a0a11");
     }
   }, []);
+
+  useEffect(() => {
+    if (props.selectedTab !== "") {
+      console.log("selected");
+      console.log(props.selectedTab);
+      $("#tabA" + props.selectedTab).tab("show");
+    } else {
+      $("#home-tab").tab("show");
+    }
+  }, [props.selectedTab]);
 
   // let [message, setMessage] = useState("");
   //
