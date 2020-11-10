@@ -14,6 +14,9 @@ export const TabPane_mapDispatchToProps = (dispatch) => {
 
 export function ArticlePage_mapDispatchToProps(dispatch) {
   return {
+    DISPATCH_addComment: (id, comment) =>
+      dispatch(store.DISPATCH_addComment(id, comment)),
+
     DISPATCH_addBookmark: (userId, articleId, name) =>
       dispatch(store.DISPATCH_addBookmark(userId, articleId, name)),
     DISPATCH_likeArticle: (articleId) =>
@@ -78,6 +81,9 @@ export function Header_mapDispatchToProps(dispatch) {
 
 export const HomePage_mapDispatchToProps = (dispatch) => {
   return {
+    DISPATCH_addComment: (id, comment) =>
+      dispatch(store.DISPATCH_addComment(id, comment)),
+
     DISPATCH_createArticle: () => dispatch(store.DISPATCH_createArticle()),
 
     DISPATCH_openCommunity: (url) =>

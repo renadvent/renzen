@@ -53,7 +53,7 @@ function Article_Page(props) {
       })}
 
       <h3>Comments</h3>
-      <MessageComponent />
+      {/*<MessageComponent />*/}
     </div>
   );
 

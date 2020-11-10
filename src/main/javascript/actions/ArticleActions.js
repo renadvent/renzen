@@ -5,7 +5,28 @@ import {
   ACTION_openArticle,
   ACTION_openCreateArticleTab,
   GET_ERRORS,
+  ACTION_addComment,
 } from "./StoreDefs";
+
+export function DISPATCH_addComment(id, comment) {
+  console.log(comment);
+  return async (dispatch) => {
+    console.log(comment);
+    try {
+      let res = await Axios.post("/addComment/" + id, {
+        comment: comment,
+      });
+
+      //TODO add dispatch to reload comments
+    } catch (error) {
+      dispatch({
+        type: GET_ERRORS,
+        error: error,
+        //payload: error.response.data,
+      });
+    }
+  };
+}
 
 export function DISPATCH_likeArticle(id) {
   return async (dispatch) => {

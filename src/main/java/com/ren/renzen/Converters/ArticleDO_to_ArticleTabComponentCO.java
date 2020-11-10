@@ -41,6 +41,8 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     public ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
         final ArticleTabComponentCO co = new ArticleTabComponentCO();
 
+
+
         co.setName(source.getArticleName());
         co.setDescription(source.getDescription());
         co.set_id(source.get_id().toHexString());

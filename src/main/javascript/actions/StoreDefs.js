@@ -20,3 +20,4 @@ export const GET_ERRORS = "GET_ERRORS";
 
 export const ACTION_likeArticle = "ACTION_likeArticle";
 export const ACTION_dislikeArticle = "ACTION_dislikeArticle";
+export const ACTION_addComment = "ACTION_addComment";

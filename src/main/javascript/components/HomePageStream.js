@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { HomePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { HomePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
@@ -67,7 +67,10 @@ function HomePageStream(props) {
                       <div className={"row"}>
                         <div className={"col"}>
                           <div className={"card-header"}>Comments</div>
-                          <CommentSection />
+                          <CommentSection
+                            _id={single._id}
+                            comments={single.comments}
+                          />
                         </div>
                       </div>
                     </div>
@@ -84,11 +87,33 @@ function HomePageStream(props) {
   );
 
   function CommentSection(commentProps) {
+    let [comment, setComment] = useState("");
+
+    const handleChange = (event) => setComment(event.target.value);
+
     return (
       <div>
-        <input />
+        <input value={comment} onChange={handleChange} />
+        <button
+          onClick={() =>
+            props.dispatch(props.DISPATCH_addComment(commentProps._id, comment))
+          }
+        >
+          Submit Comment
+        </button>
         <br />
         Comments here...
+        <div>
+          {commentProps.comments.map((x) => {
+            console.log(x);
+            return (
+              <div>
+                <hr />
+                {x.comment}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

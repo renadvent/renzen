@@ -13,10 +13,7 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.stream.Collectors;
@@ -78,7 +75,9 @@ public class FeedController {
     //refreshComments
 
     @PostMapping(path = "/addComment/{id}")
-    public ResponseEntity<?> addComment(@PathVariable ObjectId id, addCommentPayload payload, Principal principal) {
+    public ResponseEntity<?> addComment(@PathVariable ObjectId id, @RequestBody addCommentPayload payload, Principal principal) {
+
+        System.out.println(payload);
 
         var article = articleService.findBy_id(id);
 
