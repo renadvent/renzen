@@ -5,7 +5,7 @@ import React from "react";
 export function createArticleState(state, action) {
   return {
     ...state,
-    selectedTab: action.id,
+    selectedTab: action.id + action.id,
     tabs: {
       ...state.tabs,
       open: state.tabs.open.concat({

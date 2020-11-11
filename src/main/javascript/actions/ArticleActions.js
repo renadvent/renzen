@@ -164,10 +164,12 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
 }
 
 export function DISPATCH_openCreateArticleTab(communityId) {
-  return (dispatch) => {
-    dispatch({
+  return async (dispatch) => {
+    await dispatch({
       type: ACTION_openCreateArticleTab,
       id: communityId,
     });
+
+    //await select(dispatch, communityId); //???
   };
 }
