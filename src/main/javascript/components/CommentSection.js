@@ -10,18 +10,24 @@ function CommentSection(commentProps) {
 
   return (
     <div>
-      <input type="text" value={comment} onChange={handleChange} />
-      <button
-        className="btn btn-secondary"
-        onClick={
-          () =>
-            //commentProps.dispatch(
-            commentProps.props.DISPATCH_addComment(commentProps._id, comment)
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          //commentProps.dispatch(
+          commentProps.props.DISPATCH_addComment(commentProps._id, comment);
           //)
-        }
+        }}
       >
-        Submit Comment
-      </button>
+        <div className="form-group">
+          <input type="text" value={comment} onChange={handleChange} />
+          <span>
+            <button type="submit" className="btn btn-primary">
+              Submit Comment
+            </button>
+          </span>
+        </div>
+      </form>
+
       <br />
       <hr />
       <div>
