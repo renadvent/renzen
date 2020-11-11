@@ -54,6 +54,17 @@ export function DISPATCH_init() {
   };
 }
 
+//---------------------------------------------------UTILS
+
+export function LoginCheck(state) {
+  console.log(state);
+  if (!state().reducer.user.logged_in) {
+    alert("You must Login First!");
+    return false;
+  }
+  return true;
+}
+
 export async function reloadHomePage(dispatch) {
   Axios.get("/getHomeStreams").then(async (res) => {
     let base = res.data._embedded.collectionModels;

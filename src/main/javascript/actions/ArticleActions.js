@@ -7,11 +7,17 @@ import {
   GET_ERRORS,
   ACTION_addComment,
 } from "./StoreDefs";
-import { DISPATCH_init, reloadHomePage } from "./MiscellaneousActions";
+import {
+  DISPATCH_init,
+  LoginCheck,
+  reloadHomePage,
+} from "./MiscellaneousActions";
 
 export function DISPATCH_addComment(id, comment) {
   console.log(comment);
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    if (!LoginCheck(getState)) return;
+
     console.log(comment);
     try {
       let res = await Axios.post("/addComment/" + id, {
@@ -53,7 +59,9 @@ export async function DISPATCH_reloadArticleById(id, dispatch) {
 }
 
 export function DISPATCH_likeArticle(id) {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    if (!LoginCheck(getState)) return;
+
     try {
       let res = await Axios.post("/likeArticle/" + id);
       // console.log(res.data);
@@ -96,7 +104,9 @@ export function DISPATCH_likeArticle(id) {
 }
 
 export function DISPATCH_dislikeArticle(id) {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    if (!LoginCheck(getState)) return;
+
     try {
       let res = await Axios.post("/dislikeArticle/" + id);
       dispatch({
