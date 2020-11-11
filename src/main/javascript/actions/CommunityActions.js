@@ -3,7 +3,7 @@ import {
   ACTION_addCommunityToLoggedInUser,
   ACTION_openCommunity,
 } from "./StoreDefs";
-import { reloadHomePage } from "./MiscellaneousActions";
+import { reloadHomePage, select } from "./MiscellaneousActions";
 
 export function DISPATCH_joinCommunity(payload) {
   return (dispatch) => {
@@ -23,30 +23,38 @@ export function DISPATCH_joinCommunity(payload) {
 }
 
 export function DISPATCH_openCommunity(com_url) {
-  return (dispatch, getState) => {
-    Axios.get(com_url).then((res) => {
-      console.log(res);
+  return async (dispatch, getState) => {
+    let res = await Axios.get(com_url);
+    console.log(res);
 
-      let articles = [];
+    let articles = [];
 
-      try {
-        articles =
-          res.data.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
-        if (articles == null) articles = [];
-      } catch {
-        articles = [];
-      }
+    try {
+      articles =
+        res.data.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
+      if (articles == null) articles = [];
+    } catch {
+      articles = [];
+    }
 
-      getState().reducer.tabs.open.find((x) => {
+    if (
+      !getState().reducer.tabs.open.find((x) => {
         return x.id === res.data._id;
       })
-        ? $("#tabA" + res.data._id).tab("show")
-        : dispatch({
-            type: ACTION_openCommunity,
-            payload: res.data,
-            articles: articles,
-          });
-    });
+    ) {
+      await dispatch({
+        type: ACTION_openCommunity,
+        payload: res.data,
+        articles: articles,
+      });
+    }
+
+    await select(dispatch, res.data._id);
+
+    // await dispatch({
+    //   type: "selectTab",
+    //   id: res.data._id,
+    // });
   };
 }
 

@@ -7,6 +7,7 @@ import {
   ACTION_openUser,
   GET_ERRORS,
 } from "./StoreDefs";
+import { select } from "./MiscellaneousActions";
 
 export function DISPATCH_logOut() {
   $("#home-tab").tab("show");
@@ -21,29 +22,40 @@ export function DISPATCH_logOut() {
 export function DISPATCH_openUser(url) {
   //USING getstate
   console.log(url);
-  return (dispatch, getState) => {
-    Axios.get(url).then((res) => {
-      console.log("data");
-      console.log(res.data);
+  return async (dispatch, getState) => {
+    let res = await Axios.get(url); //.then((res) => {
+    console.log("data");
+    console.log(res.data);
 
-      let base = res.data;
+    let base = res.data;
 
-      let vars = getVarsFromResponse(base);
+    let vars = getVarsFromResponse(base);
 
-      //check if already open
-      getState().reducer.tabs.open.find((x) => {
+    //check if already open
+    if (
+      !getState().reducer.tabs.open.find((x) => {
         return x.id === res.data._id;
       })
-        ? $("#tabA" + res.data._id).tab("show")
-        : dispatch({
-            type: ACTION_openUser,
-            data: res.data,
+    )
+      //? $("#tabA" + res.data._id).tab("show")
+      //:
+      await dispatch({
+        type: ACTION_openUser,
+        data: res.data,
 
-            articles: vars.articles,
-            profiles: vars.profiles,
-            communities: vars.communities,
-          });
-    });
+        articles: vars.articles,
+        profiles: vars.profiles,
+        communities: vars.communities,
+      });
+
+    await select(dispatch, res.data._id);
+
+    // await dispatch({
+    //   type: "selectTab",
+    //   id: res.data._id,
+    // });
+
+    //});
   };
 }
 

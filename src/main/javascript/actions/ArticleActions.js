@@ -11,6 +11,7 @@ import {
   DISPATCH_init,
   LoginCheck,
   reloadHomePage,
+  select,
 } from "./MiscellaneousActions";
 
 export function DISPATCH_addComment(id, comment) {
@@ -102,18 +103,27 @@ export function DISPATCH_openArticle(url) {
   console.log("open article");
   console.log(url);
 
-  return (dispatch, getState) => {
-    Axios.get(url).then((res) => {
-      //check if already open
-      getState().reducer.tabs.open.find((x) => {
+  return async (dispatch, getState) => {
+    let res = await Axios.get(url); //.then((res) => {
+    //check if already open
+
+    if (
+      !getState().reducer.tabs.open.find((x) => {
         return x.id === res.data._id;
       })
-        ? $("#tabA" + res.data._id).tab("show")
-        : dispatch({
-            type: ACTION_openArticle,
-            payload: res.data,
-          });
-    });
+    ) {
+      await dispatch({
+        type: ACTION_openArticle,
+        payload: res.data,
+      });
+    }
+
+    await select(dispatch, res.data._id);
+
+    // await dispatch({
+    //   type: "selectTab",
+    //   id: res.data._id,
+    // });
   };
 }
 

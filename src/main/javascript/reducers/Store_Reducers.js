@@ -42,6 +42,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case "selectTab":
+      return {
+        ...state,
+        selectedTab: action.id,
+      };
+
+    //----------------------------------------------------
+
     case at.ACTION_openCreateArticleTab:
       return createArticleState(state, action);
 

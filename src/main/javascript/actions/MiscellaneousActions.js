@@ -4,7 +4,6 @@ import {
   ACTION_init,
   ACTION_logIn,
   ACTION_removeOpenTabById,
-  ACTION_logOut,
 } from "./StoreDefs";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
@@ -139,4 +138,11 @@ function getInitFromEmbedded(base) {
     profiles: profiles,
     communities: communities,
   };
+}
+
+export async function select(dispatch, id) {
+  await dispatch({
+    type: "selectTab",
+    id: id,
+  });
 }

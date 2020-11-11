@@ -10,7 +10,8 @@ function Tab_Pane(props) {
     console.log("selected tab changed" + props.selectedTab);
 
     if (props.selectedTab !== "") {
-      $("#tabA" + props.selectedTab + props.selectedTab).tab("show");
+      // $("#tabA" + props.selectedTab + props.selectedTab).tab("show");
+      $("#tabA" + props.selectedTab).tab("show");
     } else {
       $("#home-tab").tab("show");
     }
