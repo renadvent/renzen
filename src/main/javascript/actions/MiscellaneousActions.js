@@ -50,55 +50,106 @@ export function DISPATCH_addBookmarkASYNC(userId, articleId, name) {
 export function DISPATCH_init() {
   //console.log("initing");
 
-  return (dispatch, getState) => {
-    Axios.get("/getHomeStreams").then(async (res) => {
-      let base = res.data._embedded.collectionModels;
-
-      let init = getInitFromEmbedded(base);
-
-      //await
-      await dispatch({
-        type: ACTION_init,
-        payload: {
-          articles: init.articles,
-          users: init.profiles,
-          communities: init.communities,
-        },
-      });
-
-      let token = localStorage.getItem("jwtToken");
-
-      //console.log(token);
-
-      if (token != null && getState().reducer.user.logged_in === false) {
-        //let token = localStorage.getItem("jwtToken");
-        setJWTToken(token);
-        const decoded = jwt_decode(token);
-
-        //work on expired tokens
-
-        // const currentTime = Date.now() / 1000;
-        // if (decoded.exp < currentTime) {
-        //   return dispatch({
-        //     type: ACTION_logOut,
-        //   });
-        //   window.location.href = "/";
-        // }
-
-        let res = await Axios.get("/getProfileTabComponentCO/" + decoded.id);
-        let base = res.data;
-        let vars = getVarsFromResponse(base);
-
-        return dispatch({
-          type: ACTION_logIn,
-          payload: res.data,
-          articles: vars.articles,
-          communities: vars.communities,
-          bookmarks: vars.bookmarks,
-        });
-      }
-    });
+  return async (dispatch, getState) => {
+    await reloadHomePage(dispatch);
+    // Axios.get("/getHomeStreams").then(async (res) => {
+    //   let base = res.data._embedded.collectionModels;
+    //
+    //   let init = getInitFromEmbedded(base);
+    //
+    //   //await
+    //   await dispatch({
+    //     type: ACTION_init,
+    //     payload: {
+    //       articles: init.articles,
+    //       users: init.profiles,
+    //       communities: init.communities,
+    //     },
+    //   });
+    //
+    //   let token = localStorage.getItem("jwtToken");
+    //
+    //   //console.log(token);
+    //
+    //   if (token != null && getState().reducer.user.logged_in === false) {
+    //     //let token = localStorage.getItem("jwtToken");
+    //     setJWTToken(token);
+    //     const decoded = jwt_decode(token);
+    //
+    //     //work on expired tokens
+    //
+    //     // const currentTime = Date.now() / 1000;
+    //     // if (decoded.exp < currentTime) {
+    //     //   return dispatch({
+    //     //     type: ACTION_logOut,
+    //     //   });
+    //     //   window.location.href = "/";
+    //     // }
+    //
+    //     let res = await Axios.get("/getProfileTabComponentCO/" + decoded.id);
+    //     let base = res.data;
+    //     let vars = getVarsFromResponse(base);
+    //
+    //     return dispatch({
+    //       type: ACTION_logIn,
+    //       payload: res.data,
+    //       articles: vars.articles,
+    //       communities: vars.communities,
+    //       bookmarks: vars.bookmarks,
+    //     });
+    //   }
+    // });
   };
+}
+
+export async function reloadHomePage(dispatch) {
+  Axios.get("/getHomeStreams").then(async (res) => {
+    let base = res.data._embedded.collectionModels;
+
+    let init = getInitFromEmbedded(base);
+
+    //await
+    await dispatch({
+      type: ACTION_init,
+      payload: {
+        articles: init.articles,
+        users: init.profiles,
+        communities: init.communities,
+      },
+    });
+
+    let token = localStorage.getItem("jwtToken");
+
+    //console.log(token);
+
+    if (token != null && getState().reducer.user.logged_in === false) {
+      //let token = localStorage.getItem("jwtToken");
+      setJWTToken(token);
+      const decoded = jwt_decode(token);
+
+      //work on expired tokens
+
+      // const currentTime = Date.now() / 1000;
+      // if (decoded.exp < currentTime) {
+      //   return dispatch({
+      //     type: ACTION_logOut,
+      //   });
+      //   window.location.href = "/";
+      // }
+
+      let res = await Axios.get("/getProfileTabComponentCO/" + decoded.id);
+      let base = res.data;
+      let vars = getVarsFromResponse(base);
+
+      return dispatch({
+        type: ACTION_logIn,
+        payload: res.data,
+        articles: vars.articles,
+        communities: vars.communities,
+        bookmarks: vars.bookmarks,
+      });
+    }
+  });
 }
 
 function getInitFromEmbedded(base) {

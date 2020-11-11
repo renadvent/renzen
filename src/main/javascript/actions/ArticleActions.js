@@ -7,7 +7,7 @@ import {
   GET_ERRORS,
   ACTION_addComment,
 } from "./StoreDefs";
-import { DISPATCH_init } from "./MiscellaneousActions";
+import { DISPATCH_init, reloadHomePage } from "./MiscellaneousActions";
 
 export function DISPATCH_addComment(id, comment) {
   console.log(comment);
@@ -136,8 +136,8 @@ export function DISPATCH_openArticle(url) {
 }
 
 export function DISPATCH_createArticle(payload, user, community, sectionData) {
-  return (dispatch) => {
-    Axios.post("/createArticle", {
+  return async (dispatch) => {
+    let res = await Axios.post("/createArticle", {
       articleName: payload.articleName,
       description: payload.articleDescription,
       workName: payload.workName,
@@ -149,19 +149,23 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
       //userID: user,
       communityID: community,
       articleSectionDOList: sectionData,
-    }).then((res) => {
-      dispatch({
-        type: ACTION_openArticle,
-        payload: res.data,
-      });
-
-      // DISPATCH_init();
-
-      // dispatch({
-      //   type: ACTION_addCommunityToLoggedInUser,
-      //   id: res.data._id,
-      // });
+    }); //.then((res) => {
+    dispatch({
+      type: ACTION_openArticle,
+      payload: res.data,
     });
+
+    await reloadHomePage(dispatch);
+
+    //DISPATCH_init();
+
+    // DISPATCH_init();
+
+    // dispatch({
+    //   type: ACTION_addCommunityToLoggedInUser,
+    //   id: res.data._id,
+    // });
+    // });
   };
 }
 

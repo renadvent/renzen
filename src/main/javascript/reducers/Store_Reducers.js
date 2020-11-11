@@ -101,36 +101,37 @@ const reducer = (state = initialState, action) => {
 
     // ----------------------------------------------------
     //TODO these are client-side manual state updates
-
-    case at.ACTION_likeArticle:
-      return {
-        ...state,
-        tabs: {
-          ...state.tabs,
-
-          open: state.tabs.open.map((x) => {
-            if (x.id === action.id) {
-              x.likes = action.likes;
-            }
-            return x;
-          }),
-        },
-      };
-
-    case at.ACTION_dislikeArticle:
-      return {
-        ...state,
-        tabs: {
-          ...state.tabs,
-
-          open: state.tabs.open.map((x) => {
-            if (x.id === action.id) {
-              x.dislikes = action.dislikes;
-            }
-            return x;
-          }),
-        },
-      };
+    //dont do these rn
+    //
+    // case at.ACTION_likeArticle:
+    //   return {
+    //     ...state,
+    //     tabs: {
+    //       ...state.tabs,
+    //
+    //       open: state.tabs.open.map((x) => {
+    //         if (x.id === action.id) {
+    //           x.likes = action.likes;
+    //         }
+    //         return x;
+    //       }),
+    //     },
+    //   };
+    //
+    // case at.ACTION_dislikeArticle:
+    //   return {
+    //     ...state,
+    //     tabs: {
+    //       ...state.tabs,
+    //
+    //       open: state.tabs.open.map((x) => {
+    //         if (x.id === action.id) {
+    //           x.dislikes = action.dislikes;
+    //         }
+    //         return x;
+    //       }),
+    //     },
+    //   };
 
     case at.ACTION_addCommunityToLoggedInUser:
       return {
