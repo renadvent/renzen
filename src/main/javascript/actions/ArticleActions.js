@@ -18,6 +18,8 @@ export function DISPATCH_addComment(id, comment) {
         comment: comment,
       });
 
+      await DISPATCH_reloadArticleById(id, dispatch);
+
       //TODO add dispatch to reload comments
     } catch (error) {
       dispatch({
@@ -29,16 +31,60 @@ export function DISPATCH_addComment(id, comment) {
   };
 }
 
+export async function DISPATCH_reloadArticleById(id, dispatch) {
+  // return async (dispatch) => {
+  try {
+    let res = await Axios.get("/getArticleStreamComponentCO/" + id);
+
+    // console.log("res" + res);
+
+    dispatch({
+      type: "reload",
+      payload: res,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      error: error,
+      //payload: error.response.data,
+    });
+  }
+  // };
+}
+
 export function DISPATCH_likeArticle(id) {
   return async (dispatch) => {
     try {
       let res = await Axios.post("/likeArticle/" + id);
-      console.log(res.data);
-      dispatch({
+      // console.log(res.data);
+
+      await dispatch({
         type: ACTION_likeArticle,
         likes: res.data,
         id: id,
       });
+
+      console.log("about to reaload");
+      await DISPATCH_reloadArticleById(id, dispatch);
+
+      // try {
+      //   let res = await Axios.get("/getArticleStreamComponentCO/" + id);
+      //
+      //   console.log("res" + res);
+      //
+      //   dispatch({
+      //     type: "reload",
+      //     payload: res,
+      //   });
+      // } catch (error) {
+      //   dispatch({
+      //     type: GET_ERRORS,
+      //     error: error,
+      //     //payload: error.response.data,
+      //   });
+      // }
+
+      console.log("done");
     } catch (error) {
       dispatch({
         type: GET_ERRORS,
@@ -58,6 +104,8 @@ export function DISPATCH_dislikeArticle(id) {
         dislikes: res.data,
         id: id,
       });
+
+      await DISPATCH_reloadArticleById(id, dispatch);
     } catch (error) {
       dispatch({
         type: GET_ERRORS,

@@ -68,7 +68,39 @@ const reducer = (state = initialState, action) => {
     case at.ACTION_createArticle:
       return state;
 
+    //-------------------------
+
+    case "reload":
+      console.log("reloading");
+      return {
+        ...state,
+
+        homeTabData: {
+          ...state.homeTabData,
+          stream_articles: state.homeTabData.stream_articles.map((x) => {
+            if (x.id === action.id) {
+              x = action.payload.data;
+              // x.likes = action.likes;
+            }
+            return x;
+          }),
+        },
+
+        // tabs: {
+        //   ...state.tabs,
+        //
+        //   open: state.tabs.open.map((x) => {
+        //     if (x.id === action.id) {
+        //       x = action.payload.data;
+        //       // x.likes = action.likes;
+        //     }
+        //     return x;
+        //   }),
+        // },
+      };
+
     // ----------------------------------------------------
+    //TODO these are client-side manual state updates
 
     case at.ACTION_likeArticle:
       return {
@@ -111,16 +143,6 @@ const reducer = (state = initialState, action) => {
         },
       };
 
-    //NOT WORKING
-    case at.ACTION_removeOpenTabById:
-      return {
-        ...state,
-        tabs: {
-          ...state.tabs,
-          open: state.tabs.open.filter((tab) => tab.id !== action.id),
-        },
-      };
-
     case at.ACTION_addBookmark:
       return {
         ...state,
@@ -131,6 +153,18 @@ const reducer = (state = initialState, action) => {
           }),
         },
       };
+
+    //NOT WORKING
+    case at.ACTION_removeOpenTabById:
+      return {
+        ...state,
+        tabs: {
+          ...state.tabs,
+          open: state.tabs.open.filter((tab) => tab.id !== action.id),
+        },
+      };
+
+    //-----------------------------------------------------
 
     case at.ACTION_init:
       return {
