@@ -72,13 +72,14 @@ const reducer = (state = initialState, action) => {
 
     case "reload":
       console.log("reloading");
+      console.log(state.homeTabData.stream_articles);
       return {
         ...state,
 
         homeTabData: {
           ...state.homeTabData,
           stream_articles: state.homeTabData.stream_articles.map((x) => {
-            if (x.id === action.id) {
+            if (x._id === action.payload.data._id) {
               x = action.payload.data;
             }
             return x;
