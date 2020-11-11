@@ -97,7 +97,7 @@ function HomePageStream(props) {
           Submit Comment
         </button>
         <br />
-        Comments here...
+        <hr />
         <div>
           {commentProps.comments.map((x) => {
             console.log(x);
@@ -122,7 +122,9 @@ function HomePageStream(props) {
             console.log(props2._id);
             props.DISPATCH_likeArticle(props2._id);
           }}
-        ></button>
+        >
+          ⬆
+        </button>
 
         {props2.likes}
 
@@ -133,7 +135,9 @@ function HomePageStream(props) {
           onClick={() => {
             props.DISPATCH_dislikeArticle(props2._id);
           }}
-        ></button>
+        >
+          ⬇
+        </button>
         {props2.dislikes}
       </div>
     );

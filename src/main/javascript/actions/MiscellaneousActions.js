@@ -81,23 +81,20 @@ export async function reloadHomePage(dispatch, getState) {
       },
     });
 
-    //check for token
-    let token = localStorage.getItem("jwtToken");
+    let token = null;
+
+    //check for coming from Ink
+    if (OpenFromInkSource !== null) {
+      token = OpenFromInkToken;
+    } else {
+      //check for token saved in browser
+      token = localStorage.getItem("jwtToken");
+    }
 
     if (token != null && getState().reducer.user.logged_in === false) {
       //let token = localStorage.getItem("jwtToken");
       setJWTToken(token);
       const decoded = jwt_decode(token);
-
-      //TODO work on expired tokens
-
-      // const currentTime = Date.now() / 1000;
-      // if (decoded.exp < currentTime) {
-      //   return dispatch({
-      //     type: ACTION_logOut,
-      //   });
-      //   window.location.href = "/";
-      // }
 
       let res = await Axios.get("/getProfileTabComponentCO/" + decoded.id);
       let base = res.data;

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 import setJWTToken from "./securityUtils/setJWTToken";
+import jwt_decode from "jwt-decode";
 
 /*
 sets up page and divisions
@@ -17,15 +18,16 @@ const jwtToken = localStorage.jwtToken;
 function App(props) {
   //load home screen info
   useEffect(() => {
-    // if (jwtToken) {
-    //   setJWTToken(jwtToken);
-    //   const decoded_jwtToken = jwt_decode(jwtToken);
-    //
-    //   const currentTime = Date.now() / 1000;
-    //   if (decoded_jwtToken.exp < currentTime) {
-    //     props.DISPATCH_logOut();
-    //   }
-    // }
+    //CHECK TO LOGOUT
+    if (jwtToken) {
+      setJWTToken(jwtToken);
+      const decoded_jwtToken = jwt_decode(jwtToken);
+
+      const currentTime = Date.now() / 1000;
+      if (decoded_jwtToken.exp < currentTime) {
+        props.DISPATCH_logOut();
+      }
+    }
 
     props.DISPATCH_init();
   }, []);
