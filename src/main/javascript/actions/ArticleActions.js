@@ -153,7 +153,8 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
       image: OpenFromInkLink,
 
       //userID: user,
-      communityID: community,
+      // communityID: community,
+      communityID: payload.community,
       articleSectionDOList: sectionData,
     });
     dispatch({

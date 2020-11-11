@@ -130,6 +130,9 @@ function Create_Article_Page(props) {
     tags: "",
     pollOptions: "",
     image: "",
+
+    community: "",
+    communityName: "",
   });
 
   function handleChange(event) {
@@ -183,50 +186,63 @@ function Create_Article_Page(props) {
               Dropdown button
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a className="dropdown-item" href="#">
-                Community 1
-              </a>
-              <a className="dropdown-item" href="#">
-                Community 2
-              </a>
-              <a className="dropdown-item" href="#">
-                Community 3
-              </a>
+              <button className="dropdown-item" href="#">
+                New Community
+              </button>
 
-              {
-                //TODO get communities that user is a part of
-              }
+              {props.user.communities.map((x) => {
+                console.log(articleData);
+                console.log(x);
+                return (
+                  <button
+                    className="dropdown-item"
+                    onClick={() =>
+                      setArticleData((prevState) => {
+                        return {
+                          ...prevState,
+                          community: x._id,
+                          communityName: x.name,
+                        };
+                      })
+                    }
+                  >
+                    {x.name}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <label>Which Work/Series is this Post a part of?</label>
-          <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Dropdown button
-            </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a className="dropdown-item" href="#">
-                Work 1
-              </a>
-              <a className="dropdown-item" href="#">
-                Work 2
-              </a>
-              <a className="dropdown-item" href="#">
-                Create New Work
-              </a>
+          {articleData.communityName}
 
-              {
-                //TODO get works that user has created
-              }
-            </div>
-          </div>
+          {/*<label>Which Work/Series is this Post a part of?</label>*/}
+          {/*<div className="dropdown">*/}
+          {/*  <button*/}
+          {/*    className="btn btn-secondary dropdown-toggle"*/}
+          {/*    type="button"*/}
+          {/*    id="dropdownMenuButton"*/}
+          {/*    data-toggle="dropdown"*/}
+          {/*    aria-haspopup="true"*/}
+          {/*    aria-expanded="false"*/}
+          {/*  >*/}
+          {/*    Dropdown button*/}
+          {/*  </button>*/}
+          {/*  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">*/}
+          {/*    <a className="dropdown-item" href="#">*/}
+          {/*      Work 1*/}
+          {/*    </a>*/}
+          {/*    <a className="dropdown-item" href="#">*/}
+          {/*      Work 2*/}
+          {/*    </a>*/}
+          {/*    <a className="dropdown-item" href="#">*/}
+          {/*      Create New Work*/}
+          {/*    </a>*/}
+
+          {/*    {*/}
+          {/*      //TODO get works that user has created*/}
+          {/*    }*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
           <div className="input-group mb-3">
             <div className="input-group-prepend">
@@ -243,27 +259,27 @@ function Create_Article_Page(props) {
                 aria-describedby="basic-addon3"
               />
             </div>
-            <div className="input-group-prepend">
-              <span className="input-group-text">Work Name</span>
-            </div>
-            <input
-              type="text"
-              name={"workName"}
-              value={articleData.workName}
-              onChange={handleChange}
-            />
-            Completion percentage
-            <div className="slidecontainer">
-              <input
-                type="range"
-                min="1"
-                max="100"
-                value="50"
-                className="slider"
-                id="myRange"
-                step={5}
-              />
-            </div>
+            {/*<div className="input-group-prepend">*/}
+            {/*  <span className="input-group-text">Work Name</span>*/}
+            {/*</div>*/}
+            {/*<input*/}
+            {/*  type="text"*/}
+            {/*  name={"workName"}*/}
+            {/*  value={articleData.workName}*/}
+            {/*  onChange={handleChange}*/}
+            {/*/>*/}
+            {/*Completion percentage*/}
+            {/*<div className="slidecontainer">*/}
+            {/*  <input*/}
+            {/*    type="range"*/}
+            {/*    min="1"*/}
+            {/*    max="100"*/}
+            {/*    value="50"*/}
+            {/*    className="slider"*/}
+            {/*    id="myRange"*/}
+            {/*    step={5}*/}
+            {/*  />*/}
+            {/*</div>*/}
             {/*var slider = document.getElementById("myRange");*/}
             {/*var output = document.getElementById("demo");*/}
             {/*output.innerHTML = slider.value;*/}
@@ -338,6 +354,7 @@ function Create_Article_Page(props) {
                 thisCommunity,
                 sectionData
               );
+              //TODO fix here
               props.DISPATCH_removeOpenTabById(props.id + props.id);
             }}
             className="btn btn-secondary"
