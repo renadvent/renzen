@@ -94,30 +94,33 @@ function Login_Register(props) {
           {/*  <div className="invalid-feedback">{props.errors.username}</div>*/}
           {/*)}*/}
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            type="password"
-            className="form-control"
-            name="password"
-          />
-        </div>
 
-        {/*{props.errors.username && (*/}
-        {/*  <div className="invalid-feedback">{props.errors.username}</div>*/}
-        {/*)}*/}
-
-        <button
-          className="btn btn-dark"
-          onClick={() => {
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
             props.DISPATCH_logIn(userName, password);
             resetFields();
           }}
         >
-          Login
-        </button>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              type="password"
+              className="form-control"
+              name="password"
+            />
+          </div>
+
+          {/*{props.errors.username && (*/}
+          {/*  <div className="invalid-feedback">{props.errors.username}</div>*/}
+          {/*)}*/}
+
+          <button type={"submit"} className="btn btn-dark">
+            Login
+          </button>
+        </form>
       </div>
     );
   }
@@ -130,60 +133,62 @@ function Login_Register(props) {
         role="tabpanel"
         aria-labelledby="signup-tab"
       >
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            value={userName}
-            onChange={(event) => setUserName(event.target.value)}
-            type="username"
-            className="form-control"
-            name="username"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            type="email"
-            className="form-control"
-            name="email"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            type="password"
-            className="form-control"
-            name="password"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Confirm Password</label>
-          <input
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
-            type="password"
-            className="form-control"
-            name="confirmPassword"
-          />
-        </div>
-
-        <button
-          className="btn btn-dark"
-          onClick={() => {
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
             props.DISPATCH_register(userName, password, confirmPassword, email);
             //props.DISPATCH_register(userName, email, password, confirmPassword);
             resetFields();
           }}
         >
-          Register
-        </button>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              value={userName}
+              onChange={(event) => setUserName(event.target.value)}
+              type="username"
+              className="form-control"
+              name="username"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              type="email"
+              className="form-control"
+              name="email"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              type="password"
+              className="form-control"
+              name="password"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Confirm Password</label>
+            <input
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              type="password"
+              className="form-control"
+              name="confirmPassword"
+            />
+          </div>
+
+          <button type={"submit"} className="btn btn-dark">
+            Register
+          </button>
+        </form>
       </div>
     );
   }
