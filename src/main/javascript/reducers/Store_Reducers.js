@@ -79,8 +79,8 @@ const reducer = (state = initialState, action) => {
     //-------------------------
 
     case "reload":
-      console.log("reloading");
-      console.log(state.homeTabData.stream_articles);
+      // console.log("reloading");
+      // console.log(state.homeTabData.stream_articles);
       return {
         ...state,
 
@@ -89,6 +89,24 @@ const reducer = (state = initialState, action) => {
           stream_articles: state.homeTabData.stream_articles.map((x) => {
             if (x._id === action.payload.data._id) {
               x = action.payload.data;
+            }
+            return x;
+          }),
+        },
+      };
+
+    case "reloadTab":
+      console.log("reloading tab");
+      console.log(state);
+      console.log(action.payload);
+      return {
+        ...state,
+
+        tabs: {
+          open: state.tabs.open.map((x) => {
+            if (x.data._id === action.payload.data._id) {
+              console.log("FOUND");
+              x.data = action.payload.data;
             }
             return x;
           }),

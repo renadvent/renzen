@@ -25,7 +25,7 @@ export function DISPATCH_addComment(id, comment) {
         comment: comment,
       });
 
-      await DISPATCH_reloadArticleById(id, dispatch);
+      await DISPATCH_reloadArticleById(id, dispatch, getState);
 
       //TODO add dispatch to reload comments
     } catch (error) {
@@ -37,13 +37,19 @@ export function DISPATCH_addComment(id, comment) {
   };
 }
 
-export async function DISPATCH_reloadArticleById(id, dispatch) {
+export async function DISPATCH_reloadArticleById(id, dispatch, getState) {
   try {
-    let res = await Axios.get("/getArticleStreamComponentCO/" + id);
+    let streamRes = await Axios.get("/getArticleStreamComponentCO/" + id);
+    let tabRes = await Axios.get("/getArticleTabComponentCO/" + id);
 
-    dispatch({
+    await dispatch({
       type: "reload",
-      payload: res,
+      payload: streamRes,
+    });
+
+    await dispatch({
+      type: "reloadTab",
+      payload: tabRes,
     });
   } catch (error) {
     dispatch({
@@ -51,6 +57,12 @@ export async function DISPATCH_reloadArticleById(id, dispatch) {
       error: error,
     });
   }
+
+  //TODO update article tabs
+
+  // try{
+  //   let res = await Axios.get("/getArticleTabComponentCO/"+id)
+  // }
 }
 
 export function DISPATCH_likeArticle(id) {
@@ -67,7 +79,7 @@ export function DISPATCH_likeArticle(id) {
       });
 
       console.log("about to reaload");
-      await DISPATCH_reloadArticleById(id, dispatch);
+      await DISPATCH_reloadArticleById(id, dispatch, getState);
     } catch (error) {
       dispatch({
         type: GET_ERRORS,
@@ -89,7 +101,7 @@ export function DISPATCH_dislikeArticle(id) {
         id: id,
       });
 
-      await DISPATCH_reloadArticleById(id, dispatch);
+      await DISPATCH_reloadArticleById(id, dispatch, getState);
     } catch (error) {
       dispatch({
         type: GET_ERRORS,

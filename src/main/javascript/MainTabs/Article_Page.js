@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import { ArticlePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { ArticlePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
-import { CommentSection } from "../components/CommentSection";
+
+import CommentSection from "../components/CommentSection";
 
 /**
 renders the article content as tab content
@@ -55,7 +56,9 @@ function Article_Page(props) {
 
       <CommentSection
         _id={props.payload._id}
-        comments={props.payload.comments}
+        // comments={props.payload.comments}
+        comments={props.article.data.comments}
+        props={props}
       />
     </div>
   );

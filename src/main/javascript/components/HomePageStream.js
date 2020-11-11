@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { HomePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { HomePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
-import { CommentSection } from "./CommentSection";
+import CommentSection from "./CommentSection";
 
 function HomePageStream(props) {
   return (
@@ -66,6 +66,7 @@ function HomePageStream(props) {
                           <CommentSection
                             _id={single._id}
                             comments={single.comments}
+                            props={props}
                           />
                         </div>
                       </div>

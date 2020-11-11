@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { ArticlePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
+import { ArticlePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
-export function CommentSection(commentProps) {
+function CommentSection(commentProps) {
   let [comment, setComment] = useState("");
 
   const handleChange = (event) => setComment(event.target.value);
@@ -9,8 +12,11 @@ export function CommentSection(commentProps) {
     <div>
       <input value={comment} onChange={handleChange} />
       <button
-        onClick={() =>
-          props.dispatch(props.DISPATCH_addComment(commentProps._id, comment))
+        onClick={
+          () =>
+            //commentProps.dispatch(
+            commentProps.props.DISPATCH_addComment(commentProps._id, comment)
+          //)
         }
       >
         Submit Comment
@@ -31,3 +37,5 @@ export function CommentSection(commentProps) {
     </div>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentSection);
