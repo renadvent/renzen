@@ -79,6 +79,8 @@ export function DISPATCH_likeArticle(id) {
       });
 
       console.log("about to reaload");
+
+      //TODO Not working for tab component
       await DISPATCH_reloadArticleById(id, dispatch, getState);
     } catch (error) {
       dispatch({
@@ -160,6 +162,8 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
     });
 
     await reloadHomePage(dispatch, getState);
+
+    await select(dispatch, res.data._id);
   };
 }
 

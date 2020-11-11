@@ -9,7 +9,7 @@ function HomePageStream(props) {
     <div>
       <ul className="list-group list-group-flush">
         {props.source.map((single) => {
-          console.log(single);
+          //console.log(single);
           return (
             <div>
               <div className="card">

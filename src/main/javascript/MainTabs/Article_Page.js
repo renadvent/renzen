@@ -73,16 +73,15 @@ function Article_Page(props) {
             props.DISPATCH_likeArticle(props.payload._id);
           }}
         >
-          Likes {props.article.likes}
+          Likes {props.article.data.likes}
         </button>
-
         <button
           className="btn btn-secondary"
           onClick={() => {
             props.DISPATCH_dislikeArticle(props.payload._id);
           }}
         >
-          Dislikes {props.article.dislikes}
+          Dislikes {props.article.data.dislikes}
         </button>
       </div>
     );

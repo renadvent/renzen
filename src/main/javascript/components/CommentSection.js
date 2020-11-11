@@ -10,8 +10,9 @@ function CommentSection(commentProps) {
 
   return (
     <div>
-      <input value={comment} onChange={handleChange} />
+      <input type="text" value={comment} onChange={handleChange} />
       <button
+        className="btn btn-secondary"
         onClick={
           () =>
             //commentProps.dispatch(
@@ -25,9 +26,12 @@ function CommentSection(commentProps) {
       <hr />
       <div>
         {commentProps.comments.map((x) => {
-          console.log(x);
+          // console.log(x);
           return (
-            <div>
+            <div
+            //className="d-flex justify-content-center"
+            //style={{ width: "60%" }}
+            >
               <hr />
               {x.authorName}: {x.comment}
             </div>

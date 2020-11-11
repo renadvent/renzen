@@ -45,9 +45,16 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         this.communityStreamCOAssembler = communityStreamCOAssembler;
     }
 
+    void common(ProfileDO source, ProfileTabComponentCO co){
+
+
+
+    }
     @Override
     public ProfileTabComponentCO convertDomainToPublicView(ProfileDO source) {
         final ProfileTabComponentCO co = new ProfileTabComponentCO();
+
+        common(source,co);
 
         co.setName(source.getUsername());
         co.set_id(source.get_id().toHexString());
@@ -58,6 +65,8 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
                 .assembleDomainToPublicModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
         co.setArticleInfoComponentCOS(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleIDList())));
+
+
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
 
@@ -82,6 +91,9 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     public ProfileTabComponentCO convertDomainToFullView(ProfileDO source) {
 
         final ProfileTabComponentCO co = new ProfileTabComponentCO();
+
+        common(source,co);
+
 
         co.setName(source.getUsername());
         co.set_id(source.get_id().toHexString());
