@@ -3,6 +3,7 @@ import {
   ACTION_addCommunityToLoggedInUser,
   ACTION_openCommunity,
 } from "./StoreDefs";
+import { reloadHomePage } from "./MiscellaneousActions";
 
 export function DISPATCH_joinCommunity(payload) {
   return (dispatch) => {
@@ -51,34 +52,35 @@ export function DISPATCH_openCommunity(com_url) {
 }
 
 export function DISPATCH_createCommunity(payload) {
-  return (dispatch, getState) => {
-    Axios.post("/createCommunity", {
+  return async (dispatch, getState) => {
+    let res = await Axios.post("/createCommunity", {
       name: payload.name,
-    }).then((res) => {
-      console.log("create com res");
-      console.log(res.data);
+    }); //.then((res) => {
+    console.log("create com res");
+    console.log(res.data);
 
-      let articles = [];
+    let articles = [];
 
-      try {
-        articles =
-          res.data.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
-        if (articles == null) articles = [];
-      } catch {
-        articles = [];
-      }
+    try {
+      articles =
+        res.data.articleInfoComponentCOS._embedded.articleInfoComponentCoes;
+      if (articles == null) articles = [];
+    } catch {
+      articles = [];
+    }
 
-      //if ((res.data.articleInfoComponentCOS = {}))
-      dispatch({
-        type: ACTION_openCommunity,
-        payload: res.data,
-        articles: articles,
-      });
-
-      dispatch({
-        type: ACTION_addCommunityToLoggedInUser,
-        data: res.data._id,
-      });
+    //if ((res.data.articleInfoComponentCOS = {}))
+    dispatch({
+      type: ACTION_openCommunity,
+      payload: res.data,
+      articles: articles,
     });
+
+    dispatch({
+      type: ACTION_addCommunityToLoggedInUser,
+      data: res.data._id,
+    });
+
+    await reloadHomePage(dispatch);
   };
 }
