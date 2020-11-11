@@ -6,6 +6,7 @@ export function HomePageStream_dtp(dispatch) {
 
 export const TabPane_mapDispatchToProps = (dispatch) => {
   return {
+    DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
     DISPATCH_init: () => dispatch(store.DISPATCH_init()),
     DISPATCH_openCreateArticleTab: (comid) =>
       dispatch(store.DISPATCH_openCreateArticleTab(comid)),
@@ -76,6 +77,7 @@ export function CreateArticlePage_mapDispatchToProps(dispatch) {
 export function Header_mapDispatchToProps(dispatch) {
   return {
     DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
+    DISPATCH_openUser: (url) => dispatch(store.DISPATCH_openUser(url)),
   };
 }
 

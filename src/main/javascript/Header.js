@@ -16,9 +16,24 @@ function Header(props) {
       </a>
 
       {props.user.logged_in ? (
-        <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
-          Log Out
-        </button>
+        <div>
+          <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
+            Log Out
+          </button>
+
+          <button
+            className="btn btn-dark"
+            //onClick={() => console.log(props.user.user_data)}
+
+            onClick={() =>
+              props.DISPATCH_openUser(
+                props.user.user_data._links.Tab_Version.href
+              )
+            }
+          >
+            Open Your Profile
+          </button>
+        </div>
       ) : null}
     </nav>
   );

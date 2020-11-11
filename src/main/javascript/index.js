@@ -15,7 +15,7 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 //TODO logout if token expired
 
-const jwtToken = localStorage.jwtToken;
+//const jwtToken = localStorage.jwtToken;
 
 // if (jwtToken) {
 //     setJWTToken(jwtToken);

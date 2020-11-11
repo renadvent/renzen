@@ -26,10 +26,6 @@ function Community_Page(props) {
                   creates and write articles of your own!
                 </p>
                 <hr className="my-4" />
-                <p>
-                  More functionality will be coming soon! Such as the ability to
-                  comment on articles, and have discussions on the homepage!
-                </p>
               </div>
             </div>
           </div>

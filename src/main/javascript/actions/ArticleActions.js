@@ -7,6 +7,7 @@ import {
   GET_ERRORS,
   ACTION_addComment,
 } from "./StoreDefs";
+import { DISPATCH_init } from "./MiscellaneousActions";
 
 export function DISPATCH_addComment(id, comment) {
   console.log(comment);
@@ -105,6 +106,8 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
         type: ACTION_openArticle,
         payload: res.data,
       });
+
+      // DISPATCH_init();
 
       // dispatch({
       //   type: ACTION_addCommunityToLoggedInUser,

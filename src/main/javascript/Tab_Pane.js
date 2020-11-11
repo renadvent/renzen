@@ -6,20 +6,11 @@ import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 
 function Tab_Pane(props) {
-  //loads initially, and updates article names etc when a new tab is opened
   useEffect(() => {
-    props.DISPATCH_init();
-  }, []);
+    console.log("selected tab changed" + props.selectedTab);
 
-  useEffect(() => {
-    if (OpenFromInkSource !== null) {
-      props.DISPATCH_openCreateArticleTab("5f92319abce4e159c51a0a11");
-    }
-  }, []);
-
-  useEffect(() => {
     if (props.selectedTab !== "") {
-      $("#tabA" + props.selectedTab).tab("show");
+      $("#tabA" + props.selectedTab + props.selectedTab).tab("show");
     } else {
       $("#home-tab").tab("show");
     }

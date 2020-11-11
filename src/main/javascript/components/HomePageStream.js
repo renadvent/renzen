@@ -24,13 +24,26 @@ function HomePageStream(props) {
                   70%
                 </div>
 
-                <img
-                  className={"mx-auto d-block"}
-                  src={single.image}
-                  alt={"post image"}
-                  width={500}
-                  height={500}
-                />
+                <div className={"row"}>
+                  <div
+                    className={"col col-md-auto"}
+                    // style={{ backgroundColor: "#e3e3e3" }}
+                  >
+                    <LikeDislikeSection
+                      _id={single._id}
+                      likes={single.likes}
+                      dislikes={single.dislikes}
+                    />
+                  </div>
+
+                  <img
+                    className={"mx-auto d-block"}
+                    src={single.image}
+                    alt={"post image"}
+                    width={500}
+                    height={500}
+                  />
+                </div>
                 <li
                   style={{
                     alight: "center",
@@ -44,13 +57,13 @@ function HomePageStream(props) {
                   {single.name}
                 </li>
                 <div className={"row"}>
-                  <div className={"col col-md-auto"}>
-                    <LikeDislikeSection
-                      _id={single._id}
-                      likes={single.likes}
-                      dislikes={single.dislikes}
-                    />
-                  </div>
+                  {/*<div className={"col col-md-auto"}>*/}
+                  {/*  <LikeDislikeSection*/}
+                  {/*    _id={single._id}*/}
+                  {/*    likes={single.likes}*/}
+                  {/*    dislikes={single.dislikes}*/}
+                  {/*  />*/}
+                  {/*</div>*/}
                   <div className={"col"}>
                     <div className={"card"} style={{ textAlign: "left" }}>
                       <div className={"row"}>
