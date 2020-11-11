@@ -44,12 +44,16 @@ function CommentSection(commentProps) {
               }}
             >
               <div className="form-group">
-                <input type="text" value={comment} onChange={handleChange} />
-                <span>
-                  <button type="submit" className="btn btn-secondary">
-                    Post
-                  </button>
-                </span>
+                <div className="input-group">
+                  <input type="text" value={comment} onChange={handleChange} />
+                  {/*<span>*/}
+                  <div className="input-group-append">
+                    <button type="submit" className="btn btn-secondary">
+                      Post
+                    </button>
+                  </div>
+                </div>
+                {/*</span>*/}
               </div>
             </form>
           </li>
