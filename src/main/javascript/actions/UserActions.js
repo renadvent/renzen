@@ -14,7 +14,7 @@ export function DISPATCH_logOut() {
   localStorage.removeItem("jwtToken");
   setJWTToken();
 
-  //TODO change this for live!!!!
+  //TODO change this for live!!!! or not
   //window.location = "localhost:8080";
 
   return {

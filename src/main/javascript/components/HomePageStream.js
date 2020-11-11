@@ -16,14 +16,14 @@ function HomePageStream(props) {
                 <div className="card-header" style={{ textAlign: "left" }}>
                   By: {single.authorName}
                 </div>
-                <div>
-                  Completion Status{" "}
-                  <progress id="file" max="100" value="70">
-                    {" "}
-                    70%{" "}
-                  </progress>{" "}
-                  70%
-                </div>
+                {/*<div>*/}
+                {/*  Completion Status{" "}*/}
+                {/*  <progress id="file" max="100" value="70">*/}
+                {/*    {" "}*/}
+                {/*    70%{" "}*/}
+                {/*  </progress>{" "}*/}
+                {/*  70%*/}
+                {/*</div>*/}
 
                 <div className={"row"}>
                   <div
