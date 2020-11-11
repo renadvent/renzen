@@ -6,6 +6,7 @@ import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Repositories.UserRepository;
+import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,32 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
     final ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO;
 
+    final ImageService imageService;
+
+
     @Autowired
-    public ArticleDO_to_ArticleTabComponentCO(UserRepository repo, ArticleRepository articleRepo, UserService userService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO) {
+    public ArticleDO_to_ArticleTabComponentCO(UserRepository repo, ArticleRepository articleRepo, UserService userService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO, ImageService imageService) {
         this.userRepo = repo;
         this.articleRepo = articleRepo;
         this.userService = userService;
         profileDO_to_profileStreamComponentCO = profileDOtoprofileStreamComponentCO;
         this.articleSectionDO_to_articleSectionCO = articleSectionDO_to_articleSectionCO;
+        this.imageService = imageService;
+    }
+
+    void common(ArticleDO source, ArticleTabComponentCO co){
+
+        try {
+            String name = source.getImage().substring(source.getImage().lastIndexOf('/') + 1);
+
+            co.setImage(imageService.generateSAS(name));
+        } catch (Exception e) {
+            co.setImage(null);
+        }
+
+
+        //co.setImage(source.getImage());
+        co.setComments(source.getComments());
     }
 
     @Synchronized
@@ -41,7 +61,7 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     public ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
         final ArticleTabComponentCO co = new ArticleTabComponentCO();
 
-
+        common(source, co);
 
         co.setName(source.getArticleName());
         co.setDescription(source.getDescription());
@@ -67,6 +87,8 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     @Override
     public ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
         final ArticleTabComponentCO co = new ArticleTabComponentCO();
+
+        common(source, co);
 
         co.setName(source.getArticleName());
         co.setDescription(source.getDescription());

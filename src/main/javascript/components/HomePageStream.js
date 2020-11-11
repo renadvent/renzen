@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { HomePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { HomePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
+import { CommentSection } from "./CommentSection";
 
 function HomePageStream(props) {
   return (
@@ -81,37 +82,37 @@ function HomePageStream(props) {
     </div>
   );
 
-  function CommentSection(commentProps) {
-    let [comment, setComment] = useState("");
-
-    const handleChange = (event) => setComment(event.target.value);
-
-    return (
-      <div>
-        <input value={comment} onChange={handleChange} />
-        <button
-          onClick={() =>
-            props.dispatch(props.DISPATCH_addComment(commentProps._id, comment))
-          }
-        >
-          Submit Comment
-        </button>
-        <br />
-        <hr />
-        <div>
-          {commentProps.comments.map((x) => {
-            console.log(x);
-            return (
-              <div>
-                <hr />
-                {x.authorName}: {x.comment}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
+  // function CommentSection(commentProps) {
+  //   let [comment, setComment] = useState("");
+  //
+  //   const handleChange = (event) => setComment(event.target.value);
+  //
+  //   return (
+  //     <div>
+  //       <input value={comment} onChange={handleChange} />
+  //       <button
+  //         onClick={() =>
+  //           props.dispatch(props.DISPATCH_addComment(commentProps._id, comment))
+  //         }
+  //       >
+  //         Submit Comment
+  //       </button>
+  //       <br />
+  //       <hr />
+  //       <div>
+  //         {commentProps.comments.map((x) => {
+  //           console.log(x);
+  //           return (
+  //             <div>
+  //               <hr />
+  //               {x.authorName}: {x.comment}
+  //             </div>
+  //           );
+  //         })}
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   function LikeDislikeSection(props2) {
     return (

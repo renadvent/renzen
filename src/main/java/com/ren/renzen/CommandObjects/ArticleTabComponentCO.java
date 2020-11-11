@@ -1,5 +1,6 @@
 package com.ren.renzen.CommandObjects;
 
+import com.ren.renzen.DomainObjects.ArticleDO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -31,4 +32,11 @@ public class ArticleTabComponentCO extends RepresentationModel<ArticleTabCompone
 
     int likes;
     int dislikes;
+
+    //new
+
+    String image="";
+    List<ArticleDO.Comment> comments = new ArrayList<>();
+
+
 }
