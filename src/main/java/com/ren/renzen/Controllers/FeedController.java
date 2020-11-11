@@ -84,6 +84,7 @@ public class FeedController {
         var comment = new ArticleDO.Comment();
         comment.setComment(payload.getComment());
         comment.setAuthor(userService.findByUsername(principal.getName()).get_id());
+        comment.setAuthorName(principal.getName());
         article.getComments().add(comment);
         articleService.save(article);
 

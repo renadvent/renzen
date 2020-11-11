@@ -111,7 +111,7 @@ function HomePageStream(props) {
             return (
               <div>
                 <hr />
-                {x.comment}
+                {x.authorName}: {x.comment}
               </div>
             );
           })}

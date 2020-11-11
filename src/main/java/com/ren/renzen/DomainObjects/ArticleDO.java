@@ -58,6 +58,7 @@ public class ArticleDO {
     public static class Comment{
         String comment;
         ObjectId author;
+        String authorName="";
     }
 
     @Data

@@ -80,7 +80,6 @@ const reducer = (state = initialState, action) => {
           stream_articles: state.homeTabData.stream_articles.map((x) => {
             if (x.id === action.id) {
               x = action.payload.data;
-              // x.likes = action.likes;
             }
             return x;
           }),
