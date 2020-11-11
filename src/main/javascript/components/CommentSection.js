@@ -8,41 +8,66 @@ function CommentSection(commentProps) {
 
   const handleChange = (event) => setComment(event.target.value);
 
+  function resetFields() {
+    setComment("");
+  }
+
   return (
     <div>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          //commentProps.dispatch(
-          commentProps.props.DISPATCH_addComment(commentProps._id, comment);
-          //)
-        }}
-      >
-        <div className="form-group">
-          <input type="text" value={comment} onChange={handleChange} />
-          <span>
-            <button type="submit" className="btn btn-primary">
-              Submit Comment
-            </button>
-          </span>
-        </div>
-      </form>
+      {/*<br />*/}
+      {/*<hr />*/}
 
-      <br />
-      <hr />
-      <div>
-        {commentProps.comments.map((x) => {
-          // console.log(x);
-          return (
-            <div
-            //className="d-flex justify-content-center"
-            //style={{ width: "60%" }}
+      {/*<div className="card" style="width: 18rem;">*/}
+      {/*    <ul className="list-group list-group-flush">*/}
+      {/*        <li className="list-group-item">Cras justo odio</li>*/}
+      {/*        <li className="list-group-item">Dapibus ac facilisis in</li>*/}
+      {/*        <li className="list-group-item">Vestibulum at eros</li>*/}
+      {/*    </ul>*/}
+      {/*</div>*/}
+
+      {/*style="width: 18rem;"*/}
+      <div className="card">
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                //commentProps.dispatch(
+                commentProps.props.DISPATCH_addComment(
+                  commentProps._id,
+                  comment
+                );
+
+                resetFields();
+
+                //)
+              }}
             >
-              <hr />
-              {x.authorName}: {x.comment}
-            </div>
-          );
-        })}
+              <div className="form-group">
+                <input type="text" value={comment} onChange={handleChange} />
+                <span>
+                  <button type="submit" className="btn btn-secondary">
+                    Post
+                  </button>
+                </span>
+              </div>
+            </form>
+          </li>
+
+          {commentProps.comments.map((x) => {
+            // console.log(x);
+            return (
+              <li
+                className="list-group-item"
+                //className="d-flex justify-content-center"
+                //style={{ width: "60%" }}
+              >
+                {/*<hr />*/}
+                {x.authorName}: {x.comment}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
