@@ -10,7 +10,7 @@ Actual tab parts that a user can click on.
 Also allows the user to close the tab by clicking on the "x"
  */
 
-function Page_Tab(props) {
+function Page_TabLabels(props) {
   return (
     <li className="nav-item">
       <a
@@ -34,4 +34,4 @@ function Page_Tab(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page_Tab);
+export default connect(mapStateToProps, mapDispatchToProps)(Page_TabLabels);

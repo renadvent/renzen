@@ -15,7 +15,6 @@ export function ArticlePage_StateToProps(state, ownProps) {
     article: state.reducer.tabs.open.find(
       (openArticle) => openArticle.id === ownProps.id
     ),
-    //likes: state.reducer.
   };
 }
 

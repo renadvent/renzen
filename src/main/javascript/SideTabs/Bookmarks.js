@@ -1,6 +1,6 @@
 import React from "react";
 
-import WebsiteTab from "../TabLabels/Bookmarks_Tab";
+import WebsiteTab from "../TabLabels/Bookmarks_TabLabels";
 import * as store from "../actions/Store_Actions";
 import { connect } from "react-redux";
 import LoginRegister_Container from "./Login_Register";

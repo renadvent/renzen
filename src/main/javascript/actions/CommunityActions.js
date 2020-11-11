@@ -25,7 +25,6 @@ export function DISPATCH_joinCommunity(payload) {
 export function DISPATCH_openCommunity(com_url) {
   return (dispatch, getState) => {
     Axios.get(com_url).then((res) => {
-      // Axios.get("https" + com_url.slice(4, com_url.length)).then((res) => {
       console.log(res);
 
       let articles = [];
@@ -55,7 +54,7 @@ export function DISPATCH_createCommunity(payload) {
   return async (dispatch, getState) => {
     let res = await Axios.post("/createCommunity", {
       name: payload.name,
-    }); //.then((res) => {
+    });
     console.log("create com res");
     console.log(res.data);
 
@@ -69,7 +68,6 @@ export function DISPATCH_createCommunity(payload) {
       articles = [];
     }
 
-    //if ((res.data.articleInfoComponentCOS = {}))
     dispatch({
       type: ACTION_openCommunity,
       payload: res.data,

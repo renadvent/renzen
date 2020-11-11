@@ -51,7 +51,6 @@ function Article_Page(props) {
       })}
 
       <h3>Comments</h3>
-      {/*<MessageComponent />*/}
     </div>
   );
 
@@ -65,7 +64,6 @@ function Article_Page(props) {
             props.DISPATCH_likeArticle(props.payload._id);
           }}
         >
-          {/*Likes {props.payload.likes}*/}
           Likes {props.article.likes}
         </button>
 
@@ -75,7 +73,6 @@ function Article_Page(props) {
             props.DISPATCH_dislikeArticle(props.payload._id);
           }}
         >
-          {/*Dislikes {props.payload.dislikes}*/}
           Dislikes {props.article.dislikes}
         </button>
       </div>

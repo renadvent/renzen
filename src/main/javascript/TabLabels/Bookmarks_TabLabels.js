@@ -4,7 +4,7 @@ import * as store from "../actions/Store_Actions";
 import { BookmarksTab_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { BookmarksTab_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 
-function Bookmarks_Tab(props) {
+function Bookmarks_TabLabels(props) {
   return (
     <li className="nav-item" role="presentation">
       <a
@@ -22,4 +22,7 @@ function Bookmarks_Tab(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bookmarks_Tab);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Bookmarks_TabLabels);

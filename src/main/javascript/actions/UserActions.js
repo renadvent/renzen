@@ -42,7 +42,6 @@ export function DISPATCH_openUser(url) {
             articles: vars.articles,
             profiles: vars.profiles,
             communities: vars.communities,
-            //payload: res.data,
           });
     });
   };
@@ -88,7 +87,6 @@ export function DISPATCH_logIn(payload) {
 
 export function DISPATCH_register(payload) {
   //TODO also needs to dispatch login after register to get token
-  //NEED global Axios
 
   return async (dispatch) => {
     try {
@@ -120,10 +118,7 @@ export function getVarsFromResponse(base) {
   let articles = [];
   let profiles = [];
   let communities = [];
-
   let bookmarks = [];
-
-  //articleBookmarksCM._embedded.articleInfoComponentCoes
 
   try {
     bookmarks = base.articleBookmarksCM._embedded.articleInfoComponentCoes;

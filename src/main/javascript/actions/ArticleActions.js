@@ -31,18 +31,14 @@ export function DISPATCH_addComment(id, comment) {
       dispatch({
         type: GET_ERRORS,
         error: error,
-        //payload: error.response.data,
       });
     }
   };
 }
 
 export async function DISPATCH_reloadArticleById(id, dispatch) {
-  // return async (dispatch) => {
   try {
     let res = await Axios.get("/getArticleStreamComponentCO/" + id);
-
-    // console.log("res" + res);
 
     dispatch({
       type: "reload",
@@ -52,10 +48,8 @@ export async function DISPATCH_reloadArticleById(id, dispatch) {
     dispatch({
       type: GET_ERRORS,
       error: error,
-      //payload: error.response.data,
     });
   }
-  // };
 }
 
 export function DISPATCH_likeArticle(id) {
@@ -64,7 +58,6 @@ export function DISPATCH_likeArticle(id) {
 
     try {
       let res = await Axios.post("/likeArticle/" + id);
-      // console.log(res.data);
 
       await dispatch({
         type: ACTION_likeArticle,
@@ -74,30 +67,10 @@ export function DISPATCH_likeArticle(id) {
 
       console.log("about to reaload");
       await DISPATCH_reloadArticleById(id, dispatch);
-
-      // try {
-      //   let res = await Axios.get("/getArticleStreamComponentCO/" + id);
-      //
-      //   console.log("res" + res);
-      //
-      //   dispatch({
-      //     type: "reload",
-      //     payload: res,
-      //   });
-      // } catch (error) {
-      //   dispatch({
-      //     type: GET_ERRORS,
-      //     error: error,
-      //     //payload: error.response.data,
-      //   });
-      // }
-
-      console.log("done");
     } catch (error) {
       dispatch({
         type: GET_ERRORS,
         error: error,
-        //payload: error.response.data,
       });
     }
   };
@@ -120,7 +93,6 @@ export function DISPATCH_dislikeArticle(id) {
       dispatch({
         type: GET_ERRORS,
         error: error,
-        //payload: error.response.data,
       });
     }
   };
@@ -146,7 +118,7 @@ export function DISPATCH_openArticle(url) {
 }
 
 export function DISPATCH_createArticle(payload, user, community, sectionData) {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     let res = await Axios.post("/createArticle", {
       articleName: payload.articleName,
       description: payload.articleDescription,
@@ -159,23 +131,13 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
       //userID: user,
       communityID: community,
       articleSectionDOList: sectionData,
-    }); //.then((res) => {
+    });
     dispatch({
       type: ACTION_openArticle,
       payload: res.data,
     });
 
-    await reloadHomePage(dispatch);
-
-    //DISPATCH_init();
-
-    // DISPATCH_init();
-
-    // dispatch({
-    //   type: ACTION_addCommunityToLoggedInUser,
-    //   id: res.data._id,
-    // });
-    // });
+    await reloadHomePage(dispatch, getState);
   };
 }
 

@@ -1,5 +1,5 @@
 import ArticleEditTab from "../MainTabs/Create_Article_Page";
-import AppTab from "../TabLabels/Page_Tab";
+import AppTab from "../TabLabels/Page_TabLabels";
 import React from "react";
 
 export function createArticleState(state, action) {

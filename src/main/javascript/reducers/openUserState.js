@@ -1,4 +1,4 @@
-import AppTab from "../TabLabels/Page_Tab";
+import AppTab from "../TabLabels/Page_TabLabels";
 import Profile_Page from "../MainTabs/Profile_Page";
 import React from "react";
 

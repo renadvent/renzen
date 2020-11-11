@@ -50,7 +50,7 @@ export function DISPATCH_addBookmarkASYNC(userId, articleId, name) {
 export function DISPATCH_init() {
   //console.log("initing");
   return async (dispatch, getState) => {
-    await reloadHomePage(dispatch);
+    await reloadHomePage(dispatch, getState);
   };
 }
 
@@ -65,7 +65,7 @@ export function LoginCheck(state) {
   return true;
 }
 
-export async function reloadHomePage(dispatch) {
+export async function reloadHomePage(dispatch, getState) {
   Axios.get("/getHomeStreams").then(async (res) => {
     let base = res.data._embedded.collectionModels;
 
@@ -81,16 +81,15 @@ export async function reloadHomePage(dispatch) {
       },
     });
 
+    //check for token
     let token = localStorage.getItem("jwtToken");
-
-    //console.log(token);
 
     if (token != null && getState().reducer.user.logged_in === false) {
       //let token = localStorage.getItem("jwtToken");
       setJWTToken(token);
       const decoded = jwt_decode(token);
 
-      //work on expired tokens
+      //TODO work on expired tokens
 
       // const currentTime = Date.now() / 1000;
       // if (decoded.exp < currentTime) {

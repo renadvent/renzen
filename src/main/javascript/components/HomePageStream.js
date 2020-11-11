@@ -57,13 +57,6 @@ function HomePageStream(props) {
                   {single.name}
                 </li>
                 <div className={"row"}>
-                  {/*<div className={"col col-md-auto"}>*/}
-                  {/*  <LikeDislikeSection*/}
-                  {/*    _id={single._id}*/}
-                  {/*    likes={single.likes}*/}
-                  {/*    dislikes={single.dislikes}*/}
-                  {/*  />*/}
-                  {/*</div>*/}
                   <div className={"col"}>
                     <div className={"card"} style={{ textAlign: "left" }}>
                       <div className={"row"}>
@@ -129,9 +122,7 @@ function HomePageStream(props) {
             console.log(props2._id);
             props.DISPATCH_likeArticle(props2._id);
           }}
-        >
-          {/*Likes {props.payload.likes}*/}⬆
-        </button>
+        ></button>
 
         {props2.likes}
 
@@ -142,9 +133,7 @@ function HomePageStream(props) {
           onClick={() => {
             props.DISPATCH_dislikeArticle(props2._id);
           }}
-        >
-          {/*Dislikes {props.payload.dislikes}*/}⬇
-        </button>
+        ></button>
         {props2.dislikes}
       </div>
     );
