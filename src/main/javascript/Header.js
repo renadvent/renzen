@@ -17,7 +17,11 @@ function Header(props) {
 
       {props.user.logged_in ? (
         <div>
-          <button className="btn btn-dark" onClick={props.DISPATCH_logOut}>
+          <button
+            className="btn btn-dark"
+            onClick={props.DISPATCH_logOut}
+            style={{ marginRight: "1rem" }}
+          >
             Log Out
           </button>
 

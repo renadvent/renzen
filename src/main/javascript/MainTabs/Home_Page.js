@@ -24,22 +24,29 @@ function Home_Page(props) {
               for site design, MongoDB for the database, Redux for state
               management, and hosted on Azure.
             </p>
-            <button
-              className="btn btn-primary btn-lg"
-              // href="#"
-              role="button"
-              onClick={() => {
-                Axios.get(
-                  "/getCommunityStreamComponentCO/5f75f709b95e14569c4332a8"
-                ).then((res) => {
-                  props.DISPATCH_openCommunity(
-                    res.data._links["Tab_Version"].href
-                  );
-                });
-              }}
-            >
-              Click here to learn more about how the site was created
-            </button>
+
+            <p>
+              With just a single click from the desktop application, upload
+              whatever you are working on and create a post to share!
+            </p>
+            <p>Then, on the website, give and receive comments and likes!</p>
+
+            {/*<button*/}
+            {/*  className="btn btn-primary btn-lg"*/}
+            {/*  // href="#"*/}
+            {/*  role="button"*/}
+            {/*  onClick={() => {*/}
+            {/*    Axios.get(*/}
+            {/*      "/getCommunityStreamComponentCO/5f75f709b95e14569c4332a8"*/}
+            {/*    ).then((res) => {*/}
+            {/*      props.DISPATCH_openCommunity(*/}
+            {/*        res.data._links["Tab_Version"].href*/}
+            {/*      );*/}
+            {/*    });*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  Click here to learn more about how the site was created*/}
+            {/*</button>*/}
 
             <br />
             <br />
@@ -83,13 +90,13 @@ function Home_Page(props) {
         </div>
       </div>
 
-      <hr />
+      {/*<hr />*/}
 
-      <br />
+      {/*<br />*/}
 
-      <hr />
+      {/*<hr />*/}
 
-      <br />
+      {/*<br />*/}
 
       <div
         className="container-fluid"
