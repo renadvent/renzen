@@ -54,12 +54,17 @@ function Article_Page(props) {
 
       <h3>Comments</h3>
 
-      <CommentSection
-        _id={props.payload._id}
-        // comments={props.payload.comments}
-        comments={props.article.data.comments}
-        props={props}
-      />
+      <div
+        //className="d-block center"
+        style={{ textAlign: "left", width: "60%" }}
+      >
+        <CommentSection
+          _id={props.payload._id}
+          // comments={props.payload.comments}
+          comments={props.article.data.comments}
+          props={props}
+        />
+      </div>
     </div>
   );
 

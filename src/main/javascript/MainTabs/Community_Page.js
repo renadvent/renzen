@@ -36,7 +36,8 @@ function Community_Page(props) {
 
             <h2>Articles in this community:</h2>
 
-            {NewArticleButtonLogic()}
+            <p>Create New Posts From the Renzen Ink Application!</p>
+            {/*{NewArticleButtonLogic()}*/}
 
             <br />
             <br />
