@@ -5,6 +5,7 @@ import Axios from "axios";
 import { HomePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { HomePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
 import HomePageStream from "../components/HomePageStream";
+import { CodeProgress } from "../components/CodeProgress";
 
 function Home_Page(props) {
   return (
@@ -12,12 +13,24 @@ function Home_Page(props) {
       <div className="jumbotron">
         <h1 className="display-4">Welcome to Renzen (Dev Version)!</h1>
         <p className="lead">
-          A social media community to upload art from Renzen Ink! Create an
-          account and get started!
+          <div className={"row"}>
+            <div className={"col"}>
+              A social media community to upload art from Renzen Ink! Create an
+              account and get started!
+            </div>
+
+            {/*<div className={"col"}>*/}
+            {/*  <CodeProgress />*/}
+            {/*</div>*/}
+          </div>
+          {/*A social media community to upload art from Renzen Ink! Create an*/}
+          {/*account and get started!*/}
+          {/*<CodeProgress />*/}
         </p>
         <hr className="my-4" />
 
         <div className={"row"}>
+          <CodeProgress />
           <div className={"col"}>
             <p>
               Built with Java Spring Boot on the back end, React and Bootstrap
@@ -80,20 +93,24 @@ function Home_Page(props) {
 
             <hr />
           </div>
+          {/*<CodeProgress />*/}
 
           <div className={"col"}>
             <p>
               Quick Demonstration of how Renzen Ink and Renzen.io work together!
             </p>
 
-            <iframe
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/6AvbwnFJj-o?rel=0"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            <div className={"embed-responsive embed-responsive-16by9"}>
+              <iframe
+                className={"embed-responsive-item"}
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/6AvbwnFJj-o?rel=0"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>
