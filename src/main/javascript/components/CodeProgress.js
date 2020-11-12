@@ -6,7 +6,7 @@ export function CodeProgress() {
       <h6 className={"card-header"}>Progress</h6>
 
       <div className={"card-body"}>
-        Server-side
+        Web-Server
         <div className="progress">
           <div
             className="progress-bar"
@@ -22,7 +22,7 @@ export function CodeProgress() {
       </div>
 
       <div className={"card-body"}>
-        Web-client-side
+        Web-Client
         <div className="progress">
           <div
             className="progress-bar"
@@ -38,7 +38,7 @@ export function CodeProgress() {
       </div>
 
       <div className={"card-body"}>
-        Desktop Application
+        Desktop App
         <div className="progress">
           <div
             className="progress-bar"
