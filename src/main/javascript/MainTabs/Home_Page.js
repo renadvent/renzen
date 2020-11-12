@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import Axios from "axios";
 
@@ -10,55 +10,77 @@ function Home_Page(props) {
   return (
     <div>
       <div className="jumbotron">
-        <h1 className="display-4">Welcome to Renzen!</h1>
+        <h1 className="display-4">Welcome to Renzen (Dev Version)!</h1>
         <p className="lead">
-          A social media site to build communities, write articles, and upload
-          art from Renzen Ink! Create an account and get started! (beta)
+          A social media community to upload art from Renzen Ink! Create an
+          account and get started!
         </p>
         <hr className="my-4" />
-        <p>
-          Built with Java Spring Boot on the back end, React and Bootstrap for
-          site design, MongoDB for the database, Redux for state management, and
-          hosted on Azure.
-        </p>
-        <button
-          className="btn btn-primary btn-lg"
-          // href="#"
-          role="button"
-          onClick={() => {
-            Axios.get(
-              "/getCommunityStreamComponentCO/5f75f709b95e14569c4332a8"
-            ).then((res) => {
-              props.DISPATCH_openCommunity(res.data._links["Tab_Version"].href);
-            });
-          }}
-        >
-          Click here to learn more about how the site was created
-        </button>
 
-        <br />
-        <br />
+        <div className={"row"}>
+          <div className={"col"}>
+            <p>
+              Built with Java Spring Boot on the back end, React and Bootstrap
+              for site design, MongoDB for the database, Redux for state
+              management, and hosted on Azure.
+            </p>
+            <button
+              className="btn btn-primary btn-lg"
+              // href="#"
+              role="button"
+              onClick={() => {
+                Axios.get(
+                  "/getCommunityStreamComponentCO/5f75f709b95e14569c4332a8"
+                ).then((res) => {
+                  props.DISPATCH_openCommunity(
+                    res.data._links["Tab_Version"].href
+                  );
+                });
+              }}
+            >
+              Click here to learn more about how the site was created
+            </button>
 
-        <a
-          className="btn btn-secondary"
-          href="https://github.com/renadvent/renzen"
-          role="button"
-          target={"_blank"}
-        >
-          Click here to see the source code for Renzen.io on github
-        </a>
+            <br />
+            <br />
 
-        <br />
-        <br />
+            <a
+              className="btn btn-secondary"
+              href="https://github.com/renadvent/renzen"
+              role="button"
+              target={"_blank"}
+            >
+              Click here to see the source code for Renzen.io on github
+            </a>
 
-        <a
-          className="btn btn-secondary"
-          href="https://github.com/renadvent/Renzen-Ink"
-          role="button"
-          target={"_blank"}
-        >
-          Click here to see the source code for Renzen Ink on github
-        </a>
+            <br />
+            <br />
+
+            <a
+              className="btn btn-secondary"
+              href="https://github.com/renadvent/Renzen-Ink"
+              role="button"
+              target={"_blank"}
+            >
+              Click here to see the source code for Renzen Ink on github
+            </a>
+          </div>
+
+          <div className={"col"}>
+            <p>
+              Quick Demonstration of how Renzen Ink and Renzen.io work together!
+            </p>
+
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/6AvbwnFJj-o"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
       </div>
 
       <hr />

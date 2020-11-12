@@ -155,10 +155,14 @@ function Create_Article_Page(props) {
       <div>
         <div>
           <div className="jumbotron">
-            <h1 className="display-4">Write an Article!</h1>
+            <h1 className="display-4">
+              {/*Write an Article!*/}
+              Make A Post!
+            </h1>
             <p className="lead">
-              Contribute to the Community and share your knowledge, by
-              documenting it here!
+              Share your art with the community!
+              {/*Contribute to the Community and share your knowledge, by*/}
+              {/*documenting it here!*/}
             </p>
             <hr className="my-4" />
             <p>
@@ -168,7 +172,7 @@ function Create_Article_Page(props) {
           </div>
 
           <div>
-            SHOW IMAGE FROM RENZEN INK HERE. data from url: {OpenFromInkImage}
+            {/*SHOW IMAGE FROM RENZEN INK HERE. data from url: {OpenFromInkImage}*/}
             <img src={OpenFromInkImage} />
           </div>
 
@@ -191,8 +195,8 @@ function Create_Article_Page(props) {
               </button>
 
               {props.user.communities.map((x) => {
-                console.log(articleData);
-                console.log(x);
+                // console.log(articleData);
+                // console.log(x);
                 return (
                   <button
                     className="dropdown-item"
@@ -284,7 +288,7 @@ function Create_Article_Page(props) {
             {/*var output = document.getElementById("demo");*/}
             {/*output.innerHTML = slider.value;*/}
             {/*slider.oninput = function() {*/}
-            {/*output.innerHTML = this.value;*/}} }
+            {/*output.innerHTML = this.value;*/}
             {/*<div className="input-group-prepend">*/}
             {/*  <span className="input-group-text">Tags</span>*/}
             {/*</div>*/}
