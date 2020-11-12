@@ -89,7 +89,7 @@ function Home_Page(props) {
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/6AvbwnFJj-o"
+              src="https://www.youtube.com/embed/6AvbwnFJj-o?rel=0"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
