@@ -25,11 +25,17 @@ function Home_Page(props) {
               management, and hosted on Azure.
             </p>
 
+            <hr />
+
+            {/*<br />*/}
+
             <p>
               With just a single click from the desktop application, upload
               whatever you are working on and create a post to share!
             </p>
             <p>Then, on the website, give and receive comments and likes!</p>
+
+            <hr />
 
             {/*<button*/}
             {/*  className="btn btn-primary btn-lg"*/}
@@ -48,8 +54,8 @@ function Home_Page(props) {
             {/*  Click here to learn more about how the site was created*/}
             {/*</button>*/}
 
-            <br />
-            <br />
+            {/*<br />*/}
+            {/*<br />*/}
 
             <a
               className="btn btn-secondary"
@@ -71,6 +77,8 @@ function Home_Page(props) {
             >
               Click here to see the source code for Renzen Ink on github
             </a>
+
+            <hr />
           </div>
 
           <div className={"col"}>
