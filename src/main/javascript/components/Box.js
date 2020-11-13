@@ -52,16 +52,20 @@ function Box(props) {
             width={"75%"}
           />
         </div>
-        <li
+        <a
+          href={""}
           style={{
             alight: "center",
             textAlign: "center",
           }}
           className="list-group-item shadow-sm"
-          onClick={() => props.dispatchOpen(single._links["Tab_Version"].href)}
+          onClick={(e) => {
+            e.preventDefault();
+            props.dispatchOpen(single._links["Tab_Version"].href);
+          }}
         >
           {single.name}
-        </li>
+        </a>
 
         <div>
           {/*<button className="btn btn-secondary">Previous</button>*/}
@@ -73,24 +77,27 @@ function Box(props) {
           {/*</button>*/}
           Post Collection: {single.workName} {"     "}
           <div>
-            (temp ID's for other posts in collection)
+            (temp ID's for other posts in collection ex: before/after)
             {single.otherPostsInWorkHex.map((x) => {
               console.log(x);
               return (
-                <a
-                  onClick={(e) => {
-                    e.preventDefault();
-                    props.DISPATCH_replacePost(
-                      props.uuid,
-                      // single._id,
-                      props.content._id,
-                      x
-                    );
-                    // props.DISPATCH_replacePost(single._id, x);
-                  }}
-                >
-                  [{x}]
-                </a>
+                <div>
+                  <a
+                    href={""}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      props.DISPATCH_replacePost(
+                        props.uuid,
+                        // single._id,
+                        props.content._id,
+                        x
+                      );
+                      // props.DISPATCH_replacePost(single._id, x);
+                    }}
+                  >
+                    [{x}]
+                  </a>
+                </div>
               );
             })}
           </div>
