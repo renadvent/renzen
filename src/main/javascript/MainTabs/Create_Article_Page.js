@@ -189,12 +189,12 @@ function Create_Article_Page(props) {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Dropdown button
+              Select Community To Post In*
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button className="dropdown-item" href="#">
-                New Community
-              </button>
+              {/*<button className="dropdown-item" href="#">*/}
+              {/*  New Community*/}
+              {/*</button>*/}
 
               {props.user.communities.map((x) => {
                 // console.log(articleData);
@@ -253,7 +253,7 @@ function Create_Article_Page(props) {
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text" id="basic-addon3">
-                Article Name:{" "}
+                Article Name*:{" "}
               </span>
               <input
                 name={"articleName"}
@@ -268,7 +268,7 @@ function Create_Article_Page(props) {
 
             <div className="input-group-prepend">
               <span className="input-group-text" id="basic-addon3">
-                Work Name:{" "}
+                Work Name*:{" "}
               </span>
               <input
                 name={"workName"}
@@ -370,6 +370,8 @@ function Create_Article_Page(props) {
           <button
             type="button"
             onClick={() => {
+              if (!check()) return;
+
               props.DISPATCH_createArticle(
                 articleData,
                 props.user.id,
@@ -387,6 +389,18 @@ function Create_Article_Page(props) {
       </div>
     </div>
   );
+
+  function check() {
+    if (
+      articleData.workName === "" ||
+      articleData.community === "" ||
+      articleData.articleName === ""
+    ) {
+      alert("Required Fields not Filled Out!");
+      return false;
+    }
+    return true;
+  }
 }
 
 export default connect(

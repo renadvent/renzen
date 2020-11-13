@@ -62,6 +62,32 @@ export function DISPATCH_openUser(url) {
   };
 }
 
+export async function reloadLoggedInUser(dispatch, getState) {
+  let token = localStorage.getItem("jwtToken");
+
+  const decoded = jwt_decode(token);
+
+  let profileRes = await Axios.get("/getProfileTabComponentCO/" + decoded.id);
+
+  let data = profileRes.data;
+
+  let vars = getVarsFromResponse(data);
+
+  dispatch({
+    type: ACTION_logIn,
+    payload: data,
+    articles: vars.articles,
+    communities: vars.communities,
+    bookmarks: vars.bookmarks,
+  });
+  // } catch (error) {
+  //   dispatch({
+  //     type: GET_ERRORS,
+  //     error: error,
+  //     payload: error.response.data,
+  //   });
+}
+
 export function DISPATCH_logIn(payload) {
   return async (dispatch, getState) => {
     try {
@@ -73,23 +99,26 @@ export function DISPATCH_logIn(payload) {
       const { token } = loginRes.data;
       localStorage.setItem("jwtToken", token);
       setJWTToken(token);
-      const decoded = jwt_decode(token);
 
-      let profileRes = await Axios.get(
-        "/getProfileTabComponentCO/" + decoded.id
-      );
+      await reloadLoggedInUser(dispatch, getState);
 
-      let data = profileRes.data;
-
-      let vars = getVarsFromResponse(data);
-
-      dispatch({
-        type: ACTION_logIn,
-        payload: data,
-        articles: vars.articles,
-        communities: vars.communities,
-        bookmarks: vars.bookmarks,
-      });
+      //   const decoded = jwt_decode(token);
+      //
+      //   let profileRes = await Axios.get(
+      //     "/getProfileTabComponentCO/" + decoded.id
+      //   );
+      //
+      //   let data = profileRes.data;
+      //
+      //   let vars = getVarsFromResponse(data);
+      //
+      //   dispatch({
+      //     type: ACTION_logIn,
+      //     payload: data,
+      //     articles: vars.articles,
+      //     communities: vars.communities,
+      //     bookmarks: vars.bookmarks,
+      //   });
     } catch (error) {
       dispatch({
         type: GET_ERRORS,

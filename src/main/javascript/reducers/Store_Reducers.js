@@ -171,6 +171,7 @@ const reducer = (state = initialState, action) => {
     case at.ACTION_removeOpenTabById:
       return {
         ...state,
+        selectedTab: "",
         tabs: {
           ...state.tabs,
           open: state.tabs.open.filter((tab) => tab.id !== action.id),

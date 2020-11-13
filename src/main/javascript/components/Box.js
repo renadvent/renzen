@@ -41,17 +41,23 @@ function Box(props) {
             />
           </div>
 
-          <img
-            className={"img-fluid"}
-            //className={"mx-auto d-block"}
-            src={props.content.image}
-            // src={single.image}
-            alt={"post image"}
-            // width={500}
-            //height={500}
-            width={"75%"}
-          />
+          <div
+          // style={{ height: 500 }}
+          >
+            <img
+              className={"img-fluid"}
+              //className={"mx-auto d-block"}
+              src={props.content.image}
+              // src={single.image}
+              alt={"post image"}
+              // width={500}
+              //height={500}
+
+              width={"75%"}
+            />
+          </div>
         </div>
+
         <a
           href={""}
           style={{
@@ -80,6 +86,9 @@ function Box(props) {
             (temp ID's for other posts in collection ex: before/after)
             {single.otherPostsInWorkHex.map((x) => {
               console.log(x);
+
+              if (props.content._id === x) return null;
+
               return (
                 <div>
                   <a

@@ -124,26 +124,30 @@ function Home_Page(props) {
       {/*<br />*/}
 
       <div
-        className="container-fluid"
-        style={{ textAlign: "center", width: "75%" }}
+      // className={"col"} style={{ backgroundColor: "black" }}
       >
-        <div className={"col"}>
-          <HomePageStream
-            key={"articleStream"}
-            source={props.loadedArticles}
-            dispatchOpen={props.DISPATCH_openArticle}
-          />
-        </div>
-        <div className={"col"}>
-          <div className="card">
-            <div className="card-header">
-              <h4>New Communities</h4>
-            </div>
-            <Stream
-              key={"communityStream"}
-              source={props.loadedCommunities}
-              dispatch={props.DISPATCH_openCommunity}
+        <div
+          className="container-fluid"
+          style={{ textAlign: "center", width: "75%" }}
+        >
+          <div className={"col"}>
+            <HomePageStream
+              key={"articleStream"}
+              source={props.loadedArticles}
+              dispatchOpen={props.DISPATCH_openArticle}
             />
+          </div>
+          <div className={"col"}>
+            <div className="card">
+              <div className="card-header">
+                <h4>New Communities</h4>
+              </div>
+              <Stream
+                key={"communityStream"}
+                source={props.loadedCommunities}
+                dispatch={props.DISPATCH_openCommunity}
+              />
+            </div>
           </div>
         </div>
       </div>

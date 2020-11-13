@@ -7,29 +7,34 @@ import {
 } from "./StoreDefs";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
-import { getVarsFromResponse } from "./UserActions";
+import { getVarsFromResponse, reloadLoggedInUser } from "./UserActions";
 import { v4 as uuidv4 } from "uuid";
 
 export function DISPATCH_removeOpenTabById(tabId) {
-  return (dispatch) => {
-    dispatch({
+  return async (dispatch) => {
+    await dispatch({
       type: ACTION_removeOpenTabById,
       id: tabId,
     });
+
+    await select(dispatch, "");
   };
 }
 
 export function DISPATCH_addBookmark(userId, articleId, name) {
-  return (dispatch) => {
-    Axios.post("/addBookmark", {
+  return async (dispatch, getState) => {
+    let res = await Axios.post("/addBookmark", {
       //userId: userId,
       articleId: articleId,
-    }).then((res) => {
-      dispatch({
-        type: ACTION_addBookmark,
-        name: name,
-      });
+    }); //.then((res) => {
+    await dispatch({
+      type: ACTION_addBookmark,
+      name: name,
     });
+
+    await reloadLoggedInUser(dispatch, getState);
+
+    //});
   };
 }
 

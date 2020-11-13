@@ -58,15 +58,19 @@ function Bookmarks(props) {
    * @returns {unknown[]}
    */
 
-  function renderBookmarkLogic(bookmarks) {
+  function renderBookmarkLogic() {
     return props.state.user.bookmarks.map((x) => {
       return (
-        <li
+        <a
+          href={""}
           className={"list-group-item"}
-          onClick={() => props.DISPATCH_openArticle(x._links.Tab_Version.href)}
+          onClick={(e) => {
+            e.preventDefault();
+            props.DISPATCH_openArticle(x._links.Tab_Version.href);
+          }}
         >
           {x.name}
-        </li>
+        </a>
       );
     });
   }
