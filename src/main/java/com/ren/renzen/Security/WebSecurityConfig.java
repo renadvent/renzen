@@ -76,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+
                         "/newCreateArticle/**",
                         "/getCommunityStreamComponentCO/",
                         "/getCommunityStreamComponentCO/**",
@@ -118,7 +119,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         "/",
                         "/favicon.ico",
-                        "/**/*.png", "/**/*.gif",
+                                               "/**/*.png", "/**/*.gif",
                         "/**/*.svg",
                         "/**/*.jpg",
                         "/**/*.html",

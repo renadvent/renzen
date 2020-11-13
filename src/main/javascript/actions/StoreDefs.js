@@ -24,6 +24,8 @@ export const ACTION_addComment = "ACTION_addComment";
 
 export const ACTION_switchTab = "ACTION_switchTab";
 
+export const ACTION_replaceArticle = "ACTION_replaceArticle";
+
 /**
  * openCommunity
  * openUser

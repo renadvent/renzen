@@ -14,8 +14,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(jpg|jpeg|png)$/,
+        use: {
+          loader: "url-loader",
+        },
+      },
+      {
         test: path.join(__dirname, "."),
-        exclude: /(node_modules)/,
+        exclude: /(node_modules|icons)/,
         use: [
           {
             loader: "babel-loader",

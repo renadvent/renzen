@@ -18,6 +18,16 @@ export function ArticlePage_StateToProps(state, ownProps) {
   };
 }
 
+export function Box_StateToProps(state, ownProps) {
+  return {
+    content: state.reducer.homeTabData.stream_articles.find(
+      (article) => article._id === ownProps.single._id
+    ),
+    //
+    // content:state.reducer.homeTabData.stream_articles
+  };
+}
+
 export function Bookmarks_StateToProps(state) {
   return {
     state: state.reducer,

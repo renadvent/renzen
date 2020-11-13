@@ -8,6 +8,7 @@ import {
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
 import { getVarsFromResponse } from "./UserActions";
+import { v4 as uuidv4 } from "uuid";
 
 export function DISPATCH_removeOpenTabById(tabId) {
   return (dispatch) => {
@@ -70,6 +71,15 @@ export async function reloadHomePage(dispatch, getState) {
 
     let init = getInitFromEmbedded(base);
 
+    let UUIDArray = [];
+
+    for (let i = 0; i < init.articles.length; i++) {
+      UUIDArray.push(uuidv4());
+    }
+
+    console.log("array");
+    console.log(UUIDArray);
+
     //await
     await dispatch({
       type: ACTION_init,
@@ -77,6 +87,7 @@ export async function reloadHomePage(dispatch, getState) {
         articles: init.articles,
         users: init.profiles,
         communities: init.communities,
+        articleUUIDs: UUIDArray,
       },
     });
 
@@ -98,6 +109,8 @@ export async function reloadHomePage(dispatch, getState) {
       let res = await Axios.get("/getProfileTabComponentCO/" + decoded.id);
       let base = res.data;
       let vars = getVarsFromResponse(base);
+
+      //TODO create UUIDs for each article
 
       return dispatch({
         type: ACTION_logIn,

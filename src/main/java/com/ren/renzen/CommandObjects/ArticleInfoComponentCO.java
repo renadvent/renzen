@@ -40,6 +40,9 @@ public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoCompo
     List<ObjectId> imageIDs = new ArrayList<>();
 
     List<ObjectId> otherPostsInWork=new ArrayList<>();
+    List<String> otherPostsInWorkHex=new ArrayList<>();
+
+
     String workName="";
 
 

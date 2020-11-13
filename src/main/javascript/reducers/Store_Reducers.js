@@ -37,6 +37,7 @@ const initialState = {
     stream_users: [],
     stream_communities: [],
     stream_articles: [],
+    stream_articles_UUID: [],
   },
 };
 
@@ -46,6 +47,34 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         selectedTab: action.id,
+      };
+
+    //--------------------------------------
+    case at.ACTION_replaceArticle:
+      return {
+        ...state,
+        homeTabData: {
+          ...state.homeTabData,
+          stream_articles: state.homeTabData.stream_articles.map((article) => {
+            console.log(article);
+            console.log(action.uuid);
+
+            //Swaps all of those matching works, not just orig post
+            if (
+              article.UUID === action.uuid
+
+              // article._id === action.currentID &&
+              // article._id === action.originalID &&
+              // article._id !== action.replacementID
+            ) {
+              article = action.payload.data;
+              article["UUID"] = action.uuid;
+            }
+
+            return article;
+            //console.log(x);
+          }),
+        },
       };
 
     //----------------------------------------------------
@@ -87,7 +116,7 @@ const reducer = (state = initialState, action) => {
         homeTabData: {
           ...state.homeTabData,
           stream_articles: state.homeTabData.stream_articles.map((x) => {
-            if (x._id === action.payload.data._id) {
+            if (x.data._id === action.payload.data._id) {
               x = action.payload.data;
             }
             return x;
@@ -154,9 +183,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         homeTabData: {
-          stream_articles: action.payload.articles,
+          stream_articles: action.payload.articles.map((x, index) => {
+            x["UUID"] = action.payload.articleUUIDs[index];
+            return x;
+          }),
+
+          // stream_articles: action.payload.articles,
+          // stream_users: action.payload.users,
+
           stream_users: action.payload.users,
+
           stream_communities: action.payload.communities,
+          // stream_articles_UUID: action.payload.UUIDArray,
         },
       };
 

@@ -6,6 +6,7 @@ import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -80,6 +81,9 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
                 articleService.findAllByCreatorIDAndWorkName(author.get_id(),co.getWorkName())
                 .stream().map(ArticleDO::get_id).collect(Collectors.toList())
         );
+
+        co.setOtherPostsInWorkHex(co.getOtherPostsInWork().stream().map(ObjectId::toHexString).collect(Collectors.toList()));
+
 
 
 
@@ -157,6 +161,8 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
                 articleService.findAllByCreatorIDAndWorkName(author.get_id(),co.getWorkName())
                         .stream().map(ArticleDO::get_id).collect(Collectors.toList())
         );
+
+        co.setOtherPostsInWorkHex(co.getOtherPostsInWork().stream().map(ObjectId::toHexString).collect(Collectors.toList()));
 
 
         co.setAuthorName(author.getUsername());

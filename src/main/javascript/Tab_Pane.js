@@ -45,7 +45,7 @@ function Tab_Pane(props) {
       <div
         id={"tabContents"}
         className={"tab-content"}
-        style={{ backgroundColor: "black" }}
+        // style={{ backgroundColor: "black" }}
       >
         <div
           className="tab-pane fade show active"

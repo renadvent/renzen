@@ -131,7 +131,7 @@ function Home_Page(props) {
           <HomePageStream
             key={"articleStream"}
             source={props.loadedArticles}
-            dispatch={props.DISPATCH_openArticle}
+            dispatchOpen={props.DISPATCH_openArticle}
           />
         </div>
         <div className={"col"}>

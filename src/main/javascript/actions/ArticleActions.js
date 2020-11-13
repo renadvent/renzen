@@ -6,6 +6,7 @@ import {
   ACTION_openCreateArticleTab,
   GET_ERRORS,
   ACTION_addComment,
+  ACTION_replaceArticle,
 } from "./StoreDefs";
 import {
   DISPATCH_init,
@@ -13,6 +14,25 @@ import {
   reloadHomePage,
   select,
 } from "./MiscellaneousActions";
+
+export function DISPATCH_replacePost(originalID, currentID, replacementID) {
+  return async (dispatch, getState) => {
+    console.log("REPLACMENT" + replacementID);
+
+    let res = await Axios.get("/getArticleStreamComponentCO/" + replacementID);
+
+    console.log("got replacement");
+
+    await dispatch({
+      type: ACTION_replaceArticle,
+      payload: res,
+      uuid: originalID,
+      // originalID: originalID,
+      currentID: currentID,
+      replacementID: replacementID,
+    });
+  };
+}
 
 export function DISPATCH_addComment(id, comment) {
   console.log(comment);

@@ -83,6 +83,11 @@ export function Header_mapDispatchToProps(dispatch) {
 
 export const HomePage_mapDispatchToProps = (dispatch) => {
   return {
+    DISPATCH_replacePost: (originalID, currentID, replacementID) =>
+      dispatch(
+        store.DISPATCH_replacePost(originalID, currentID, replacementID)
+      ),
+
     DISPATCH_addComment: (id, comment) =>
       dispatch(store.DISPATCH_addComment(id, comment)),
 
