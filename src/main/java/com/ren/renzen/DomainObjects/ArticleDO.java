@@ -27,6 +27,9 @@ public class ArticleDO {
 
     String creatorName;
 
+    //TODO implement work
+    String workName="";
+
 
     //NEW
     List<String> tagList = new ArrayList<>();

@@ -39,6 +39,9 @@ public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoCompo
     List<ArticleDO.PollOption> pollOptions = new ArrayList<>();
     List<ObjectId> imageIDs = new ArrayList<>();
 
+    List<ObjectId> otherPostsInWork=new ArrayList<>();
+    String workName="";
+
 
     String image="";
 

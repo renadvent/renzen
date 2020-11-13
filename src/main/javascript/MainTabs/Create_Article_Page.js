@@ -126,7 +126,9 @@ function Create_Article_Page(props) {
     articleDescription: "",
     articleTags: "",
     articleAddToSection: "",
+
     workName: "",
+
     tags: "",
     pollOptions: "",
     image: "",
@@ -173,7 +175,7 @@ function Create_Article_Page(props) {
 
           <div>
             {/*SHOW IMAGE FROM RENZEN INK HERE. data from url: {OpenFromInkImage}*/}
-            <img src={OpenFromInkImage} />
+            <img src={OpenFromInkImage} height={500} />
           </div>
 
           <label>Post In Community</label>
@@ -263,6 +265,22 @@ function Create_Article_Page(props) {
                 aria-describedby="basic-addon3"
               />
             </div>
+
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="basic-addon3">
+                Work Name:{" "}
+              </span>
+              <input
+                name={"workName"}
+                value={articleData.workName}
+                onChange={handleChange}
+                type="text"
+                className="form-control"
+                id="basic-url"
+                aria-describedby="basic-addon3"
+              />
+            </div>
+
             {/*<div className="input-group-prepend">*/}
             {/*  <span className="input-group-text">Work Name</span>*/}
             {/*</div>*/}

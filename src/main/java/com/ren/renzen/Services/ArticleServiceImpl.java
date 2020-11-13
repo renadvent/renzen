@@ -1,6 +1,7 @@
 package com.ren.renzen.Services;
 
 import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import org.bson.types.ObjectId;
@@ -15,7 +16,17 @@ import java.util.Optional;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
+
+
+
     final ArticleRepository articleRepository;
+
+    @Override
+    public List<ArticleDO> findAllByCreatorIDAndWorkName(ObjectId creator, String workName){
+        return articleRepository.findAllByCreatorIDAndWorkName(creator,workName);
+    }
+
+
 
     public ArticleServiceImpl(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;

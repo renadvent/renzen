@@ -1,6 +1,7 @@
 package com.ren.renzen.Services.Interfaces;
 
 import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.DomainObjects.ProfileDO;
 import org.bson.types.ObjectId;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface ArticleService {
 
     List<ArticleDO> findAllPage();
 //    List<ArticleDO> findAllByCommunityIDAndTopic(ObjectId communityID, String topic);
+
+    List<ArticleDO> findAllByCreatorIDAndWorkName(ObjectId creator, String workName);
+
 }

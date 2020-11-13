@@ -160,6 +160,7 @@ public class ArticleEditorController {
 
         //NEW
         articleDO.setImage(payload.getImage());
+        articleDO.setWorkName(payload.getWorkName());
         //articleDO.
 
         //save ArticleDO to get an ID from mongodb for it

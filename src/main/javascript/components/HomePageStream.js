@@ -5,6 +5,13 @@ import { HomePage_mapDispatchToProps as mapDispatchToProps } from "../maps/Dispa
 import CommentSection from "./CommentSection";
 
 function HomePageStream(props) {
+  function NextLogic(single) {
+    console.log(single.otherPostsInWork);
+
+    //TODO
+    //replace this component with next work
+  }
+
   return (
     <div>
       <ul className="list-group list-group-flush">
@@ -41,7 +48,7 @@ function HomePageStream(props) {
                     className={"mx-auto d-block"}
                     src={single.image}
                     alt={"post image"}
-                    width={500}
+                    // width={500}
                     height={500}
                   />
                 </div>
@@ -57,6 +64,17 @@ function HomePageStream(props) {
                 >
                   {single.name}
                 </li>
+
+                <div>
+                  {/*<button className="btn btn-secondary">Previous</button>*/}
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => NextLogic(single)}
+                  >
+                    Next
+                  </button>
+                </div>
+
                 <div className={"row"}>
                   <div className={"col"}>
                     <div className={"card"} style={{ textAlign: "left" }}>

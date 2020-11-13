@@ -17,6 +17,8 @@ public class CreateArticlePayload {
     String topic;
     String description;
 
+    String workName;
+
     ObjectId CommunityID;
     List<ArticleSectionDO> articleSectionDOList;
 

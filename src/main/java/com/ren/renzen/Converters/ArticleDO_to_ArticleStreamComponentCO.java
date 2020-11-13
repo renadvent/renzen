@@ -8,6 +8,8 @@ import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleInfoComponentCO> {
 
@@ -57,6 +59,31 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         co.setAuthorID(source.getCreatorID().toHexString());
         var author = userService.findBy_id(source.getCreatorID());
 
+        co.setWorkName(source.getWorkName());
+
+
+
+//        System.out.println(author.getArticleIDList());
+//        var otherWorks = author.getArticleIDList().stream()
+//                .filter(articleID->{
+//                    var article = articleService.findBy_id(articleID);
+//                    return article.getWorkName().equals(co.getWorkName());
+//                }).collect(Collectors.toList());
+//
+//        //get ids of other posts in work to scroll through
+//        co.setOtherPostsInWork(otherWorks);
+//
+//        System.out.println("other works");
+//        System.out.println(otherWorks);
+
+        co.setOtherPostsInWork(
+                articleService.findAllByCreatorIDAndWorkName(author.get_id(),co.getWorkName())
+                .stream().map(ArticleDO::get_id).collect(Collectors.toList())
+        );
+
+
+
+
         //ProfileDO author = null;
 //        source.getCreatorID().ifPresent(e->{
 //            co.setAuthorID(e.toHexString());
@@ -98,6 +125,10 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
 
         //co.setImage(source.getImage());
 
+
+
+
+
         co.setLikes(source.getLikes());
         co.setDislikes(source.getDislikes());
 
@@ -108,6 +139,25 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         co.setAuthorID(source.getCreatorID().toHexString());
 
         var author = userService.findBy_id(source.getCreatorID());
+
+
+        co.setWorkName(source.getWorkName());
+
+
+//        var otherWorks = author.getArticleIDList().stream()
+//                .filter(articleID->{
+//                    var article = articleService.findBy_id(articleID);
+//                    return article.getWorkName().equals(co.getWorkName());
+//                }).collect(Collectors.toList());
+//
+//        //get ids of other posts in work to scroll through
+//        co.setOtherPostsInWork(otherWorks);
+
+        co.setOtherPostsInWork(
+                articleService.findAllByCreatorIDAndWorkName(author.get_id(),co.getWorkName())
+                        .stream().map(ArticleDO::get_id).collect(Collectors.toList())
+        );
+
 
         co.setAuthorName(author.getUsername());
         co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToFullView(author));
