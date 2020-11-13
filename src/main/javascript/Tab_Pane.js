@@ -19,7 +19,10 @@ function Tab_Pane(props) {
 
   return (
     <div id={"tabsAndContents"}>
-      <div id={"tab-list"}>
+      <div
+        id={"tab-list"}
+        // style={{ backgroundColor: "white" }}
+      >
         <ul className="nav nav-tabs" id="app-tabs" role="tablist">
           <li className="nav-item">
             <a
@@ -39,7 +42,11 @@ function Tab_Pane(props) {
         </ul>
       </div>
 
-      <div id={"tabContents"} className={"tab-content"}>
+      <div
+        id={"tabContents"}
+        className={"tab-content"}
+        style={{ backgroundColor: "black" }}
+      >
         <div
           className="tab-pane fade show active"
           id="home-contents"

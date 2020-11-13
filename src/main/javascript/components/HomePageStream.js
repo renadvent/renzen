@@ -67,13 +67,21 @@ function HomePageStream(props) {
 
                 <div>
                   {/*<button className="btn btn-secondary">Previous</button>*/}
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => NextLogic(single)}
-                  >
-                    Next
-                  </button>
+                  {/*<button*/}
+                  {/*  className="btn btn-secondary"*/}
+                  {/*  onClick={() => NextLogic(single)}*/}
+                  {/*>*/}
+                  {/*  Next*/}
+                  {/*</button>*/}
+                  Post Collection: {single.workName} {"     "}
+                  {single.otherPostsInWork.map((x) => {
+                    return <span>+</span>;
+                  })}
                 </div>
+                {/*<div>*/}
+                {/*  (pluses are number of posts in work. on click will let you go*/}
+                {/*  through them)*/}
+                {/*</div>*/}
 
                 <div className={"row"}>
                   <div className={"col"}>

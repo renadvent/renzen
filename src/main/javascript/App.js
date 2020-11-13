@@ -40,11 +40,19 @@ function App(props) {
   }, []);
 
   return (
-    <div id={"app-container"} className="container-fluid">
+    <div
+      id={"app-container"}
+      className="container-fluid"
+      // style={{ backgroundColor: "black" }}
+    >
       <Header key={"app-header"} />
       <div id={"app-body"} className="container-fluid">
         <div id={"app-body-row"} className="row">
-          <div id={"app-tab-area"} className={"col-9"}>
+          <div
+            id={"app-tab-area"}
+            className={"col-9"}
+            // style={{ backgroundColor: "black" }}
+          >
             <Tab_Pane />
           </div>
           <div id={"study-guide-area"} className={"col-3"}>
