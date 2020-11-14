@@ -100,6 +100,17 @@ public class ArticleEditorController {
         //TODO check if user has already liked article
 
         if (article!=null){
+
+            if (profile.getLikedArticles().contains(id)){
+                return ResponseEntity.ok().build();
+            }
+
+            if (profile.getDislikedArticles().contains(id)){
+                profile.getDislikedArticles().remove(id);
+                article.setDislikes(article.getDislikes()-1);
+            }
+
+
             profile.getLikedArticles().add(id);
             article.setLikes(article.getLikes()+1);
 
@@ -122,7 +133,17 @@ public class ArticleEditorController {
         var article = articleService.findBy_id(id);
 
         if (article!=null){
-            profile.getLikedArticles().add(id);
+
+            if (profile.getDislikedArticles().contains(id)){
+                return ResponseEntity.ok().build();
+            }
+
+            if (profile.getLikedArticles().contains(id)){
+                profile.getLikedArticles().remove(id);
+                article.setLikes(article.getLikes()-1);
+            }
+
+            profile.getDislikedArticles().add(id);
             article.setDislikes(article.getDislikes()+1);
 
             userService.update(profile);

@@ -14,7 +14,8 @@ function Tab_Pane(props) {
     //resets tab in "state" if home-tab is clicked
     $(document).on("shown.bs.tab", 'a[data-toggle="tab"]', function (e) {
       if ($(e.target).attr("id") === "home-tab") {
-        props.dispatch(select(props.dispatch, ""));
+        // alert("Clicked!");
+        props.dispatch(() => select(props.dispatch, ""));
       }
     });
 
