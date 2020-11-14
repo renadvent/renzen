@@ -110,11 +110,15 @@ function Stream(props) {
     <div>
       {props.source.map((single) => {
         return (
-          <div
-            onClick={() => props.dispatch(single._links["Tab_Version"].href)}
+          <a
+            href={""}
+            onClick={(event) => {
+              event.preventDefault();
+              props.dispatch(single._links["Tab_Version"].href);
+            }}
           >
             <li className={"list-group-item"}>{single.name}</li>
-          </div>
+          </a>
         );
       })}
     </div>

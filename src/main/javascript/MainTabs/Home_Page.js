@@ -161,12 +161,16 @@ function Stream(props) {
       <ul className="list-group list-group-flush">
         {props.source.map((single) => {
           return (
-            <li
+            <a
+              href={""}
               className="list-group-item shadow-sm"
-              onClick={() => props.dispatch(single._links["Tab_Version"].href)}
+              onClick={(event) => {
+                event.preventDefault();
+                props.dispatch(single._links["Tab_Version"].href);
+              }}
             >
               {single.name} [^] {single.likes}
-            </li>
+            </a>
           );
         })}
       </ul>
