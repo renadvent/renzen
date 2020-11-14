@@ -35,7 +35,8 @@ function CommentSection(commentProps) {
                 //commentProps.dispatch(
                 commentProps.props.DISPATCH_addComment(
                   commentProps._id,
-                  comment
+                  comment,
+                  commentProps.props.uuid
                 );
 
                 resetFields();

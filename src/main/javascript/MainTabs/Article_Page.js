@@ -23,7 +23,7 @@ function Article_Page(props) {
 
       {bookmarkLogic()}
 
-      {LikeDislikeSection()}
+      {/*{LikeDislikeSection()}*/}
 
       <h1>{props.payload.name}</h1>
       <p>{props.payload.description}</p>

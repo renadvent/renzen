@@ -15,15 +15,15 @@ export const TabPane_mapDispatchToProps = (dispatch) => {
 
 export function ArticlePage_mapDispatchToProps(dispatch) {
   return {
-    DISPATCH_addComment: (id, comment) =>
-      dispatch(store.DISPATCH_addComment(id, comment)),
+    DISPATCH_addComment: (id, comment, uuid) =>
+      dispatch(store.DISPATCH_addComment(id, comment, uuid)),
 
     DISPATCH_addBookmark: (userId, articleId, name) =>
       dispatch(store.DISPATCH_addBookmark(userId, articleId, name)),
-    DISPATCH_likeArticle: (articleId) =>
-      dispatch(store.DISPATCH_likeArticle(articleId)),
-    DISPATCH_dislikeArticle: (articleId) =>
-      dispatch(store.DISPATCH_dislikeArticle(articleId)),
+    DISPATCH_likeArticle: (articleId, uuid) =>
+      dispatch(store.DISPATCH_likeArticle(articleId, uuid)),
+    DISPATCH_dislikeArticle: (articleId, uuid) =>
+      dispatch(store.DISPATCH_dislikeArticle(articleId, uuid)),
   };
 }
 
@@ -88,8 +88,8 @@ export const HomePage_mapDispatchToProps = (dispatch) => {
         store.DISPATCH_replacePost(originalID, currentID, replacementID)
       ),
 
-    DISPATCH_addComment: (id, comment) =>
-      dispatch(store.DISPATCH_addComment(id, comment)),
+    DISPATCH_addComment: (id, comment, uuid) =>
+      dispatch(store.DISPATCH_addComment(id, comment, uuid)),
 
     DISPATCH_createArticle: () => dispatch(store.DISPATCH_createArticle()),
 
@@ -109,10 +109,11 @@ export const HomePage_mapDispatchToProps = (dispatch) => {
 
     DISPATCH_createCommunity: (user, payload) =>
       dispatch(store.DISPATCH_createCommunity(user, payload)),
-    DISPATCH_likeArticle: (articleId) =>
-      dispatch(store.DISPATCH_likeArticle(articleId)),
-    DISPATCH_dislikeArticle: (articleId) =>
-      dispatch(store.DISPATCH_dislikeArticle(articleId)),
+
+    DISPATCH_likeArticle: (articleId, uuid) =>
+      dispatch(store.DISPATCH_likeArticle(articleId, uuid)),
+    DISPATCH_dislikeArticle: (articleId, uuid) =>
+      dispatch(store.DISPATCH_dislikeArticle(articleId, uuid)),
   };
 };
 

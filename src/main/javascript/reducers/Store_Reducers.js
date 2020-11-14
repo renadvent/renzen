@@ -108,8 +108,9 @@ const reducer = (state = initialState, action) => {
     //-------------------------
 
     case "reload":
-      // console.log("reloading");
-      // console.log(state.homeTabData.stream_articles);
+      console.log("reloading");
+      console.log(state.homeTabData.stream_articles);
+      console.log(action);
       return {
         ...state,
 
@@ -118,6 +119,7 @@ const reducer = (state = initialState, action) => {
           stream_articles: state.homeTabData.stream_articles.map((x) => {
             if (x.data._id === action.payload.data._id) {
               x = action.payload.data;
+              x["UUID"] = action.uuid;
             }
             return x;
           }),

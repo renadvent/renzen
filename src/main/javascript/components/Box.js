@@ -148,7 +148,8 @@ function Box(props) {
           height={30}
           onClick={() => {
             console.log(props2._id);
-            props.DISPATCH_likeArticle(props2._id);
+            // props.DISPATCH_likeArticle(props2._id);
+            props.DISPATCH_likeArticle(props2._id, props.uuid);
           }}
         />
         {/*<img src={"src/main/resources/static/like.png"} />*/}
@@ -169,7 +170,7 @@ function Box(props) {
         <button
           className="btn btn-secondary"
           onClick={() => {
-            props.DISPATCH_dislikeArticle(props2._id);
+            props.DISPATCH_dislikeArticle(props2._id, props.uuid);
           }}
         >
           ⬇

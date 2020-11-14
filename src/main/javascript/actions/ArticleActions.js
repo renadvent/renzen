@@ -34,7 +34,7 @@ export function DISPATCH_replacePost(originalID, currentID, replacementID) {
   };
 }
 
-export function DISPATCH_addComment(id, comment) {
+export function DISPATCH_addComment(id, comment, uuid) {
   console.log(comment);
   return async (dispatch, getState) => {
     if (!LoginCheck(getState)) return;
@@ -45,7 +45,9 @@ export function DISPATCH_addComment(id, comment) {
         comment: comment,
       });
 
-      await DISPATCH_reloadArticleById(id, dispatch, getState);
+      console.log("UUID " + uuid);
+
+      await DISPATCH_reloadArticleById(id, dispatch, getState, uuid);
 
       //TODO add dispatch to reload comments
     } catch (error) {
@@ -57,20 +59,29 @@ export function DISPATCH_addComment(id, comment) {
   };
 }
 
-export async function DISPATCH_reloadArticleById(id, dispatch, getState) {
+export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
   try {
     let streamRes = await Axios.get("/getArticleStreamComponentCO/" + id);
     let tabRes = await Axios.get("/getArticleTabComponentCO/" + id);
 
-    await dispatch({
-      type: "reload",
-      payload: streamRes,
-    });
+    // await dispatch({
+    //   type: "reload",
+    //   payload: streamRes,
+    //   // uuid:
+    // });
+
+    //TODO Broke likes/comments because of use of new UUID
 
     await dispatch({
-      type: "reloadTab",
-      payload: tabRes,
+      type: ACTION_replaceArticle,
+      payload: streamRes,
+      uuid: uuid,
     });
+
+    // await dispatch({
+    //   type: "reloadTab",
+    //   payload: tabRes,
+    // });
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
@@ -85,23 +96,23 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState) {
   // }
 }
 
-export function DISPATCH_likeArticle(id) {
+export function DISPATCH_likeArticle(id, uuid) {
   return async (dispatch, getState) => {
     if (!LoginCheck(getState)) return;
 
     try {
       let res = await Axios.post("/likeArticle/" + id);
 
-      await dispatch({
-        type: ACTION_likeArticle,
-        likes: res.data,
-        id: id,
-      });
+      // await dispatch({
+      //   type: ACTION_likeArticle,
+      //   likes: res.data,
+      //   id: id,
+      // });
 
       console.log("about to reaload");
 
       //TODO Not working for tab component
-      await DISPATCH_reloadArticleById(id, dispatch, getState);
+      await DISPATCH_reloadArticleById(id, dispatch, getState, uuid);
     } catch (error) {
       dispatch({
         type: GET_ERRORS,
@@ -111,19 +122,19 @@ export function DISPATCH_likeArticle(id) {
   };
 }
 
-export function DISPATCH_dislikeArticle(id) {
+export function DISPATCH_dislikeArticle(id, uuid) {
   return async (dispatch, getState) => {
     if (!LoginCheck(getState)) return;
 
     try {
       let res = await Axios.post("/dislikeArticle/" + id);
-      dispatch({
-        type: ACTION_dislikeArticle,
-        dislikes: res.data,
-        id: id,
-      });
+      // dispatch({
+      //   type: ACTION_dislikeArticle,
+      //   dislikes: res.data,
+      //   id: id,
+      // });
 
-      await DISPATCH_reloadArticleById(id, dispatch, getState);
+      await DISPATCH_reloadArticleById(id, dispatch, getState, uuid);
     } catch (error) {
       dispatch({
         type: GET_ERRORS,
