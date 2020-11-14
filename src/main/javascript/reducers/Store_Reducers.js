@@ -44,6 +44,8 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "selectTab":
+      console.log("ACTIVE TAB ID: " + action.id);
+
       return {
         ...state,
         selectedTab: action.id,
@@ -59,9 +61,10 @@ const reducer = (state = initialState, action) => {
             console.log(article);
             console.log(action.uuid);
 
-            //Swaps all of those matching works, not just orig post
+            //TODO fix so if same post showed multiple times on homepage, likes etc will update all
             if (
               article.UUID === action.uuid
+              //  || (article._id === action.payload.data._id &&
 
               // article._id === action.currentID &&
               // article._id === action.originalID &&

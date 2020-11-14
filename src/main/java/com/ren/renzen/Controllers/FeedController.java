@@ -74,6 +74,33 @@ public class FeedController {
     //getYourFeed
     //refreshComments
 
+
+    //TODO work on
+    /**
+     * uses to get likes or comments?
+     * will need to add security checks
+     * @param id
+     * @param field
+     * @param principal
+     * @return
+     */
+    @GetMapping(path="/getArticleField/{id}/{field}")
+    public ResponseEntity<?> getArticleField(@PathVariable ObjectId id, @PathVariable String field, Principal principal){
+
+        try{
+
+            var article = articleService.findBy_id(id);
+            var foundValue = article.getClass().getDeclaredField(field);
+            return ResponseEntity.ok(foundValue);
+
+
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
+
     @PostMapping(path = "/addComment/{id}")
     public ResponseEntity<?> addComment(@PathVariable ObjectId id, @RequestBody addCommentPayload payload, Principal principal) {
 

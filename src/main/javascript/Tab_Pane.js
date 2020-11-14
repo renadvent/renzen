@@ -4,13 +4,21 @@ import Home_Container from "./MainTabs/Home_Page";
 
 import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
+import { select } from "./actions/MiscellaneousActions";
 
 function Tab_Pane(props) {
   useEffect(() => {
     console.log("selected tab changed" + props.selectedTab);
 
+    //TODO think it works
+    //resets tab in "state" if home-tab is clicked
+    $(document).on("shown.bs.tab", 'a[data-toggle="tab"]', function (e) {
+      if ($(e.target).attr("id") === "home-tab") {
+        props.dispatch(select(props.dispatch, ""));
+      }
+    });
+
     if (props.selectedTab !== "") {
-      // $("#tabA" + props.selectedTab + props.selectedTab).tab("show");
       $("#tabA" + props.selectedTab).tab("show");
     } else {
       $("#home-tab").tab("show");
@@ -19,10 +27,7 @@ function Tab_Pane(props) {
 
   return (
     <div id={"tabsAndContents"}>
-      <div
-        id={"tab-list"}
-        // style={{ backgroundColor: "white" }}
-      >
+      <div id={"tab-list"}>
         <ul className="nav nav-tabs" id="app-tabs" role="tablist">
           <li className="nav-item">
             <a
@@ -32,7 +37,7 @@ function Tab_Pane(props) {
               href="#home-contents"
               role="tab"
             >
-              Home
+              <div>Home</div>
             </a>
           </li>
           {console.log(props)}
@@ -42,11 +47,7 @@ function Tab_Pane(props) {
         </ul>
       </div>
 
-      <div
-        id={"tabContents"}
-        className={"tab-content"}
-        // style={{ backgroundColor: "black" }}
-      >
+      <div id={"tabContents"} className={"tab-content"}>
         <div
           className="tab-pane fade show active"
           id="home-contents"
@@ -64,4 +65,5 @@ function Tab_Pane(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tab_Pane);
+//has to be "null" to get default dispatch?
+export default connect(mapStateToProps, null)(Tab_Pane);

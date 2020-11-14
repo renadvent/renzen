@@ -8,6 +8,7 @@ import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
 import setJWTToken from "./securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
+import { select } from "./actions/MiscellaneousActions";
 
 /*
 sets up page and divisions
@@ -16,6 +17,14 @@ sets up page and divisions
 const jwtToken = localStorage.jwtToken;
 
 function App(props) {
+  // //TODO not calling USEEFFECT in tabPane for some reason
+  // $(document).on("shown.bs.tab", 'a[data-toggle="tab"]', function (e) {
+  //   if ($(e.target).attr("id") === "home-tab") {
+  //     alert("MATCH" + props.selectedTab);
+  //     props.dispatch(select(props.dispatch, ""));
+  //   }
+  // });
+
   //load home screen info
   useEffect(() => {
     //CHECK TO LOGOUT
