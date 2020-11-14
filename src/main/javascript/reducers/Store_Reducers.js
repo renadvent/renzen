@@ -117,9 +117,10 @@ const reducer = (state = initialState, action) => {
         homeTabData: {
           ...state.homeTabData,
           stream_articles: state.homeTabData.stream_articles.map((x) => {
-            if (x.data._id === action.payload.data._id) {
+            if (x._id === action.payload.data._id) {
+              let u = x.UUID;
               x = action.payload.data;
-              x["UUID"] = action.uuid;
+              x["UUID"] = u; //action.uuid;
             }
             return x;
           }),

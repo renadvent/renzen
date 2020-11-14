@@ -72,16 +72,27 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
 
     //TODO Broke likes/comments because of use of new UUID
 
-    await dispatch({
-      type: ACTION_replaceArticle,
-      payload: streamRes,
-      uuid: uuid,
-    });
+    console.log("dipatch " + uuid);
 
-    // await dispatch({
-    //   type: "reloadTab",
-    //   payload: tabRes,
-    // });
+    //stream reloads
+    if (uuid !== undefined) {
+      await dispatch({
+        type: ACTION_replaceArticle,
+        payload: streamRes,
+        uuid: uuid,
+      });
+    } else {
+      await dispatch({
+        type: "reload",
+        payload: streamRes,
+      });
+    }
+
+    //tab reloads
+    await dispatch({
+      type: "reloadTab",
+      payload: tabRes,
+    });
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
