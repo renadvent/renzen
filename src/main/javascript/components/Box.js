@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentSection from "./CommentSection";
 
 import { HomePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
@@ -8,14 +8,57 @@ import {
   Box_StateToProps as mapStateToProps,
 } from "../maps/StateToProps";
 import likeIcon from "../icons/like.png";
+import Axios from "axios";
+import { async } from "regenerator-runtime";
 
 function Box(props) {
   let single = props.single;
 
   // let single = props.content;
 
+  const [testField, setTestField] = useState("");
+  const [otherNames, setOtherNames] = useState(null);
+
+  useEffect(() => {
+    Promise.all(
+      single.otherPostsInWorkHex.map(async (x) => {
+        console.log(x);
+        let res = await Axios.get(
+          "/getArticleField/" + x + "/" + "articleName"
+        );
+        console.log(res.data);
+        if (props.content._id === x) {
+          return <li>{single.name}</li>;
+        }
+        return (
+          <div>
+            <li>
+              <a
+                href={""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.DISPATCH_replacePost(
+                    props.uuid,
+                    // single._id,
+                    props.content._id,
+                    x
+                  );
+                }}
+              >
+                [{res.data}]
+              </a>
+            </li>
+          </div>
+        );
+      })
+    ).then((x) => {
+      setOtherNames(x);
+    });
+  }, [single]);
+
   return (
     <div>
+      {/*<div>TestField: {testField}</div>*/}
       <div className="card">
         <div className="card-header" style={{ textAlign: "left" }}>
           By: {single.authorName}
@@ -74,47 +117,22 @@ function Box(props) {
         </a>
 
         <div>
-          {/*<button className="btn btn-secondary">Previous</button>*/}
-          {/*<button*/}
-          {/*  className="btn btn-secondary"*/}
-          {/*  onClick={() => NextLogic(single)}*/}
-          {/*>*/}
-          {/*  Next*/}
-          {/*</button>*/}
-          Post Collection: {single.workName} {"     "}
-          <div>
-            (temp ID's for other posts in collection ex: before/after)
-            {single.otherPostsInWorkHex.map((x) => {
-              console.log(x);
-
-              if (props.content._id === x) return null;
-
-              return (
-                <div>
-                  <a
-                    href={""}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      props.DISPATCH_replacePost(
-                        props.uuid,
-                        // single._id,
-                        props.content._id,
-                        x
-                      );
-                      // props.DISPATCH_replacePost(single._id, x);
-                    }}
-                  >
-                    [{x}]
-                  </a>
-                </div>
-              );
-            })}
+          Work: {single.workName} {"     "}
+          <div
+            style={{
+              alight: "left",
+              textAlign: "left",
+            }}
+          >
+            {otherNames !== null ? (
+              <div>
+                {" "}
+                Posts of this Work:
+                <ul>{otherNames}</ul>
+              </div>
+            ) : null}
           </div>
         </div>
-        {/*<div>*/}
-        {/*  (pluses are number of posts in work. on click will let you go*/}
-        {/*  through them)*/}
-        {/*</div>*/}
 
         <div className={"row"}>
           <div className={"col"}>

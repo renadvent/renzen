@@ -11,13 +11,17 @@ import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 public class FeedController {
 
@@ -84,17 +88,37 @@ public class FeedController {
      * @param principal
      * @return
      */
+
+    final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName"));
+
     @GetMapping(path="/getArticleField/{id}/{field}")
     public ResponseEntity<?> getArticleField(@PathVariable ObjectId id, @PathVariable String field, Principal principal){
+
+
+        if (!accessibleArticleFields.contains(field)) return ResponseEntity.badRequest().build();
+
 
         try{
 
             var article = articleService.findBy_id(id);
             var foundValue = article.getClass().getDeclaredField(field);
-            return ResponseEntity.ok(foundValue);
 
+            //var method = article.getClass().getDeclaredMethod("get"+field,null);
+
+            //article.getCreatorName()
+
+            //log.((StrfoundValue.get(article));
+            //System.out.println(foundValue);
+
+            //return ResponseEntity.ok(method.invoke(null));
+
+            foundValue.setAccessible(true);
+
+            return ResponseEntity.ok(foundValue.get(article).toString());
 
         }catch (Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
 
