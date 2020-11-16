@@ -10,6 +10,33 @@ import jwt_decode from "jwt-decode";
 import { getVarsFromResponse, reloadLoggedInUser } from "./UserActions";
 import { v4 as uuidv4 } from "uuid";
 
+export function DISPATCH_getNextStream() {
+  console.log("getting next stream");
+
+  return async (dispatch, getState) => {
+    let res = await Axios.get(
+      "/getHomeStreams/" + getState().reducer.streamPage
+    );
+
+    let base = res.data._embedded.collectionModels;
+
+    let init = getInitFromEmbedded(base);
+
+    let UUIDArray = [];
+
+    for (let i = 0; i < init.articles.length; i++) {
+      UUIDArray.push(uuidv4());
+    }
+
+    await dispatch({
+      type: "loadMore",
+      data: res.data,
+      articles: init.articles,
+      articleUUIDs: UUIDArray,
+    });
+  };
+}
+
 export function DISPATCH_removeOpenTabById(tabId) {
   return async (dispatch) => {
     await dispatch({
@@ -71,7 +98,7 @@ export function LoginCheck(state) {
 }
 
 export async function reloadHomePage(dispatch, getState) {
-  Axios.get("/getHomeStreams").then(async (res) => {
+  Axios.get("/getHomeStreams/0").then(async (res) => {
     let base = res.data._embedded.collectionModels;
 
     let init = getInitFromEmbedded(base);

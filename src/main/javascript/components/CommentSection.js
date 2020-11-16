@@ -13,7 +13,7 @@ function CommentSection(commentProps) {
   }
 
   return (
-    <div style={{ alight: "center" }}>
+    <div style={{ align: "center" }}>
       {/*<br />*/}
       {/*<hr />*/}
 

@@ -23,7 +23,7 @@ function HomePageStream(props) {
   return (
     <div>
       <ul className="list-group list-group-flush">
-        {props.source.map((single) => {
+        {props.loadedArticles.map((single) => {
           //console.log(single);
           return (
             <Box

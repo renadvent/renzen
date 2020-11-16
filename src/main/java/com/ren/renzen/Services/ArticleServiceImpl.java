@@ -68,14 +68,19 @@ public class ArticleServiceImpl implements ArticleService {
         return (articleRepository.findAll());
     }
 
+    @Override
+    public List<ArticleDO> findAllPage() {
+        return null;
+    }
+
     /**
      * gets first 10 results
      *
      * @return
      */
     @Override
-    public List<ArticleDO> findAllPage() {
-        var paging = PageRequest.of(0, 10, Sort.by("_id").descending());
+    public List<ArticleDO> findAllPage(int page) {
+        var paging = PageRequest.of(page, 1, Sort.by("_id").descending());
         return articleRepository.findAll(paging).getContent();
     }
 

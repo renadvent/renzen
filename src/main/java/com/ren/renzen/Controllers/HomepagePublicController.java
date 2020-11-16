@@ -9,10 +9,7 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -86,12 +83,12 @@ public class HomepagePublicController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping(path = "/getHomeStreams")
-    public ResponseEntity<CollectionModel<?>> getHomeStreams() {
+    @GetMapping(path = "/getHomeStreams/{page}")
+    public ResponseEntity<CollectionModel<?>> getHomeStreams(@PathVariable int page) {
 
         ArrayList<CollectionModel<?>> returnList = new ArrayList<>();
 
-        var articleContent = articleService.findAllPage();
+        var articleContent = articleService.findAllPage(page);
         var communityContent = communityService.findAllPage();
         var profileContent = userService.findAllPage();
 

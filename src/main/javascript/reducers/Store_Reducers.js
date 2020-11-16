@@ -6,43 +6,31 @@ import { openUserState } from "./openUserState";
 import { createArticleState } from "./createArticleState";
 import { errorState } from "./errorState";
 
-const initialState = {
-  errors: "",
-  selectedTab: "",
-
-  user: {
-    logged_in: false,
-    name: "",
-    id: "",
-    //url:"",
-    communities: [],
-    articles: [],
-    study_guides: [],
-    user_data: {},
-    bookmarks: [],
-  },
-
-  spotlight: {
-    articles: [],
-    communities: [],
-  },
-
-  tabs: {
-    open: [],
-  },
-
-  data: [],
-
-  homeTabData: {
-    stream_users: [],
-    stream_communities: [],
-    stream_articles: [],
-    stream_articles_UUID: [],
-  },
-};
+import { initialState } from "./initialState";
 
 const reducer = (state = initialState, action) => {
+  //TODO working on
   switch (action.type) {
+    case "loadMore":
+      console.log(state);
+
+      return {
+        ...state,
+        streamPage: state.streamPage + 1,
+        homeTabData: {
+          ...state.homeTabData,
+
+          stream_articles: state.homeTabData.stream_articles.concat(
+            action.articles.map((x, index) => {
+              x["UUID"] = action.articleUUIDs[index];
+              return x;
+            })
+          ),
+
+          //          stream_articles_UUID: [],
+        },
+      };
+
     case "selectTab":
       console.log("ACTIVE TAB ID: " + action.id);
 
@@ -189,6 +177,9 @@ const reducer = (state = initialState, action) => {
     case at.ACTION_init:
       return {
         ...state,
+
+        streamPage: 1,
+
         homeTabData: {
           stream_articles: action.payload.articles.map((x, index) => {
             x["UUID"] = action.payload.articleUUIDs[index];

@@ -4,9 +4,17 @@ import Home_Container from "./MainTabs/Home_Page";
 
 import { TabPane_StateToProps as mapStateToProps } from "./maps/StateToProps";
 import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/DispatchToProps";
-import { select } from "./actions/MiscellaneousActions";
+import { DISPATCH_getNextStream, select } from "./actions/MiscellaneousActions";
 
 function Tab_Pane(props) {
+  window.onscroll = (ev) => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      console.log("bottom of page");
+      props.dispatch(DISPATCH_getNextStream());
+      // you're at the bottom of the page
+    }
+  };
+
   useEffect(() => {
     console.log("selected tab changed" + props.selectedTab);
 

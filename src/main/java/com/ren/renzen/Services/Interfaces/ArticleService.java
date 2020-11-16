@@ -21,4 +21,5 @@ public interface ArticleService {
 
     List<ArticleDO> findAllByCreatorIDAndWorkName(ObjectId creator, String workName);
 
+    List<ArticleDO> findAllPage(int page);
 }
