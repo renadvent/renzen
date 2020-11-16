@@ -91,6 +91,11 @@ public class FeedController {
 
     final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName"));
 
+    @GetMapping(path="/updateArticleField")
+    public ResponseEntity<?> updateArticleField(){
+        return null;
+    }
+
     @GetMapping(path="/getArticleField/{id}/{field}")
     public ResponseEntity<?> getArticleField(@PathVariable ObjectId id, @PathVariable String field, Principal principal){
 

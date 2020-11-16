@@ -53,6 +53,8 @@ export function DISPATCH_openUser(url) {
 
     await select(dispatch, res.data._id);
 
+    document.documentElement.scrollTop = 0;
+
     // await dispatch({
     //   type: "selectTab",
     //   id: res.data._id,
