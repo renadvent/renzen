@@ -56,7 +56,7 @@ function Article_Page(props) {
 
       <div
         //className="d-block center"
-        style={{ textAlign: "left", width: "60%" }}
+        style={{ alight: "center", textAlign: "left", width: "60%" }}
       >
         <CommentSection
           _id={props.payload._id}

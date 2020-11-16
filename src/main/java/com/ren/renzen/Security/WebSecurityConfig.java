@@ -77,7 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
 
-                        "/getArticleField/***",
+                        "/getArticleField/**",
+                        "/getArticleField/**",
 
                         "/newCreateArticle/**",
                         "/getCommunityStreamComponentCO/",

@@ -52,7 +52,7 @@ function Community_Page(props) {
               />
             </ul>
 
-            <h3>Comments</h3>
+            {/*<h3>Comments</h3>*/}
           </div>
         </div>
       </div>

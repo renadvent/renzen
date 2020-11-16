@@ -131,13 +131,17 @@ function Stream(props) {
     <ul className="list-group">
       {props.source.map((single) => {
         return (
-          <div
-            onClick={() => props.dispatch(single._links["Tab_Version"].href)}
-          >
-            <li className={"list-group-item"}>
-              <a>+{single.name}</a>
-            </li>
-          </div>
+          <li className={"list-group-item"}>
+            <a
+              href={""}
+              onClick={(event) => {
+                event.preventDefault();
+                props.dispatch(single._links["Tab_Version"].href);
+              }}
+            >
+              +{single.name}
+            </a>
+          </li>
         );
       })}
     </ul>
