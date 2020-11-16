@@ -54,16 +54,20 @@ function Article_Page(props) {
 
       <h3>Comments</h3>
 
-      <div
-        //className="d-block center"
-        style={{ align: "center", textAlign: "left", width: "60%" }}
-      >
-        <CommentSection
-          _id={props.payload._id}
-          // comments={props.payload.comments}
-          comments={props.article.data.comments}
-          props={props}
-        />
+      <div className="d-flex justify-content-center">
+        <div
+          className="card"
+          style={{ textAlign: "left", width: "60%" }}
+          //className="d-block center"
+          // style={{ textAlign: "left", width: "60%" }}
+        >
+          <CommentSection
+            _id={props.payload._id}
+            // comments={props.payload.comments}
+            comments={props.article.data.comments}
+            props={props}
+          />
+        </div>
       </div>
     </div>
   );
