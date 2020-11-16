@@ -82,16 +82,18 @@ function Article_Page(props) {
             props.DISPATCH_likeArticle(props.payload._id);
           }}
         >
-          Likes {props.article.data.likes}
+          Likes
         </button>
+        {props.article.data.likes}
         <button
           className="btn btn-secondary"
           onClick={() => {
             props.DISPATCH_dislikeArticle(props.payload._id);
           }}
         >
-          Dislikes {props.article.data.dislikes}
+          Dislikes
         </button>
+        {props.article.data.dislikes}
       </div>
     );
   }
@@ -120,18 +122,21 @@ function Article_Page(props) {
           Bookmarked!
         </div>
       ) : (
-        <button
-          className="btn btn-secondary"
-          onClick={() =>
-            props.DISPATCH_addBookmark(
-              props.state.user.id,
-              props.payload._id,
-              props.payload.name
-            )
-          }
-        >
-          Add Bookmark
-        </button>
+        <div>
+          <button
+            className="btn btn-secondary"
+            onClick={() =>
+              props.DISPATCH_addBookmark(
+                props.state.user.id,
+                props.payload._id,
+                props.payload.name
+              )
+            }
+          >
+            Add Bookmark
+          </button>
+          <br />
+        </div>
       )
     ) : (
       <div className="alert alert-secondary" role="alert">
