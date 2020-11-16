@@ -114,6 +114,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         "/addBookmark",
                         "/getHomeStreams",
+                        "/getHomeStreams/**",
 
                         "/addImage",
 

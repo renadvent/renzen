@@ -234,6 +234,9 @@ const reducer = (state = initialState, action) => {
           ...state.tabs,
           open: [],
         },
+        //
+        // ...initialState,
+        // homeTabData: state.homeTabData,
       };
 
     case at.ACTION_logIn:
