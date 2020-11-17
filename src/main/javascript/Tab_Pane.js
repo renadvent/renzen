@@ -10,7 +10,10 @@ function Tab_Pane(props) {
   window.onscroll = (ev) => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       console.log("bottom of page");
-      props.dispatch(DISPATCH_getNextStream());
+
+      if (props.streamPage > 0) {
+        props.dispatch(DISPATCH_getNextStream());
+      }
       // you're at the bottom of the page
     }
   };

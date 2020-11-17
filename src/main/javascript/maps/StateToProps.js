@@ -2,6 +2,7 @@ export function TabPane_StateToProps(state) {
   return {
     selectedTab: state.reducer.selectedTab,
     open: state.reducer.tabs.open,
+    streamPage: state.reducer.streamPage,
   };
 }
 

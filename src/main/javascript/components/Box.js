@@ -127,7 +127,7 @@ function Box(props) {
             {otherNames !== null ? (
               <div>
                 {" "}
-                Posts of this Work:
+                Versions/Posts of this Work:
                 <ul>{otherNames}</ul>
               </div>
             ) : null}
