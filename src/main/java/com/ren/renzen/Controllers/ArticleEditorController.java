@@ -221,6 +221,8 @@ public class ArticleEditorController {
 
     }
 
+
+
     @PostMapping(path = "/addScreenshotToArticle/{id}")
     public String addScreenshotToArticle(@PathVariable ObjectId id, @RequestBody String screenshot, Principal principal) {
 

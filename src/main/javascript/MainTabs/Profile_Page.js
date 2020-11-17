@@ -60,7 +60,12 @@ function Profile_Page(props) {
       <div>
         <h4>Uploads from Renzen Ink</h4>
         {props.data.screenshotLinks.map((link) => {
-          return <img src={link} height={250} alt={"a screenshot"} />;
+          return (
+            <div>
+              <img src={link} height={250} alt={"a screenshot"} />
+              <button>Delete Upload</button>
+            </div>
+          );
         })}
       </div>
     );

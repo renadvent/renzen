@@ -15,12 +15,14 @@ import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.security.Principal;
 import java.time.OffsetDateTime;
 import java.util.Base64;
 import java.util.HashMap;
@@ -53,6 +55,14 @@ public class ImageController {
 
     }
 
+
+    //TODO will have to change that Article sends both SAS url and non-sas URL?
+    @PostMapping(path="/deleteImageFromProfile/{link}")
+    public void deleteImageFromProfile(@PathVariable String link, Principal principal){
+        BlobClient blobClient = containerClient.getBlobClient(link);
+        blobClient.delete();
+    }
+
     /**
      * returns link to image that was saved
      *
@@ -67,6 +77,7 @@ public class ImageController {
         File file = null;
         String fileContents = "";
 
+        //TODO this can be better
         //get expected data from map
         for (Map.Entry<String, Object> me : payload.entrySet()) {
 
