@@ -15,6 +15,19 @@ import {
   select,
 } from "./MiscellaneousActions";
 
+export function DISPATCH_deletePost(id) {
+  return async (dispatch, getState) => {
+    alert("DELETING DISPATCHED");
+
+    let res = await Axios.post("/deleteArticle/" + id);
+
+    await dispatch({
+      type: "deletePost",
+      payload: res,
+    });
+  };
+}
+
 export function DISPATCH_replacePost(originalID, currentID, replacementID) {
   return async (dispatch, getState) => {
     console.log("REPLACMENT" + replacementID);

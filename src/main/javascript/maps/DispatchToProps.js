@@ -150,6 +150,7 @@ export const PageTab_mapDispatchToProps = (dispatch) => {
 
 export const ProfilePage_mapDispatchToProps = (dispatch) => {
   return {
+    dispatch: (action) => dispatch(action),
     DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
     DISPATCH_openArticle: (url) => dispatch(store.DISPATCH_openArticle(url)),
     DISPATCH_createCommunity: (creatorID, name) =>

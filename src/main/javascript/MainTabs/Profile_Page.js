@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { ProfilePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { ProfilePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
+import { DISPATCH_deletePost } from "../actions/Store_Actions";
 
 function Profile_Page(props) {
   const [communityName, setCommunityName] = useState("");
@@ -76,7 +77,7 @@ function Profile_Page(props) {
         <div className={"row"}>
           <div className={"col"}>
             <h4>Communities: {props.data.numberOfCommunities} </h4>
-            <Stream
+            <StreamCommunity
               source={props.communities}
               dispatch={props.DISPATCH_openCommunity}
             />
@@ -86,9 +87,9 @@ function Profile_Page(props) {
 
           <div className={"col"}>
             <h4>Articles: {props.data.numberOfArticles}</h4>
-            <Stream
+            <StreamArticleConnect
               source={props.articles}
-              dispatch={props.DISPATCH_openArticle}
+              dispatchSent={props.DISPATCH_openArticle}
             />
             <hr />
           </div>
@@ -124,7 +125,42 @@ function Profile_Page(props) {
   }
 }
 
-function Stream(props) {
+//receives dispatch?
+const StreamArticleConnect = connect(null, null)(StreamArticle);
+
+function StreamArticle(props) {
+  console.log(props);
+
+  return (
+    <ul className="list-group">
+      {props.source.map((single) => {
+        return (
+          <li className={"list-group-item"}>
+            <a
+              href={""}
+              onClick={(event) => {
+                event.preventDefault();
+                props.dispatchSent(single._links["Tab_Version"].href);
+              }}
+            >
+              +{single.name}
+            </a>
+            <button
+              onClick={() => {
+                alert("DELETING CLICKD");
+                props.dispatch(DISPATCH_deletePost(single._id));
+              }}
+            >
+              Delete Article
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function StreamCommunity(props) {
   console.log(props);
 
   return (
@@ -141,6 +177,7 @@ function Stream(props) {
             >
               +{single.name}
             </a>
+            {/*<button>Delete Article</button>*/}
           </li>
         );
       })}

@@ -91,6 +91,23 @@ public class ArticleEditorController {
         containerClient = blobServiceClient.getBlobContainerClient(containerName);
     }
 
+
+    @RequestMapping(path="/deleteArticle/{id}")
+    public ResponseEntity<?> deleteArticle(@PathVariable ObjectId id, Principal principal){
+
+
+
+        var article = articleService.findBy_id(id);
+
+        if (article.getCreatorName().equals(principal.getName())){
+            articleService.deleteArticle(id);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.badRequest().build();
+
+    }
+
     @PostMapping(path = "/likeArticle/{id}")
     public ResponseEntity<?> likeArticle(@PathVariable ObjectId id,Principal principal){
 

@@ -28,6 +28,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 
 
+
+
     public ArticleServiceImpl(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
@@ -82,6 +84,16 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDO> findAllPage(int page) {
         var paging = PageRequest.of(page, 1, Sort.by("_id").descending());
         return articleRepository.findAll(paging).getContent();
+    }
+
+    @Override
+    public Boolean deleteArticle(ObjectId id) {
+
+        articleRepository.deleteById(id);
+
+        //articleRepository.delete();
+
+        return true;
     }
 
 }
