@@ -31,6 +31,7 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
     //TODO set up to avoid code duplication in future
     public void common(ArticleDO source){
 
+
     }
 
     @Override
@@ -48,6 +49,10 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
 
         co.setLikes(source.getLikes());
         co.setDislikes(source.getDislikes());
+
+        co.setOriginalImageLink(co.getImage());
+
+
 
         try {
             String name = source.getImage().substring(source.getImage().lastIndexOf('/') + 1);
@@ -98,6 +103,9 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
 
         co.setAuthorName(author.getUsername());
         co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(author));
+
+
+        co.setOriginalImageLink(co.getImage());
 
 
         co.setTagList(source.getTagList());

@@ -37,4 +37,7 @@ public class ProfileTabComponentCO extends RepresentationModel<ProfileTabCompone
 
     List<String> screenshotLinks = new ArrayList<>();
 
+    //NEW
+    List<String> originalLinks = new ArrayList<>();
+
 }

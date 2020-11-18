@@ -39,4 +39,8 @@ public class ArticleTabComponentCO extends RepresentationModel<ArticleTabCompone
     List<ArticleDO.Comment> comments = new ArrayList<>();
 
 
+    //NEW
+    String originalImageLink="";
+
+
 }

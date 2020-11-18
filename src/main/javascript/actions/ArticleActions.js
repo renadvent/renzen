@@ -15,9 +15,22 @@ import {
   select,
 } from "./MiscellaneousActions";
 
+//TODO wont work until changes for CO
+export function DISPATCH_deleteImageFromProfile(link) {
+  return async (dispatch, getState) => {
+    alert("trying to delete" + link);
+    let res = await Axios.post("/deleteImageFromProfile/" + link);
+
+    await dispatch({
+      type: "deleteFromProfile",
+      payload: res,
+    });
+  };
+}
+
 export function DISPATCH_deletePost(id) {
   return async (dispatch, getState) => {
-    alert("DELETING DISPATCHED");
+    // alert("DELETING DISPATCHED");
 
     let res = await Axios.post("/deleteArticle/" + id);
 

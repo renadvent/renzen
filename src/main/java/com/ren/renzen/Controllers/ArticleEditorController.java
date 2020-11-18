@@ -96,7 +96,7 @@ public class ArticleEditorController {
     public ResponseEntity<?> deleteArticle(@PathVariable ObjectId id, Principal principal){
 
 
-
+        //TODO also delete upload
         var article = articleService.findBy_id(id);
 
         if (article.getCreatorName().equals(principal.getName())){

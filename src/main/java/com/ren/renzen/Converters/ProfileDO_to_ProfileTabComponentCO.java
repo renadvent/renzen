@@ -71,16 +71,23 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
 
 
+
+
         var corrected = new ArrayList<String>();
+        var orig = new ArrayList<String>();
 
         for (var link : source.getPublicScreenshotsIDList()) {
 
             String name = link.substring(link.lastIndexOf('/') + 1);
 
+            orig.add(name);
             corrected.add(imageService.generateSAS(name));
+
+
         }
 
         co.setScreenshotLinks(corrected);
+        co.setOriginalLinks(orig);
 
         //co.setScreenshotLinks(source.getScreenshotsIDList().stream().toArray()(imageService::generateSAS));
 
@@ -110,15 +117,21 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
 
         var corrected = new ArrayList<String>();
+        var orig = new ArrayList<String>();
+
+
 
         for (var link : source.getPublicScreenshotsIDList()) {
 
             String name = link.substring(link.lastIndexOf('/') + 1);
+            orig.add(name);
 
             corrected.add(imageService.generateSAS(name));
         }
 
         co.setScreenshotLinks(corrected);
+        co.setOriginalLinks(orig);
+
 
         //co.setScreenshotLinks(source.getScreenshotsIDList().stream().toArray()(imageService::generateSAS));
 

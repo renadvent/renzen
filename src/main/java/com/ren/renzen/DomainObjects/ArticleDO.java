@@ -21,6 +21,10 @@ public class ArticleDO {
     @MongoId
     ObjectId _id;
 
+    //TODO maybe when upload from renzen, server creates article DRAFT and then gives link?
+    //to article instead of image
+    Boolean isDraft;
+
     String articleName;
     String topic="none";
     String description;

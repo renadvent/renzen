@@ -27,6 +27,7 @@ import java.time.OffsetDateTime;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class ImageController {
@@ -56,11 +57,28 @@ public class ImageController {
     }
 
 
-    //TODO will have to change that Article sends both SAS url and non-sas URL?
     @PostMapping(path="/deleteImageFromProfile/{link}")
     public void deleteImageFromProfile(@PathVariable String link, Principal principal){
-        BlobClient blobClient = containerClient.getBlobClient(link);
-        blobClient.delete();
+
+        var user = userService.findByUsername(principal.getName());
+
+        var newList = user.getPublicScreenshotsIDList().stream().filter(imageLink->{
+            var name = imageLink.substring(imageLink.lastIndexOf('/') + 1);
+            if (name.equals(link)){
+                containerClient.getBlobClient(link).delete();
+                return false;
+            }else{
+                return true;
+            }
+
+        }).collect(Collectors.toList());
+
+        user.setPublicScreenshotsIDList(newList);
+        userService.save(user);
+
+
+//        BlobClient blobClient = containerClient.getBlobClient(link);
+//        blobClient.delete();
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ProfileInfoComponentCO;
+import com.ren.renzen.Controllers.UserEditorController;
 import com.ren.renzen.Controllers.UserViewerController;
 import com.ren.renzen.Converters.ProfileDO_to_ProfileStreamComponentCO;
 import com.ren.renzen.DomainObjects.ProfileDO;
@@ -44,6 +45,9 @@ public class ProfileStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Prof
     @Override
     public ProfileInfoComponentCO addLinksWithCurrentAuthentication(ProfileInfoComponentCO entity) {
         return entity.add(List.of(
+
+                //linkTo(methodOn(UserEditorController.class))
+
                 linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
                 linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version"))
         );

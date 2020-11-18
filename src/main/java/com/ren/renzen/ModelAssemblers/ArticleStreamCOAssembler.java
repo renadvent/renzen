@@ -1,7 +1,9 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
+import com.ren.renzen.Controllers.ArticleEditorController;
 import com.ren.renzen.Controllers.ArticleViewerController;
+import com.ren.renzen.Controllers.FeedController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
@@ -38,6 +40,16 @@ public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Arti
     public ArticleInfoComponentCO addLinksWithCurrentAuthentication(ArticleInfoComponentCO entity) {
         return entity
                 .add(List.of(
+
+                        //TODO adding REST links
+                        linkTo(methodOn(ArticleEditorController.class).likeArticle(entity.getObjectId(),getAuth())).withRel("LikeArticle"),
+                        linkTo(methodOn(ArticleEditorController.class).dislikeArticle(entity.getObjectId(),getAuth())).withRel("DislikeArticle"),
+                        linkTo(methodOn(ArticleEditorController.class).deleteArticle(entity.getObjectId(),getAuth())).withRel("DeleteArticle"),
+
+                        //linkTo(methodOn(FeedController.class).addComment(entity.getObjectId(),null,getAuth())).withRel("AddComment"),
+
+
+
                         linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
                         linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
 

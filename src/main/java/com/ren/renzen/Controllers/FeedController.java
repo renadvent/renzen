@@ -107,16 +107,6 @@ public class FeedController {
 
             var article = articleService.findBy_id(id);
             var foundValue = article.getClass().getDeclaredField(field);
-
-            //var method = article.getClass().getDeclaredMethod("get"+field,null);
-
-            //article.getCreatorName()
-
-            //log.((StrfoundValue.get(article));
-            //System.out.println(foundValue);
-
-            //return ResponseEntity.ok(method.invoke(null));
-
             foundValue.setAccessible(true);
 
             return ResponseEntity.ok(foundValue.get(article).toString());

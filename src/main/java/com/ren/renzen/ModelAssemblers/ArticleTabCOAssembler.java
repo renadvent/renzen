@@ -1,6 +1,7 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
+import com.ren.renzen.Controllers.ArticleEditorController;
 import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
@@ -61,6 +62,12 @@ public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Article
     public ArticleTabComponentCO addLinksWithCurrentAuthentication(ArticleTabComponentCO entity) {
         return entity
                 .add(List.of(
+
+                        linkTo(methodOn(ArticleEditorController.class).likeArticle(entity.getObjectId(),getAuth())).withRel("LikeArticle"),
+                        linkTo(methodOn(ArticleEditorController.class).dislikeArticle(entity.getObjectId(),getAuth())).withRel("DislikeArticle"),
+                        linkTo(methodOn(ArticleEditorController.class).deleteArticle(entity.getObjectId(),getAuth())).withRel("DeleteArticle"),
+
+
                         linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
                         linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
 

@@ -48,6 +48,9 @@ public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoCompo
 
     String image="";
 
+    //NEW
+    String originalImageLink="";
+
 
 
     int likes;
