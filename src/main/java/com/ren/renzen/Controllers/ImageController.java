@@ -62,6 +62,7 @@ public class ImageController {
 
         var user = userService.findByUsername(principal.getName());
 
+        //TODO not working as intended
         var newList = user.getPublicScreenshotsIDList().stream().filter(imageLink->{
             var name = imageLink.substring(imageLink.lastIndexOf('/') + 1);
             if (name.equals(link)){
