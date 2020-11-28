@@ -43,7 +43,7 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     void common(ArticleDO source, ArticleTabComponentCO co){
 
         try {
-            String name = source.getImage().substring(source.getImage().lastIndexOf('/') + 1);
+            String name = source.getPostImageURL().substring(source.getPostImageURL().lastIndexOf('/') + 1);
 
             co.setImage(imageService.generateSAS(name));
         } catch (Exception e) {

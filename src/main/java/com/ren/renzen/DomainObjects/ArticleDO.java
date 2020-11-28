@@ -34,7 +34,6 @@ public class ArticleDO {
     //TODO implement work
     String workName="";
 
-
     //NEW
     List<String> tagList = new ArrayList<>();
     String postText="";
@@ -56,9 +55,10 @@ public class ArticleDO {
     //public article view setting
     boolean visibleInCommunity = true;
 
+    String postImageURL ="";
     List<ObjectId> imageIDs = new ArrayList<ObjectId>();
 
-    String image="";
+
 
     @Data
     @NoArgsConstructor

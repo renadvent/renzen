@@ -19,6 +19,11 @@ import java.util.List;
 @NoArgsConstructor
 public class ArticleInfoComponentCO extends RepresentationModel<ArticleInfoComponentCO> {
 
+//
+//    void ArticleInfoComponentCO(){
+//        this.add
+//    }
+
     String ACCESS_TYPE;
 
     //---------------

@@ -46,7 +46,10 @@ public class ProfileDO implements UserDetails {
     //lists for contents
     List<ObjectId> communityIDList = new ArrayList<>();
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();
+
+
     List<ObjectId> articleIDList = new ArrayList<>(); // private setting is in article
+    List<ObjectId> articleDraftIDList = new ArrayList<>();
 
     //NEW
     //List<ObjectId> WorkIDList = new ArrayList<>();

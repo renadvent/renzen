@@ -4,8 +4,10 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.blob.sas.BlobSasPermission;
+import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
+import com.azure.storage.common.sas.SasProtocol;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
@@ -13,7 +15,6 @@ import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Exceptions.OwnerMismatchException;
 import com.ren.renzen.ModelAssemblers.*;
-import com.ren.renzen.Payload.CreateArticlePayload;
 import com.ren.renzen.Payload.NewCreateArticlePayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
@@ -21,16 +22,20 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.File;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.security.Principal;
+import java.time.OffsetDateTime;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.ren.renzen.additional.KEYS.CONTAINER_NAME;
 
@@ -89,6 +94,32 @@ public class ArticleEditorController {
         String containerName = CONTAINER_NAME;
         // Create the container and return a container client object
         containerClient = blobServiceClient.getBlobContainerClient(containerName);
+    }
+
+    @RequestMapping(path="/publishArticle/{id}")
+    public ResponseEntity<?> publishArticle(@PathVariable ObjectId id, Principal principal){
+        var article = articleService.findBy_id(id);
+        if (article.getCreatorName().equals(principal.getName())){
+
+            article.setIsDraft(false);
+            articleService.save(article);
+            //articleService.deleteArticle(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @RequestMapping(path="/unpublishArticle/{id}")
+    public ResponseEntity<?> unpublishArticle(@PathVariable ObjectId id, Principal principal){
+        var article = articleService.findBy_id(id);
+        if (article.getCreatorName().equals(principal.getName())){
+
+            article.setIsDraft(true);
+            articleService.save(article);
+            //articleService.deleteArticle(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
 
@@ -197,7 +228,7 @@ public class ArticleEditorController {
         CommunityDO communityDO = communityService.findBy_id(articleDO.getCommunityID());
 
         //NEW
-        articleDO.setImage(payload.getImage());
+        articleDO.setPostImageURL(payload.getImage());
         articleDO.setWorkName(payload.getWorkName());
         //articleDO.
 
@@ -256,4 +287,131 @@ public class ArticleEditorController {
 
         return blobClient.getBlobUrl();
     }
+
+
+
+
+    //--------------------------------------------------------------
+
+
+    @PostMapping(path="/deleteImageFromProfile/{link}")
+    public void deleteImageFromProfile(@PathVariable String link, Principal principal){
+
+        var user = userService.findByUsername(principal.getName());
+
+        //TODO not working as intended
+        var newList = user.getPublicScreenshotsIDList().stream().filter(imageLink->{
+            var name = imageLink.substring(imageLink.lastIndexOf('/') + 1);
+            if (name.equals(link)){
+                containerClient.getBlobClient(link).delete();
+                return false;
+            }else{
+                return true;
+            }
+
+        }).collect(Collectors.toList());
+
+        user.setPublicScreenshotsIDList(newList);
+        userService.save(user);
+
+
+//        BlobClient blobClient = containerClient.getBlobClient(link);
+//        blobClient.delete();
+    }
+
+    //TODO changing to return article
+    /**
+     * returns link to image that was saved
+     *
+     * @param payload
+     * @return
+     */
+    @PostMapping(path = "/addImage", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public String addImageToProfile(@RequestBody Map<String, Object> payload) {
+    public Map<String,String> addImageToProfile(@RequestBody Map<String, Object> payload) {
+        String title = "no title";
+        ObjectId userId = null;
+        File file = null;
+        String fileContents = "";
+
+        //TODO this can be better
+        //get expected data from map
+        for (Map.Entry<String, Object> me : payload.entrySet()) {
+
+            if (me.getKey().equals("userId")) {
+                userId = new ObjectId(me.getValue().toString());
+//                userId=new ObjectId(me.getValue().toString());
+                var user = userService.findBy_id(userId);
+            }
+
+            if (me.getKey().equals("title")) {
+                title = (String) me.getValue();
+            }
+
+            if (me.getKey().equals("file")) {
+                try {
+                    //fileContents = me.getValue().toString();
+                    //
+                    file = File.createTempFile("image", ".png");
+                    Files.write(file.toPath(), Base64.getDecoder().decode(me.getValue().toString()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //upload to azure
+        // Get a reference to a blob
+        BlobClient blobClient = containerClient.getBlobClient(file.getName());
+        blobClient.uploadFromFile(file.getAbsolutePath());
+        file.delete();
+
+        BlobSasPermission blobPermission = new BlobSasPermission().setReadPermission(true);
+
+        //generate link
+        var blobServiceSasSignatureValues = new BlobServiceSasSignatureValues()
+                .setProtocol(SasProtocol.HTTPS_ONLY) // Users MUST use HTTPS (not HTTP).
+                .setExpiryTime(OffsetDateTime.now().plusDays(2))
+                .setPermissions(blobPermission);
+
+        var SAS = blobClient.generateSas(blobServiceSasSignatureValues);
+
+        //blobClient.generateUserDelegationSas()
+
+        String url = blobClient.getBlobUrl();
+
+        var user = userService.findBy_id(userId);
+        user.getPublicScreenshotsIDList().add(url); // adds url without sas. wiil have to be generated when retrieving
+        userService.update(user);
+
+        //TODO new to create Article
+        var article = new ArticleDO();
+        article.setArticleName("DRAFT");
+        article.setWorkName("NONE");
+        article.setCreatorName(user.getUsername());
+        article.setCreatorID(user.get_id());
+        article.setPostImageURL(url);
+
+        //NEW
+        article.setIsDraft(true);
+
+        articleService.save(article);
+        //article.setC
+
+        var urlWithPermissions = url + "?" + SAS;
+
+
+        var responseMap = new HashMap<String, String>();
+        responseMap.put("absoluteURL",url);
+        responseMap.put("SASUrl",urlWithPermissions);
+
+        //TODO will have to create a way for web client to read this into draft page
+        responseMap.put("ARTICLEID",article.get_id().toHexString());
+        return responseMap;
+
+
+        //return urlWithPermissions; // link with sas
+    }
+
+
 }

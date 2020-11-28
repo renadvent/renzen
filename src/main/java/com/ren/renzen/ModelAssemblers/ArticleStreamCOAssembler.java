@@ -9,10 +9,10 @@ import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Component
 public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleInfoComponentCO> {
@@ -38,20 +38,44 @@ public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Arti
 
     @Override
     public ArticleInfoComponentCO addLinksWithCurrentAuthentication(ArticleInfoComponentCO entity) {
+
+//        entity.add
+
+        //Link findOneLink = linkTo(methodOn(controllerClass).findOne(id)).withSelfRel();
+
         return entity
                 .add(List.of(
+
+
 
                         //TODO adding REST links
                         linkTo(methodOn(ArticleEditorController.class).likeArticle(entity.getObjectId(),getAuth())).withRel("LikeArticle"),
                         linkTo(methodOn(ArticleEditorController.class).dislikeArticle(entity.getObjectId(),getAuth())).withRel("DislikeArticle"),
                         linkTo(methodOn(ArticleEditorController.class).deleteArticle(entity.getObjectId(),getAuth())).withRel("DeleteArticle"),
 
+                        linkTo(FeedController.class).slash("/addComment").withRel("addComment"),
+
+                        //linkTo(methodOn(FeedController.class).addComment())
+
+                        //linkTo(FeedController.class,)
+
                         //linkTo(methodOn(FeedController.class).addComment(entity.getObjectId(),null,getAuth())).withRel("AddComment"),
 
+                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth()))
+                                .withRel("Stream_Version"),
+
+                        //TODO working on this link
+                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withSelfRel()
+                                .andAffordance(afford(methodOn(FeedController.class).addComment(entity.getObjectId(), null, getAuth())))
+//                                .withRel("Stream_Version")
 
 
-                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
-                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
+
+                        ,
+                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version"))
+
+
+                );
 
     }
 }
