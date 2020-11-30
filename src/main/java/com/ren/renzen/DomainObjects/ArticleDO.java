@@ -47,7 +47,7 @@ public class ArticleDO {
     ObjectId communityID;
     ObjectId discussionID;
 
-    List<ArticleSectionDO> articleSectionDOList;
+    List<ArticleSectionDO> articleSectionDOList = new ArrayList<>();
 
     int likes=0;
     int dislikes=0;

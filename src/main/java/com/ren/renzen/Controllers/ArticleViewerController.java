@@ -1,5 +1,6 @@
 package com.ren.renzen.Controllers;
 
+import com.microsoft.rest.v2.annotations.GET;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ArticleTabCOAssembler;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.GET_ARTICLE_STREAM_COMPONENTCO;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.GET_ARTICLE_TAB_COMPONENTCO;
 
 @RestController
 public class ArticleViewerController {
@@ -30,7 +34,7 @@ public class ArticleViewerController {
         this.articleTabCOAssembler = articleTabCOAssembler;
     }
 
-    @GetMapping(path = "/getArticleStreamComponentCO/{id}")
+    @GetMapping(GET_ARTICLE_STREAM_COMPONENTCO)
     public ResponseEntity<?> getArticleStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
 
 
@@ -49,7 +53,7 @@ public class ArticleViewerController {
     }
 
     //TODO update toModel
-    @GetMapping(path = "/getArticleTabComponentCO/{id}")
+    @GetMapping(GET_ARTICLE_TAB_COMPONENTCO)
     public ResponseEntity<?> getArticleTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var articleDO = articleService.findBy_id(id);
 

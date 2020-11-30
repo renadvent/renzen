@@ -4,20 +4,16 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.ModelAssemblers.*;
-import com.ren.renzen.Payload.CreateArticlePayload;
-import com.ren.renzen.Payload.NewCreateArticlePayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.security.Principal;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.OPEN_ARTICLE_DRAFT_FROM_APP;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.NEW_CREATE_ARTICLE;
 
 @Controller
 public class NewArticleEditorController {
@@ -68,23 +64,51 @@ public class NewArticleEditorController {
         this.mapValidationErrorService = mapValidationErrorService;
     }
 
-    @RequestMapping(path="/newCreateArticle")
-    public String newCreateArticle(
-//            @RequestBody NewCreateArticlePayload payload,
-                                   @RequestParam String image,
-                                   @RequestParam String token,
-                                    @RequestParam String link,
-//                                   BindingResult result, Principal principal,
-                                   Model model) {
-        //might not need principal
+//    @RequestMapping(NEW_CREATE_ARTICLE)
+//    public String newCreateArticle(
+////            @RequestBody NewCreateArticlePayload payload,
+//                                   @RequestParam String image,
+//                                   @RequestParam String token,
+//                                    @RequestParam String link,
+////                                   BindingResult result, Principal principal,
+//                                   Model model) {
+//        //might not need principal
+//
+//        model.addAttribute("source","createNewArticle");
+//        model.addAttribute("token",token);
+//        model.addAttribute("image",image);
+//        model.addAttribute("link",link);
+//
+//        return "index";
 
+    @RequestMapping(OPEN_ARTICLE_DRAFT_FROM_APP)
+    public String openDraftFromApp(
+            @RequestParam String articleID,
+            @RequestParam String token,
+//            BindingResult result, Principal principal,
+            Model model
+    ){
         model.addAttribute("source","createNewArticle");
+        model.addAttribute("articleID",articleID);
         model.addAttribute("token",token);
-        model.addAttribute("image",image);
-        model.addAttribute("link",link);
 
         return "index";
 
     }
+
+//    }
+
+//    @RequestMapping(OPEN_ARTICLE_DRAFT_FROM_APP)
+//    public String openDraftFromApp(
+//            @RequestParam String articleID,
+//            @RequestParam String token,
+//            Model model
+//    ){
+//        model.addAttribute("articleID",articleID);
+//        model.addAttribute("token",token);
+//
+//        return "index";
+//
+//    }
 
 }

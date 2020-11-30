@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.security.Principal;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Community.CREATE_COMMUNITY;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Community.JOIN_COMMUNITY;
+
 @RestController
 public class CommunityEditorController {
 
@@ -69,7 +72,7 @@ public class CommunityEditorController {
     //@PostMapping(path="/deleteCommunity"
 
 
-    @PostMapping(path = "/joinCommunity")
+    @PostMapping(JOIN_COMMUNITY)
     public ResponseEntity<?> joinCommunity(@RequestBody JoinCommunityPayload payload, BindingResult result, Principal principal) {
 
         //CHECK BINDING RESULTS OF PAYLOAD
@@ -89,7 +92,7 @@ public class CommunityEditorController {
         return ResponseEntity.ok("success");
     }
 
-    @PostMapping(path = "/createCommunity")
+    @PostMapping(CREATE_COMMUNITY)
     public ResponseEntity<?> createCommunity(@Valid @RequestBody CreateCommunityPayload payload, BindingResult bindingResult,
                                              Principal principal) {
 

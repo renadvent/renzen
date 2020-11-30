@@ -15,6 +15,9 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.GET_HOME_STREAMS;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.ADD_BOOKMARK;
+
 @RestController
 //@CrossOrigin("*")
 public class HomepagePublicController {
@@ -60,16 +63,7 @@ public class HomepagePublicController {
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
-    //TODO implement
-    @GetMapping(path = "/getSpotlight")
-    ResponseEntity<?> getSpotlight() {
-//        var articleContent = articleService.findAllPage();
-//        var communityContent = communityService.findAllPage();
-        return null;
-        //return ResponseEntity.ok(CollectionModel.of(articleContent,communityContent);
-    }
-
-    @PostMapping(path = "/addBookmark")
+    @PostMapping(ADD_BOOKMARK)
     public ResponseEntity<?> addBookmark(@RequestBody @Valid addBookmarkPayload payload, Principal principal) {
 
         //var profileDO = userService.findBy_id(payload.getUserId());
@@ -83,7 +77,7 @@ public class HomepagePublicController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping(path = "/getHomeStreams/{page}")
+    @GetMapping(GET_HOME_STREAMS)
     public ResponseEntity<CollectionModel<?>> getHomeStreams(@PathVariable int page) {
 
         ArrayList<CollectionModel<?>> returnList = new ArrayList<>();

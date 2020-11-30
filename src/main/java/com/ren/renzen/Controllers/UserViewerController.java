@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.GET_PROFILE_STREAM_COMPONENT;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.GET_PROFILE_TAB_COMPONENT;
+
 @RestController
 public class UserViewerController {
 
@@ -28,7 +31,7 @@ public class UserViewerController {
         this.profileTabCOAssembler = profileTabCOAssembler;
     }
 
-    @GetMapping(path = "/getProfileStreamComponentCO/{id}")
+    @GetMapping(GET_PROFILE_STREAM_COMPONENT)
     public ResponseEntity<ProfileInfoComponentCO> getProfileStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
 
         var profileDO = userService.findBy_id(id);
@@ -42,7 +45,7 @@ public class UserViewerController {
         }
     }
 
-    @RequestMapping(path = "/getProfileTabComponentCO/{id}")
+    @RequestMapping(GET_PROFILE_TAB_COMPONENT)
     public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var profileDO = userService.findBy_id(id);
 

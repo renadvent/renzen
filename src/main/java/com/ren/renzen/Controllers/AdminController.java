@@ -18,6 +18,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Admin.*;
+
 @RestController
 public class AdminController {
 
@@ -42,7 +44,7 @@ public class AdminController {
 
     //@PostMapping(path="/deleteArticle")
 
-    @GetMapping("/getAdminArticles")
+    @GetMapping(GET_ADMIN_ARTICLES)
     public ResponseEntity<CollectionModel<?>> getAllArticles() {
 
         List<ArticleInfoComponentCO> returnList = new ArrayList<>();
@@ -52,12 +54,12 @@ public class AdminController {
         return ResponseEntity.ok(CollectionModel.wrap(returnList));
     }
 
-    @GetMapping("/getAdminCommunities")
+    @GetMapping(GET_ADMIN_COMMUNITIES)
     public CollectionModel<CommunityInfoComponentCO> getAllCommunities(Principal principal) {
         return (communityStreamCOAssembler.assembleDomainToFullModelViewCollection(communityService.findAll(principal.getName())));
     }
 
-    @GetMapping(path = "/getAdminProfiles")
+    @GetMapping(GET_ADMIN_PROFILES)
     public ResponseEntity<CollectionModel<?>> getAllProfiles() {
         return ResponseEntity
                 .ok(profileStreamCOAssembler.assembleDomainToFullModelViewCollection(userService.findAll()));

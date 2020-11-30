@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Community.GET_COMMUNITY_STREAM_COMPONENT;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Community.GET_COMMUNITY_TAB_COMPONENT;
+
 @RestController
 public class CommunityViewerController {
 
@@ -31,7 +34,7 @@ public class CommunityViewerController {
     }
 
     //TODO update toModel
-    @GetMapping(path = "/getCommunityStreamComponentCO/{id}")
+    @GetMapping(GET_COMMUNITY_STREAM_COMPONENT)
     public ResponseEntity<?> getCommunityStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
 
         var communityDO = communityService.findBy_id(id);
@@ -61,7 +64,7 @@ public class CommunityViewerController {
 
 
     //TODO update toModel
-    @GetMapping(path = "/getCommunityTabComponent/{id}")
+    @GetMapping(GET_COMMUNITY_TAB_COMPONENT)
     public ResponseEntity<?> getCommunityTabComponentCO(@PathVariable("id") ObjectId id, Principal principal) {
         var communityDO = communityService.findBy_id(id);
 

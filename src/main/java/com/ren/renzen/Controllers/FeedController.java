@@ -21,10 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.*;
+
 @Slf4j
 @RestController
 public class FeedController {
-
 
     //services
     final UserService userService;
@@ -120,7 +121,7 @@ public class FeedController {
     }
 
 
-    @PostMapping(path = "/addComment/{id}")
+    @PostMapping(ADD_COMMENT)
     public ResponseEntity<?> addComment(@PathVariable ObjectId id, @RequestBody addCommentPayload payload, Principal principal) {
 
         System.out.println(payload);
@@ -137,7 +138,7 @@ public class FeedController {
         return ResponseEntity.ok(null);
     }
 
-    @PostMapping(path = "/respondToPoll/{id}")
+    @PostMapping(RESPOND_TO_POLL)
     public ResponseEntity<?> respondToPoll(@PathVariable ObjectId id, respondToPollPayload payload, Principal principal) {
 
         var article = articleService.findBy_id(id);
@@ -151,17 +152,17 @@ public class FeedController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping(path = "/getExploreFeed/{id}")
+    @GetMapping(GET_EXPLORE_FEED)
     public ResponseEntity<?> getExploreFeed(@PathVariable ObjectId id, Principal principal) {
         return null;
     }
 
-    @GetMapping(path = "/getYourFeed/{id}")
+    @GetMapping(GET_YOUR_FEED)
     public ResponseEntity<?> getYourFeed(@PathVariable ObjectId id, Principal principal) {
         return null;
     }
 
-    @GetMapping(path = "/refreshComments/{id}")
+    @GetMapping(REFRESH_COMMENTS)
     public ResponseEntity<?> refreshComments(@PathVariable ObjectId id, Principal principal) {
         var article = articleService.findBy_id(id);
         return ResponseEntity.ok(article.getComments());

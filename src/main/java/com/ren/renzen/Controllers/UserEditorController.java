@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.LOGIN;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.REGISTER;
 import static com.ren.renzen.additional.KEYS.TOKEN_PREFIX;
 
 @RestController
@@ -91,7 +93,7 @@ public class UserEditorController {
     //@PostMapping(path="/changePhone")
     //@PostMapping(path="/deleteAccount")
 
-    @PostMapping(path = "/register")
+    @PostMapping(REGISTER)
     public ResponseEntity<?> Register(@Valid @RequestBody RegisterPayload registerPayload, BindingResult result) {
 
         userNamePasswordValidator.validate(registerPayload, result);
@@ -142,7 +144,7 @@ public class UserEditorController {
 
     //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
     //TODO web will have to process this page differently to allow changing password etc
-    @PostMapping(path = "/login", consumes = {"multipart/form-data", "application/json"})
+    @PostMapping(path = LOGIN, consumes = {"multipart/form-data", "application/json"})
     public ResponseEntity<?> Login(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
 
 

@@ -14,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.CREATE_ARTICLE_DRAFT_FROM_APP;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.OPEN_ARTICLE_DRAFT_FROM_APP;
 import static com.ren.renzen.additional.KEYS.*;
 
 @Configuration
@@ -76,6 +78,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+
+                        OPEN_ARTICLE_DRAFT_FROM_APP+"/**",
+                        CREATE_ARTICLE_DRAFT_FROM_APP+"/**",
 
                         "/getArticleField/**",
                         "/getArticleField/**",

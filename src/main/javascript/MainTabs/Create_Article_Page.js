@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { CreateArticlePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
 import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
+import Axios from "axios";
 
 function Editable_Article_Section(props) {
   const [info, setInfo] = useState({
@@ -75,6 +76,32 @@ function Editable_Article_Section(props) {
 }
 
 function Create_Article_Page(props) {
+  const [image, setImage] = useState("");
+  async function OpenDraft() {
+    //Axios.get()
+    //TODO Get Draft Info from Server
+
+    alert(OpenFromInkARTICLEID);
+
+    let res = await Axios.get(
+      "/getArticleTabComponentCO/" + OpenFromInkARTICLEID
+    );
+
+    alert(res);
+
+    console.log(res);
+    setImage(res.data.image);
+
+    //TODO Get Image Link and section data
+  }
+
+  useEffect(() => {
+    if (OpenFromInkARTICLEID !== null) {
+      //TODO open Draft
+      OpenDraft();
+    }
+  }, []);
+
   const [thisCommunity, setThisCommunity] = useState(props.id);
 
   //used for saving
@@ -143,7 +170,8 @@ function Create_Article_Page(props) {
 
           <div>
             {/*SHOW IMAGE FROM RENZEN INK HERE. data from url: {OpenFromInkImage}*/}
-            <img src={OpenFromInkImage} height={500} />
+            {/*<img src={OpenFromInkImage} height={500} />*/}
+            <img src={image} height={500} />
           </div>
 
           <label>Post In Community</label>
