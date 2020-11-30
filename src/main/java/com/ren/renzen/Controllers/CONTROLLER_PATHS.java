@@ -28,6 +28,8 @@ public class CONTROLLER_PATHS {
         public static final String GET_ARTICLE_STREAM_COMPONENTCO = "/getArticleStreamComponentCO/{id}";
         public static final String GET_ARTICLE_TAB_COMPONENTCO = "/getArticleTabComponentCO/{id}";
 
+        public static final String UPDATE_ARTICLE="/UPDATE_ARTICLE/{id}";
+
         public static final String ADD_COMMENT = "/addComment/{id}";
         public static final String RESPOND_TO_POLL = "/respondToPoll/{id}";
 

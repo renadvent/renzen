@@ -8,6 +8,7 @@ import com.azure.storage.blob.sas.BlobSasPermission;
 import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
 import com.azure.storage.common.sas.SasProtocol;
 import com.google.gson.Gson;
+import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.CommunityDO;
@@ -204,6 +205,25 @@ public class ArticleEditorController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+
+    }
+
+    @RequestMapping(UPDATE_ARTICLE)
+    public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody NewCreateArticlePayload payload, Principal principal){
+
+
+        var articleDO = articleService.findBy_id(id);
+
+        articleDO.setArticleName(payload.getArticleName());
+        articleDO.setTopic(payload.getTopic());
+        articleDO.setDescription(payload.getDescription());
+        articleDO.setCommunityID(payload.getCommunityID());
+        articleDO.setArticleSectionDOList(payload.getArticleSectionDOList());
+        articleDO.setWorkName(payload.getWorkName());
+
+        ArticleDO savedArticleDO = articleService.save(articleDO);
+
+        return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
 
     }
 

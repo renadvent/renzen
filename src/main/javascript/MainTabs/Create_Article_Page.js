@@ -77,6 +77,8 @@ function Editable_Article_Section(props) {
 
 function Create_Article_Page(props) {
   const [image, setImage] = useState("");
+  const [id, setID] = useState("");
+
   async function OpenDraft() {
     //Axios.get()
     //TODO Get Draft Info from Server
@@ -91,6 +93,7 @@ function Create_Article_Page(props) {
 
     console.log(res);
     setImage(res.data.image);
+    setID(res.data._id);
 
     //TODO Get Image Link and section data
   }
@@ -298,7 +301,8 @@ function Create_Article_Page(props) {
                 articleData,
                 props.user.id,
                 thisCommunity,
-                sectionData
+                sectionData,
+                id
               );
               //TODO fix here
               props.DISPATCH_removeOpenTabById(props.id + props.id);

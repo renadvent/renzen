@@ -211,9 +211,17 @@ export function DISPATCH_openArticle(url) {
   };
 }
 
-export function DISPATCH_createArticle(payload, user, community, sectionData) {
+export function DISPATCH_createArticle(
+  payload,
+  user,
+  community,
+  sectionData,
+  id
+) {
   return async (dispatch, getState) => {
-    let res = await Axios.post("/createArticle", {
+    let res = await Axios.post("/UPDATE_ARTICLE/" + id, {
+      //let res = await Axios.post("/createArticle", {
+
       articleName: payload.articleName,
       description: payload.articleDescription,
       workName: payload.workName,
