@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<ProfileDO> findByEmail(String email){
+    public Optional<ProfileDO> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -70,7 +70,6 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(profileDO);
     }
-
 
 
     @Override

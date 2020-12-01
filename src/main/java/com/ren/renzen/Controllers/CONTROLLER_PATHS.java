@@ -2,10 +2,10 @@ package com.ren.renzen.Controllers;
 
 public class CONTROLLER_PATHS {
 
-    public static class Article{
+    public static class Article {
 
         public static final String PUBLISH_ARTICLE = "/publishArticle/{id}";
-        public static final String UNPUBLISH_ARTICLE =  "/unpublishArticle/{id}";
+        public static final String UNPUBLISH_ARTICLE = "/unpublishArticle/{id}";
         public static final String DELETE_ARTICLE = "/deleteArticle/{id}";
         public static final String LIKE_ARTICLE = "/likeArticle/{id}";
         public static final String DISLIKE_ARTICLE = "/dislikeArticle/{id}";
@@ -15,7 +15,6 @@ public class CONTROLLER_PATHS {
 
         //used by desktop app
         public static final String NEW_CREATE_ARTICLE = "/newCreateArticle";
-
 
 
         public static final String OPEN_ARTICLE_DRAFT_FROM_APP = "/OPEN_ARTICLE_DRAFT_FROM_APP";
@@ -28,7 +27,7 @@ public class CONTROLLER_PATHS {
         public static final String GET_ARTICLE_STREAM_COMPONENTCO = "/getArticleStreamComponentCO/{id}";
         public static final String GET_ARTICLE_TAB_COMPONENTCO = "/getArticleTabComponentCO/{id}";
 
-        public static final String UPDATE_ARTICLE="/UPDATE_ARTICLE/{id}";
+        public static final String UPDATE_ARTICLE = "/UPDATE_ARTICLE/{id}";
 
         public static final String ADD_COMMENT = "/addComment/{id}";
         public static final String RESPOND_TO_POLL = "/respondToPoll/{id}";
@@ -50,7 +49,7 @@ public class CONTROLLER_PATHS {
 
     }
 
-    public static class User{
+    public static class User {
 
         public static final String ADD_BOOKMARK = "/addBookmark";
         public static final String REGISTER = "/register";
@@ -61,7 +60,7 @@ public class CONTROLLER_PATHS {
 
     }
 
-    public static class Admin{
+    public static class Admin {
 
         public static final String GET_ADMIN_ARTICLES = "/getAdminArticles";
         public static final String GET_ADMIN_COMMUNITIES = "/getAdminCommunities";

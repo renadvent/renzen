@@ -8,7 +8,6 @@ import com.azure.storage.blob.sas.BlobSasPermission;
 import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
 import com.azure.storage.common.sas.SasProtocol;
 import com.google.gson.Gson;
-import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.CommunityDO;
@@ -23,7 +22,6 @@ import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,7 +68,6 @@ public class ArticleEditorController {
     BlobContainerClient containerClient;
 
 
-
     public ArticleEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ImageService imageService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
@@ -101,12 +98,22 @@ public class ArticleEditorController {
     }
 
     @RequestMapping(PUBLISH_ARTICLE)
-    public ResponseEntity<?> publishArticle(@PathVariable ObjectId id, Principal principal){
-        var article = articleService.findBy_id(id);
-        if (article.getCreatorName().equals(principal.getName())){
+    public ResponseEntity<?> publishArticle(@PathVariable ObjectId id, Principal principal) {
 
+        var article = articleService.findBy_id(id);
+        var user = userService.findByUsername(principal.getName());
+
+        if (article.getCreatorName().equals(principal.getName())) {
+
+            //TODO add to community
+
+            user.getArticleDraftIDList().remove(id);
+            user.getArticleIDList().add(id);
             article.setIsDraft(false);
+
             articleService.save(article);
+            userService.update(user);
+
             //articleService.deleteArticle(id);
             return ResponseEntity.ok().build();
         }
@@ -114,12 +121,23 @@ public class ArticleEditorController {
     }
 
     @RequestMapping(UNPUBLISH_ARTICLE)
-    public ResponseEntity<?> unpublishArticle(@PathVariable ObjectId id, Principal principal){
+    public ResponseEntity<?> unpublishArticle(@PathVariable ObjectId id, Principal principal) {
         var article = articleService.findBy_id(id);
-        if (article.getCreatorName().equals(principal.getName())){
+        var user = userService.findByUsername(principal.getName());
 
+
+        if (article.getCreatorName().equals(principal.getName())) {
+
+            //TODO remove from community
+
+
+            user.getArticleIDList().remove(id);
+            user.getArticleDraftIDList().add(id);
             article.setIsDraft(true);
+
             articleService.save(article);
+            userService.update(user);
+
             //articleService.deleteArticle(id);
             return ResponseEntity.ok().build();
         }
@@ -128,14 +146,19 @@ public class ArticleEditorController {
 
 
     @RequestMapping(DELETE_ARTICLE)
-    public ResponseEntity<?> deleteArticle(@PathVariable ObjectId id, Principal principal){
+    public ResponseEntity<?> deleteArticle(@PathVariable ObjectId id, Principal principal) {
 
 
         //TODO also delete upload
         var article = articleService.findBy_id(id);
+        var user = userService.findByUsername(principal.getName());
 
-        if (article.getCreatorName().equals(principal.getName())){
+
+        if (article.getCreatorName().equals(principal.getName())) {
             articleService.deleteArticle(id);
+            //TODO remove from user
+
+            //user.getArticleDraftIDList().remove()
             return ResponseEntity.ok().build();
         }
 
@@ -144,27 +167,27 @@ public class ArticleEditorController {
     }
 
     @PostMapping(LIKE_ARTICLE)
-    public ResponseEntity<?> likeArticle(@PathVariable ObjectId id,Principal principal){
+    public ResponseEntity<?> likeArticle(@PathVariable ObjectId id, Principal principal) {
 
         var profile = userService.findByUsername(principal.getName());
         var article = articleService.findBy_id(id);
 
         //TODO check if user has already liked article
 
-        if (article!=null){
+        if (article != null) {
 
-            if (profile.getLikedArticles().contains(id)){
+            if (profile.getLikedArticles().contains(id)) {
                 return ResponseEntity.ok().build();
             }
 
-            if (profile.getDislikedArticles().contains(id)){
+            if (profile.getDislikedArticles().contains(id)) {
                 profile.getDislikedArticles().remove(id);
-                article.setDislikes(article.getDislikes()-1);
+                article.setDislikes(article.getDislikes() - 1);
             }
 
 
             profile.getLikedArticles().add(id);
-            article.setLikes(article.getLikes()+1);
+            article.setLikes(article.getLikes() + 1);
 
             userService.update(profile);
             articleService.save(article);
@@ -179,24 +202,24 @@ public class ArticleEditorController {
 
 
     @PostMapping(DISLIKE_ARTICLE)
-    public ResponseEntity<?> dislikeArticle(@PathVariable ObjectId id,Principal principal){
+    public ResponseEntity<?> dislikeArticle(@PathVariable ObjectId id, Principal principal) {
 
         var profile = userService.findByUsername(principal.getName());
         var article = articleService.findBy_id(id);
 
-        if (article!=null){
+        if (article != null) {
 
-            if (profile.getDislikedArticles().contains(id)){
+            if (profile.getDislikedArticles().contains(id)) {
                 return ResponseEntity.ok().build();
             }
 
-            if (profile.getLikedArticles().contains(id)){
+            if (profile.getLikedArticles().contains(id)) {
                 profile.getLikedArticles().remove(id);
-                article.setLikes(article.getLikes()-1);
+                article.setLikes(article.getLikes() - 1);
             }
 
             profile.getDislikedArticles().add(id);
-            article.setDislikes(article.getDislikes()+1);
+            article.setDislikes(article.getDislikes() + 1);
 
             userService.update(profile);
             articleService.save(article);
@@ -209,16 +232,25 @@ public class ArticleEditorController {
     }
 
     @RequestMapping(UPDATE_ARTICLE)
-    public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody NewCreateArticlePayload payload, Principal principal){
-
+    public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody NewCreateArticlePayload payload, Principal principal) {
 
         var articleDO = articleService.findBy_id(id);
+        var user=userService.findByUsername(principal.getName());
 
         articleDO.setArticleName(payload.getArticleName());
         articleDO.setTopic(payload.getTopic());
         articleDO.setDescription(payload.getDescription());
         articleDO.setCommunityID(payload.getCommunityID());
         articleDO.setArticleSectionDOList(payload.getArticleSectionDOList());
+
+        user.getWorkNames()
+                .stream()
+                .filter(name->payload.getWorkName().equals(name))
+                .findAny()
+                .ifPresentOrElse((value)->{
+                },()->user.getWorkNames().add(payload.getWorkName()));
+        userService.update(user);
+
         articleDO.setWorkName(payload.getWorkName());
 
         ArticleDO savedArticleDO = articleService.save(articleDO);
@@ -267,48 +299,44 @@ public class ArticleEditorController {
         communityService.saveOrUpdateCommunity(communityDO, principal.getName());
 
         return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
-        //return ResponseEntity.ok(articleComponentCOAssembler.toModel(articleService.findBy_id(savedArticleDO.get_id())));
 
     }
 
     @PostMapping(DELETE_IMAGE_FROM_PROFILE_COMPAT)
-    public void deleteImageFromProfile(@PathVariable String link, Principal principal){
+    public void deleteImageFromProfile(@PathVariable String link, Principal principal) {
 
         var user = userService.findByUsername(principal.getName());
 
         //TODO not working as intended
-        var newList = user.getPublicScreenshotsIDList().stream().filter(imageLink->{
+        var newList = user.getPublicScreenshotsIDList().stream().filter(imageLink -> {
             var name = imageLink.substring(imageLink.lastIndexOf('/') + 1);
-            if (name.equals(link)){
+            if (name.equals(link)) {
                 containerClient.getBlobClient(link).delete();
                 return false;
-            }else{
+            } else {
                 return true;
             }
 
         }).collect(Collectors.toList());
 
         user.setPublicScreenshotsIDList(newList);
-        userService.save(user);
+        userService.update(user);
 
-
-//        BlobClient blobClient = containerClient.getBlobClient(link);
-//        blobClient.delete();
     }
 
     @RequestMapping(CREATE_ARTICLE_DRAFT_FROM_APP)
-    public Map<String, String> createDraftFromApp(@RequestBody Map<String,Object> payload){
+    public Map<String, String> createDraftFromApp(@RequestBody Map<String, Object> payload) {
 
         String title = "no title";
         ObjectId userId = null;
         File file = null;
         String fileContents = "";
 
-        try{
+        try {
             userId = new ObjectId(payload.get("userId").toString());
             file = File.createTempFile("image", ".png");
             Files.write(file.toPath(), Base64.getDecoder().decode(payload.get("file").toString()));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -337,7 +365,7 @@ public class ArticleEditorController {
         //TODO new to create Article
         var article = new ArticleDO();
         article.setArticleName("DRAFT");
-        article.setWorkName("NONE");
+        article.setWorkName("DRAFT");
         article.setCreatorName(user.getUsername());
         article.setCreatorID(user.get_id());
         article.setPostImageURL(url);
@@ -346,125 +374,11 @@ public class ArticleEditorController {
 
         //add article to drafts
         user.getArticleDraftIDList().add(article.get_id());
+        userService.update(user);
 
         var responseMap = new HashMap<String, String>();
-        responseMap.put("articleID",article.get_id().toHexString());
+        responseMap.put("articleID", article.get_id().toHexString());
         return responseMap;
     }
-
-//    @RequestMapping(OPEN_ARTICLE_DRAFT_FROM_APP)
-//    public String openDraftFromApp(
-//            @RequestParam String articleID,
-//            @RequestParam String token,
-////            BindingResult result, Principal principal,
-//            Model model
-//    ){
-//        model.addAttribute("source","createNewArticle");
-//        model.addAttribute("articleID",articleID);
-//        model.addAttribute("token",token);
-//
-//        return "index";
-//
-//    }
-
-
-
-
-
-//
-//    //TODO changing to return article
-//    /**
-//     * returns link to image that was saved
-//     *
-//     * @param payload
-//     * @return
-//     */
-//    @PostMapping(path = ADD_IMAGE_TO_PROFILE_COMPAT, consumes = MediaType.APPLICATION_JSON_VALUE)
-////    public String addImageToProfile(@RequestBody Map<String, Object> payload) {
-//    public Map<String,String> addImageToProfile(@RequestBody Map<String, Object> payload) {
-//        String title = "no title";
-//        ObjectId userId = null;
-//        File file = null;
-//        String fileContents = "";
-//
-//        //TODO this can be better
-//        //get expected data from map
-//        for (Map.Entry<String, Object> me : payload.entrySet()) {
-//
-//            if (me.getKey().equals("userId")) {
-//                userId = new ObjectId(me.getValue().toString());
-////                userId=new ObjectId(me.getValue().toString());
-//                var user = userService.findBy_id(userId);
-//            }
-//
-//            if (me.getKey().equals("title")) {
-//                title = (String) me.getValue();
-//            }
-//
-//            if (me.getKey().equals("file")) {
-//                try {
-//                    //fileContents = me.getValue().toString();
-//                    //
-//                    file = File.createTempFile("image", ".png");
-//                    Files.write(file.toPath(), Base64.getDecoder().decode(me.getValue().toString()));
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        //upload to azure
-//        // Get a reference to a blob
-//        BlobClient blobClient = containerClient.getBlobClient(file.getName());
-//        blobClient.uploadFromFile(file.getAbsolutePath());
-//        file.delete();
-//
-//        BlobSasPermission blobPermission = new BlobSasPermission().setReadPermission(true);
-//
-//        //generate link
-//        var blobServiceSasSignatureValues = new BlobServiceSasSignatureValues()
-//                .setProtocol(SasProtocol.HTTPS_ONLY) // Users MUST use HTTPS (not HTTP).
-//                .setExpiryTime(OffsetDateTime.now().plusDays(2))
-//                .setPermissions(blobPermission);
-//
-//        var SAS = blobClient.generateSas(blobServiceSasSignatureValues);
-//
-//        //blobClient.generateUserDelegationSas()
-//
-//        String url = blobClient.getBlobUrl();
-//
-//        var user = userService.findBy_id(userId);
-//        user.getPublicScreenshotsIDList().add(url); // adds url without sas. wiil have to be generated when retrieving
-//        userService.update(user);
-//
-//        //TODO new to create Article
-//        var article = new ArticleDO();
-//        article.setArticleName("DRAFT");
-//        article.setWorkName("NONE");
-//        article.setCreatorName(user.getUsername());
-//        article.setCreatorID(user.get_id());
-//        article.setPostImageURL(url);
-//
-//        //NEW
-//        article.setIsDraft(true);
-//
-//        articleService.save(article);
-//        //article.setC
-//
-//        var urlWithPermissions = url + "?" + SAS;
-//
-//
-//        var responseMap = new HashMap<String, String>();
-//        responseMap.put("absoluteURL",url);
-//        responseMap.put("SASUrl",urlWithPermissions);
-//
-//        //TODO will have to create a way for web client to read this into draft page
-//        responseMap.put("ARTICLEID",article.get_id().toHexString());
-//        return responseMap;
-//
-//
-//        //return urlWithPermissions; // link with sas
-//    }
-
 
 }

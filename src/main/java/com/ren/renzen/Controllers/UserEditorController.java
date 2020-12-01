@@ -21,7 +21,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -103,9 +102,9 @@ public class UserEditorController {
 
         //temp
         if (!registerPayload.getPassword().equals(registerPayload.getConfirmPassword())
-        ||
-        userService.findByEmail(registerPayload.getEmail()).isPresent()
-        ){
+                ||
+                userService.findByEmail(registerPayload.getEmail()).isPresent()
+        ) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -129,7 +128,7 @@ public class UserEditorController {
 
         //pass back token
 //        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt,userService.findByUsername(registerPayload.getUsername()).get_id()));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, userService.findByUsername(registerPayload.getUsername()).get_id()));
 
 
 //        return new ResponseEntity<>(profileTabCOAssembler
@@ -164,7 +163,7 @@ public class UserEditorController {
 
         //pass back token
 //        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt,userService.findByUsername(loginRequest.getUsername()).get_id()));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, userService.findByUsername(loginRequest.getUsername()).get_id()));
 
         //return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(loginRequest.getUsername(), loginRequest.getPassword())));
     }

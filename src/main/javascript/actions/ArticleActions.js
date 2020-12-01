@@ -235,6 +235,9 @@ export function DISPATCH_createArticle(
       communityID: payload.community,
       articleSectionDOList: sectionData,
     });
+
+    await Axios.post("/publishArticle/" + id);
+
     dispatch({
       type: ACTION_openArticle,
       payload: res.data,

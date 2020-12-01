@@ -1,6 +1,6 @@
 package com.ren.renzen.Converters;
 
-import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
+import com.ren.renzen.CommandObjects.ArticleDTOs;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 
 @Component
-public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleInfoComponentCO> {
+public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleDTOs.ArticleInfoComponentCO> {
 
     final UserService userService;
     final ArticleService articleService;
@@ -27,9 +27,9 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
     }
 
     @Override
-    public ArticleInfoComponentCO convertDomainToPublicView(ArticleDO source) {
+    public ArticleDTOs.ArticleInfoComponentCO convertDomainToPublicView(ArticleDO source) {
 
-        final ArticleInfoComponentCO co = new ArticleInfoComponentCO();
+        final ArticleDTOs.ArticleInfoComponentCO co = new ArticleDTOs.ArticleInfoComponentCO();
         co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
 
         co.setName(source.getArticleName());
@@ -61,7 +61,7 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         co.setAuthorName(author.getUsername());
 
         co.setOtherPostsInWork(
-                articleService.findAllByCreatorIDAndWorkName(author.get_id(),co.getWorkName())
+                articleService.findAllByCreatorIDAndWorkName(author.get_id(), co.getWorkName())
                         .stream().map(ArticleDO::get_id).collect(Collectors.toList())
         );
 
@@ -72,7 +72,7 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
     }
 
     @Override
-    public ArticleInfoComponentCO convertDomainToFullView(ArticleDO source) {
+    public ArticleDTOs.ArticleInfoComponentCO convertDomainToFullView(ArticleDO source) {
 
         //get all public info
         final var co = convertDomainToPublicView(source);

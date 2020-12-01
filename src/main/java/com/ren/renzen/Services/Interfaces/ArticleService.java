@@ -1,7 +1,6 @@
 package com.ren.renzen.Services.Interfaces;
 
 import com.ren.renzen.DomainObjects.ArticleDO;
-import com.ren.renzen.DomainObjects.ProfileDO;
 import org.bson.types.ObjectId;
 
 import java.util.List;

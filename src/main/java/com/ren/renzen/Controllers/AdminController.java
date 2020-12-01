@@ -1,7 +1,7 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
-import com.ren.renzen.CommandObjects.CommunityInfoComponentCO;
+import com.ren.renzen.CommandObjects.ArticleDTOs;
+import com.ren.renzen.CommandObjects.CommunityDTOs;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.CommunityStreamCOAssembler;
@@ -47,7 +47,7 @@ public class AdminController {
     @GetMapping(GET_ADMIN_ARTICLES)
     public ResponseEntity<CollectionModel<?>> getAllArticles() {
 
-        List<ArticleInfoComponentCO> returnList = new ArrayList<>();
+        List<ArticleDTOs.ArticleInfoComponentCO> returnList = new ArrayList<>();
         for (ArticleDO articleDO : articleService.findAll()) {
             returnList.add(articleDO_to_articleStreamComponentCO.convertDomainToFullView(articleDO));
         }
@@ -55,7 +55,7 @@ public class AdminController {
     }
 
     @GetMapping(GET_ADMIN_COMMUNITIES)
-    public CollectionModel<CommunityInfoComponentCO> getAllCommunities(Principal principal) {
+    public CollectionModel<CommunityDTOs.CommunityInfoComponentCO> getAllCommunities(Principal principal) {
         return (communityStreamCOAssembler.assembleDomainToFullModelViewCollection(communityService.findAll(principal.getName())));
     }
 

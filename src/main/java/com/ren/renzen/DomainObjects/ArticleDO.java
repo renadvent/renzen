@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Data for an Article
@@ -26,51 +25,50 @@ public class ArticleDO {
     Boolean isDraft;
 
     String articleName;
-    String topic="none";
+    String topic = "none";
     String description;
 
     String creatorName;
 
     //TODO implement work
-    String workName="";
+    String workName = "";
 
     //NEW
     List<String> tagList = new ArrayList<>();
-    String postText="";
-    String postType="none";
+    String postText = "";
+    String postType = "none";
     List<Comment> comments = new ArrayList<>();
     List<PollOption> pollOptions = new ArrayList<>();
 
 
     ObjectId creatorID;
-//    Optional<ObjectId> creatorID;
+    //    Optional<ObjectId> creatorID;
     ObjectId communityID;
     ObjectId discussionID;
 
     List<ArticleSectionDO> articleSectionDOList = new ArrayList<>();
 
-    int likes=0;
-    int dislikes=0;
+    int likes = 0;
+    int dislikes = 0;
 
     //public article view setting
     boolean visibleInCommunity = true;
 
-    String postImageURL ="";
+    String postImageURL = "";
     List<ObjectId> imageIDs = new ArrayList<ObjectId>();
-
 
 
     @Data
     @NoArgsConstructor
-    public static class Comment{
+    public static class Comment {
         String comment;
         ObjectId author;
-        String authorName="";
+        String authorName = "";
     }
 
     @Data
     @NoArgsConstructor
-    public static class PollOption{
+    public static class PollOption {
         String name;
         int votes;
     }

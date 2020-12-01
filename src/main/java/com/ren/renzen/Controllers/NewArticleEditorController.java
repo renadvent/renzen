@@ -10,10 +10,10 @@ import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.OPEN_ARTICLE_DRAFT_FROM_APP;
-import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.NEW_CREATE_ARTICLE;
 
 @Controller
 public class NewArticleEditorController {
@@ -87,10 +87,10 @@ public class NewArticleEditorController {
             @RequestParam String token,
 //            BindingResult result, Principal principal,
             Model model
-    ){
-        model.addAttribute("source","createNewArticle");
-        model.addAttribute("articleID",articleID);
-        model.addAttribute("token",token);
+    ) {
+        model.addAttribute("source", "createNewArticle");
+        model.addAttribute("articleID", articleID);
+        model.addAttribute("token", token);
 
         return "index";
 

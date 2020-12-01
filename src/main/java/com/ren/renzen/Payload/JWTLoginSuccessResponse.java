@@ -6,10 +6,9 @@ import org.bson.types.ObjectId;
 @Data
 public class JWTLoginSuccessResponse {
 
+    ObjectId id;
     private boolean success;
     private String token;
-
-    ObjectId id;
 
     public JWTLoginSuccessResponse(boolean success, String token) {
         this.success = success;
@@ -19,7 +18,7 @@ public class JWTLoginSuccessResponse {
     public JWTLoginSuccessResponse(boolean success, String token, ObjectId id) {
         this.success = success;
         this.token = token;
-        this.id=id;
+        this.id = id;
     }
 
     @Override

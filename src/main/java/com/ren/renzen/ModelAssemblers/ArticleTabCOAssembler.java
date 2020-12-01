@@ -1,6 +1,6 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
+import com.ren.renzen.CommandObjects.ArticleDTOs;
 import com.ren.renzen.Controllers.ArticleEditorController;
 import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
@@ -32,7 +32,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  * in this case, possible responses are different CO's
  */
 @Component
-public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleTabComponentCO> {
+public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleDTOs.ArticleTabComponentCO> {
 
     final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
 
@@ -41,31 +41,31 @@ public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Article
     }
 
     @Override
-    public ArticleTabComponentCO assembleDomainToPublicModelView(ArticleDO articleDO) {
+    public ArticleDTOs.ArticleTabComponentCO assembleDomainToPublicModelView(ArticleDO articleDO) {
 
-        ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToPublicView(articleDO);
+        ArticleDTOs.ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToPublicView(articleDO);
         articleTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
         return addLinksWithCurrentAuthentication(articleTabComponentCO);
 
     }
 
     @Override
-    public ArticleTabComponentCO assembleDomainToFullModelView(ArticleDO articleDO) {
+    public ArticleDTOs.ArticleTabComponentCO assembleDomainToFullModelView(ArticleDO articleDO) {
 
-        ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToFullView(articleDO);
+        ArticleDTOs.ArticleTabComponentCO articleTabComponentCO = articleDO_to_articleTabComponentCO.convertDomainToFullView(articleDO);
         articleTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
         return addLinksWithCurrentAuthentication(articleTabComponentCO);
     }
 
     @Override
-    public ArticleTabComponentCO addLinksWithCurrentAuthentication(ArticleTabComponentCO entity) {
+    public ArticleDTOs.ArticleTabComponentCO addLinksWithCurrentAuthentication(ArticleDTOs.ArticleTabComponentCO entity) {
         return entity
                 .add(List.of(
 
-                        linkTo(methodOn(ArticleEditorController.class).likeArticle(entity.getObjectId(),getAuth())).withRel("LikeArticle"),
-                        linkTo(methodOn(ArticleEditorController.class).dislikeArticle(entity.getObjectId(),getAuth())).withRel("DislikeArticle"),
-                        linkTo(methodOn(ArticleEditorController.class).deleteArticle(entity.getObjectId(),getAuth())).withRel("DeleteArticle"),
+                        linkTo(methodOn(ArticleEditorController.class).likeArticle(entity.getObjectId(), getAuth())).withRel("LikeArticle"),
+                        linkTo(methodOn(ArticleEditorController.class).dislikeArticle(entity.getObjectId(), getAuth())).withRel("DislikeArticle"),
+                        linkTo(methodOn(ArticleEditorController.class).deleteArticle(entity.getObjectId(), getAuth())).withRel("DeleteArticle"),
 
 
                         linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),

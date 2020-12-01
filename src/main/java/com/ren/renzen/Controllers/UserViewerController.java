@@ -1,7 +1,6 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ProfileInfoComponentCO;
-import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
+import com.ren.renzen.CommandObjects.ProfileDTOs;
 import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileTabCOAssembler;
 import com.ren.renzen.Services.Interfaces.UserService;
@@ -32,7 +31,7 @@ public class UserViewerController {
     }
 
     @GetMapping(GET_PROFILE_STREAM_COMPONENT)
-    public ResponseEntity<ProfileInfoComponentCO> getProfileStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
+    public ResponseEntity<ProfileDTOs.ProfileInfoComponentCO> getProfileStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
 
         var profileDO = userService.findBy_id(id);
 
@@ -46,7 +45,7 @@ public class UserViewerController {
     }
 
     @RequestMapping(GET_PROFILE_TAB_COMPONENT)
-    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id, Principal principal) {
+    public ResponseEntity<ProfileDTOs.ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var profileDO = userService.findBy_id(id);
 
         if (principal == null || !principal.getName().equals(profileDO.getUsername())) {

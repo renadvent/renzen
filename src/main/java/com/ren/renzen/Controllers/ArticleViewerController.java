@@ -1,6 +1,5 @@
 package com.ren.renzen.Controllers;
 
-import com.microsoft.rest.v2.annotations.GET;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ArticleTabCOAssembler;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -38,12 +37,10 @@ public class ArticleViewerController {
     public ResponseEntity<?> getArticleStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
 
 
-
-
         var articleDO = articleService.findBy_id(id);
 
 //        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
-        if (principal==null || !principal.getName().equals(articleDO.getCreatorName())) {
+        if (principal == null || !principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleStreamCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {
@@ -58,7 +55,7 @@ public class ArticleViewerController {
         var articleDO = articleService.findBy_id(id);
 
         //if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
-        if (principal==null || !principal.getName().equals(articleDO.getCreatorName())) {
+        if (principal == null || !principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {

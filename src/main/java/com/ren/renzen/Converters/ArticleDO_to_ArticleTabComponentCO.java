@@ -1,6 +1,6 @@
 package com.ren.renzen.Converters;
 
-import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
+import com.ren.renzen.CommandObjects.ArticleDTOs;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleTabComponentCO> {
+public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleDTOs.ArticleTabComponentCO> {
 
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
@@ -40,13 +40,12 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         this.imageService = imageService;
     }
 
-    void common(ArticleDO source, ArticleTabComponentCO co){
+    void common(ArticleDO source, ArticleDTOs.ArticleTabComponentCO co) {
 
         try {
             String name = source.getPostImageURL().substring(source.getPostImageURL().lastIndexOf('/') + 1);
 
             co.setImage(imageService.generateSAS(name));
-
 
 
         } catch (Exception e) {
@@ -61,8 +60,8 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     @Synchronized
     @Nullable
     @Override
-    public ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
-        final ArticleTabComponentCO co = new ArticleTabComponentCO();
+    public ArticleDTOs.ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
+        final ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
 
         common(source, co);
 
@@ -88,8 +87,8 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     @Synchronized
     @Nullable
     @Override
-    public ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
-        final ArticleTabComponentCO co = new ArticleTabComponentCO();
+    public ArticleDTOs.ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
+        final ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
 
         common(source, co);
 
