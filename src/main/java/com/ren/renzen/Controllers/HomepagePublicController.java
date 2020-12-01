@@ -82,7 +82,8 @@ public class HomepagePublicController {
 
         ArrayList<CollectionModel<?>> returnList = new ArrayList<>();
 
-        var articleContent = articleService.findAllPage(page);
+//        var articleContent = articleService.findAllPage(page);
+        var articleContent = articleService.findByIsDraft(false,page);
         var communityContent = communityService.findAllPage();
         var profileContent = userService.findAllPage();
 

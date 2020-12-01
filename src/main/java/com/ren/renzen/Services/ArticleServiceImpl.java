@@ -4,7 +4,9 @@ import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -79,6 +81,16 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findAll(paging).getContent();
     }
 
+
+    @Override
+    public List<ArticleDO> findByIsDraft(boolean published, int page) {
+
+
+        return articleRepository.findByIsDraft(published,PageRequest.of(page, 1, Sort.by("_id").descending()));
+    }
+
+
+
     @Override
     public Boolean deleteArticle(ObjectId id) {
 
@@ -88,5 +100,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         return true;
     }
+
+
 
 }
