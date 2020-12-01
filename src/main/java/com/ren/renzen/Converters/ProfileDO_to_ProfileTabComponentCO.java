@@ -96,6 +96,9 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
         final var co = common(source);
 
+        co.setArticleDraftInfoComponentCOs(articleStreamCOAssembler
+                .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
+
         co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
         co.setArticleInfoComponentCOS(articleStreamCOAssembler

@@ -33,9 +33,9 @@ function Profile_Page(props) {
         <div className="container-fluid">
           {PublicProfileContents()}
 
-          <div className={"row"}>
-            <RenzenInkImagesConnect data={props.data} />
-          </div>
+          {/*<div className={"row"}>*/}
+          {/*  <RenzenInkImagesConnect data={props.data} />*/}
+          {/*</div>*/}
         </div>
       </div>
     </div>
@@ -101,6 +101,18 @@ function Profile_Page(props) {
             <h4>Articles: {props.data.numberOfArticles}</h4>
             <StreamArticleConnect
               source={props.articles}
+              dispatchSent={props.DISPATCH_openArticle}
+            />
+            <hr />
+
+            <h4>Drafts:</h4>
+            {console.log("props.data")}
+            {console.log(props.data)}
+            <StreamArticleConnect
+              source={
+                props.data.articleDraftInfoComponentCOs._embedded
+                  .articleInfoComponentCoes
+              }
               dispatchSent={props.DISPATCH_openArticle}
             />
             <hr />

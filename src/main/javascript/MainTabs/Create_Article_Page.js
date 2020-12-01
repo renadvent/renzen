@@ -330,6 +330,10 @@ function Create_Article_Page(props) {
           >
             Post Article
           </button>
+
+          <button className="btn btn-secondary">
+            Post/Update/SaveAsDraft (VOID)
+          </button>
         </div>
       </div>
     </div>
