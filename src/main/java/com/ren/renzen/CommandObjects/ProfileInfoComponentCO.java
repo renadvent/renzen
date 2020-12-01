@@ -24,8 +24,11 @@ public class ProfileInfoComponentCO extends RepresentationModel<ProfileInfoCompo
     String name;
     Integer numberOfArticles;
     Integer numberOfCommunities;
+
     List<ObjectId> articleIDList = new ArrayList<>();
     List<ObjectId> communityIDList = new ArrayList<>();
+
+    List<ObjectId> articleDraftIDList = new ArrayList<>();
 
 
 

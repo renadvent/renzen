@@ -1,6 +1,7 @@
 package com.ren.renzen.Converters;
 
 import com.ren.renzen.CommandObjects.ProfileInfoComponentCO;
+import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Services.Interfaces.UserService;
@@ -17,10 +18,11 @@ public class ProfileDO_to_ProfileStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         this.userService = userService;
     }
 
-    @Override
-    public ProfileInfoComponentCO convertDomainToPublicView(ProfileDO source) {
+    public ProfileInfoComponentCO common(ProfileDO source){
+
         final ProfileInfoComponentCO co = new ProfileInfoComponentCO();
 
+        co.setArticleDraftIDList(source.getArticleDraftIDList());
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
         co.setName(source.getUsername());
@@ -28,18 +30,20 @@ public class ProfileDO_to_ProfileStreamComponentCO extends DOMAIN_VIEW_CONVERTER
         co.setNumberOfCommunities(source.getCommunityIDList().size());
 
         return co;
+
+    }
+
+    @Override
+    public ProfileInfoComponentCO convertDomainToPublicView(ProfileDO source) {
+
+        var co = common(source);
+        return co;
     }
 
     @Override
     public ProfileInfoComponentCO convertDomainToFullView(ProfileDO source) {
-        final ProfileInfoComponentCO co = new ProfileInfoComponentCO();
 
-        co.set_id(source.get_id().toHexString());
-        co.setObjectId(source.get_id());
-        co.setName(source.getUsername());
-        co.setNumberOfArticles(source.getArticleIDList().size());
-        co.setNumberOfCommunities(source.getCommunityIDList().size());
-
+        var co = common(source);
         return co;
     }
 }

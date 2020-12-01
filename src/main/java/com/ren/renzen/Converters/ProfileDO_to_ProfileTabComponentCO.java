@@ -45,51 +45,43 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         this.communityStreamCOAssembler = communityStreamCOAssembler;
     }
 
-    void common(ProfileDO source, ProfileTabComponentCO co){
+    ProfileTabComponentCO common(ProfileDO source){
 
-
-
-    }
-    @Override
-    public ProfileTabComponentCO convertDomainToPublicView(ProfileDO source) {
         final ProfileTabComponentCO co = new ProfileTabComponentCO();
 
-        common(source,co);
-
+        co.setArticleDraftIDList(source.getArticleDraftIDList());
         co.setName(source.getUsername());
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
         co.setNumberOfArticles(source.getArticleIDList().size());
         co.setNumberOfCommunities(source.getCommunityIDList().size());
+
+        var correctedImageIDs = new ArrayList<String>();
+        var originalImageIDs = new ArrayList<String>();
+
+        for (var link : source.getPublicScreenshotsIDList()) {
+            String name = link.substring(link.lastIndexOf('/') + 1);
+            originalImageIDs.add(name);
+            correctedImageIDs.add(imageService.generateSAS(name));
+        }
+
+        co.setScreenshotLinks(correctedImageIDs);
+        co.setOriginalLinks(originalImageIDs);
+
+        return co;
+
+    }
+    @Override
+    public ProfileTabComponentCO convertDomainToPublicView(ProfileDO source) {
+
+        final var co = common(source);
+
         co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
         co.setArticleInfoComponentCOS(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleIDList())));
-
-
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
-
-
-
-
-        var corrected = new ArrayList<String>();
-        var orig = new ArrayList<String>();
-
-        for (var link : source.getPublicScreenshotsIDList()) {
-
-            String name = link.substring(link.lastIndexOf('/') + 1);
-
-            orig.add(name);
-            corrected.add(imageService.generateSAS(name));
-
-
-        }
-
-        co.setScreenshotLinks(corrected);
-        co.setOriginalLinks(orig);
-
-        //co.setScreenshotLinks(source.getScreenshotsIDList().stream().toArray()(imageService::generateSAS));
 
         return co;
     }
@@ -97,16 +89,7 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     @Override
     public ProfileTabComponentCO convertDomainToFullView(ProfileDO source) {
 
-        final ProfileTabComponentCO co = new ProfileTabComponentCO();
-
-        common(source,co);
-
-
-        co.setName(source.getUsername());
-        co.set_id(source.get_id().toHexString());
-        co.setObjectId(source.get_id());
-        co.setNumberOfArticles(source.getArticleIDList().size());
-        co.setNumberOfCommunities(source.getCommunityIDList().size());
+        final var co = common(source);
 
         co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
@@ -114,26 +97,6 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
                 .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleIDList())));
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
-
-
-        var corrected = new ArrayList<String>();
-        var orig = new ArrayList<String>();
-
-
-
-        for (var link : source.getPublicScreenshotsIDList()) {
-
-            String name = link.substring(link.lastIndexOf('/') + 1);
-            orig.add(name);
-
-            corrected.add(imageService.generateSAS(name));
-        }
-
-        co.setScreenshotLinks(corrected);
-        co.setOriginalLinks(orig);
-
-
-        //co.setScreenshotLinks(source.getScreenshotsIDList().stream().toArray()(imageService::generateSAS));
 
         return co;
     }

@@ -91,6 +91,25 @@ function Create_Article_Page(props) {
 
     alert(res);
 
+    let data = res.data;
+
+    // res.data.articleSectionCOList.map(section=>{
+    //   return (
+    //       <div>
+    //
+    //       </div>
+    //   )
+    // })
+
+    //TODO WORKING HERE
+    setArticleData({
+      articleName: data.articleName,
+      workName: data.workName,
+      community: data.communityID,
+      communityName: data.communityName,
+      //articleDescription: data.ar
+    });
+
     console.log(res);
     setImage(res.data.image);
     setID(res.data._id);

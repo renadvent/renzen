@@ -46,6 +46,9 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
             String name = source.getPostImageURL().substring(source.getPostImageURL().lastIndexOf('/') + 1);
 
             co.setImage(imageService.generateSAS(name));
+
+
+
         } catch (Exception e) {
             co.setImage(null);
         }

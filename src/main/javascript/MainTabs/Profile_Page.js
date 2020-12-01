@@ -196,6 +196,14 @@ function StreamArticle(props) {
             >
               Delete Article
             </button>
+            <button
+              // onClick={()=>{
+              //   props.dispatch()
+              // }}
+              className="btn btn-secondary"
+            >
+              Edit Article (VOID)
+            </button>
           </li>
         );
       })}

@@ -33,6 +33,12 @@ public class CommunityDO_to_CommunityTabComponentCO
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
+    public void common(CommunityDO source,CommunityTabComponentCO co ){
+
+
+
+    }
+
     @Synchronized
     @Nullable
     @Override
