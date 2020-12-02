@@ -66,9 +66,16 @@ export function CreateArticlePage_mapDispatchToProps(dispatch) {
     //         store.DISPATCH_createArticle(payload, user, community, sectionData)
     //     ),
 
-    DISPATCH_createArticle: (payload, user, community, sectionData, id) =>
+    DISPATCH_createArticle: (payload, user, community, sectionData, id, post) =>
       dispatch(
-        store.DISPATCH_createArticle(payload, user, community, sectionData, id)
+        store.DISPATCH_createArticle(
+          payload,
+          user,
+          community,
+          sectionData,
+          id,
+          post
+        )
       ),
     DISPATCH_removeOpenTabById: (id) =>
       dispatch(store.DISPATCH_removeOpenTabById(id)),

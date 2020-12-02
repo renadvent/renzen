@@ -1,79 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-import { CreateArticlePage_StateToProps as mapStateToProps } from "../maps/StateToProps";
-import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "../maps/DispatchToProps";
+import { CreateArticlePage_StateToProps as mapStateToProps } from "../../maps/StateToProps";
+import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "../../maps/DispatchToProps";
 import Axios from "axios";
+import { Editable_Article_Section } from "./Editable_Article_Section";
 
-function Editable_Article_Section(props) {
-  const [info, setInfo] = useState({
-    header: "",
-    body: "",
-    // workName: "",
-    // tags: "",
-    // pollOptions: "",
-  });
-
-  //adds info state to parent state array on first render
-  useEffect(() => {
-    props.update((prevState) => prevState.concat(info));
-  }, []);
-
-  //links input forms to react states
-  //changes "info" which will trigger another effect
-  function handleChange(event) {
-    const { value, name } = event.target;
-    setInfo((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,
-      };
-    });
-  }
-
-  //uses function from parent to update parent array of sections
-  //when info is updated
-  useEffect(() => {
-    props.update((x) => {
-      let dup = x;
-      dup[props.index] = info;
-      return dup;
-    });
-  }, [info]);
-
-  return (
-    <div>
-      <div className="input-group mb-3">
-        <div className="input-group-prepend">
-          <span className="input-group-text">Heading</span>
-        </div>
-        <input
-          type="text"
-          name={"header"}
-          value={info.header}
-          onChange={handleChange}
-          rows={5}
-          className="form-control"
-          aria-label="Enter question"
-        />
-      </div>
-
-      <div className="input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">Content</span>
-        </div>
-        <textarea
-          name={"body"}
-          value={info.body}
-          onChange={handleChange}
-          rows={10}
-          className="form-control"
-          aria-label="With textarea"
-        />
-      </div>
-    </div>
-  );
-}
+//TODO more like "EDIT ARTICLE PAGE"
 
 function Create_Article_Page(props) {
   const [image, setImage] = useState("");
@@ -321,7 +254,8 @@ function Create_Article_Page(props) {
                 props.user.id,
                 thisCommunity,
                 sectionData,
-                id
+                id,
+                true
               );
               //TODO fix here
               props.DISPATCH_removeOpenTabById(props.id + props.id);
@@ -331,8 +265,25 @@ function Create_Article_Page(props) {
             Post Article
           </button>
 
-          <button className="btn btn-secondary">
-            Post/Update/SaveAsDraft (VOID)
+          <button
+            type="button"
+            onClick={() => {
+              if (!check()) return;
+
+              props.DISPATCH_createArticle(
+                articleData,
+                props.user.id,
+                thisCommunity,
+                sectionData,
+                id,
+                false
+              );
+              //TODO fix here
+              props.DISPATCH_removeOpenTabById(props.id + props.id);
+            }}
+            className="btn btn-secondary"
+          >
+            Save As Draft
           </button>
         </div>
       </div>

@@ -216,7 +216,8 @@ export function DISPATCH_createArticle(
   user,
   community,
   sectionData,
-  id
+  id,
+  post
 ) {
   return async (dispatch, getState) => {
     let res = await Axios.post("/UPDATE_ARTICLE/" + id, {
@@ -236,7 +237,11 @@ export function DISPATCH_createArticle(
       articleSectionDOList: sectionData,
     });
 
-    await Axios.post("/publishArticle/" + id);
+    if (post) {
+      await Axios.post("/publishArticle/" + id);
+    } else {
+      await Axios.post("/unpublishArticle/" + id);
+    }
 
     dispatch({
       type: ACTION_openArticle,

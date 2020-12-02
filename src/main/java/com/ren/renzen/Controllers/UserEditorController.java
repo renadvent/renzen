@@ -167,7 +167,7 @@ public class UserEditorController {
         String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
 
         var user = userService.findByUsername(loginRequest.getUsername());
-        
+
         user.getLogins_at().add(new Date());
 
 
