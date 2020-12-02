@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Date;
 
 import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Community.CREATE_COMMUNITY;
 import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Community.JOIN_COMMUNITY;
@@ -85,6 +86,8 @@ public class CommunityEditorController {
 
         profileDO.getCommunityIDList().add(communityDO.get_id());
         communityDO.getProfileDOList().add(profileDO.get_id());
+        communityDO.getUpdated_at().add(new Date());
+
 
         userService.update(profileDO);
         communityService.saveOrUpdateCommunity(communityDO, principal.getName());
@@ -110,6 +113,9 @@ public class CommunityEditorController {
         var communityDO = new CommunityDO();
         communityDO.setName(payload.getName());
         communityDO.setCreatorName(principal.getName());
+
+        communityDO.setCreated_at(new Date());
+        communityDO.getUpdated_at().add(new Date());
 
 
         communityDO.setCreatorID(userService.findByUsername(principal.getName()).get_id());

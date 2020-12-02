@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ArticleDTOs {
@@ -49,6 +50,9 @@ public class ArticleDTOs {
         List<String> otherPostsInWorkHex = new ArrayList<>();
 
 
+        Date created_at = new Date();
+        List<Date> updated_at = new ArrayList<>();
+
         String workName = "";
 
 
@@ -82,6 +86,10 @@ public class ArticleDTOs {
         ProfileDTOs.ProfileInfoComponentCO profileInfoComponentCO;
         ObjectId discussionID;
         List<ArticleSectionCO> articleSectionCOList = new ArrayList<>();
+
+        Date created_at = new Date();
+        List<Date> updated_at = new ArrayList<>();
+
 
         int likes;
         int dislikes;

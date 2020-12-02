@@ -31,6 +31,7 @@ import java.nio.file.Files;
 import java.security.Principal;
 import java.time.OffsetDateTime;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -111,6 +112,8 @@ public class ArticleEditorController {
             user.getArticleIDList().add(id);
             article.setIsDraft(false);
 
+            article.getUpdated_at().add(new Date());
+
             articleService.save(article);
             userService.update(user);
 
@@ -131,9 +134,14 @@ public class ArticleEditorController {
             //TODO remove from community
 
 
+
+
             user.getArticleIDList().remove(id);
             user.getArticleDraftIDList().add(id);
             article.setIsDraft(true);
+
+            article.getUpdated_at().add(new Date());
+
 
             articleService.save(article);
             userService.update(user);
@@ -188,6 +196,8 @@ public class ArticleEditorController {
 
             profile.getLikedArticles().add(id);
             article.setLikes(article.getLikes() + 1);
+            article.getUpdated_at().add(new Date());
+
 
             userService.update(profile);
             articleService.save(article);
@@ -220,6 +230,8 @@ public class ArticleEditorController {
 
             profile.getDislikedArticles().add(id);
             article.setDislikes(article.getDislikes() + 1);
+            article.getUpdated_at().add(new Date());
+
 
             userService.update(profile);
             articleService.save(article);
@@ -242,6 +254,8 @@ public class ArticleEditorController {
         articleDO.setDescription(payload.getDescription());
         articleDO.setCommunityID(payload.getCommunityID());
         articleDO.setArticleSectionDOList(payload.getArticleSectionDOList());
+        articleDO.getUpdated_at().add(new Date());
+
 
         user.getWorkNames()
                 .stream()
@@ -269,6 +283,10 @@ public class ArticleEditorController {
 
         //BUILD PAYLOAD TO ARTICLE
         var articleDO = new ArticleDO();
+
+        articleDO.setCreated_at(new Date());
+        articleDO.getUpdated_at().add(new Date());
+
         articleDO.setArticleName(payload.getArticleName());
         articleDO.setTopic(payload.getTopic());
         articleDO.setDescription(payload.getDescription());
@@ -364,6 +382,10 @@ public class ArticleEditorController {
 
         //TODO new to create Article
         var article = new ArticleDO();
+
+        article.setCreated_at(new Date());
+        article.getUpdated_at().add(new Date());
+
         article.setArticleName("DRAFT");
         article.setWorkName("DRAFT");
         article.setCreatorName(user.getUsername());

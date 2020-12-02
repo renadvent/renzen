@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.Date;
+
 import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.LOGIN;
 import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.REGISTER;
 import static com.ren.renzen.additional.KEYS.TOKEN_PREFIX;
@@ -113,6 +115,9 @@ public class UserEditorController {
         profileDO.setPassword(registerPayload.getPassword());
         profileDO.setEmail(registerPayload.getEmail());
 
+        profileDO.setCreated_at(new Date());
+        profileDO.getUpdated_at().add(new Date());
+
         userService.save(profileDO);
 
         Authentication authentication = authenticationManager.authenticate(
@@ -161,9 +166,14 @@ public class UserEditorController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
 
+        var user = userService.findByUsername(loginRequest.getUsername());
+        
+        user.getLogins_at().add(new Date());
+
+
         //pass back token
 //        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, userService.findByUsername(loginRequest.getUsername()).get_id()));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, user.get_id()));
 
         //return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(loginRequest.getUsername(), loginRequest.getPassword())));
     }

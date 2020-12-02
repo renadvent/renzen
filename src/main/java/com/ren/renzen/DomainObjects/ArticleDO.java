@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,6 +57,9 @@ public class ArticleDO {
 
     String postImageURL = "";
     List<ObjectId> imageIDs = new ArrayList<ObjectId>();
+
+    Date created_at = new Date();
+    List<Date> updated_at = new ArrayList<>();
 
 
     @Data
