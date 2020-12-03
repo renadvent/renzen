@@ -16,13 +16,19 @@ function Create_Article_Page(props) {
     //Axios.get()
     //TODO Get Draft Info from Server
 
-    alert(OpenFromInkARTICLEID);
+    alert("OPENING DRAFT!!!");
+
+    //alert(OpenFromInkARTICLEID);
+
+    setID(props.id);
 
     let res = await Axios.get(
-      "/getArticleTabComponentCO/" + OpenFromInkARTICLEID
+      "/getArticleTabComponentCO/" + props.id
+
+      //OpenFromInkARTICLEID
     );
 
-    alert(res);
+    alert(res.status);
 
     let data = res.data;
 
@@ -44,6 +50,7 @@ function Create_Article_Page(props) {
     });
 
     console.log(res);
+    alert("SETTING IMAGE");
     setImage(res.data.image);
     setID(res.data._id);
 
@@ -51,10 +58,10 @@ function Create_Article_Page(props) {
   }
 
   useEffect(() => {
-    if (OpenFromInkARTICLEID !== null) {
-      //TODO open Draft
-      OpenDraft();
-    }
+    // if (OpenFromInkARTICLEID !== null) {
+    //TODO open Draft
+    OpenDraft().then();
+    // }
   }, []);
 
   const [thisCommunity, setThisCommunity] = useState(props.id);

@@ -2,7 +2,10 @@ import ArticleEditTab from "../MainTabs/Edit_Article_Components/Create_Article_P
 import AppTab from "../TabLabels/Page_TabLabels";
 import React from "react";
 
-export function createArticleState(state, action) {
+export function editArticleState(state, action) {
+  //TODO pass article sections to
+  //as a property of to ArticleEditTab and then load into state
+
   return {
     ...state,
     selectedTab: action.id + action.id,

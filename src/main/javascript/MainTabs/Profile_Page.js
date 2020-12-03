@@ -8,6 +8,7 @@ import {
   DISPATCH_deleteImageFromProfile,
   DISPATCH_deletePost,
 } from "../actions/Store_Actions";
+import { DISPATCH_openEditArticleTab } from "../actions/ArticleActions";
 
 function Profile_Page(props) {
   const [communityName, setCommunityName] = useState("");
@@ -209,12 +210,12 @@ function StreamArticle(props) {
               Delete Article
             </button>
             <button
-              // onClick={()=>{
-              //   props.dispatch()
-              // }}
+              onClick={() => {
+                props.dispatch(DISPATCH_openEditArticleTab(single._id));
+              }}
               className="btn btn-secondary"
             >
-              Edit Article (VOID)
+              Edit Article
             </button>
           </li>
         );

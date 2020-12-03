@@ -8,8 +8,12 @@ export const TabPane_mapDispatchToProps = (dispatch) => {
   return {
     DISPATCH_logOut: () => dispatch(store.DISPATCH_logOut()),
     DISPATCH_init: () => dispatch(store.DISPATCH_init()),
+
     DISPATCH_openCreateArticleTab: (comid) =>
       dispatch(store.DISPATCH_openCreateArticleTab(comid)),
+
+    DISPATCH_openEditArticleTab: (articleId) =>
+      dispatch(store.DISPATCH_openEditArticleTab(articleId)),
   };
 };
 
@@ -169,6 +173,9 @@ export const ProfilePage_mapDispatchToProps = (dispatch) => {
       ),
     DISPATCH_openCommunity: (url) =>
       dispatch(store.DISPATCH_openCommunity(url)),
+
+    DISPATCH_openEditArticleTab: (articleId) =>
+      dispatch(store.DISPATCH_openEditArticleTab(articleId)),
   };
 };
 

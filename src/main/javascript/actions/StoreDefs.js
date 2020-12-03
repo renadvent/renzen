@@ -26,6 +26,8 @@ export const ACTION_switchTab = "ACTION_switchTab";
 
 export const ACTION_replaceArticle = "ACTION_replaceArticle";
 
+export const ACTION_editArticle = "ACTION_editArticle";
+
 /**
  * openCommunity
  * openUser

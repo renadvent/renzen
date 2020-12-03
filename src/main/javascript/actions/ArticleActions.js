@@ -7,6 +7,7 @@ import {
   GET_ERRORS,
   ACTION_addComment,
   ACTION_replaceArticle,
+  ACTION_editArticle,
 } from "./StoreDefs";
 import {
   DISPATCH_init,
@@ -259,6 +260,17 @@ export function DISPATCH_openCreateArticleTab(communityId) {
     await dispatch({
       type: ACTION_openCreateArticleTab,
       id: communityId,
+    });
+
+    //await select(dispatch, communityId); //???
+  };
+}
+
+export function DISPATCH_openEditArticleTab(articleId) {
+  return async (dispatch) => {
+    await dispatch({
+      type: ACTION_editArticle,
+      id: articleId,
     });
 
     //await select(dispatch, communityId); //???
