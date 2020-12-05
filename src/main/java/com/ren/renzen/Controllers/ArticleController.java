@@ -11,7 +11,9 @@ import com.google.gson.Gson;
 import com.ren.renzen.Converters.ArticleConverter;
 import com.ren.renzen.Converters.CommunityConverter;
 import com.ren.renzen.Converters.ProfileConverter;
-import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.ModelAssemblers.ArticleAssembler;
+import com.ren.renzen.ModelAssemblers.CommunityAssembler;
+import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
@@ -66,6 +68,7 @@ public class ArticleController {
         final ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler;
         //ERROR MAP
         final MapValidationErrorService mapValidationErrorService;
+        final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName"));
         //AZURE
         BlobServiceClient blobServiceClient;
         BlobContainerClient containerClient;
@@ -100,7 +103,6 @@ public class ArticleController {
             containerClient = blobServiceClient.getBlobContainerClient(containerName);
         }
 
-
         @PostMapping(ADD_COMMENT)
         public ResponseEntity<?> addComment(@PathVariable ObjectId id, @RequestBody addCommentPayload payload, Principal principal) {
 
@@ -131,7 +133,6 @@ public class ArticleController {
 
             return ResponseEntity.ok(null);
         }
-
 
         @RequestMapping(PUBLISH_ARTICLE)
         public ResponseEntity<?> publishArticle(@PathVariable ObjectId id, Principal principal) {
@@ -169,8 +170,6 @@ public class ArticleController {
                 //TODO remove from community
 
 
-
-
                 user.getArticleIDList().remove(id);
                 user.getArticleDraftIDList().add(id);
                 article.setIsDraft(true);
@@ -186,7 +185,6 @@ public class ArticleController {
             }
             return ResponseEntity.badRequest().build();
         }
-
 
         @RequestMapping(DELETE_ARTICLE)
         public ResponseEntity<?> deleteArticle(@PathVariable ObjectId id, Principal principal) {
@@ -245,7 +243,6 @@ public class ArticleController {
 
         }
 
-
         @PostMapping(DISLIKE_ARTICLE)
         public ResponseEntity<?> dislikeArticle(@PathVariable ObjectId id, Principal principal) {
 
@@ -282,7 +279,7 @@ public class ArticleController {
         public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody NewCreateArticlePayload payload, Principal principal) {
 
             var articleDO = articleService.findBy_id(id);
-            var user=userService.findByUsername(principal.getName());
+            var user = userService.findByUsername(principal.getName());
 
             articleDO.setArticleName(payload.getArticleName());
             articleDO.setTopic(payload.getTopic());
@@ -294,10 +291,10 @@ public class ArticleController {
 
             user.getWorkNames()
                     .stream()
-                    .filter(name->payload.getWorkName().equals(name))
+                    .filter(name -> payload.getWorkName().equals(name))
                     .findAny()
-                    .ifPresentOrElse((value)->{
-                    },()->user.getWorkNames().add(payload.getWorkName()));
+                    .ifPresentOrElse((value) -> {
+                    }, () -> user.getWorkNames().add(payload.getWorkName()));
             userService.update(user);
 
             articleDO.setWorkName(payload.getWorkName());
@@ -309,7 +306,6 @@ public class ArticleController {
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
 
         }
-
 
         @PostMapping(CREATE_ARTICLE_FROM_SITE)
         public ResponseEntity<?> createArticleFromSite(@RequestBody @Valid NewCreateArticlePayload payload, BindingResult result, Principal principal) {
@@ -440,13 +436,10 @@ public class ArticleController {
             return responseMap;
         }
 
-
         @GetMapping(path = "/updateArticleField")
         public ResponseEntity<?> updateArticleField() {
             return null;
         }
-
-        final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName"));
 
         @GetMapping(path = "/getArticleField/{id}/{field}")
         public ResponseEntity<?> getArticleField(@PathVariable ObjectId id, @PathVariable String field, Principal principal) {
@@ -470,7 +463,6 @@ public class ArticleController {
             }
 
         }
-
 
 
     }
@@ -499,7 +491,7 @@ public class ArticleController {
 
             var articleDO = articleService.findBy_id(id);
 
-    //        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
+            //        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
             if (principal == null || !principal.getName().equals(articleDO.getCreatorName())) {
                 //GET PUBLIC VERSION
                 return ResponseEntity.ok(articleStreamCOAssembler.assembleDomainToPublicModelView(articleDO));

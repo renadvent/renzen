@@ -39,7 +39,7 @@ public class ArticleAssembler {
         @Override
         public ArticleDTOs.ArticleInfoComponentCO addLinksWithCurrentAuthentication(ArticleDTOs.ArticleInfoComponentCO entity) {
 
-    //        entity.add
+            //        entity.add
 
             //Link findOneLink = linkTo(methodOn(controllerClass).findOne(id)).withSelfRel();
 
@@ -66,7 +66,7 @@ public class ArticleAssembler {
                             //TODO working on this link
                             linkTo(methodOn(ArticleController.ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withSelfRel()
                                     .andAffordance(afford(methodOn(ArticleController.ArticleEditorController.class).addComment(entity.getObjectId(), null, getAuth())))
-    //                                .withRel("Stream_Version")
+                            //                                .withRel("Stream_Version")
 
 
                             ,

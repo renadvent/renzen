@@ -80,15 +80,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         OPEN_ARTICLE_DRAFT_FROM_APP + "/**",
                         CREATE_ARTICLE_DRAFT_FROM_APP + "/**",
-                        CREATE_ARTICLE_FROM_SITE+"/**",
+                        CREATE_ARTICLE_FROM_SITE + "/**",
 
                         UPDATE_ARTICLE + "/**",
-                        PUBLISH_ARTICLE +"/**",
+                        PUBLISH_ARTICLE + "/**",
                         PUBLISH_ARTICLE,
                         UNPUBLISH_ARTICLE,
-                        DELETE_ARTICLE+"/**",
+                        DELETE_ARTICLE + "/**",
                         DELETE_ARTICLE,
-                        DELETE_IMAGE_FROM_PROFILE_COMPAT+"/**",
+                        DELETE_IMAGE_FROM_PROFILE_COMPAT + "/**",
 
 
                         "/getArticleField/**",

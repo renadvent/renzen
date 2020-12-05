@@ -31,8 +31,8 @@ public class ArticleDTOs {
         List<ObjectId> userLikeIDs = new ArrayList<>();
         List<ObjectId> userDislikeIDs = new ArrayList<>();
 
-        Boolean isDraft=true;
-        String articleName="";
+        Boolean isDraft = true;
+        String articleName = "";
         String workName = "";
 
         List<String> tagList = new ArrayList<>();
@@ -48,8 +48,8 @@ public class ArticleDTOs {
 
         //Calculated Values
 
-        String creatorName="";
-        String communityName="";
+        String creatorName = "";
+        String communityName = "";
         ProfileDTOs.ProfileInfoComponentCO profileInfoComponentCO;
         List<ObjectId> otherPostsInWork = new ArrayList<>();
         List<String> otherPostsInWorkHex = new ArrayList<>();
@@ -77,8 +77,8 @@ public class ArticleDTOs {
         List<ObjectId> userLikeIDs = new ArrayList<>();
         List<ObjectId> userDislikeIDs = new ArrayList<>();
 
-        Boolean isDraft=true;
-        String articleName="";
+        Boolean isDraft = true;
+        String articleName = "";
         String workName = "";
 
         List<String> tagList = new ArrayList<>();
@@ -98,8 +98,8 @@ public class ArticleDTOs {
         ProfileDTOs.ProfileInfoComponentCO profileInfoComponentCO;
         List<ObjectId> otherPostsInWork = new ArrayList<>();
         List<String> otherPostsInWorkHex = new ArrayList<>();
-        String creatorName="";
-        String communityName="";
+        String creatorName = "";
+        String communityName = "";
 
     }
 

@@ -28,8 +28,8 @@ public class ArticleDO {
     List<ObjectId> userLikeIDs = new ArrayList<>();
     List<ObjectId> userDislikeIDs = new ArrayList<>();
 
-    Boolean isDraft=true;
-    String articleName="";
+    Boolean isDraft = true;
+    String articleName = "";
     String workName = "";
 
     List<String> tagList = new ArrayList<>();

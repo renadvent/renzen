@@ -1,14 +1,20 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.Converters.*;
-import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.Converters.ArticleConverter;
+import com.ren.renzen.Converters.CommunityConverter;
+import com.ren.renzen.Converters.ProfileConverter;
+import com.ren.renzen.ModelAssemblers.ArticleAssembler;
+import com.ren.renzen.ModelAssemblers.CommunityAssembler;
+import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
@@ -60,14 +66,13 @@ public class FeedController {
     }
 
 
-
     @GetMapping(GET_HOME_STREAMS)
     public ResponseEntity<CollectionModel<?>> getHomeStreams(@PathVariable int page) {
 
         ArrayList<CollectionModel<?>> returnList = new ArrayList<>();
 
 //        var articleContent = articleService.findAllPage(page);
-        var articleContent = articleService.findByIsDraft(false,page);
+        var articleContent = articleService.findByIsDraft(false, page);
         var communityContent = communityService.findAllPage();
         var profileContent = userService.findAllPage();
 

@@ -3,7 +3,9 @@ package com.ren.renzen.Controllers;
 import com.ren.renzen.Converters.ArticleConverter;
 import com.ren.renzen.Converters.CommunityConverter;
 import com.ren.renzen.Converters.ProfileConverter;
-import com.ren.renzen.ModelAssemblers.*;
+import com.ren.renzen.ModelAssemblers.ArticleAssembler;
+import com.ren.renzen.ModelAssemblers.CommunityAssembler;
+import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.ResourceObjects.Payload.CreateCommunityPayload;
@@ -197,17 +199,17 @@ public class CommunityController {
         }
 
 
-    //    public ResponseEntity<?> getPublicCommunityTabComponentCO(ObjectId id) {
-    //        var communityDO = communityService.findBy_id(id);
-    //        //GET PUBLIC VERSION
-    //        return ResponseEntity.ok(communityTabCOAssembler.assembleDomainToPublicModelView(communityDO));
-    //    }
+        //    public ResponseEntity<?> getPublicCommunityTabComponentCO(ObjectId id) {
+        //        var communityDO = communityService.findBy_id(id);
+        //        //GET PUBLIC VERSION
+        //        return ResponseEntity.ok(communityTabCOAssembler.assembleDomainToPublicModelView(communityDO));
+        //    }
 
-    //    public ResponseEntity<?> getFullCommunityStreamComponentCO(ObjectId id) {
-    //        var communityDO = communityService.findBy_id(id);
-    //        //GET PUBLIC VERSION
-    //        return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
-    //    }
+        //    public ResponseEntity<?> getFullCommunityStreamComponentCO(ObjectId id) {
+        //        var communityDO = communityService.findBy_id(id);
+        //        //GET PUBLIC VERSION
+        //        return ResponseEntity.ok(communityStreamCOAssembler.assembleDomainToFullModelView(communityDO));
+        //    }
 
 
     }

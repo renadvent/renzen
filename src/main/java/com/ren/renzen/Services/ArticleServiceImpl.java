@@ -1,7 +1,7 @@
 package com.ren.renzen.Services;
 
-import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.Repositories.ArticleRepository;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
@@ -84,9 +84,8 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDO> findByIsDraft(boolean published, int page) {
 
 
-        return articleRepository.findByIsDraft(published,PageRequest.of(page, 1, Sort.by("_id").descending()));
+        return articleRepository.findByIsDraft(published, PageRequest.of(page, 1, Sort.by("_id").descending()));
     }
-
 
 
     @Override
@@ -98,7 +97,6 @@ public class ArticleServiceImpl implements ArticleService {
 
         return true;
     }
-
 
 
 }

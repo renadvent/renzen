@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class ArticleConverter {
     @Component
     public static class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleDTOs.ArticleInfoComponentCO> {
@@ -128,49 +129,50 @@ public class ArticleConverter {
             this.imageService = imageService;
         }
 
-        void common(ArticleDO source, ArticleDTOs.ArticleTabComponentCO co) {
+        ArticleDTOs.ArticleTabComponentCO common(ArticleDO source) {
+
+            ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
+
+            co.set_id(source.get_id().toHexString());
+            co.setObjectId(source.get_id());
+
+            co.setCreatorID(source.getCreatorID());
+            co.setCommunityID(source.getCommunityID());
+
+            co.setLikes(source.getLikes());
+            co.setDislikes(source.getDislikes());
+            co.setUserLikeIDs(source.getUserLikeIDs());
+            co.setUserDislikeIDs(source.getUserDislikeIDs());
+
+            co.setIsDraft(source.getIsDraft());
+            co.setArticleName(source.getArticleName());
+            co.setWorkName(source.getWorkName());
+
+            co.setTagList(source.getTagList());
+            co.setComments(source.getComments());
+            co.setPollOptions(source.getPollOptions());
 
             try {
                 String name = source.getPostImageURL().substring(source.getPostImageURL().lastIndexOf('/') + 1);
-
                 co.setPostImageURL(imageService.generateSAS(name));
-
-
             } catch (Exception e) {
                 co.setPostImageURL(null);
             }
 
-            co.setComments(source.getComments());
-            co.setWorkName(source.getWorkName());
-            co.setCommunityID(source.getCommunityID());
+            var author = userService.findBy_id(source.getCreatorID());
+            co.setCreatorName(author.getUsername());
 
-            if (source.getCommunityID()!=null){
-                co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
-            }
-        }
+            co.setOtherPostsInWork(
+                    articleService.findAllByCreatorIDAndWorkName(author.get_id(), co.getWorkName())
+                            .stream().filter(articleDO -> !articleDO.getIsDraft()).map(ArticleDO::get_id).collect(Collectors.toList())
+            );
 
-        @Synchronized
-        @Nullable
-        @Override
-        public ArticleDTOs.ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
-            final ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
-
-            common(source, co);
-
-            co.setName(source.getArticleName());
-            co.setDescription(source.getDescription());
-            co.set_id(source.get_id().toHexString());
-            co.setObjectId(source.get_id());
-            co.setUserID(source.getCreatorID());
-            userRepo.findById(source.getCreatorID()).ifPresent(user -> co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(user)));
-            co.setUserName(co.getProfileInfoComponentCO().getName());
-            co.setDiscussionID(source.getDiscussionID());
-
-            co.setPostText(source.getPostText());
-            co.setPostType(source.getPostType());
-
-            co.setLikes(source.getLikes());
-            co.setDislikes(source.getDislikes());
+            co.setOtherPostsInWorkHex(co.getOtherPostsInWork().stream().map(ObjectId::toHexString).collect(Collectors.toList()));
+            co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(author));
+//
+//            if (source.getCommunityID()!=null){
+//                co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
+//            }
 
             for (ArticleDO.ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()) {
                 co.getArticleSectionCOList().add(articleSectionDO_to_articleSectionCO.convert(articleSectionDO));
@@ -182,27 +184,16 @@ public class ArticleConverter {
         @Synchronized
         @Nullable
         @Override
+        public ArticleDTOs.ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
+            final ArticleDTOs.ArticleTabComponentCO co = common(source);
+            return co;
+        }
+
+        @Synchronized
+        @Nullable
+        @Override
         public ArticleDTOs.ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
-            final ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
-
-            common(source, co);
-
-            co.setName(source.getArticleName());
-            co.setDescription(source.getDescription());
-            co.set_id(source.get_id().toHexString());
-            co.setObjectId(source.get_id());
-            co.setUserID(source.getCreatorID());
-            userRepo.findById(source.getCreatorID()).ifPresent(user -> co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToFullView(user)));
-            co.setUserName(co.getProfileInfoComponentCO().getName());
-            co.setDiscussionID(source.getDiscussionID());
-
-            co.setLikes(source.getLikes());
-            co.setDislikes(source.getDislikes());
-
-            for (ArticleDO.ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()) {
-                co.getArticleSectionCOList().add(articleSectionDO_to_articleSectionCO.convert(articleSectionDO));
-            }
-
+            final ArticleDTOs.ArticleTabComponentCO co = common(source);
             return co;
         }
     }
@@ -224,14 +215,13 @@ public class ArticleConverter {
             co.setHeader(source.getHeader());
             co.setBody(source.getBody());
 
-            try {
-                String name = source.getImageID().substring(source.getImageID().lastIndexOf('/') + 1);
-
-                co.setImageID(imageService.generateSAS(name));
-            } catch (Exception e) {
-                co.setImageID(null);
-            }
-
+//            try {
+//                String name = source.getImageID().substring(source.getImageID().lastIndexOf('/') + 1);
+//
+//                co.setImageID(imageService.generateSAS(name));
+//            } catch (Exception e) {
+//                co.setImageID(null);
+//            }
 
             return co;
         }

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 public class CommunityConverter {
     @Component
-    //public class CommunityDO_to_CommunityStreamComponentCO implements Converter<CommunityDO, CommunityInfoComponentCO> {
 
     public static class CommunityDO_to_CommunityStreamComponentCO
             extends DOMAIN_VIEW_CONVERTER_SUPPORT<CommunityDO, CommunityDTOs.CommunityInfoComponentCO> {
@@ -44,9 +43,6 @@ public class CommunityConverter {
             co.setObjectId(source.get_id());
             co.setName(source.getName());
 
-            //does not return ProfileStreamComponentCOList or ArticleStreamComponentCOList
-            //to cut down on database searches and unused data by client
-
             return co;
         }
 
@@ -57,9 +53,6 @@ public class CommunityConverter {
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
             co.setName(source.getName());
-
-            //does not return ProfileStreamComponentCOList or ArticleStreamComponentCOList
-            //to cut down on database searches and unused data by client
 
             return co;
         }
@@ -87,9 +80,24 @@ public class CommunityConverter {
             this.articleStreamCOAssembler = articleStreamCOAssembler;
         }
 
-        public void common(CommunityDO source, CommunityDTOs.CommunityTabComponentCO co) {
+        public CommunityDTOs.CommunityTabComponentCO common(CommunityDO source) {
 
+            var co = new CommunityDTOs.CommunityTabComponentCO();
 
+            co.set_id(source.get_id().toHexString());
+            co.setObjectId(source.get_id());
+
+            co.setName(source.getName());
+
+            co.setArticleInfoComponentCOS(articleStreamCOAssembler
+                    .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDOList())));
+            co.setProfileInfoComponentCOS(profileStreamCOAssembler
+                    .assembleDomainToPublicModelViewCollection(userService.findAllBy_Id(source.getProfileDOList())));
+
+            co.setNumberOfUsers(source.getProfileDOList().size());
+            co.setNumberOfArticles(source.getArticleDOList().size());
+
+            return co;
         }
 
         @Synchronized
@@ -97,21 +105,8 @@ public class CommunityConverter {
         @Override
         public CommunityDTOs.CommunityTabComponentCO convertDomainToPublicView(CommunityDO source) {
 
-            var co = new CommunityDTOs.CommunityTabComponentCO();
-
+            var co = common(source);
             co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
-
-            if (source.isCommunityIsPublic()) {
-                co.set_id(source.get_id().toHexString());
-                co.setObjectId(source.get_id());
-                co.setName(source.getName());
-                co.setArticleInfoComponentCOS(articleStreamCOAssembler
-                        .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDOList())));
-                co.setNumberOfArticles(source.getArticleDOList().size());
-                co.setProfileInfoComponentCOS(profileStreamCOAssembler
-                        .assembleDomainToPublicModelViewCollection(userService.findAllBy_Id(source.getProfileDOList())));
-                co.setNumberOfUsers(source.getProfileDOList().size());
-            }
 
             return co;
         }
@@ -121,18 +116,8 @@ public class CommunityConverter {
         @Override
         public CommunityDTOs.CommunityTabComponentCO convertDomainToFullView(CommunityDO source) {
 
-            var co = new CommunityDTOs.CommunityTabComponentCO();
+            var co = common(source);
             co.setACCESS_TYPE(ACCESS_TYPE_FULL);
-
-            co.set_id(source.get_id().toHexString());
-            co.setObjectId(source.get_id());
-            co.setName(source.getName());
-            co.setArticleInfoComponentCOS(articleStreamCOAssembler
-                    .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleDOList())));
-            co.setNumberOfArticles(source.getArticleDOList().size());
-            co.setProfileInfoComponentCOS(profileStreamCOAssembler
-                    .assembleDomainToFullModelViewCollection(userService.findAllBy_Id(source.getProfileDOList())));
-            co.setNumberOfUsers(source.getProfileDOList().size());
 
             return co;
 
