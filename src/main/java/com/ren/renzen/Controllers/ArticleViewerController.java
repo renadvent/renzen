@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.GET_ARTICLE_STREAM_COMPONENTCO;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.GET_ARTICLE_TAB_COMPONENTCO;
+
 @RestController
 public class ArticleViewerController {
 
@@ -30,16 +33,14 @@ public class ArticleViewerController {
         this.articleTabCOAssembler = articleTabCOAssembler;
     }
 
-    @GetMapping(path = "/getArticleStreamComponentCO/{id}")
+    @GetMapping(GET_ARTICLE_STREAM_COMPONENTCO)
     public ResponseEntity<?> getArticleStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
-
-
 
 
         var articleDO = articleService.findBy_id(id);
 
 //        if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
-        if (principal==null || !principal.getName().equals(articleDO.getCreatorName())) {
+        if (principal == null || !principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleStreamCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {
@@ -49,12 +50,12 @@ public class ArticleViewerController {
     }
 
     //TODO update toModel
-    @GetMapping(path = "/getArticleTabComponentCO/{id}")
+    @GetMapping(GET_ARTICLE_TAB_COMPONENTCO)
     public ResponseEntity<?> getArticleTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var articleDO = articleService.findBy_id(id);
 
         //if (!userService.findByUsername(principal.getName()).equals(articleDO.getCreatorName())) {
-        if (principal==null || !principal.getName().equals(articleDO.getCreatorName())) {
+        if (principal == null || !principal.getName().equals(articleDO.getCreatorName())) {
             //GET PUBLIC VERSION
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToPublicModelView(articleDO));
         } else {

@@ -1,7 +1,7 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ArticleInfoComponentCO;
-import com.ren.renzen.CommandObjects.CommunityInfoComponentCO;
+import com.ren.renzen.CommandObjects.ArticleDTOs;
+import com.ren.renzen.CommandObjects.CommunityDTOs;
 import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.CommunityStreamCOAssembler;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Admin.*;
 
 @RestController
 public class AdminController {
@@ -42,22 +44,22 @@ public class AdminController {
 
     //@PostMapping(path="/deleteArticle")
 
-    @GetMapping("/getAdminArticles")
+    @GetMapping(GET_ADMIN_ARTICLES)
     public ResponseEntity<CollectionModel<?>> getAllArticles() {
 
-        List<ArticleInfoComponentCO> returnList = new ArrayList<>();
+        List<ArticleDTOs.ArticleInfoComponentCO> returnList = new ArrayList<>();
         for (ArticleDO articleDO : articleService.findAll()) {
             returnList.add(articleDO_to_articleStreamComponentCO.convertDomainToFullView(articleDO));
         }
         return ResponseEntity.ok(CollectionModel.wrap(returnList));
     }
 
-    @GetMapping("/getAdminCommunities")
-    public CollectionModel<CommunityInfoComponentCO> getAllCommunities(Principal principal) {
+    @GetMapping(GET_ADMIN_COMMUNITIES)
+    public CollectionModel<CommunityDTOs.CommunityInfoComponentCO> getAllCommunities(Principal principal) {
         return (communityStreamCOAssembler.assembleDomainToFullModelViewCollection(communityService.findAll(principal.getName())));
     }
 
-    @GetMapping(path = "/getAdminProfiles")
+    @GetMapping(GET_ADMIN_PROFILES)
     public ResponseEntity<CollectionModel<?>> getAllProfiles() {
         return ResponseEntity
                 .ok(profileStreamCOAssembler.assembleDomainToFullModelViewCollection(userService.findAll()));

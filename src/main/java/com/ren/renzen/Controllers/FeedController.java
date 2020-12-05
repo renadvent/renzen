@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.*;
 
 @Slf4j
 @RestController
 public class FeedController {
-
 
     //services
     final UserService userService;
@@ -48,11 +48,29 @@ public class FeedController {
     final ArticleStreamCOAssembler articleStreamCOAssembler;
     //ERROR MAP
     final MapValidationErrorService mapValidationErrorService;
+    /**
+     * uses to get likes or comments?
+     * will need to add security checks
+     *
+     * @param id
+     * @param field
+     * @param principal
+     * @return
+     */
+
+    final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName"));
     //AZURE
     BlobServiceClient blobServiceClient;
     BlobContainerClient containerClient;
 
+    //add comment
+    //respondToPoll
+    //getExploreFeed
+    //getYourFeed
+    //refreshComments
 
+
+    //TODO work on
     public FeedController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
@@ -72,38 +90,19 @@ public class FeedController {
         this.mapValidationErrorService = mapValidationErrorService;
     }
 
-    //add comment
-    //respondToPoll
-    //getExploreFeed
-    //getYourFeed
-    //refreshComments
-
-
-    //TODO work on
-    /**
-     * uses to get likes or comments?
-     * will need to add security checks
-     * @param id
-     * @param field
-     * @param principal
-     * @return
-     */
-
-    final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName"));
-
-    @GetMapping(path="/updateArticleField")
-    public ResponseEntity<?> updateArticleField(){
+    @GetMapping(path = "/updateArticleField")
+    public ResponseEntity<?> updateArticleField() {
         return null;
     }
 
-    @GetMapping(path="/getArticleField/{id}/{field}")
-    public ResponseEntity<?> getArticleField(@PathVariable ObjectId id, @PathVariable String field, Principal principal){
+    @GetMapping(path = "/getArticleField/{id}/{field}")
+    public ResponseEntity<?> getArticleField(@PathVariable ObjectId id, @PathVariable String field, Principal principal) {
 
 
         if (!accessibleArticleFields.contains(field)) return ResponseEntity.badRequest().build();
 
 
-        try{
+        try {
 
             var article = articleService.findBy_id(id);
             var foundValue = article.getClass().getDeclaredField(field);
@@ -111,7 +110,7 @@ public class FeedController {
 
             return ResponseEntity.ok(foundValue.get(article).toString());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -120,7 +119,7 @@ public class FeedController {
     }
 
 
-    @PostMapping(path = "/addComment/{id}")
+    @PostMapping(ADD_COMMENT)
     public ResponseEntity<?> addComment(@PathVariable ObjectId id, @RequestBody addCommentPayload payload, Principal principal) {
 
         System.out.println(payload);
@@ -137,12 +136,12 @@ public class FeedController {
         return ResponseEntity.ok(null);
     }
 
-    @PostMapping(path = "/respondToPoll/{id}")
+    @PostMapping(RESPOND_TO_POLL)
     public ResponseEntity<?> respondToPoll(@PathVariable ObjectId id, respondToPollPayload payload, Principal principal) {
 
         var article = articleService.findBy_id(id);
 
-        article.getPollOptions().forEach(option->{
+        article.getPollOptions().forEach(option -> {
             if (option.getName().equals(payload.getOption())) {
                 option.setVotes(option.getVotes() + 1);
             }
@@ -151,17 +150,17 @@ public class FeedController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping(path = "/getExploreFeed/{id}")
+    @GetMapping(GET_EXPLORE_FEED)
     public ResponseEntity<?> getExploreFeed(@PathVariable ObjectId id, Principal principal) {
         return null;
     }
 
-    @GetMapping(path = "/getYourFeed/{id}")
+    @GetMapping(GET_YOUR_FEED)
     public ResponseEntity<?> getYourFeed(@PathVariable ObjectId id, Principal principal) {
         return null;
     }
 
-    @GetMapping(path = "/refreshComments/{id}")
+    @GetMapping(REFRESH_COMMENTS)
     public ResponseEntity<?> refreshComments(@PathVariable ObjectId id, Principal principal) {
         var article = articleService.findBy_id(id);
         return ResponseEntity.ok(article.getComments());

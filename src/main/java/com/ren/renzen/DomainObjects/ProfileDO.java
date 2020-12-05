@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,14 +25,14 @@ public class ProfileDO implements UserDetails {
     @MongoId
     ObjectId _id;
 
-    String username="";
-    String password="";
-    String email="";
-    int phone=0;
+    String username = "";
+    String password = "";
+    String email = "";
+    int phone = 0;
 
-    String profilePictureLink="";
+    String profilePictureLink = "";
 
-    List<ObjectId> friends=new ArrayList<>();
+    List<ObjectId> friends = new ArrayList<>();
 
     //toggles for converter
     //public profile view settings toggle (used when converting)
@@ -46,16 +47,25 @@ public class ProfileDO implements UserDetails {
     //lists for contents
     List<ObjectId> communityIDList = new ArrayList<>();
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();
+
     List<ObjectId> articleIDList = new ArrayList<>(); // private setting is in article
+    List<ObjectId> articleDraftIDList = new ArrayList<>();
 
     //NEW
     //List<ObjectId> WorkIDList = new ArrayList<>();
-    List<String> WorkNames= new ArrayList<>();
+    List<String> WorkNames = new ArrayList<>();
 
     List<String> publicScreenshotsIDList = new ArrayList<>();
 
     //not loaded on profile page unless logged in
     List<String> privateScreenshotIDList = new ArrayList<>();
+
+
+    Date created_at = new Date();
+    List<Date> updated_at = new ArrayList<>();
+
+    List<Date> logins_at = new ArrayList<>();
+
 
     /*
     User details implment methods

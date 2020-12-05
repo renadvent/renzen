@@ -1,7 +1,7 @@
 package com.ren.renzen.Converters;
 
 import com.mongodb.lang.Nullable;
-import com.ren.renzen.CommandObjects.CommunityTabComponentCO;
+import com.ren.renzen.CommandObjects.CommunityDTOs;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CommunityDO_to_CommunityTabComponentCO
-        extends DOMAIN_VIEW_CONVERTER_SUPPORT<CommunityDO, CommunityTabComponentCO> {
+        extends DOMAIN_VIEW_CONVERTER_SUPPORT<CommunityDO, CommunityDTOs.CommunityTabComponentCO> {
 
     final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
@@ -33,12 +33,17 @@ public class CommunityDO_to_CommunityTabComponentCO
         this.articleStreamCOAssembler = articleStreamCOAssembler;
     }
 
+    public void common(CommunityDO source, CommunityDTOs.CommunityTabComponentCO co) {
+
+
+    }
+
     @Synchronized
     @Nullable
     @Override
-    public CommunityTabComponentCO convertDomainToPublicView(CommunityDO source) {
+    public CommunityDTOs.CommunityTabComponentCO convertDomainToPublicView(CommunityDO source) {
 
-        var co = new CommunityTabComponentCO();
+        var co = new CommunityDTOs.CommunityTabComponentCO();
 
         co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
 
@@ -60,9 +65,9 @@ public class CommunityDO_to_CommunityTabComponentCO
     @Synchronized
     @Nullable
     @Override
-    public CommunityTabComponentCO convertDomainToFullView(CommunityDO source) {
+    public CommunityDTOs.CommunityTabComponentCO convertDomainToFullView(CommunityDO source) {
 
-        var co = new CommunityTabComponentCO();
+        var co = new CommunityDTOs.CommunityTabComponentCO();
         co.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
         co.set_id(source.get_id().toHexString());

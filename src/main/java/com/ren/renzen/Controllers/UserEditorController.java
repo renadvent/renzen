@@ -21,11 +21,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.Date;
+
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.LOGIN;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.REGISTER;
 import static com.ren.renzen.additional.KEYS.TOKEN_PREFIX;
 
 @RestController
@@ -91,7 +94,7 @@ public class UserEditorController {
     //@PostMapping(path="/changePhone")
     //@PostMapping(path="/deleteAccount")
 
-    @PostMapping(path = "/register")
+    @PostMapping(REGISTER)
     public ResponseEntity<?> Register(@Valid @RequestBody RegisterPayload registerPayload, BindingResult result) {
 
         userNamePasswordValidator.validate(registerPayload, result);
@@ -101,9 +104,9 @@ public class UserEditorController {
 
         //temp
         if (!registerPayload.getPassword().equals(registerPayload.getConfirmPassword())
-        ||
-        userService.findByEmail(registerPayload.getEmail()).isPresent()
-        ){
+                ||
+                userService.findByEmail(registerPayload.getEmail()).isPresent()
+        ) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -111,6 +114,9 @@ public class UserEditorController {
         profileDO.setUsername(registerPayload.getUsername());
         profileDO.setPassword(registerPayload.getPassword());
         profileDO.setEmail(registerPayload.getEmail());
+
+        profileDO.setCreated_at(new Date());
+        profileDO.getUpdated_at().add(new Date());
 
         userService.save(profileDO);
 
@@ -127,7 +133,7 @@ public class UserEditorController {
 
         //pass back token
 //        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt,userService.findByUsername(registerPayload.getUsername()).get_id()));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, userService.findByUsername(registerPayload.getUsername()).get_id()));
 
 
 //        return new ResponseEntity<>(profileTabCOAssembler
@@ -142,7 +148,7 @@ public class UserEditorController {
 
     //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
     //TODO web will have to process this page differently to allow changing password etc
-    @PostMapping(path = "/login", consumes = {"multipart/form-data", "application/json"})
+    @PostMapping(path = LOGIN, consumes = {"multipart/form-data", "application/json"})
     public ResponseEntity<?> Login(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
 
 
@@ -160,9 +166,14 @@ public class UserEditorController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
 
+        var user = userService.findByUsername(loginRequest.getUsername());
+
+        user.getLogins_at().add(new Date());
+
+
         //pass back token
 //        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
-        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt,userService.findByUsername(loginRequest.getUsername()).get_id()));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, user.get_id()));
 
         //return ResponseEntity.ok(profileTabCOAssembler.toModel(userService.findProfileDOByNameAndPassword(loginRequest.getUsername(), loginRequest.getPassword())));
     }

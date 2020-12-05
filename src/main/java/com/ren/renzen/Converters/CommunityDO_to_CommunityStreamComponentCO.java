@@ -1,6 +1,6 @@
 package com.ren.renzen.Converters;
 
-import com.ren.renzen.CommandObjects.CommunityInfoComponentCO;
+import com.ren.renzen.CommandObjects.CommunityDTOs;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.CommunityDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 //public class CommunityDO_to_CommunityStreamComponentCO implements Converter<CommunityDO, CommunityInfoComponentCO> {
 
 public class CommunityDO_to_CommunityStreamComponentCO
-        extends DOMAIN_VIEW_CONVERTER_SUPPORT<CommunityDO, CommunityInfoComponentCO> {
+        extends DOMAIN_VIEW_CONVERTER_SUPPORT<CommunityDO, CommunityDTOs.CommunityInfoComponentCO> {
 
     final ArticleDO_to_ArticleStreamComponentCO testConverter;
     final ProfileDO_to_ProfileStreamComponentCO ProfileConverter;
@@ -32,8 +32,8 @@ public class CommunityDO_to_CommunityStreamComponentCO
     }
 
     @Override
-    public CommunityInfoComponentCO convertDomainToPublicView(CommunityDO source) {
-        CommunityInfoComponentCO co = new CommunityInfoComponentCO();
+    public CommunityDTOs.CommunityInfoComponentCO convertDomainToPublicView(CommunityDO source) {
+        CommunityDTOs.CommunityInfoComponentCO co = new CommunityDTOs.CommunityInfoComponentCO();
 
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
@@ -46,8 +46,8 @@ public class CommunityDO_to_CommunityStreamComponentCO
     }
 
     @Override
-    public CommunityInfoComponentCO convertDomainToFullView(CommunityDO source) {
-        CommunityInfoComponentCO co = new CommunityInfoComponentCO();
+    public CommunityDTOs.CommunityInfoComponentCO convertDomainToFullView(CommunityDO source) {
+        CommunityDTOs.CommunityInfoComponentCO co = new CommunityDTOs.CommunityInfoComponentCO();
 
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());

@@ -7,6 +7,7 @@ import {
   GET_ERRORS,
   ACTION_addComment,
   ACTION_replaceArticle,
+  ACTION_editArticle,
 } from "./StoreDefs";
 import {
   DISPATCH_init,
@@ -211,9 +212,18 @@ export function DISPATCH_openArticle(url) {
   };
 }
 
-export function DISPATCH_createArticle(payload, user, community, sectionData) {
+export function DISPATCH_createArticle(
+  payload,
+  user,
+  community,
+  sectionData,
+  id,
+  post
+) {
   return async (dispatch, getState) => {
-    let res = await Axios.post("/createArticle", {
+    let res = await Axios.post("/UPDATE_ARTICLE/" + id, {
+      //let res = await Axios.post("/createArticle", {
+
       articleName: payload.articleName,
       description: payload.articleDescription,
       workName: payload.workName,
@@ -224,9 +234,17 @@ export function DISPATCH_createArticle(payload, user, community, sectionData) {
 
       //userID: user,
       // communityID: community,
-      communityID: payload.community,
+      communityID: payload.communityID,
+      //payload.community,
       articleSectionDOList: sectionData,
     });
+
+    if (post) {
+      await Axios.post("/publishArticle/" + id);
+    } else {
+      await Axios.post("/unpublishArticle/" + id);
+    }
+
     dispatch({
       type: ACTION_openArticle,
       payload: res.data,
@@ -243,6 +261,17 @@ export function DISPATCH_openCreateArticleTab(communityId) {
     await dispatch({
       type: ACTION_openCreateArticleTab,
       id: communityId,
+    });
+
+    //await select(dispatch, communityId); //???
+  };
+}
+
+export function DISPATCH_openEditArticleTab(articleId) {
+  return async (dispatch) => {
+    await dispatch({
+      type: ACTION_editArticle,
+      id: articleId,
     });
 
     //await select(dispatch, communityId); //???

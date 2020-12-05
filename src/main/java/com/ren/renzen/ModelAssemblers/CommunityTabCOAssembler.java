@@ -1,6 +1,6 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.CommunityTabComponentCO;
+import com.ren.renzen.CommandObjects.CommunityDTOs;
 import com.ren.renzen.Controllers.CommunityViewerController;
 import com.ren.renzen.Converters.CommunityDO_to_CommunityTabComponentCO;
 import com.ren.renzen.DomainObjects.CommunityDO;
@@ -15,7 +15,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<CommunityDO, CommunityTabComponentCO> {
+public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<CommunityDO, CommunityDTOs.CommunityTabComponentCO> {
 
     final CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
 
@@ -24,8 +24,8 @@ public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Commu
     }
 
     @Override
-    public CommunityTabComponentCO assembleDomainToPublicModelView(CommunityDO entity) {
-        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToPublicView(entity);
+    public CommunityDTOs.CommunityTabComponentCO assembleDomainToPublicModelView(CommunityDO entity) {
+        CommunityDTOs.CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToPublicView(entity);
 
         communityTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
         return addLinksWithCurrentAuthentication(communityTabComponentCO);
@@ -33,15 +33,15 @@ public class CommunityTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Commu
     }
 
     @Override
-    public CommunityTabComponentCO assembleDomainToFullModelView(CommunityDO entity) {
-        CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToFullView(entity);
+    public CommunityDTOs.CommunityTabComponentCO assembleDomainToFullModelView(CommunityDO entity) {
+        CommunityDTOs.CommunityTabComponentCO communityTabComponentCO = communityDO_to_communityTabComponentCO.convertDomainToFullView(entity);
 
         communityTabComponentCO.setACCESS_TYPE(ACCESS_TYPE_FULL);
         return addLinksWithCurrentAuthentication(communityTabComponentCO);
     }
 
     @Override
-    public CommunityTabComponentCO addLinksWithCurrentAuthentication(CommunityTabComponentCO entity) {
+    public CommunityDTOs.CommunityTabComponentCO addLinksWithCurrentAuthentication(CommunityDTOs.CommunityTabComponentCO entity) {
         return entity
                 .add(List.of(
                         linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),

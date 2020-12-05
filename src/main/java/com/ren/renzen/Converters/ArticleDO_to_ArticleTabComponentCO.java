@@ -1,11 +1,13 @@
 package com.ren.renzen.Converters;
 
-import com.ren.renzen.CommandObjects.ArticleTabComponentCO;
+import com.ren.renzen.CommandObjects.ArticleDTOs;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Repositories.UserRepository;
+import com.ren.renzen.Services.Interfaces.ArticleService;
+import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import lombok.Synchronized;
@@ -19,11 +21,13 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleTabComponentCO> {
+public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleDTOs.ArticleTabComponentCO> {
 
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
+    final ArticleService articleService;
     final UserService userService;
+    final CommunityService communityService;
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
     final ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO;
 
@@ -31,21 +35,25 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
 
     @Autowired
-    public ArticleDO_to_ArticleTabComponentCO(UserRepository repo, ArticleRepository articleRepo, UserService userService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO, ImageService imageService) {
+    public ArticleDO_to_ArticleTabComponentCO(UserRepository repo, ArticleRepository articleRepo, ArticleService articleService, UserService userService, CommunityService communityService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO, ImageService imageService) {
         this.userRepo = repo;
         this.articleRepo = articleRepo;
+        this.articleService = articleService;
         this.userService = userService;
+        this.communityService = communityService;
         profileDO_to_profileStreamComponentCO = profileDOtoprofileStreamComponentCO;
         this.articleSectionDO_to_articleSectionCO = articleSectionDO_to_articleSectionCO;
         this.imageService = imageService;
     }
 
-    void common(ArticleDO source, ArticleTabComponentCO co){
+    void common(ArticleDO source, ArticleDTOs.ArticleTabComponentCO co) {
 
         try {
-            String name = source.getImage().substring(source.getImage().lastIndexOf('/') + 1);
+            String name = source.getPostImageURL().substring(source.getPostImageURL().lastIndexOf('/') + 1);
 
             co.setImage(imageService.generateSAS(name));
+
+
         } catch (Exception e) {
             co.setImage(null);
         }
@@ -53,13 +61,22 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
         //co.setImage(source.getImage());
         co.setComments(source.getComments());
+        co.setWorkName(source.getWorkName());
+        co.setCommunityID(source.getCommunityID());
+
+        if (source.getCommunityID()!=null){
+            co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
+        }
+
+
+
     }
 
     @Synchronized
     @Nullable
     @Override
-    public ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
-        final ArticleTabComponentCO co = new ArticleTabComponentCO();
+    public ArticleDTOs.ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
+        final ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
 
         common(source, co);
 
@@ -71,6 +88,9 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         userRepo.findById(source.getCreatorID()).ifPresent(user -> co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(user)));
         co.setUserName(co.getProfileInfoComponentCO().getName());
         co.setDiscussionID(source.getDiscussionID());
+
+        co.setPostText(source.getPostText());
+        co.setPostType(source.getPostType());
 
         co.setLikes(source.getLikes());
         co.setDislikes(source.getDislikes());
@@ -85,8 +105,8 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
     @Synchronized
     @Nullable
     @Override
-    public ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
-        final ArticleTabComponentCO co = new ArticleTabComponentCO();
+    public ArticleDTOs.ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
+        final ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
 
         common(source, co);
 

@@ -44,8 +44,11 @@ function App(props) {
 
   //used to open create article from Ink
   useEffect(() => {
-    if (OpenFromInkSource !== null) {
-      props.DISPATCH_openCreateArticleTab("5f92319abce4e159c51a0a11");
+    if (OpenFromInkARTICLEID !== null) {
+      // if (OpenFromInkSource !== null) {
+
+      props.DISPATCH_openEditArticleTab(OpenFromInkARTICLEID);
+      //props.DISPATCH_openCreateArticleTab("5f92319abce4e159c51a0a11");
     }
   }, []);
 

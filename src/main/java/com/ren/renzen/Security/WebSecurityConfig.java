@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.*;
 import static com.ren.renzen.additional.KEYS.*;
 
 @Configuration
@@ -77,6 +78,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
 
+                        OPEN_ARTICLE_DRAFT_FROM_APP + "/**",
+                        CREATE_ARTICLE_DRAFT_FROM_APP + "/**",
+                        CREATE_ARTICLE_FROM_SITE+"/**",
+
+                        UPDATE_ARTICLE + "/**",
+                        PUBLISH_ARTICLE +"/**",
+                        PUBLISH_ARTICLE,
+                        UNPUBLISH_ARTICLE,
+                        DELETE_ARTICLE+"/**",
+                        DELETE_ARTICLE,
+                        DELETE_IMAGE_FROM_PROFILE_COMPAT+"/**",
+
+
                         "/getArticleField/**",
                         "/getArticleField/**",
 
@@ -123,7 +137,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         "/",
                         "/favicon.ico",
-                                               "/**/*.png", "/**/*.gif",
+                        "/**/*.png", "/**/*.gif",
                         "/**/*.svg",
                         "/**/*.jpg",
                         "/**/*.html",

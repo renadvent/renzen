@@ -1,8 +1,9 @@
 package com.ren.renzen.Repositories;
 
 import com.ren.renzen.DomainObjects.ArticleDO;
-import com.ren.renzen.DomainObjects.ProfileDO;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,8 @@ public interface ArticleRepository extends MongoRepository<ArticleDO, ObjectId> 
     List<ArticleDO> findBy_idIn(List<ObjectId> objectIdList);
 
     List<ArticleDO> findAllByCreatorIDAndWorkName(ObjectId creatorId, String workName);
+
+    List<ArticleDO> findByIsDraft(boolean published, Pageable pageable);
 
 
 //    List<ArticleDO> findAllByCreatorNameAndWorkName(ObjectId creatorId, String workName);

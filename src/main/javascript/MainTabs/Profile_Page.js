@@ -8,6 +8,7 @@ import {
   DISPATCH_deleteImageFromProfile,
   DISPATCH_deletePost,
 } from "../actions/Store_Actions";
+import { DISPATCH_openEditArticleTab } from "../actions/ArticleActions";
 
 function Profile_Page(props) {
   const [communityName, setCommunityName] = useState("");
@@ -33,9 +34,9 @@ function Profile_Page(props) {
         <div className="container-fluid">
           {PublicProfileContents()}
 
-          <div className={"row"}>
-            <RenzenInkImagesConnect data={props.data} />
-          </div>
+          {/*<div className={"row"}>*/}
+          {/*  <RenzenInkImagesConnect data={props.data} />*/}
+          {/*</div>*/}
         </div>
       </div>
     </div>
@@ -101,6 +102,18 @@ function Profile_Page(props) {
             <h4>Articles: {props.data.numberOfArticles}</h4>
             <StreamArticleConnect
               source={props.articles}
+              dispatchSent={props.DISPATCH_openArticle}
+            />
+            <hr />
+
+            <h4>Drafts:</h4>
+            {console.log("props.data")}
+            {console.log(props.data)}
+            <StreamArticleConnect
+              source={
+                props.data.articleDraftInfoComponentCOs._embedded
+                  .articleInfoComponentCoes
+              }
               dispatchSent={props.DISPATCH_openArticle}
             />
             <hr />
@@ -195,6 +208,14 @@ function StreamArticle(props) {
               }}
             >
               Delete Article
+            </button>
+            <button
+              onClick={() => {
+                props.dispatch(DISPATCH_openEditArticleTab(single._id));
+              }}
+              className="btn btn-secondary"
+            >
+              Edit Article
             </button>
           </li>
         );

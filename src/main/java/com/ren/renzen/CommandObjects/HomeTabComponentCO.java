@@ -22,7 +22,7 @@ public class HomeTabComponentCO extends RepresentationModel<HomeTabComponentCO> 
 
     String _id;
     ObjectId objectId;
-    List<ArticleInfoComponentCO> articleInfoComponentCOList = new ArrayList<>();
-    List<ProfileInfoComponentCO> profileInfoComponentCOList = new ArrayList<>();
-    List<CommunityInfoComponentCO> communityInfoComponentCOList = new ArrayList<>();
+    List<ArticleDTOs.ArticleInfoComponentCO> articleInfoComponentCOList = new ArrayList<>();
+    List<ProfileDTOs.ProfileInfoComponentCO> profileInfoComponentCOList = new ArrayList<>();
+    List<CommunityDTOs.CommunityInfoComponentCO> communityInfoComponentCOList = new ArrayList<>();
 }

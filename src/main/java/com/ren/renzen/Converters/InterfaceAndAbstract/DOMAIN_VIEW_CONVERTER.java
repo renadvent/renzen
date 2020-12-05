@@ -13,4 +13,5 @@ public interface DOMAIN_VIEW_CONVERTER<DOMAIN, CO> {
     CO convertDomainToPublicView(DOMAIN domain);
 
     CO convertDomainToFullView(DOMAIN domain);
+
 }

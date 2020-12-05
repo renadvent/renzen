@@ -1,6 +1,6 @@
 package com.ren.renzen.Converters;
 
-import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
+import com.ren.renzen.CommandObjects.ProfileDTOs;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
 import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
-public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ProfileDO, ProfileTabComponentCO> {
+public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ProfileDO, ProfileDTOs.ProfileTabComponentCO> {
 
     final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
     final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
@@ -45,68 +45,59 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         this.communityStreamCOAssembler = communityStreamCOAssembler;
     }
 
-    void common(ProfileDO source, ProfileTabComponentCO co){
+    ProfileDTOs.ProfileTabComponentCO common(ProfileDO source) {
 
+        final ProfileDTOs.ProfileTabComponentCO co = new ProfileDTOs.ProfileTabComponentCO();
 
-
-    }
-    @Override
-    public ProfileTabComponentCO convertDomainToPublicView(ProfileDO source) {
-        final ProfileTabComponentCO co = new ProfileTabComponentCO();
-
-        common(source,co);
-
+        co.setArticleDraftIDList(source.getArticleDraftIDList());
         co.setName(source.getUsername());
         co.set_id(source.get_id().toHexString());
         co.setObjectId(source.get_id());
         co.setNumberOfArticles(source.getArticleIDList().size());
         co.setNumberOfCommunities(source.getCommunityIDList().size());
+
+        var correctedImageIDs = new ArrayList<String>();
+        var originalImageIDs = new ArrayList<String>();
+
+        for (var link : source.getPublicScreenshotsIDList()) {
+            String name = link.substring(link.lastIndexOf('/') + 1);
+            originalImageIDs.add(name);
+            correctedImageIDs.add(imageService.generateSAS(name));
+        }
+
+        co.setScreenshotLinks(correctedImageIDs);
+        co.setOriginalLinks(originalImageIDs);
+        co.setWorkNames(source.getWorkNames());
+
+        return co;
+
+    }
+
+    @Override
+    public ProfileDTOs.ProfileTabComponentCO convertDomainToPublicView(ProfileDO source) {
+
+        final var co = common(source);
+
+        co.setArticleDraftInfoComponentCOs(articleStreamCOAssembler
+                .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
+
         co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
         co.setArticleInfoComponentCOS(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleIDList())));
-
-
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
-
-
-
-
-        var corrected = new ArrayList<String>();
-        var orig = new ArrayList<String>();
-
-        for (var link : source.getPublicScreenshotsIDList()) {
-
-            String name = link.substring(link.lastIndexOf('/') + 1);
-
-            orig.add(name);
-            corrected.add(imageService.generateSAS(name));
-
-
-        }
-
-        co.setScreenshotLinks(corrected);
-        co.setOriginalLinks(orig);
-
-        //co.setScreenshotLinks(source.getScreenshotsIDList().stream().toArray()(imageService::generateSAS));
 
         return co;
     }
 
     @Override
-    public ProfileTabComponentCO convertDomainToFullView(ProfileDO source) {
+    public ProfileDTOs.ProfileTabComponentCO convertDomainToFullView(ProfileDO source) {
 
-        final ProfileTabComponentCO co = new ProfileTabComponentCO();
+        final var co = common(source);
 
-        common(source,co);
-
-
-        co.setName(source.getUsername());
-        co.set_id(source.get_id().toHexString());
-        co.setObjectId(source.get_id());
-        co.setNumberOfArticles(source.getArticleIDList().size());
-        co.setNumberOfCommunities(source.getCommunityIDList().size());
+        co.setArticleDraftInfoComponentCOs(articleStreamCOAssembler
+                .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
 
         co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(communityService.findBy_idIn(source.getCommunityIDList())));
@@ -114,26 +105,6 @@ public class ProfileDO_to_ProfileTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
                 .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleIDList())));
         co.setArticleBookmarksCM(articleStreamCOAssembler
                 .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
-
-
-        var corrected = new ArrayList<String>();
-        var orig = new ArrayList<String>();
-
-
-
-        for (var link : source.getPublicScreenshotsIDList()) {
-
-            String name = link.substring(link.lastIndexOf('/') + 1);
-            orig.add(name);
-
-            corrected.add(imageService.generateSAS(name));
-        }
-
-        co.setScreenshotLinks(corrected);
-        co.setOriginalLinks(orig);
-
-
-        //co.setScreenshotLinks(source.getScreenshotsIDList().stream().toArray()(imageService::generateSAS));
 
         return co;
     }

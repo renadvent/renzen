@@ -1,5 +1,7 @@
 import * as at from "../actions/Store_Actions";
+
 import React from "react";
+
 import { openArticleState } from "./openArticleState";
 import { openCommunityState } from "./openCommunityState";
 import { openUserState } from "./openUserState";
@@ -7,6 +9,8 @@ import { createArticleState } from "./createArticleState";
 import { errorState } from "./errorState";
 
 import { initialState } from "./initialState";
+import { ACTION_editArticle } from "../actions/StoreDefs";
+import { editArticleState } from "./editArticleState";
 
 const reducer = (state = initialState, action) => {
   //TODO working on
@@ -72,6 +76,9 @@ const reducer = (state = initialState, action) => {
 
     case at.ACTION_openCreateArticleTab:
       return createArticleState(state, action);
+
+    case ACTION_editArticle:
+      return editArticleState(state, action);
 
     case at.ACTION_openCommunity:
       return openCommunityState(state, action);

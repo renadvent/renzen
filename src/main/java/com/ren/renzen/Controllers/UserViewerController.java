@@ -1,7 +1,6 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ProfileInfoComponentCO;
-import com.ren.renzen.CommandObjects.ProfileTabComponentCO;
+import com.ren.renzen.CommandObjects.ProfileDTOs;
 import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileTabCOAssembler;
 import com.ren.renzen.Services.Interfaces.UserService;
@@ -13,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.GET_PROFILE_STREAM_COMPONENT;
+import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.GET_PROFILE_TAB_COMPONENT;
 
 @RestController
 public class UserViewerController {
@@ -28,8 +30,8 @@ public class UserViewerController {
         this.profileTabCOAssembler = profileTabCOAssembler;
     }
 
-    @GetMapping(path = "/getProfileStreamComponentCO/{id}")
-    public ResponseEntity<ProfileInfoComponentCO> getProfileStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
+    @GetMapping(GET_PROFILE_STREAM_COMPONENT)
+    public ResponseEntity<ProfileDTOs.ProfileInfoComponentCO> getProfileStreamComponentCO(@PathVariable ObjectId id, Principal principal) {
 
         var profileDO = userService.findBy_id(id);
 
@@ -42,8 +44,8 @@ public class UserViewerController {
         }
     }
 
-    @RequestMapping(path = "/getProfileTabComponentCO/{id}")
-    public ResponseEntity<ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id, Principal principal) {
+    @RequestMapping(GET_PROFILE_TAB_COMPONENT)
+    public ResponseEntity<ProfileDTOs.ProfileTabComponentCO> getProfileTabComponentCO(@PathVariable ObjectId id, Principal principal) {
         var profileDO = userService.findBy_id(id);
 
         if (principal == null || !principal.getName().equals(profileDO.getUsername())) {
