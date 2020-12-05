@@ -13,34 +13,15 @@ function Create_Article_Page(props) {
   const [id, setID] = useState("");
 
   async function OpenDraft() {
-    //Axios.get()
-    //TODO Get Draft Info from Server
-
-    // alert("OPENING DRAFT!!!");
-
-    //alert(OpenFromInkARTICLEID);
 
     setID(props.id);
 
     let res = await Axios.get(
       "/getArticleTabComponentCO/" + props.id
-
-      //OpenFromInkARTICLEID
     );
-
-    // alert(res.status);
 
     let data = res.data;
 
-    // res.data.articleSectionCOList.map(section=>{
-    //   return (
-    //       <div>
-
-    //       </div>
-    //   )
-    // })
-
-    //TODO WORKING HERE
     setArticleData({
       ...articleData,
       articleName: data.name,
@@ -50,12 +31,7 @@ function Create_Article_Page(props) {
       communityID: data.communityID,
       postText: data.postText,
       image:data.image
-      //articleDescription: data.ar
     });
-
-    console.log("in section");
-    console.log(res.data);
-
 
 try{
 
@@ -63,7 +39,6 @@ try{
     if (res.data.articleSectionCOList.length > 0) {
       setSectionsCreated(
         res.data.articleSectionCOList.map((section, i) => {
-          console.log(i)
           return (
             <div>
               <Editable_Article_Section
@@ -88,35 +63,21 @@ try{
 
   }
 
-    console.log("DATAX");
-    console.log(res);
-    // alert("SETTING IMAGE");
     setImage(res.data.image);
     setID(res.data._id);
 
-
-    //TODO Get Image Link and section data
   }
 
   useEffect(() => {
-    // if (OpenFromInkARTICLEID !== null) {
-    //TODO open Draft
     OpenDraft().then();
-    // }
   }, []);
 
-  const [thisCommunity, setThisCommunity] = useState(props.id);
 
   //used for saving
   const [sectionData, setSectionData] = useState([]);
 
   //used for rendering
-  const [sectionsCreated, setSectionsCreated] = useState([
-    // <div>
-    //   <Editable_Article_Section index={0} update={setSectionData} /> <br />
-    //   <hr />
-    // </div>,
-  ]);
+  const [sectionsCreated, setSectionsCreated] = useState([]);
 
   //used to save get article information
   const [articleData, setArticleData] = useState({
@@ -158,13 +119,11 @@ try{
         <div>
           <div className="jumbotron">
             <h1 className="display-4">
-              {/*Write an Article!*/}
               Make A Post!
             </h1>
             <p className="lead">
               Share your art with the community!
-              {/*Contribute to the Community and share your knowledge, by*/}
-              {/*documenting it here!*/}
+
             </p>
             <hr className="my-4" />
             <p>
@@ -191,13 +150,8 @@ try{
               Select Community To Post In*
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {/*<button className="dropdown-item" href="#">*/}
-              {/*  New Community*/}
-              {/*</button>*/}
 
               {props.user.communities.map((x) => {
-                // console.log(articleData);
-                // console.log(x);
                 return (
                   <button
                     className="dropdown-item"

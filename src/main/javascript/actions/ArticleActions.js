@@ -16,6 +16,8 @@ import {
   select,
 } from "./MiscellaneousActions";
 
+import { ArticleTabComponentCO } from "../classes/classes";
+
 //TODO wont work until changes for CO
 export function DISPATCH_deleteImageFromProfile(link) {
   return async (dispatch, getState) => {
@@ -187,8 +189,15 @@ export function DISPATCH_openArticle(url) {
   console.log(url);
 
   return async (dispatch, getState) => {
-    let res = await Axios.get(url); //.then((res) => {
+    let res = await Axios.get(url);
     //check if already open
+
+    let article = new ArticleTabComponentCO(res.data);
+
+    alert(article._id)
+        console.log("article");
+
+    console.log(article)
 
     if (
       !getState().reducer.tabs.open.find((x) => {
@@ -205,17 +214,11 @@ export function DISPATCH_openArticle(url) {
 
     document.documentElement.scrollTop = 0;
 
-    // await dispatch({
-    //   type: "selectTab",
-    //   id: res.data._id,
-    // });
   };
 }
 
 export function DISPATCH_createArticle(
   payload,
-  user,
-  community,
   sectionData,
   id,
   post
