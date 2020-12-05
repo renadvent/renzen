@@ -60,9 +60,10 @@ function Create_Article_Page(props) {
 try{
 
 
-    if (res.data.articleAddToSection.length > 0) {
+    if (res.data.articleSectionCOList.length > 0) {
       setSectionsCreated(
         res.data.articleSectionCOList.map((section, i) => {
+          console.log(i)
           return (
             <div>
               <Editable_Article_Section
@@ -77,12 +78,12 @@ try{
         })
       );
     } else {
-      // setSectionsCreated([
-      //   <div>
-      //     <Editable_Article_Section index={0} update={setSectionData} /> <br />
-      //     <hr />
-      //   </div>,
-      // ]);
+      setSectionsCreated([
+        <div>
+          <Editable_Article_Section index={0} update={setSectionData} /> <br />
+          <hr />
+        </div>,
+      ]);
     }}catch{
 
   }
@@ -111,10 +112,10 @@ try{
 
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
-    <div>
-      <Editable_Article_Section index={0} update={setSectionData} /> <br />
-      <hr />
-    </div>,
+    // <div>
+    //   <Editable_Article_Section index={0} update={setSectionData} /> <br />
+    //   <hr />
+    // </div>,
   ]);
 
   //used to save get article information
