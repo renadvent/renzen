@@ -1,9 +1,9 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ProfileDTOs;
+import com.ren.renzen.Converters.ProfileConverter;
+import com.ren.renzen.ResourceObjects.CommandObjects.ProfileDTOs;
 import com.ren.renzen.Controllers.UserViewerController;
-import com.ren.renzen.Converters.ProfileDO_to_ProfileStreamComponentCO;
-import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +17,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class ProfileStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ProfileDO, ProfileDTOs.ProfileInfoComponentCO> {
 
-    final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
-    public ProfileStreamCOAssembler(ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
+    public ProfileStreamCOAssembler(ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
         this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
     }
 

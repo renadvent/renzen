@@ -25,12 +25,12 @@ public class NewArticleEditorController {
     final CommunityService communityService;
 
     //converters
-    final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
-    final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
-    final ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
-    final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
-    final CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
-    final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
+    final CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
+    final CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
     //assemblers
     final ArticleTabCOAssembler articleTabCOAssembler;
@@ -45,7 +45,7 @@ public class NewArticleEditorController {
     BlobServiceClient blobServiceClient;
     BlobContainerClient containerClient;
 
-    public NewArticleEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
+    public NewArticleEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
         this.communityService = communityService;
@@ -64,23 +64,6 @@ public class NewArticleEditorController {
         this.mapValidationErrorService = mapValidationErrorService;
     }
 
-//    @RequestMapping(NEW_CREATE_ARTICLE)
-//    public String newCreateArticle(
-////            @RequestBody NewCreateArticlePayload payload,
-//                                   @RequestParam String image,
-//                                   @RequestParam String token,
-//                                    @RequestParam String link,
-////                                   BindingResult result, Principal principal,
-//                                   Model model) {
-//        //might not need principal
-//
-//        model.addAttribute("source","createNewArticle");
-//        model.addAttribute("token",token);
-//        model.addAttribute("image",image);
-//        model.addAttribute("link",link);
-//
-//        return "index";
-
     @RequestMapping(OPEN_ARTICLE_DRAFT_FROM_APP)
     public String openDraftFromApp(
             @RequestParam String articleID,
@@ -95,20 +78,4 @@ public class NewArticleEditorController {
         return "index";
 
     }
-
-//    }
-
-//    @RequestMapping(OPEN_ARTICLE_DRAFT_FROM_APP)
-//    public String openDraftFromApp(
-//            @RequestParam String articleID,
-//            @RequestParam String token,
-//            Model model
-//    ){
-//        model.addAttribute("articleID",articleID);
-//        model.addAttribute("token",token);
-//
-//        return "index";
-//
-//    }
-
 }

@@ -1,6 +1,6 @@
 package com.ren.renzen.Services.Interfaces;
 
-import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

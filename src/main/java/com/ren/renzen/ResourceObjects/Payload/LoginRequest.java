@@ -1,4 +1,4 @@
-package com.ren.renzen.Payload;
+package com.ren.renzen.ResourceObjects.Payload;
 
 import lombok.Data;
 

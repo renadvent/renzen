@@ -1,10 +1,10 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ArticleDTOs;
+import com.ren.renzen.Converters.ArticleConverter;
+import com.ren.renzen.ResourceObjects.CommandObjects.ArticleDTOs;
 import com.ren.renzen.Controllers.ArticleEditorController;
 import com.ren.renzen.Controllers.ArticleViewerController;
-import com.ren.renzen.Converters.ArticleDO_to_ArticleTabComponentCO;
-import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
@@ -34,9 +34,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleDTOs.ArticleTabComponentCO> {
 
-    final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
 
-    public ArticleTabCOAssembler(ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO) {
+    public ArticleTabCOAssembler(ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO) {
         this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
     }
 

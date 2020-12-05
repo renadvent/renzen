@@ -1,6 +1,6 @@
-package com.ren.renzen.Security;
+package com.ren.renzen.Controllers.Security;
 
-import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;

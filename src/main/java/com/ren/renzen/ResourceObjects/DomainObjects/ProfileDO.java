@@ -1,4 +1,4 @@
-package com.ren.renzen.DomainObjects;
+package com.ren.renzen.ResourceObjects.DomainObjects;
 
 
 import lombok.Data;
@@ -34,42 +34,23 @@ public class ProfileDO implements UserDetails {
 
     List<ObjectId> friends = new ArrayList<>();
 
-    //toggles for converter
-    //public profile view settings toggle (used when converting)
-    boolean profileIsPublic = true;
-    boolean communityListIsPublic = true;
-    boolean articleListIsPublic = true;
-    boolean articleBookmarkListIsPublic = false;
-
     List<ObjectId> likedArticles = new ArrayList<>();
     List<ObjectId> dislikedArticles = new ArrayList<>();
 
     //lists for contents
-    List<ObjectId> communityIDList = new ArrayList<>();
+    List<ObjectId> createdCommunityIDList = new ArrayList<>();
+    List<ObjectId> joinedCommunityIDList = new ArrayList<>();
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();
 
-    List<ObjectId> articleIDList = new ArrayList<>(); // private setting is in article
+    List<ObjectId> articleIDList = new ArrayList<>();
     List<ObjectId> articleDraftIDList = new ArrayList<>();
 
-    //NEW
-    //List<ObjectId> WorkIDList = new ArrayList<>();
-    List<String> WorkNames = new ArrayList<>();
-
-    List<String> publicScreenshotsIDList = new ArrayList<>();
-
-    //not loaded on profile page unless logged in
-    List<String> privateScreenshotIDList = new ArrayList<>();
-
+    List<String> workNames = new ArrayList<>();
 
     Date created_at = new Date();
     List<Date> updated_at = new ArrayList<>();
 
     List<Date> logins_at = new ArrayList<>();
-
-
-    /*
-    User details implment methods
-     */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

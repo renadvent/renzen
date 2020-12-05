@@ -1,4 +1,4 @@
-package com.ren.renzen.DomainObjects;
+package com.ren.renzen.ResourceObjects.DomainObjects;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,51 +20,37 @@ public class ArticleDO {
 
     @MongoId
     ObjectId _id;
-
-    //TODO maybe when upload from renzen, server creates article DRAFT and then gives link?
-    //to article instead of image
-    Boolean isDraft;
-
-    String articleName;
-    String topic = "none";
-    String description;
-
-    String creatorName;
-
-    //TODO implement work
-    String workName = "";
-
-    //NEW
-    List<String> tagList = new ArrayList<>();
-    String postText = "";
-    String postType = "none";
-    List<Comment> comments = new ArrayList<>();
-    List<PollOption> pollOptions = new ArrayList<>();
-
-
     ObjectId creatorID;
-    //    Optional<ObjectId> creatorID;
     ObjectId communityID;
-    ObjectId discussionID;
-
-    List<ArticleSectionDO> articleSectionDOList = new ArrayList<>();
 
     int likes = 0;
     int dislikes = 0;
+    List<ObjectId> userLikeIDs = new ArrayList<>();
+    List<ObjectId> userDislikeIDs = new ArrayList<>();
 
-    //public article view setting
-    boolean visibleInCommunity = true;
+    Boolean isDraft=true;
+    String articleName="";
+    String workName = "";
+
+    List<String> tagList = new ArrayList<>();
+    List<Comment> comments = new ArrayList<>();
+    List<PollOption> pollOptions = new ArrayList<>();
+
+    List<ArticleSectionDO> articleSectionDOList = new ArrayList<>();
 
     String postImageURL = "";
-    List<ObjectId> imageIDs = new ArrayList<ObjectId>();
 
     Date created_at = new Date();
     List<Date> updated_at = new ArrayList<>();
 
-
     @Data
     @NoArgsConstructor
     public static class Comment {
+        int likes;
+        int dislikes;
+        List<ObjectId> userLikeIDs = new ArrayList<>();
+        List<ObjectId> userDislikeIDs = new ArrayList<>();
+
         String comment;
         ObjectId author;
         String authorName = "";
@@ -75,5 +61,12 @@ public class ArticleDO {
     public static class PollOption {
         String name;
         int votes;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class ArticleSectionDO {
+        String header;
+        String body;
     }
 }

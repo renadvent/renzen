@@ -3,10 +3,10 @@ package com.ren.renzen.Controllers;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.ren.renzen.Converters.*;
-import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.*;
-import com.ren.renzen.Payload.addCommentPayload;
-import com.ren.renzen.Payload.respondToPollPayload;
+import com.ren.renzen.ResourceObjects.Payload.addCommentPayload;
+import com.ren.renzen.ResourceObjects.Payload.respondToPollPayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
@@ -32,12 +32,12 @@ public class FeedController {
     final CommunityService communityService;
 
     //converters
-    final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
-    final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
-    final ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
-    final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
-    final CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
-    final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
+    final CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
+    final CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
     //assemblers
     final ArticleTabCOAssembler articleTabCOAssembler;
@@ -71,7 +71,7 @@ public class FeedController {
 
 
     //TODO work on
-    public FeedController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
+    public FeedController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService) {
         this.userService = userService;
         this.articleService = articleService;
         this.communityService = communityService;

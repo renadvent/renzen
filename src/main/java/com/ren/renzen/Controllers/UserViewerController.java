@@ -1,6 +1,6 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ProfileDTOs;
+import com.ren.renzen.ResourceObjects.CommandObjects.ProfileDTOs;
 import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileTabCOAssembler;
 import com.ren.renzen.Services.Interfaces.UserService;

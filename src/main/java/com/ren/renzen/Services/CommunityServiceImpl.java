@@ -1,6 +1,6 @@
 package com.ren.renzen.Services;
 
-import com.ren.renzen.DomainObjects.CommunityDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import com.ren.renzen.Repositories.CommunityRepository;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import org.bson.types.ObjectId;

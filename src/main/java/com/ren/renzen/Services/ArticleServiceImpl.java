@@ -1,12 +1,10 @@
 package com.ren.renzen.Services;
 
-import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import org.bson.types.ObjectId;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;

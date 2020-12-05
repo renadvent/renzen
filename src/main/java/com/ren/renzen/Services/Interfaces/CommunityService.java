@@ -1,6 +1,6 @@
 package com.ren.renzen.Services.Interfaces;
 
-import com.ren.renzen.DomainObjects.CommunityDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import org.bson.types.ObjectId;
 
 import java.util.List;

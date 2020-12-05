@@ -1,9 +1,9 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.CommunityDTOs;
+import com.ren.renzen.Converters.CommunityConverter;
+import com.ren.renzen.ResourceObjects.CommandObjects.CommunityDTOs;
 import com.ren.renzen.Controllers.CommunityViewerController;
-import com.ren.renzen.Converters.CommunityDO_to_CommunityStreamComponentCO;
-import com.ren.renzen.DomainObjects.CommunityDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +17,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class CommunityStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<CommunityDO, CommunityDTOs.CommunityInfoComponentCO> {
 
-    final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
+    final CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
-    public CommunityStreamCOAssembler(CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO) {
+    public CommunityStreamCOAssembler(CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO) {
         this.communityDO_to_communityStreamComponentCO = communityDO_to_communityStreamComponentCO;
     }
 

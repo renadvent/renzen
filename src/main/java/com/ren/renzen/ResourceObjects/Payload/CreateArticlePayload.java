@@ -1,6 +1,6 @@
-package com.ren.renzen.Payload;
+package com.ren.renzen.ResourceObjects.Payload;
 
-import com.ren.renzen.DomainObjects.ArticleSectionDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -20,7 +20,7 @@ public class CreateArticlePayload {
     String workName;
 
     ObjectId CommunityID;
-    List<ArticleSectionDO> articleSectionDOList;
+    List<ArticleDO.ArticleSectionDO> articleSectionDOList;
 
 
 }

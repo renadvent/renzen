@@ -1,9 +1,9 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ProfileDTOs;
+import com.ren.renzen.Converters.ProfileConverter;
+import com.ren.renzen.ResourceObjects.CommandObjects.ProfileDTOs;
 import com.ren.renzen.Controllers.UserViewerController;
-import com.ren.renzen.Converters.ProfileDO_to_ProfileTabComponentCO;
-import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +17,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class ProfileTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ProfileDO, ProfileDTOs.ProfileTabComponentCO> {
 
-    final ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
 
-    public ProfileTabCOAssembler(ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO) {
+    public ProfileTabCOAssembler(ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO) {
         this.profileDO_to_profileTabComponentCO = profileDO_to_profileTabComponentCO;
     }
 

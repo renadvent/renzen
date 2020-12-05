@@ -1,4 +1,4 @@
-package com.ren.renzen.Security;
+package com.ren.renzen.Controllers.Security;
 
 import com.ren.renzen.Services.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;

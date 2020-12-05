@@ -1,12 +1,12 @@
 package com.ren.renzen.Controllers;
 
 import com.ren.renzen.Converters.*;
-import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.*;
-import com.ren.renzen.Payload.JWTLoginSuccessResponse;
-import com.ren.renzen.Payload.LoginRequest;
-import com.ren.renzen.Payload.RegisterPayload;
-import com.ren.renzen.Security.JwtTokenProvider;
+import com.ren.renzen.ResourceObjects.Payload.JWTLoginSuccessResponse;
+import com.ren.renzen.ResourceObjects.Payload.LoginRequest;
+import com.ren.renzen.ResourceObjects.Payload.RegisterPayload;
+import com.ren.renzen.Controllers.Security.JwtTokenProvider;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
@@ -40,12 +40,12 @@ public class UserEditorController {
     final CommunityService communityService;
 
     //converters
-    final ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
-    final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
-    final ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
-    final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
-    final CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
-    final CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO;
+    final ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
+    final CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO;
+    final CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
     //assemblers
     final ArticleTabCOAssembler articleTabCOAssembler;
@@ -67,7 +67,7 @@ public class UserEditorController {
     //Authentication Manager
     final AuthenticationManager authenticationManager;
 
-    public UserEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public UserEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.articleService = articleService;
         this.communityService = communityService;
@@ -88,11 +88,6 @@ public class UserEditorController {
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
     }
-
-    //@PostMapping(path="/changePassword")
-    //@PostMapping(path="/changeEmail")
-    //@PostMapping(path="/changePhone")
-    //@PostMapping(path="/deleteAccount")
 
     @PostMapping(REGISTER)
     public ResponseEntity<?> Register(@Valid @RequestBody RegisterPayload registerPayload, BindingResult result) {

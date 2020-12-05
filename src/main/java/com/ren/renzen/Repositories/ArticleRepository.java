@@ -1,8 +1,7 @@
 package com.ren.renzen.Repositories;
 
-import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import org.bson.types.ObjectId;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

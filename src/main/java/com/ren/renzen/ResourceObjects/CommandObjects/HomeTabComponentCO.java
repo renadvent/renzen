@@ -1,4 +1,4 @@
-package com.ren.renzen.CommandObjects;
+package com.ren.renzen.ResourceObjects.CommandObjects;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

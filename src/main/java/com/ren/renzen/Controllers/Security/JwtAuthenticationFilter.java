@@ -1,6 +1,6 @@
-package com.ren.renzen.Security;
+package com.ren.renzen.Controllers.Security;
 
-import com.ren.renzen.DomainObjects.ProfileDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.Services.CustomUserDetailService;
 import org.bson.types.ObjectId;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,11 +1,11 @@
 package com.ren.renzen.ModelAssemblers;
 
-import com.ren.renzen.CommandObjects.ArticleDTOs;
+import com.ren.renzen.Converters.ArticleConverter;
+import com.ren.renzen.ResourceObjects.CommandObjects.ArticleDTOs;
 import com.ren.renzen.Controllers.ArticleEditorController;
 import com.ren.renzen.Controllers.ArticleViewerController;
 import com.ren.renzen.Controllers.FeedController;
-import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
-import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +16,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @Component
 public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleDTOs.ArticleInfoComponentCO> {
 
-    final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
 
-    public ArticleStreamCOAssembler(ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO) {
+    public ArticleStreamCOAssembler(ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO) {
         this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
     }
 

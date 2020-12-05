@@ -1,9 +1,9 @@
 package com.ren.renzen.Controllers;
 
-import com.ren.renzen.CommandObjects.ArticleDTOs;
-import com.ren.renzen.CommandObjects.CommunityDTOs;
-import com.ren.renzen.Converters.ArticleDO_to_ArticleStreamComponentCO;
-import com.ren.renzen.DomainObjects.ArticleDO;
+import com.ren.renzen.Converters.ArticleConverter;
+import com.ren.renzen.ResourceObjects.CommandObjects.ArticleDTOs;
+import com.ren.renzen.ResourceObjects.CommandObjects.CommunityDTOs;
+import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.CommunityStreamCOAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -27,12 +27,12 @@ public class AdminController {
     final CommunityService communityService;
     final UserService userService;
 
-    final ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
+    final ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
 
     final CommunityStreamCOAssembler communityStreamCOAssembler;
     final ProfileStreamCOAssembler profileStreamCOAssembler;
 
-    public AdminController(ArticleService articleService, CommunityService communityService, UserService userService, ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityStreamCOAssembler communityStreamCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler) {
+    public AdminController(ArticleService articleService, CommunityService communityService, UserService userService, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityStreamCOAssembler communityStreamCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler) {
         this.articleService = articleService;
         this.communityService = communityService;
         this.userService = userService;

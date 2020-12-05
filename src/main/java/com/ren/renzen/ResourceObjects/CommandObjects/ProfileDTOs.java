@@ -1,4 +1,4 @@
-package com.ren.renzen.CommandObjects;
+package com.ren.renzen.ResourceObjects.CommandObjects;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,75 +10,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileDTOs {
-    /***
-     *
-     */
+
     @Data
     @NoArgsConstructor
     public static class ProfileInfoComponentCO extends RepresentationModel<ProfileInfoComponentCO> {
 
         String ACCESS_TYPE;
 
-        //---------------
-
+        //Direct Values
         String _id;
         ObjectId objectId;
         String name;
-
-        Integer numberOfArticles;
-        Integer numberOfCommunities;
-        Integer numberOfDrafts;
-
-        List<ObjectId> articleIDList = new ArrayList<>();
-        List<ObjectId> communityIDList = new ArrayList<>();
-
-        List<ObjectId> articleDraftIDList = new ArrayList<>();
-
-        List<String> workNames = new ArrayList<>();
-
+        String profilePictureLink;
 
     }
-
-    /***
-     *
-     */
 
     @Data
     @NoArgsConstructor
     public static class ProfileTabComponentCO extends RepresentationModel<ProfileTabComponentCO> {
 
-        //react uses this to know what component type/component render
-        String ACCESS_TYPE;//Public or Private //normalized state regardless
+        String ACCESS_TYPE;
 
-        //----------------------------------
-
+        //Direct Values
         String name;
         String _id;
         ObjectId objectId;
 
-        Integer numberOfArticles;
-        Integer numberOfDrafts;
-
-        Integer numberOfCommunities;
-        Integer numberOfDiscussionContentPosts;
         List<ObjectId> articleIDList = new ArrayList<>();
         List<ObjectId> communityIDList = new ArrayList<>();
+        List<ObjectId> articleDraftIDList = new ArrayList<>();
 
-        CollectionModel<ArticleDTOs.ArticleInfoComponentCO> articleDraftInfoComponentCOs;
-
+        CollectionModel<ArticleDTOs.ArticleInfoComponentCO> articleDraftInfoComponentCOS;
         CollectionModel<ArticleDTOs.ArticleInfoComponentCO> articleInfoComponentCOS;
         CollectionModel<CommunityDTOs.CommunityInfoComponentCO> communityInfoComponentCOS;
         CollectionModel<ArticleDTOs.ArticleInfoComponentCO> articleBookmarksCM;
 
-        List<ObjectId> articleDraftIDList = new ArrayList<>();
-
-        List<String> screenshotLinks = new ArrayList<>();
-
         List<String> workNames = new ArrayList<>();
 
+        //Calculated Values
 
-        //NEW
-        List<String> originalLinks = new ArrayList<>();
+        Integer numberOfArticles;
+        Integer numberOfDrafts;
+        Integer numberOfCommunities;
 
     }
 }
