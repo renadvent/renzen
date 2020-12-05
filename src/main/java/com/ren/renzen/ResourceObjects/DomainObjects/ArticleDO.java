@@ -23,6 +23,9 @@ public class ArticleDO {
     ObjectId creatorID;
     ObjectId communityID;
 
+    //maybe?
+    String creatorName;
+
     int likes = 0;
     int dislikes = 0;
     List<ObjectId> userLikeIDs = new ArrayList<>();

@@ -32,13 +32,13 @@ public class ProfileConverter {
 
             final ProfileDTOs.ProfileInfoComponentCO co = new ProfileDTOs.ProfileInfoComponentCO();
 
-            co.setArticleDraftIDList(source.getArticleDraftIDList());
+//            co.setArticleDraftIDList(source.getArticleDraftIDList());
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
             co.setName(source.getUsername());
-            co.setNumberOfArticles(source.getArticleIDList().size());
-            co.setNumberOfCommunities(source.getJoinedCommunityIDList().size());
-            co.setWorkNames(source.getWorkNames());
+//            co.setNumberOfArticles(source.getArticleIDList().size());
+//            co.setNumberOfCommunities(source.getJoinedCommunityIDList().size());
+//            co.setWorkNames(source.getWorkNames());
 
             return co;
 
@@ -103,14 +103,14 @@ public class ProfileConverter {
             var correctedImageIDs = new ArrayList<String>();
             var originalImageIDs = new ArrayList<String>();
 
-            for (var link : source.getPublicScreenshotsIDList()) {
-                String name = link.substring(link.lastIndexOf('/') + 1);
-                originalImageIDs.add(name);
-                correctedImageIDs.add(imageService.generateSAS(name));
-            }
-
-            co.setScreenshotLinks(correctedImageIDs);
-            co.setOriginalLinks(originalImageIDs);
+//            for (var link : source.getPublicScreenshotsIDList()) {
+//                String name = link.substring(link.lastIndexOf('/') + 1);
+//                originalImageIDs.add(name);
+//                correctedImageIDs.add(imageService.generateSAS(name));
+//            }
+//
+//            co.setScreenshotLinks(correctedImageIDs);
+//            co.setOriginalLinks(originalImageIDs);
             co.setWorkNames(source.getWorkNames());
 
             return co;
