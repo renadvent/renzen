@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 
-import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Community.*;
+import static com.ren.renzen.Controllers.Constants.CONTROLLER_PATHS.Community.*;
 
 public class CommunityController {
     @RestController

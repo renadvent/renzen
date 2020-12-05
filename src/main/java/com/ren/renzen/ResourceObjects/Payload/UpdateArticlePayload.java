@@ -9,22 +9,15 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class NewCreateArticlePayload {
+public class UpdateArticlePayload {
 
     String articleName;
-    String topic;
-    String description;
 
     ObjectId CommunityID;
     List<ArticleDO.ArticleSectionDO> articleSectionDOList;
 
-    //NEW
-
     String workName;
-    String postType;
     String tags;
-    String image;
-    String postText;
+
     String pollOptions;
-    //List<String> pollOptions = new ArrayList<>();
 }

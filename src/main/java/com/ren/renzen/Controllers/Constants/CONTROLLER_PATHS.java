@@ -1,4 +1,4 @@
-package com.ren.renzen.Controllers;
+package com.ren.renzen.Controllers.Constants;
 
 public class CONTROLLER_PATHS {
 

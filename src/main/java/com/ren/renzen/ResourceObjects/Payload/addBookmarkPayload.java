@@ -9,7 +9,5 @@ import org.bson.types.ObjectId;
 @Setter
 @NoArgsConstructor
 public class addBookmarkPayload {
-
-    //ObjectId userId;
     ObjectId articleId;
 }

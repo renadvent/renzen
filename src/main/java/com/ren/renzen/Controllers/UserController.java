@@ -10,7 +10,7 @@ import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.ResourceObjects.CommandObjects.ProfileDTOs;
 import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.ResourceObjects.Payload.JWTLoginSuccessResponse;
-import com.ren.renzen.ResourceObjects.Payload.LoginRequest;
+import com.ren.renzen.ResourceObjects.Payload.LoginRequestPayload;
 import com.ren.renzen.ResourceObjects.Payload.RegisterPayload;
 import com.ren.renzen.ResourceObjects.Payload.addBookmarkPayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -32,7 +32,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 
-import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.*;
+import static com.ren.renzen.Controllers.Constants.CONTROLLER_PATHS.User.*;
 import static com.ren.renzen.additional.KEYS.TOKEN_PREFIX;
 
 public class UserController {
@@ -151,7 +151,7 @@ public class UserController {
         //TODO this to return ProfileTabComponentCOSecurity (which will include additional details)
         //TODO web will have to process this page differently to allow changing password etc
         @PostMapping(path = LOGIN, consumes = {"multipart/form-data", "application/json"})
-        public ResponseEntity<?> Login(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
+        public ResponseEntity<?> Login(@Valid @RequestBody LoginRequestPayload loginRequestPayload, BindingResult result) {
 
 
             ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
@@ -160,15 +160,15 @@ public class UserController {
             Authentication authentication = authenticationManager.authenticate(
 
                     new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsername(),
-                            loginRequest.getPassword()
+                            loginRequestPayload.getUsername(),
+                            loginRequestPayload.getPassword()
                     )
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
 
-            var user = userService.findByUsername(loginRequest.getUsername());
+            var user = userService.findByUsername(loginRequestPayload.getUsername());
             user.getLogins_at().add(new Date());
             userService.save(user);
 

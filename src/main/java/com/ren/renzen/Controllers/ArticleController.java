@@ -15,9 +15,7 @@ import com.ren.renzen.ModelAssemblers.ArticleAssembler;
 import com.ren.renzen.ModelAssemblers.CommunityAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
-import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
-import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
-import com.ren.renzen.ResourceObjects.Payload.NewCreateArticlePayload;
+import com.ren.renzen.ResourceObjects.Payload.UpdateArticlePayload;
 import com.ren.renzen.ResourceObjects.Payload.addCommentPayload;
 import com.ren.renzen.ResourceObjects.Payload.respondToPollPayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -28,18 +26,15 @@ import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.additional.KEYS;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.nio.file.Files;
 import java.security.Principal;
 import java.time.OffsetDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.*;
+import static com.ren.renzen.Controllers.Constants.CONTROLLER_PATHS.Article.*;
 
 public class ArticleController {
     @RestController
@@ -92,7 +87,6 @@ public class ArticleController {
             this.communityStreamCOAssembler = communityStreamCOAssembler;
             this.articleStreamCOAssembler = articleStreamCOAssembler;
             this.mapValidationErrorService = mapValidationErrorService;
-
 
             // Create a BlobServiceClient object which will be used to create a container client
             String connectStr = KEYS.CONNECTSTR;
@@ -277,18 +271,16 @@ public class ArticleController {
 
         //TODO work on
         @RequestMapping(UPDATE_ARTICLE)
-        public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody NewCreateArticlePayload payload, Principal principal) {
+        public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody UpdateArticlePayload payload, Principal principal) {
 
             var articleDO = articleService.findBy_id(id);
             var user = userService.findByUsername(principal.getName());
 
             articleDO.setArticleName(payload.getArticleName());
-//            articleDO.setTopic(payload.getTopic());
-//            articleDO.setDescription(payload.getDescription());
             articleDO.setCommunityID(payload.getCommunityID());
             articleDO.setArticleSectionDOList(payload.getArticleSectionDOList());
-            articleDO.getUpdated_at().add(new Date());
 
+            articleDO.getUpdated_at().add(new Date());
 
             user.getWorkNames()
                     .stream()
@@ -307,83 +299,13 @@ public class ArticleController {
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
 
         }
-//
-//        @PostMapping(CREATE_ARTICLE_FROM_SITE)
-//        public ResponseEntity<?> createArticleFromSite(@RequestBody @Valid NewCreateArticlePayload payload, BindingResult result, Principal principal) {
-//
-//            //CHECK BINDING RESULTS OF PAYLOAD
-//            ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-//            if (errorMap != null) return errorMap;
-//
-//            //BUILD PAYLOAD TO ARTICLE
-//            var articleDO = new ArticleDO();
-//
-//            articleDO.setCreated_at(new Date());
-//            articleDO.getUpdated_at().add(new Date());
-//
-//            articleDO.setArticleName(payload.getArticleName());
-//
-//            articleDO.setCommunityID(payload.getCommunityID());
-//            articleDO.setArticleSectionDOList(payload.getArticleSectionDOList());
-//
-//            //USES PRINCIPAL LOGIN TO SET
-//            articleDO.setCreatorName(principal.getName());
-//            articleDO.setCreatorID(userService.findByUsername(principal.getName()).get_id());
-//
-//            //GET REFERENCED OBJECTS
-//            ProfileDO profileDO = userService.findBy_id(articleDO.getCreatorID());
-//            CommunityDO communityDO = communityService.findBy_id(articleDO.getCommunityID());
-//
-//            //NEW
-//            articleDO.setPostImageURL(payload.getImage());
-//            articleDO.setWorkName(payload.getWorkName());
-//            //articleDO.
-//
-//            //save ArticleDO to get an ID from mongodb for it
-//            ArticleDO savedArticleDO = articleService.save(articleDO);
-//
-//            //add article to user
-//            profileDO.getArticleIDList().add(savedArticleDO.get_id());
-//            userService.update(profileDO);
-//
-//            //add article to community
-//            communityDO.getArticleDOList().add(savedArticleDO.get_id());
-//            communityService.saveOrUpdateCommunity(communityDO, principal.getName());
-//
-//            return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
-//
-//        }
-
-//        @PostMapping(DELETE_IMAGE_FROM_PROFILE_COMPAT)
-//        public void deleteImageFromProfile(@PathVariable String link, Principal principal) {
-//
-//            var user = userService.findByUsername(principal.getName());
-//
-//            //TODO not working as intended
-//            var newList = user.getPublicScreenshotsIDList().stream().filter(imageLink -> {
-//                var name = imageLink.substring(imageLink.lastIndexOf('/') + 1);
-//                if (name.equals(link)) {
-//                    containerClient.getBlobClient(link).delete();
-//                    return false;
-//                } else {
-//                    return true;
-//                }
-//
-//            }).collect(Collectors.toList());
-//
-//            user.setPublicScreenshotsIDList(newList);
-//            userService.update(user);
-//
-//        }
 
         //TODO work on
         @RequestMapping(CREATE_ARTICLE_DRAFT_FROM_APP)
         public Map<String, String> createDraftFromApp(@RequestBody Map<String, Object> payload) {
 
-            String title = "no title";
             ObjectId userId = null;
             File file = null;
-            String fileContents = "";
 
             try {
                 userId = new ObjectId(payload.get("userId").toString());
@@ -408,8 +330,6 @@ public class ArticleController {
                     .setPermissions(blobPermission);
 
             var SAS = blobClient.generateSas(blobServiceSasSignatureValues);
-
-            //blobClient.generateUserDelegationSas()
 
             String url = blobClient.getBlobUrl();
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
-import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.GET_HOME_STREAMS;
+import static com.ren.renzen.Controllers.Constants.CONTROLLER_PATHS.Article.GET_HOME_STREAMS;
 
 @RestController
 //@CrossOrigin("*")

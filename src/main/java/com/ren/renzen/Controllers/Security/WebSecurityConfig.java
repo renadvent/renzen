@@ -14,7 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.*;
+import static com.ren.renzen.Controllers.Constants.CONTROLLER_PATHS.Article.*;
 import static com.ren.renzen.additional.KEYS.*;
 
 @Configuration

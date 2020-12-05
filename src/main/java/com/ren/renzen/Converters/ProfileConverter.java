@@ -32,13 +32,10 @@ public class ProfileConverter {
 
             final ProfileDTOs.ProfileInfoComponentCO co = new ProfileDTOs.ProfileInfoComponentCO();
 
-//            co.setArticleDraftIDList(source.getArticleDraftIDList());
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
             co.setName(source.getUsername());
-//            co.setNumberOfArticles(source.getArticleIDList().size());
-//            co.setNumberOfCommunities(source.getJoinedCommunityIDList().size());
-//            co.setWorkNames(source.getWorkNames());
+            co.setProfilePictureLink(source.getProfilePictureLink());
 
             return co;
 
@@ -97,20 +94,11 @@ public class ProfileConverter {
             co.setName(source.getUsername());
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
+
+            co.setNumberOfDrafts(source.getArticleDraftIDList().size());
             co.setNumberOfArticles(source.getArticleIDList().size());
             co.setNumberOfCommunities(source.getJoinedCommunityIDList().size());
 
-            var correctedImageIDs = new ArrayList<String>();
-            var originalImageIDs = new ArrayList<String>();
-
-//            for (var link : source.getPublicScreenshotsIDList()) {
-//                String name = link.substring(link.lastIndexOf('/') + 1);
-//                originalImageIDs.add(name);
-//                correctedImageIDs.add(imageService.generateSAS(name));
-//            }
-//
-//            co.setScreenshotLinks(correctedImageIDs);
-//            co.setOriginalLinks(originalImageIDs);
             co.setWorkNames(source.getWorkNames());
 
             return co;
@@ -151,6 +139,7 @@ public class ProfileConverter {
                     .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleBookmarkIDList())));
 
             return co;
+
         }
     }
 }

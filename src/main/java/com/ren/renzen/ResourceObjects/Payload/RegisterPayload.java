@@ -23,10 +23,6 @@ public class RegisterPayload {
     @NotBlank(message = "email must not be blank")
     String email;
 
-//    public UserNamePassword(String username, String password) {
-//        this.username = username;
-//        this.password = password;
-//    }
 }
 
 
