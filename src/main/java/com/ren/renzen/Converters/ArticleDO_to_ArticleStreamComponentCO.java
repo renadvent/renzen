@@ -62,7 +62,7 @@ public class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER
 
         co.setOtherPostsInWork(
                 articleService.findAllByCreatorIDAndWorkName(author.get_id(), co.getWorkName())
-                        .stream().map(ArticleDO::get_id).collect(Collectors.toList())
+                        .stream().filter(articleDO -> !articleDO.getIsDraft()).map(ArticleDO::get_id).collect(Collectors.toList())
         );
 
         co.setOtherPostsInWorkHex(co.getOtherPostsInWork().stream().map(ObjectId::toHexString).collect(Collectors.toList()));

@@ -35,7 +35,7 @@ function Create_Article_Page(props) {
     // res.data.articleSectionCOList.map(section=>{
     //   return (
     //       <div>
-    
+
     //       </div>
     //   )
     // })
@@ -49,42 +49,50 @@ function Create_Article_Page(props) {
       communityName: data.communityName,
       communityID: data.communityID,
       postText: data.postText,
+      image:data.image
       //articleDescription: data.ar
     });
 
-    console.log("in section")
-    console.log(res.data)
-
-let index=0
+    console.log("in section");
+    console.log(res.data);
 
 
+try{
 
-setSectionsCreated(
 
-      res.data.articleSectionCOList.map((section,i)=>{
+    if (res.data.articleAddToSection.length > 0) {
+      setSectionsCreated(
+        res.data.articleSectionCOList.map((section, i) => {
+          return (
+            <div>
+              <Editable_Article_Section
+                index={i}
+                update={setSectionData}
+                text={section}
+              />{" "}
+              <br />
+              <hr />
+            </div>
+          );
+        })
+      );
+    } else {
+      // setSectionsCreated([
+      //   <div>
+      //     <Editable_Article_Section index={0} update={setSectionData} /> <br />
+      //     <hr />
+      //   </div>,
+      // ]);
+    }}catch{
 
-        console.log("in section")
-        console.log(section)
-
-        
-
-        // index=index+1
-
-        return (
-          <div>
-          <Editable_Article_Section index={i} update={setSectionData} text = {section}/> <br />
-          <hr />
-        </div>
-        )
-      
-
-    }))
+  }
 
     console.log("DATAX");
     console.log(res);
     // alert("SETTING IMAGE");
     setImage(res.data.image);
     setID(res.data._id);
+
 
     //TODO Get Image Link and section data
   }
@@ -103,10 +111,10 @@ setSectionsCreated(
 
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
-    // <div>
-    //   <Editable_Article_Section index={0} update={setSectionData} /> <br />
-    //   <hr />
-    // </div>,
+    <div>
+      <Editable_Article_Section index={0} update={setSectionData} /> <br />
+      <hr />
+    </div>,
   ]);
 
   //used to save get article information
@@ -165,8 +173,6 @@ setSectionsCreated(
           </div>
 
           <div>
-            {/*SHOW IMAGE FROM RENZEN INK HERE. data from url: {OpenFromInkImage}*/}
-            {/*<img src={OpenFromInkImage} height={500} />*/}
             <img src={image} height={500} />
           </div>
 

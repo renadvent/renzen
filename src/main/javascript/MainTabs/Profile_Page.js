@@ -111,8 +111,13 @@ function Profile_Page(props) {
             {console.log(props.data)}
             <StreamArticleConnect
               source={
-                props.data.articleDraftInfoComponentCOs._embedded
-                  .articleInfoComponentCoes
+
+           
+                  props.drafts
+   
+
+
+
               }
               dispatchSent={props.DISPATCH_openArticle}
             />
