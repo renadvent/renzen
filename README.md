@@ -1,7 +1,6 @@
 # Renzen
 
 [renzen.io](https://renzen.io) 
-(Currently Adding Spring Security with JWT)
 
 ## What is it?
 Renzen is a project that combines a Java art application called Renzen Ink with the website Renzen.io. 
