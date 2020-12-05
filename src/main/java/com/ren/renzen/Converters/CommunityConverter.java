@@ -2,8 +2,8 @@ package com.ren.renzen.Converters;
 
 import com.mongodb.lang.Nullable;
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
-import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
-import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
+import com.ren.renzen.ModelAssemblers.ArticleAssembler;
+import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.ResourceObjects.CommandObjects.CommunityDTOs;
 import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import com.ren.renzen.Services.Interfaces.ArticleService;
@@ -75,10 +75,10 @@ public class CommunityConverter {
         final ArticleService articleService;
         final UserService userService;
 
-        final ProfileStreamCOAssembler profileStreamCOAssembler;
-        final ArticleStreamCOAssembler articleStreamCOAssembler;
+        final ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler;
+        final ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler;
 
-        public CommunityDO_to_CommunityTabComponentCO(ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, ArticleService articleService, UserService userService, ProfileStreamCOAssembler profileStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
+        public CommunityDO_to_CommunityTabComponentCO(ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, ArticleService articleService, UserService userService, ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler, ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler) {
             this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
             this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
             this.articleService = articleService;

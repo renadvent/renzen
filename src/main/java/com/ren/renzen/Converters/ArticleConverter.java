@@ -40,29 +40,32 @@ public class ArticleConverter {
             final ArticleDTOs.ArticleInfoComponentCO co = new ArticleDTOs.ArticleInfoComponentCO();
             co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
 
-            co.setName(source.getArticleName());
-            co.setDescription(source.getDescription());
+
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
+
+            co.setCreatorID(source.getCreatorID());
+            co.setCommunityID(source.getCommunityID());
+
             co.setLikes(source.getLikes());
             co.setDislikes(source.getDislikes());
-            co.setOriginalImageLink(co.getImage());
+            co.setUserLikeIDs(source.getUserLikeIDs());
+            co.setUserDislikeIDs(source.getUserDislikeIDs());
+
+            co.setIsDraft(source.getIsDraft());
+            co.setArticleName(source.getArticleName());
+            co.setWorkName(source.getWorkName());
+
             co.setTagList(source.getTagList());
-            co.setPostText(source.getPostText());
-            co.setPostType(source.getPostType());
             co.setComments(source.getComments());
             co.setPollOptions(source.getPollOptions());
-            co.setImageIDs(source.getImageIDs());
-            co.setOriginalImageLink(co.getImage());
-            co.setWorkName(source.getWorkName());
-            co.setCreatorID(source.getCreatorID().toHexString());
 
             try {
                 String name = source.getPostImageURL().substring(source.getPostImageURL().lastIndexOf('/') + 1);
 
-                co.setImage(imageService.generateSAS(name));
+                co.setPostImageURL(imageService.generateSAS(name));
             } catch (Exception e) {
-                co.setImage(null);
+                co.setPostImageURL(null);
             }
 
             var author = userService.findBy_id(source.getCreatorID());
@@ -130,15 +133,13 @@ public class ArticleConverter {
             try {
                 String name = source.getPostImageURL().substring(source.getPostImageURL().lastIndexOf('/') + 1);
 
-                co.setImage(imageService.generateSAS(name));
+                co.setPostImageURL(imageService.generateSAS(name));
 
 
             } catch (Exception e) {
-                co.setImage(null);
+                co.setPostImageURL(null);
             }
 
-
-            //co.setImage(source.getImage());
             co.setComments(source.getComments());
             co.setWorkName(source.getWorkName());
             co.setCommunityID(source.getCommunityID());
@@ -146,9 +147,6 @@ public class ArticleConverter {
             if (source.getCommunityID()!=null){
                 co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
             }
-
-
-
         }
 
         @Synchronized

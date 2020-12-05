@@ -48,6 +48,8 @@ public class ArticleDTOs {
 
         //Calculated Values
 
+        String creatorName="";
+        String communityName="";
         ProfileDTOs.ProfileInfoComponentCO profileInfoComponentCO;
         List<ObjectId> otherPostsInWork = new ArrayList<>();
         List<String> otherPostsInWorkHex = new ArrayList<>();
@@ -94,7 +96,10 @@ public class ArticleDTOs {
 
         List<ArticleSectionCO> articleSectionCOList = new ArrayList<>();
         ProfileDTOs.ProfileInfoComponentCO profileInfoComponentCO;
-
+        List<ObjectId> otherPostsInWork = new ArrayList<>();
+        List<String> otherPostsInWorkHex = new ArrayList<>();
+        String creatorName="";
+        String communityName="";
 
     }
 
