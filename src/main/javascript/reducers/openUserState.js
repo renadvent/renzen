@@ -24,6 +24,9 @@ export function openUserState(state, action) {
             data={action.data}
             articles={action.articles}
             profiles={action.profiles}
+
+            drafts={action.drafts}
+
             communities={action.communities}
             href={"A" + action.data._id}
             id={action.data._id}
