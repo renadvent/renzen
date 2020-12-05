@@ -1,9 +1,9 @@
 package com.ren.renzen.Converters;
 
 import com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER_SUPPORT;
-import com.ren.renzen.ModelAssemblers.ArticleStreamCOAssembler;
-import com.ren.renzen.ModelAssemblers.CommunityStreamCOAssembler;
-import com.ren.renzen.ModelAssemblers.ProfileStreamCOAssembler;
+import com.ren.renzen.ModelAssemblers.ArticleAssembler;
+import com.ren.renzen.ModelAssemblers.CommunityAssembler;
+import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Repositories.CommunityRepository;
 import com.ren.renzen.ResourceObjects.CommandObjects.ProfileDTOs;
@@ -72,11 +72,11 @@ public class ProfileConverter {
         final CommunityService communityService;
         final ImageService imageService;
 
-        final ArticleStreamCOAssembler articleStreamCOAssembler;
-        final ProfileStreamCOAssembler profileStreamCOAssembler;
-        final CommunityStreamCOAssembler communityStreamCOAssembler;
+        final ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler;
+        final ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler;
+        final CommunityAssembler.CommunityStreamCOAssembler communityStreamCOAssembler;
 
-        public ProfileDO_to_ProfileTabComponentCO(CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityRepository communityRepository, ArticleRepository articleRepository, ArticleService articleService, CommunityService communityService, ImageService imageService, ArticleStreamCOAssembler articleStreamCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler) {
+        public ProfileDO_to_ProfileTabComponentCO(CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, CommunityRepository communityRepository, ArticleRepository articleRepository, ArticleService articleService, CommunityService communityService, ImageService imageService, ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler, ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler, CommunityAssembler.CommunityStreamCOAssembler communityStreamCOAssembler) {
             this.communityDO_to_communityStreamComponentCO = communityDO_to_communityStreamComponentCO;
             this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
             this.communityRepository = communityRepository;

@@ -51,12 +51,12 @@ public class UserController {
         final CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
         //assemblers
-        final ArticleTabCOAssembler articleTabCOAssembler;
-        final ProfileStreamCOAssembler profileStreamCOAssembler;
-        final ProfileTabCOAssembler profileTabCOAssembler;
-        final CommunityTabCOAssembler communityTabCOAssembler;
-        final CommunityStreamCOAssembler communityStreamCOAssembler;
-        final ArticleStreamCOAssembler articleStreamCOAssembler;
+        final ArticleAssembler.ArticleTabCOAssembler articleTabCOAssembler;
+        final ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler;
+        final ProfileAssembler.ProfileTabCOAssembler profileTabCOAssembler;
+        final CommunityAssembler.CommunityTabCOAssembler communityTabCOAssembler;
+        final CommunityAssembler.CommunityStreamCOAssembler communityStreamCOAssembler;
+        final ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler;
 
         //Error service
         final MapValidationErrorService mapValidationErrorService;
@@ -70,7 +70,7 @@ public class UserController {
         //Authentication Manager
         final AuthenticationManager authenticationManager;
 
-        public UserEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+        public UserEditorController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleAssembler.ArticleTabCOAssembler articleTabCOAssembler, ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler, ProfileAssembler.ProfileTabCOAssembler profileTabCOAssembler, CommunityAssembler.CommunityTabCOAssembler communityTabCOAssembler, CommunityAssembler.CommunityStreamCOAssembler communityStreamCOAssembler, ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler, MapValidationErrorService mapValidationErrorService, UserNamePasswordValidator userNamePasswordValidator, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
             this.userService = userService;
             this.articleService = articleService;
             this.communityService = communityService;
@@ -181,10 +181,10 @@ public class UserController {
 
         final UserService userService;
 
-        final ProfileStreamCOAssembler profileStreamCOAssembler;
-        final ProfileTabCOAssembler profileTabCOAssembler;
+        final ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler;
+        final ProfileAssembler.ProfileTabCOAssembler profileTabCOAssembler;
 
-        public UserViewerController(UserService userService, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler) {
+        public UserViewerController(UserService userService, ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler, ProfileAssembler.ProfileTabCOAssembler profileTabCOAssembler) {
             this.userService = userService;
             this.profileStreamCOAssembler = profileStreamCOAssembler;
             this.profileTabCOAssembler = profileTabCOAssembler;

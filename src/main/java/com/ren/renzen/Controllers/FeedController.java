@@ -2,7 +2,6 @@ package com.ren.renzen.Controllers;
 
 import com.ren.renzen.Converters.*;
 import com.ren.renzen.ModelAssemblers.*;
-import com.ren.renzen.ResourceObjects.Payload.addBookmarkPayload;
 import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
@@ -11,12 +10,9 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.security.Principal;
 import java.util.ArrayList;
 
 import static com.ren.renzen.Controllers.CONTROLLER_PATHS.Article.GET_HOME_STREAMS;
-import static com.ren.renzen.Controllers.CONTROLLER_PATHS.User.ADD_BOOKMARK;
 
 @RestController
 //@CrossOrigin("*")
@@ -36,16 +32,16 @@ public class FeedController {
     final CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO;
 
     //assemblers
-    final ArticleTabCOAssembler articleTabCOAssembler;
-    final ProfileStreamCOAssembler profileStreamCOAssembler;
-    final ProfileTabCOAssembler profileTabCOAssembler;
-    final CommunityTabCOAssembler communityTabCOAssembler;
-    final CommunityStreamCOAssembler communityStreamCOAssembler;
-    final ArticleStreamCOAssembler articleStreamCOAssembler;
+    final ArticleAssembler.ArticleTabCOAssembler articleTabCOAssembler;
+    final ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler;
+    final ProfileAssembler.ProfileTabCOAssembler profileTabCOAssembler;
+    final CommunityAssembler.CommunityTabCOAssembler communityTabCOAssembler;
+    final CommunityAssembler.CommunityStreamCOAssembler communityStreamCOAssembler;
+    final ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler;
 
     //controllers
     @Autowired
-    public FeedController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleTabCOAssembler articleTabCOAssembler, ProfileStreamCOAssembler profileStreamCOAssembler, ProfileTabCOAssembler profileTabCOAssembler, CommunityTabCOAssembler communityTabCOAssembler, CommunityStreamCOAssembler communityStreamCOAssembler, ArticleStreamCOAssembler articleStreamCOAssembler) {
+    public FeedController(UserService userService, ArticleService articleService, CommunityService communityService, ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ProfileConverter.ProfileDO_to_ProfileTabComponentCO profileDO_to_profileTabComponentCO, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO, CommunityConverter.CommunityDO_to_CommunityTabComponentCO communityDO_to_communityTabComponentCO, CommunityConverter.CommunityDO_to_CommunityStreamComponentCO communityDO_to_communityStreamComponentCO, ArticleAssembler.ArticleTabCOAssembler articleTabCOAssembler, ProfileAssembler.ProfileStreamCOAssembler profileStreamCOAssembler, ProfileAssembler.ProfileTabCOAssembler profileTabCOAssembler, CommunityAssembler.CommunityTabCOAssembler communityTabCOAssembler, CommunityAssembler.CommunityStreamCOAssembler communityStreamCOAssembler, ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler) {
         this.userService = userService;
         this.articleService = articleService;
         this.communityService = communityService;
