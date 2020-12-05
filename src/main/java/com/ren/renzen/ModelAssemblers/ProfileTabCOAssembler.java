@@ -1,8 +1,8 @@
 package com.ren.renzen.ModelAssemblers;
 
+import com.ren.renzen.Controllers.UserController;
 import com.ren.renzen.Converters.ProfileConverter;
 import com.ren.renzen.ResourceObjects.CommandObjects.ProfileDTOs;
-import com.ren.renzen.Controllers.UserViewerController;
 import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
@@ -44,8 +44,8 @@ public class ProfileTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Profile
     @Override
     public ProfileDTOs.ProfileTabComponentCO addLinksWithCurrentAuthentication(ProfileDTOs.ProfileTabComponentCO entity) {
         return entity.add(List.of(
-                linkTo(methodOn(UserViewerController.class).getProfileStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
-                linkTo(methodOn(UserViewerController.class).getProfileTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version"))
+                linkTo(methodOn(UserController.UserViewerController.class).getProfileStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
+                linkTo(methodOn(UserController.UserViewerController.class).getProfileTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version"))
         );
     }
 }

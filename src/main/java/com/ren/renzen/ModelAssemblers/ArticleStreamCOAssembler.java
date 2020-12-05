@@ -1,10 +1,8 @@
 package com.ren.renzen.ModelAssemblers;
 
+import com.ren.renzen.Controllers.ArticleController;
 import com.ren.renzen.Converters.ArticleConverter;
 import com.ren.renzen.ResourceObjects.CommandObjects.ArticleDTOs;
-import com.ren.renzen.Controllers.ArticleEditorController;
-import com.ren.renzen.Controllers.ArticleViewerController;
-import com.ren.renzen.Controllers.FeedController;
 import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
@@ -47,9 +45,9 @@ public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Arti
 
 
                         //TODO adding REST links
-                        linkTo(methodOn(ArticleEditorController.class).likeArticle(entity.getObjectId(), getAuth())).withRel("LikeArticle"),
-                        linkTo(methodOn(ArticleEditorController.class).dislikeArticle(entity.getObjectId(), getAuth())).withRel("DislikeArticle"),
-                        linkTo(methodOn(ArticleEditorController.class).deleteArticle(entity.getObjectId(), getAuth())).withRel("DeleteArticle"),
+                        linkTo(methodOn(ArticleController.ArticleEditorController.class).likeArticle(entity.getObjectId(), getAuth())).withRel("LikeArticle"),
+                        linkTo(methodOn(ArticleController.ArticleEditorController.class).dislikeArticle(entity.getObjectId(), getAuth())).withRel("DislikeArticle"),
+                        linkTo(methodOn(ArticleController.ArticleEditorController.class).deleteArticle(entity.getObjectId(), getAuth())).withRel("DeleteArticle"),
 
                         linkTo(FeedController.class).slash("/addComment").withRel("addComment"),
 
@@ -59,17 +57,17 @@ public class ArticleStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Arti
 
                         //linkTo(methodOn(FeedController.class).addComment(entity.getObjectId(),null,getAuth())).withRel("AddComment"),
 
-                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth()))
+                        linkTo(methodOn(ArticleController.ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth()))
                                 .withRel("Stream_Version"),
 
                         //TODO working on this link
-                        linkTo(methodOn(ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withSelfRel()
-                                .andAffordance(afford(methodOn(FeedController.class).addComment(entity.getObjectId(), null, getAuth())))
+                        linkTo(methodOn(ArticleController.ArticleViewerController.class).getArticleStreamComponentCO(entity.getObjectId(), getAuth())).withSelfRel()
+                                .andAffordance(afford(methodOn(ArticleController.ArticleEditorController.class).addComment(entity.getObjectId(), null, getAuth())))
 //                                .withRel("Stream_Version")
 
 
                         ,
-                        linkTo(methodOn(ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version"))
+                        linkTo(methodOn(ArticleController.ArticleViewerController.class).getArticleTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version"))
 
 
                 );

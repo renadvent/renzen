@@ -1,8 +1,8 @@
 package com.ren.renzen.ModelAssemblers;
 
+import com.ren.renzen.Controllers.CommunityController;
 import com.ren.renzen.Converters.CommunityConverter;
 import com.ren.renzen.ResourceObjects.CommandObjects.CommunityDTOs;
-import com.ren.renzen.Controllers.CommunityViewerController;
 import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import org.springframework.stereotype.Component;
@@ -44,8 +44,8 @@ public class CommunityStreamCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<Co
     public CommunityDTOs.CommunityInfoComponentCO addLinksWithCurrentAuthentication(CommunityDTOs.CommunityInfoComponentCO entity) {
         return entity
                 .add(List.of(
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
-                        linkTo(methodOn(CommunityViewerController.class).getCommunityTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
+                        linkTo(methodOn(CommunityController.CommunityViewerController.class).getCommunityStreamComponentCO(entity.getObjectId(), getAuth())).withRel("Stream_Version"),
+                        linkTo(methodOn(CommunityController.CommunityViewerController.class).getCommunityTabComponentCO(entity.getObjectId(), getAuth())).withRel("Tab_Version")));
 
     }
 }
