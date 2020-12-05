@@ -234,7 +234,8 @@ export function DISPATCH_createArticle(
 
       //userID: user,
       // communityID: community,
-      communityID: payload.community,
+      communityID: payload.communityID,
+      //payload.community,
       articleSectionDOList: sectionData,
     });
 

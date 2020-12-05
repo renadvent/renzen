@@ -267,7 +267,9 @@ public class ArticleEditorController {
 
         articleDO.setWorkName(payload.getWorkName());
 
+        System.out.println(articleDO.get_id());
         ArticleDO savedArticleDO = articleService.save(articleDO);
+        System.out.println(savedArticleDO.get_id());
 
         return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
 

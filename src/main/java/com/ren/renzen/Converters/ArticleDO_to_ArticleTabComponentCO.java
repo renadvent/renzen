@@ -6,6 +6,8 @@ import com.ren.renzen.DomainObjects.ArticleDO;
 import com.ren.renzen.DomainObjects.ArticleSectionDO;
 import com.ren.renzen.Repositories.ArticleRepository;
 import com.ren.renzen.Repositories.UserRepository;
+import com.ren.renzen.Services.Interfaces.ArticleService;
+import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import lombok.Synchronized;
@@ -23,7 +25,9 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
     final UserRepository userRepo;
     final ArticleRepository articleRepo;
+    final ArticleService articleService;
     final UserService userService;
+    final CommunityService communityService;
     final ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
     final ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO;
 
@@ -31,10 +35,12 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
 
     @Autowired
-    public ArticleDO_to_ArticleTabComponentCO(UserRepository repo, ArticleRepository articleRepo, UserService userService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO, ImageService imageService) {
+    public ArticleDO_to_ArticleTabComponentCO(UserRepository repo, ArticleRepository articleRepo, ArticleService articleService, UserService userService, CommunityService communityService, ProfileDO_to_ProfileStreamComponentCO profileDOtoprofileStreamComponentCO, ArticleSectionDO_to_ArticleSectionCO articleSectionDO_to_articleSectionCO, ImageService imageService) {
         this.userRepo = repo;
         this.articleRepo = articleRepo;
+        this.articleService = articleService;
         this.userService = userService;
+        this.communityService = communityService;
         profileDO_to_profileStreamComponentCO = profileDOtoprofileStreamComponentCO;
         this.articleSectionDO_to_articleSectionCO = articleSectionDO_to_articleSectionCO;
         this.imageService = imageService;
@@ -55,6 +61,15 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
 
         //co.setImage(source.getImage());
         co.setComments(source.getComments());
+        co.setWorkName(source.getWorkName());
+        co.setCommunityID(source.getCommunityID());
+
+        if (source.getCommunityID()!=null){
+            co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
+        }
+
+
+
     }
 
     @Synchronized
@@ -73,6 +88,9 @@ public class ArticleDO_to_ArticleTabComponentCO extends DOMAIN_VIEW_CONVERTER_SU
         userRepo.findById(source.getCreatorID()).ifPresent(user -> co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(user)));
         co.setUserName(co.getProfileInfoComponentCO().getName());
         co.setDiscussionID(source.getDiscussionID());
+
+        co.setPostText(source.getPostText());
+        co.setPostType(source.getPostType());
 
         co.setLikes(source.getLikes());
         co.setDislikes(source.getDislikes());

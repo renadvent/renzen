@@ -12,6 +12,16 @@ export function Editable_Article_Section(props) {
   //adds info state to parent state array on first render
   useEffect(() => {
     props.update((prevState) => prevState.concat(info));
+
+    try{
+      setInfo({
+        header:props.text.header,
+        body:props.text.body
+      })
+    }catch{
+
+    }
+
   }, []);
 
   //links input forms to react states

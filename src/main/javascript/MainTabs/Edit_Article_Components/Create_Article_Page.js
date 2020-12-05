@@ -16,7 +16,7 @@ function Create_Article_Page(props) {
     //Axios.get()
     //TODO Get Draft Info from Server
 
-    alert("OPENING DRAFT!!!");
+    // alert("OPENING DRAFT!!!");
 
     //alert(OpenFromInkARTICLEID);
 
@@ -28,29 +28,61 @@ function Create_Article_Page(props) {
       //OpenFromInkARTICLEID
     );
 
-    alert(res.status);
+    // alert(res.status);
 
     let data = res.data;
 
     // res.data.articleSectionCOList.map(section=>{
     //   return (
     //       <div>
-    //
+    
     //       </div>
     //   )
     // })
 
     //TODO WORKING HERE
     setArticleData({
-      articleName: data.articleName,
+      ...articleData,
+      articleName: data.name,
       workName: data.workName,
       community: data.communityID,
       communityName: data.communityName,
+      communityID: data.communityID,
+      postText: data.postText,
       //articleDescription: data.ar
     });
 
+    console.log("in section")
+    console.log(res.data)
+
+let index=0
+
+
+
+setSectionsCreated(
+
+      res.data.articleSectionCOList.map((section,i)=>{
+
+        console.log("in section")
+        console.log(section)
+
+        
+
+        // index=index+1
+
+        return (
+          <div>
+          <Editable_Article_Section index={i} update={setSectionData} text = {section}/> <br />
+          <hr />
+        </div>
+        )
+      
+
+    }))
+
+    console.log("DATAX");
     console.log(res);
-    alert("SETTING IMAGE");
+    // alert("SETTING IMAGE");
     setImage(res.data.image);
     setID(res.data._id);
 
@@ -71,10 +103,10 @@ function Create_Article_Page(props) {
 
   //used for rendering
   const [sectionsCreated, setSectionsCreated] = useState([
-    <div>
-      <Editable_Article_Section index={0} update={setSectionData} /> <br />
-      <hr />
-    </div>,
+    // <div>
+    //   <Editable_Article_Section index={0} update={setSectionData} /> <br />
+    //   <hr />
+    // </div>,
   ]);
 
   //used to save get article information
@@ -92,6 +124,8 @@ function Create_Article_Page(props) {
 
     community: "",
     communityName: "",
+
+    postText: "",
   });
 
   function handleChange(event) {
@@ -181,7 +215,7 @@ function Create_Article_Page(props) {
 
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <span className="input-group-text" id="basic-addon3">
+              <span className="input-group-text" id="basic-addon3-a">
                 Article Name*:{" "}
               </span>
               <input
@@ -190,13 +224,13 @@ function Create_Article_Page(props) {
                 onChange={handleChange}
                 type="text"
                 className="form-control"
-                id="basic-url"
+                id="input-articleName"
                 aria-describedby="basic-addon3"
               />
             </div>
 
             <div className="input-group-prepend">
-              <span className="input-group-text" id="basic-addon3">
+              <span className="input-group-text" id="basic-addon3-b">
                 Work Name*:{" "}
               </span>
               <input
@@ -205,7 +239,7 @@ function Create_Article_Page(props) {
                 onChange={handleChange}
                 type="text"
                 className="form-control"
-                id="basic-url"
+                id="input-workName"
                 aria-describedby="basic-addon3"
               />
             </div>
@@ -213,7 +247,7 @@ function Create_Article_Page(props) {
 
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <span className="input-group-text" id="basic-addon3">
+              <span className="input-group-text" id="basic-addon3-c">
                 Description
               </span>
             </div>
@@ -223,10 +257,12 @@ function Create_Article_Page(props) {
               onChange={handleChange}
               type="text"
               className="form-control"
-              id="basic-url"
+              id="input-articleDescription"
               aria-describedby="basic-addon3"
             />
           </div>
+
+          <div>Post Text: {articleData.postText}</div>
 
           {sectionsCreated}
 

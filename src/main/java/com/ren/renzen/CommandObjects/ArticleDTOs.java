@@ -49,6 +49,12 @@ public class ArticleDTOs {
         List<ObjectId> otherPostsInWork = new ArrayList<>();
         List<String> otherPostsInWorkHex = new ArrayList<>();
 
+        ObjectId communityID;
+        ObjectId discussionID;
+
+        String communityName;
+
+
 
         Date created_at = new Date();
         List<Date> updated_at = new ArrayList<>();
@@ -77,6 +83,9 @@ public class ArticleDTOs {
 
         //---------------
 
+        ObjectId communityID;
+        String communityName;
+
         String _id;
         ObjectId objectId;
         String userName;
@@ -84,11 +93,18 @@ public class ArticleDTOs {
         String description;
         ObjectId userID;
         ProfileDTOs.ProfileInfoComponentCO profileInfoComponentCO;
+
         ObjectId discussionID;
         List<ArticleSectionCO> articleSectionCOList = new ArrayList<>();
 
+        String postText = "";
+        String postType = "none";
+
         Date created_at = new Date();
         List<Date> updated_at = new ArrayList<>();
+
+        String workName = "";
+
 
 
         int likes;
