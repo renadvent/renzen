@@ -39,6 +39,8 @@ public class CommunityConverter {
         public CommunityDTOs.CommunityInfoComponentCO convertDomainToPublicView(CommunityDO source) {
             CommunityDTOs.CommunityInfoComponentCO co = new CommunityDTOs.CommunityInfoComponentCO();
 
+            co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
             co.setName(source.getName());
@@ -49,6 +51,9 @@ public class CommunityConverter {
         @Override
         public CommunityDTOs.CommunityInfoComponentCO convertDomainToFullView(CommunityDO source) {
             CommunityDTOs.CommunityInfoComponentCO co = new CommunityDTOs.CommunityInfoComponentCO();
+
+            co.setACCESS_TYPE(ACCESS_TYPE_FULL);
+
 
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());

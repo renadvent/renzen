@@ -45,6 +45,7 @@ public class ProfileConverter {
         public ProfileDTOs.ProfileInfoComponentCO convertDomainToPublicView(ProfileDO source) {
 
             var co = common(source);
+            co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
             return co;
         }
 
@@ -52,6 +53,7 @@ public class ProfileConverter {
         public ProfileDTOs.ProfileInfoComponentCO convertDomainToFullView(ProfileDO source) {
 
             var co = common(source);
+            co.setACCESS_TYPE(ACCESS_TYPE_FULL);
             return co;
         }
     }
@@ -109,6 +111,7 @@ public class ProfileConverter {
         public ProfileDTOs.ProfileTabComponentCO convertDomainToPublicView(ProfileDO source) {
 
             final var co = common(source);
+            co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
 
             co.setArticleDraftInfoComponentCOS(articleStreamCOAssembler
                     .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
@@ -127,6 +130,7 @@ public class ProfileConverter {
         public ProfileDTOs.ProfileTabComponentCO convertDomainToFullView(ProfileDO source) {
 
             final var co = common(source);
+            co.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
             co.setArticleDraftInfoComponentCOS(articleStreamCOAssembler
                     .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));

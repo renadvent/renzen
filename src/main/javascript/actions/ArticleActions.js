@@ -194,10 +194,10 @@ export function DISPATCH_openArticle(url) {
 
     let article = new ArticleTabComponentCO(res.data);
 
-    alert(article._id)
-        console.log("article");
+    // alert(article._id)
+    //     console.log("article");
 
-    console.log(article)
+    // console.log(article)
 
     if (
       !getState().reducer.tabs.open.find((x) => {

@@ -186,6 +186,7 @@ public class ArticleConverter {
         @Override
         public ArticleDTOs.ArticleTabComponentCO convertDomainToPublicView(ArticleDO source) {
             final ArticleDTOs.ArticleTabComponentCO co = common(source);
+            co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
             return co;
         }
 
@@ -194,6 +195,7 @@ public class ArticleConverter {
         @Override
         public ArticleDTOs.ArticleTabComponentCO convertDomainToFullView(ArticleDO source) {
             final ArticleDTOs.ArticleTabComponentCO co = common(source);
+            co.setACCESS_TYPE(ACCESS_TYPE_FULL);
             return co;
         }
     }
@@ -214,14 +216,6 @@ public class ArticleConverter {
             ArticleDTOs.ArticleSectionCO co = new ArticleDTOs.ArticleSectionCO();
             co.setHeader(source.getHeader());
             co.setBody(source.getBody());
-
-//            try {
-//                String name = source.getImageID().substring(source.getImageID().lastIndexOf('/') + 1);
-//
-//                co.setImageID(imageService.generateSAS(name));
-//            } catch (Exception e) {
-//                co.setImageID(null);
-//            }
 
             return co;
         }
