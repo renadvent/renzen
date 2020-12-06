@@ -5,66 +5,63 @@ import { CreateArticlePage_StateToProps as mapStateToProps } from "../../maps/St
 import { CreateArticlePage_mapDispatchToProps as mapDispatchToProps } from "../../maps/DispatchToProps";
 import Axios from "axios";
 import { Editable_Article_Section } from "./Editable_Article_Section";
+import {
+  ArticleTabComponentCO,
+  UpdateArticlePayload,
+} from "../../classes/classes";
 
 //TODO more like "EDIT ARTICLE PAGE"
 
 function Create_Article_Page(props) {
-  const [image, setImage] = useState("");
-  const [id, setID] = useState("");
+
+  const [articleResource,setArticleResource]=useState()
+  const [componentData, setComponentData] = useState([]);
+  const [components, setComponents] = useState([]);
+  const [updateArticlePayload, setUpdateArticlePayload] = useState(new UpdateArticlePayload());
 
   async function OpenDraft() {
 
-    setID(props.id);
+    let res = await Axios.get("/getArticleTabComponentCO/" + props.id);
+    let article = new ArticleTabComponentCO(res.data);
 
-    let res = await Axios.get(
-      "/getArticleTabComponentCO/" + props.id
-    );
+    setArticleResource(article);
 
-    let data = res.data;
-
-    setArticleData({
-      ...articleData,
-      articleName: data.name,
-      workName: data.workName,
-      community: data.communityID,
-      communityName: data.communityName,
-      communityID: data.communityID,
-      postText: data.postText,
-      image:data.image
+    setUpdateArticlePayload({
+      ...updateArticlePayload,
+      articleName: article.name,
+      workName: article.workName,
+      community: article.communityID,
+      communityID: article.communityID,
+      tags:article.tags,
     });
 
-try{
-
-
-    if (res.data.articleSectionCOList.length > 0) {
-      setSectionsCreated(
-        res.data.articleSectionCOList.map((section, i) => {
-          return (
-            <div>
-              <Editable_Article_Section
-                index={i}
-                update={setSectionData}
-                text={section}
-              />{" "}
-              <br />
-              <hr />
-            </div>
-          );
-        })
-      );
-    } else {
-      setSectionsCreated([
-        <div>
-          <Editable_Article_Section index={0} update={setSectionData} /> <br />
-          <hr />
-        </div>,
-      ]);
-    }}catch{
-
-  }
-
-    setImage(res.data.image);
-    setID(res.data._id);
+    try {
+      if (res.data.articleSectionCOList.length > 0) {
+        setComponents(
+          res.data.articleSectionCOList.map((section, i) => {
+            return (
+              <div>
+                <Editable_Article_Section
+                  index={i}
+                  update={setComponentData}
+                  text={section}
+                />{" "}
+                <br />
+                <hr />
+              </div>
+            );
+          })
+        );
+      } else {
+        setComponents([
+          <div>
+            <Editable_Article_Section index={0} update={setComponentData} />{" "}
+            <br />
+            <hr />
+          </div>,
+        ]);
+      }
+    } catch {}
 
   }
 
@@ -72,35 +69,9 @@ try{
     OpenDraft().then();
   }, []);
 
-
-  //used for saving
-  const [sectionData, setSectionData] = useState([]);
-
-  //used for rendering
-  const [sectionsCreated, setSectionsCreated] = useState([]);
-
-  //used to save get article information
-  const [articleData, setArticleData] = useState({
-    articleName: "",
-    articleDescription: "",
-    articleTags: "",
-    articleAddToSection: "",
-
-    workName: "",
-
-    tags: "",
-    pollOptions: "",
-    image: "",
-
-    community: "",
-    communityName: "",
-
-    postText: "",
-  });
-
   function handleChange(event) {
     const { value, name } = event.target;
-    setArticleData((prevState) => {
+    setUpdateArticlePayload((prevState) => {
       return {
         ...prevState,
         [name]: value,
@@ -118,13 +89,8 @@ try{
       <div>
         <div>
           <div className="jumbotron">
-            <h1 className="display-4">
-              Make A Post!
-            </h1>
-            <p className="lead">
-              Share your art with the community!
-
-            </p>
+            <h1 className="display-4">Make A Post!</h1>
+            <p className="lead">Share your art with the community!</p>
             <hr className="my-4" />
             <p>
               Write as much as you want, splitting it up into sections! Each
@@ -133,7 +99,7 @@ try{
           </div>
 
           <div>
-            <img src={image} height={500} />
+            <img src={articleResource.image} height={500} />
           </div>
 
           <label>Post In Community</label>
@@ -150,13 +116,12 @@ try{
               Select Community To Post In*
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
               {props.user.communities.map((x) => {
                 return (
                   <button
                     className="dropdown-item"
                     onClick={() =>
-                      setArticleData((prevState) => {
+                      setUpdateArticlePayload((prevState) => {
                         return {
                           ...prevState,
                           community: x._id,
@@ -172,7 +137,7 @@ try{
             </div>
           </div>
 
-          {articleData.communityName}
+          {updateArticlePayload.communityName}
 
           <div className="input-group mb-3">
             <div className="input-group-prepend">
@@ -181,7 +146,7 @@ try{
               </span>
               <input
                 name={"articleName"}
-                value={articleData.articleName}
+                value={updateArticlePayload.articleName}
                 onChange={handleChange}
                 type="text"
                 className="form-control"
@@ -196,7 +161,7 @@ try{
               </span>
               <input
                 name={"workName"}
-                value={articleData.workName}
+                value={updateArticlePayload.workName}
                 onChange={handleChange}
                 type="text"
                 className="form-control"
@@ -214,7 +179,7 @@ try{
             </div>
             <input
               name={"articleDescription"}
-              value={articleData.articleDescription}
+              value={updateArticlePayload.articleDescription}
               onChange={handleChange}
               type="text"
               className="form-control"
@@ -223,20 +188,20 @@ try{
             />
           </div>
 
-          <div>Post Text: {articleData.postText}</div>
+          <div>Post Text: {updateArticlePayload.postText}</div>
 
-          {sectionsCreated}
+          {components}
 
           <button
             type="button"
             className="btn btn-secondary"
             onClick={() => {
-              setSectionsCreated((x) =>
+              setComponents((x) =>
                 x.concat(
                   <div>
                     <Editable_Article_Section
-                      index={sectionData.length}
-                      update={setSectionData}
+                      index={componentData.length}
+                      update={setComponentData}
                     />
                     <br />
                     <hr />
@@ -254,10 +219,10 @@ try{
               if (!check()) return;
 
               props.DISPATCH_createArticle(
-                articleData,
+                updateArticlePayload,
                 props.user.id,
                 thisCommunity,
-                sectionData,
+                componentData,
                 id,
                 true
               );
@@ -275,10 +240,10 @@ try{
               if (!check()) return;
 
               props.DISPATCH_createArticle(
-                articleData,
+                updateArticlePayload,
                 props.user.id,
                 thisCommunity,
-                sectionData,
+                componentData,
                 id,
                 false
               );
@@ -296,9 +261,9 @@ try{
 
   function check() {
     if (
-      articleData.workName === "" ||
-      articleData.community === "" ||
-      articleData.articleName === ""
+      updateArticlePayload.workName === "" ||
+      updateArticlePayload.community === "" ||
+      updateArticlePayload.articleName === ""
     ) {
       alert("Required Fields not Filled Out!");
       return false;

@@ -16,7 +16,7 @@ import {
   select,
 } from "./MiscellaneousActions";
 
-import { ArticleTabComponentCO } from "../classes/classes";
+import { ArticleTabComponentCO, UpdateArticlePayload } from "../classes/classes";
 
 //TODO wont work until changes for CO
 export function DISPATCH_deleteImageFromProfile(link) {
@@ -93,14 +93,6 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
     let streamRes = await Axios.get("/getArticleStreamComponentCO/" + id);
     let tabRes = await Axios.get("/getArticleTabComponentCO/" + id);
 
-    // await dispatch({
-    //   type: "reload",
-    //   payload: streamRes,
-    //   // uuid:
-    // });
-
-    //TODO Broke likes/comments because of use of new UUID
-
     console.log("dipatch " + uuid);
 
     //stream reloads
@@ -129,11 +121,6 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
     });
   }
 
-  //TODO update article tabs
-
-  // try{
-  //   let res = await Axios.get("/getArticleTabComponentCO/"+id)
-  // }
 }
 
 export function DISPATCH_likeArticle(id, uuid) {
@@ -142,12 +129,6 @@ export function DISPATCH_likeArticle(id, uuid) {
 
     try {
       let res = await Axios.post("/likeArticle/" + id);
-
-      // await dispatch({
-      //   type: ACTION_likeArticle,
-      //   likes: res.data,
-      //   id: id,
-      // });
 
       console.log("about to reaload");
 
@@ -190,27 +171,20 @@ export function DISPATCH_openArticle(url) {
 
   return async (dispatch, getState) => {
     let res = await Axios.get(url);
-    //check if already open
-
     let article = new ArticleTabComponentCO(res.data);
-
-    // alert(article._id)
-    //     console.log("article");
-
-    // console.log(article)
 
     if (
       !getState().reducer.tabs.open.find((x) => {
-        return x.id === res.data._id;
+        return x.id === article._id;
       })
     ) {
       await dispatch({
         type: ACTION_openArticle,
-        payload: res.data,
+        payload: article,
       });
     }
 
-    await select(dispatch, res.data._id);
+    await select(dispatch, article._id);
 
     document.documentElement.scrollTop = 0;
 
@@ -224,6 +198,7 @@ export function DISPATCH_createArticle(
   post
 ) {
   return async (dispatch, getState) => {
+
     let res = await Axios.post("/UPDATE_ARTICLE/" + id, {
       //let res = await Axios.post("/createArticle", {
 

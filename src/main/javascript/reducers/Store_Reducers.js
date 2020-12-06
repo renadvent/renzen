@@ -106,9 +106,9 @@ const reducer = (state = initialState, action) => {
     //-------------------------
 
     case "reload":
-      console.log("reloading");
-      console.log(state.homeTabData.stream_articles);
-      console.log(action);
+      // console.log("reloading");
+      // console.log(state.homeTabData.stream_articles);
+      // console.log(action);
       return {
         ...state,
 
@@ -126,9 +126,9 @@ const reducer = (state = initialState, action) => {
       };
 
     case "reloadTab":
-      console.log("reloading tab");
-      console.log(state);
-      console.log(action.payload);
+      // console.log("reloading tab");
+      // console.log(state);
+      // console.log(action.payload);
       return {
         ...state,
 

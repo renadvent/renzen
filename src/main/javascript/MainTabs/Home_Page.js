@@ -19,13 +19,9 @@ function Home_Page(props) {
               account and get started!
             </div>
 
-            {/*<div className={"col"}>*/}
-            {/*  <CodeProgress />*/}
-            {/*</div>*/}
+
           </div>
-          {/*A social media community to upload art from Renzen Ink! Create an*/}
-          {/*account and get started!*/}
-          {/*<CodeProgress />*/}
+
         </p>
         <hr className="my-4" />
 
@@ -50,26 +46,6 @@ function Home_Page(props) {
 
             <hr />
 
-            {/*<button*/}
-            {/*  className="btn btn-primary btn-lg"*/}
-            {/*  // href="#"*/}
-            {/*  role="button"*/}
-            {/*  onClick={() => {*/}
-            {/*    Axios.get(*/}
-            {/*      "/getCommunityStreamComponentCO/5f75f709b95e14569c4332a8"*/}
-            {/*    ).then((res) => {*/}
-            {/*      props.DISPATCH_openCommunity(*/}
-            {/*        res.data._links["Tab_Version"].href*/}
-            {/*      );*/}
-            {/*    });*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  Click here to learn more about how the site was created*/}
-            {/*</button>*/}
-
-            {/*<br />*/}
-            {/*<br />*/}
-
             <a
               className="btn btn-secondary"
               href="https://github.com/renadvent/renzen"
@@ -93,7 +69,6 @@ function Home_Page(props) {
 
             <hr />
           </div>
-          {/*<CodeProgress />*/}
 
           <div className={"col"}>
             <p>
@@ -115,16 +90,8 @@ function Home_Page(props) {
         </div>
       </div>
 
-      {/*<hr />*/}
-
-      {/*<br />*/}
-
-      {/*<hr />*/}
-
-      {/*<br />*/}
 
       <div
-      // className={"col"} style={{ backgroundColor: "black" }}
       >
         <div
           className="container-fluid"

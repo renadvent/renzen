@@ -26,9 +26,9 @@ function Box(props) {
         let res = await Axios.get(
           "/getArticleField/" + x + "/" + "articleName"
         );
-        console.log(res.data);
+        // console.log(res.data);
         if (props.content._id === x) {
-          return <li>{single.name}</li>;
+          return <li>{single.articleName}</li>;
         }
         return (
           <div>
@@ -61,7 +61,7 @@ function Box(props) {
       {/*<div>TestField: {testField}</div>*/}
       <div className="card">
         <div className="card-header" style={{ textAlign: "left" }}>
-          By: {single.authorName}
+          By: {single.creatorName}
         </div>
         {/*<div>*/}
         {/*  Completion Status{" "}*/}
@@ -90,7 +90,7 @@ function Box(props) {
             <img
               className={"img-fluid"}
               //className={"mx-auto d-block"}
-              src={props.content.image}
+              src={props.content.postImageURL}
               // src={single.image}
               alt={"post image"}
               // width={500}
@@ -113,7 +113,7 @@ function Box(props) {
             props.dispatchOpen(single._links["Tab_Version"].href);
           }}
         >
-          {single.name}
+          {single.articleName}
         </a>
 
         <div>
