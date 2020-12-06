@@ -59,10 +59,11 @@ function CommentSection(commentProps) {
             </form>
           </li>
 
-          {commentProps.comments.map((x) => {
+          {commentProps.comments.map((x,i) => {
             // console.log(x);
             return (
               <li
+              key={i}
                 className="list-group-item"
                 //className="d-flex justify-content-center"
                 //style={{ width: "60%" }}

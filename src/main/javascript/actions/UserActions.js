@@ -46,7 +46,6 @@ export function DISPATCH_openUser(url) {
         type: ACTION_openUser,
         data: res.data,
 
-
         drafts: vars.drafts,
 
         articles: vars.articles,
@@ -171,17 +170,18 @@ export function getVarsFromResponse(base) {
 
   let drafts = [];
 
-  try{
-
+  try {
     drafts =
       base.articleDraftInfoComponentCOS._embedded.articleInfoComponentCoes;
-
-  }catch{
-    drafts=[]
+  } catch {
+    drafts = [];
   }
 
+  console.log("VARS");
+  console.log(base);
+
   try {
-    bookmarks = base.articleBookmarksCM._embedded.articleInfoComponentCOS;
+    bookmarks = base.articleBookmarksCM._embedded.articleInfoComponentCoes;
     if (bookmarks === undefined) bookmarks = [];
   } catch {
     bookmarks = [];
@@ -214,6 +214,6 @@ export function getVarsFromResponse(base) {
     communities: communities,
     profiles: profiles,
     bookmarks: bookmarks,
-    drafts:drafts
+    drafts: drafts,
   };
 }

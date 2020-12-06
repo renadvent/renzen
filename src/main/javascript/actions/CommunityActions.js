@@ -4,9 +4,10 @@ import {
   ACTION_openCommunity,
 } from "./StoreDefs";
 import { reloadHomePage, select } from "./MiscellaneousActions";
+import { reloadLoggedInUser } from "./UserActions";
 
 export function DISPATCH_joinCommunity(payload) {
-  return (dispatch) => {
+  return async (dispatch) => {
     Axios.post("/joinCommunity", {
       //userId: payload.userId,
       communityId: payload.communityId,
@@ -19,6 +20,7 @@ export function DISPATCH_joinCommunity(payload) {
         data: payload.communityId,
       });
     });
+    await reloadLoggedInUser();
   };
 }
 
@@ -89,6 +91,7 @@ export function DISPATCH_createCommunity(payload) {
       data: res.data._id,
     });
 
+    await reloadLoggedInUser();
     await reloadHomePage(dispatch);
   };
 }

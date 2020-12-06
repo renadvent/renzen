@@ -170,9 +170,9 @@ public class ArticleConverter {
             co.setOtherPostsInWorkHex(co.getOtherPostsInWork().stream().map(ObjectId::toHexString).collect(Collectors.toList()));
             co.setProfileInfoComponentCO(profileDO_to_profileStreamComponentCO.convertDomainToPublicView(author));
 //
-//            if (source.getCommunityID()!=null){
-//                co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
-//            }
+            if (source.getCommunityID()!=null){
+                co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
+            }
 
             for (ArticleDO.ArticleSectionDO articleSectionDO : source.getArticleSectionDOList()) {
                 co.getArticleSectionCOList().add(articleSectionDO_to_articleSectionCO.convert(articleSectionDO));

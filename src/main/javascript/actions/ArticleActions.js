@@ -16,7 +16,11 @@ import {
   select,
 } from "./MiscellaneousActions";
 
-import { ArticleTabComponentCO, UpdateArticlePayload } from "../classes/classes";
+import {
+  ArticleTabComponentCO,
+  UpdateArticlePayload,
+} from "../classes/classes";
+import { reloadLoggedInUser } from "./UserActions";
 
 //TODO wont work until changes for CO
 export function DISPATCH_deleteImageFromProfile(link) {
@@ -41,6 +45,8 @@ export function DISPATCH_deletePost(id) {
       type: "deletePost",
       payload: res,
     });
+
+    await reloadLoggedInUser(dispatch);
   };
 }
 
@@ -120,7 +126,6 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
       error: error,
     });
   }
-
 }
 
 export function DISPATCH_likeArticle(id, uuid) {
@@ -187,33 +192,28 @@ export function DISPATCH_openArticle(url) {
     await select(dispatch, article._id);
 
     document.documentElement.scrollTop = 0;
-
   };
 }
 
-export function DISPATCH_createArticle(
-  payload,
-  sectionData,
-  id,
-  post
-) {
+export function DISPATCH_createArticle(payload, sectionData, id, post) {
   return async (dispatch, getState) => {
-
     let res = await Axios.post("/UPDATE_ARTICLE/" + id, {
       //let res = await Axios.post("/createArticle", {
 
-      articleName: payload.articleName,
-      description: payload.articleDescription,
-      workName: payload.workName,
-      tags: payload.tags,
-      pollOptions: payload.pollOptions,
+      // articleName: payload.articleName,
+      // workName: payload.workName,
+      // tags: payload.tags,
+      // pollOptions: payload.pollOptions,
+      //
+      // // image: OpenFromInkLink,
+      //
+      // //userID: user,
+      // // communityID: community,
+      // communityID: payload.communityID,
+      // //payload.community,
 
-      image: OpenFromInkLink,
+      ...payload,
 
-      //userID: user,
-      // communityID: community,
-      communityID: payload.communityID,
-      //payload.community,
       articleSectionDOList: sectionData,
     });
 

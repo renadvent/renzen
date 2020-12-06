@@ -1,5 +1,11 @@
 import * as store from "../actions/Store_Actions";
 
+
+//TODO
+export function MapAllDipatchToProps(dispatch){
+  return{}
+}
+
 export function HomePageStream_dtp(dispatch) {
   return {};
 }

@@ -19,7 +19,7 @@ function Tab_Pane(props) {
   };
 
   useEffect(() => {
-    console.log("selected tab changed" + props.selectedTab);
+    // console.log("selected tab changed" + props.selectedTab);
 
     //TODO think it works
     //resets tab in "state" if home-tab is clicked
@@ -52,7 +52,7 @@ function Tab_Pane(props) {
               <div>Home</div>
             </a>
           </li>
-          {console.log(props)}
+          {/* {console.log(props)} */}
           {props.open.map((open) => {
             return open.tab;
           })}

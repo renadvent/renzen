@@ -1,4 +1,4 @@
-import ArticleEditTab from "../MainTabs/Edit_Article_Components/Create_Article_Page";
+import ArticleEditTab from "../MainTabs/Edit_Article_Components/Update_Article_Page";
 import AppTab from "../TabLabels/Page_TabLabels";
 import React from "react";
 

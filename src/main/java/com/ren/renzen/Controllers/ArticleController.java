@@ -277,7 +277,26 @@ public class ArticleController {
             var user = userService.findByUsername(principal.getName());
 
             articleDO.setArticleName(payload.getArticleName());
+
+            //update community lists
+            if (articleDO.getCommunityID()!=payload.getCommunityID()){
+
+                if (articleDO.getCommunityID()!=null){
+                    var oldCom = communityService.findBy_id(articleDO.getCommunityID());
+                    oldCom.getArticleDOList().remove(articleDO.get_id());
+                    communityService.save(oldCom);
+                }
+
+                if (payload.getCommunityID()!=null){
+                    var newCom = communityService.findBy_id(payload.getCommunityID());
+                    newCom.getArticleDOList().add(articleDO.get_id());
+                    communityService.save(newCom);
+                }
+
+            }
+
             articleDO.setCommunityID(payload.getCommunityID());
+
             articleDO.setArticleSectionDOList(payload.getArticleSectionDOList());
 
             articleDO.getUpdated_at().add(new Date());
@@ -292,9 +311,8 @@ public class ArticleController {
 
             articleDO.setWorkName(payload.getWorkName());
 
-            System.out.println(articleDO.get_id());
             ArticleDO savedArticleDO = articleService.save(articleDO);
-            System.out.println(savedArticleDO.get_id());
+
 
             return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
 

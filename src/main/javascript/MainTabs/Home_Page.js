@@ -12,7 +12,7 @@ function Home_Page(props) {
     <div>
       <div className="jumbotron">
         <h1 className="display-4">Welcome to Renzen (Dev Version)!</h1>
-        <p className="lead">
+        <div className="lead">
           <div className={"row"}>
             <div className={"col"}>
               A social media community to upload art from Renzen Ink! Create an
@@ -22,7 +22,7 @@ function Home_Page(props) {
 
           </div>
 
-        </p>
+        </div>
         <hr className="my-4" />
 
         <div className={"row"}>
@@ -126,7 +126,7 @@ function Stream(props) {
   return (
     <div>
       <ul className="list-group list-group-flush">
-        {props.source.map((single) => {
+        {props.source.map((single,i) => {
           return (
             <a
               href={""}

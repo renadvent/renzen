@@ -13,20 +13,14 @@ import Box from "./Box";
 // const likeIcon = "../icons/like.svg";
 
 function HomePageStream(props) {
-  function NextLogic(single) {
-    console.log(single.otherPostsInWork);
-
-    //TODO
-    //replace this component with next work
-  }
-
   return (
     <div>
       <ul className="list-group list-group-flush">
-        {props.loadedArticles.map((single) => {
+        {props.loadedArticles.map((single,i) => {
           //console.log(single);
           return (
             <Box
+            key={i}
               single={single}
               uuid={single.UUID}
               dispatchOpen={props.dispatchOpen}
