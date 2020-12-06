@@ -53,6 +53,9 @@ export class ArticleTabComponentCO {
     this.creatorName = obj.creatorName;
     this.communityName = obj.communityName;
 
+        this._links = obj._links;
+
+
     validateClass(this, obj);
   }
 }
@@ -94,6 +97,8 @@ export class ArticleInfoComponentCO {
     this.creatorName = obj.creatorName;
     this.communityName = obj.communityName;
 
+    this._links=obj._links;
+
     validateClass(this, obj);
   }
 }
@@ -121,6 +126,9 @@ export class CommunityInfoComponentCO {
     this.profileInfoComponentCOList = obj.profileInfoComponentCOList;
     this.articleInfoComponentCOList = obj.articleInfoComponentCOList;
 
+    this._links = obj._links;
+
+
     validateClass(this, obj);
   }
 }
@@ -137,6 +145,9 @@ export class CommunityTabComponentCO {
     this.numberOfUsers = obj.numberOfUsers;
     this.numberOfArticles = obj.numberOfArticles;
 
+        this._links = obj._links;
+
+
     validateClass(this, obj);
   }
 }
@@ -151,6 +162,10 @@ export class HomeTabComponentCO {
     this.profileInfoComponentCOList = obj.profileInfoComponentCOList;
     this.communityInfoComponentCOList = obj.communityInfoComponentCOList;
 
+
+        this._links = obj._links;
+
+
     validateClass(this, obj);
   }
 }
@@ -162,6 +177,9 @@ export class ProfileInfoComponentCO {
     this.objectId = obj.objectId;
     this.name = obj.name;
     this.profilePictureLink = obj.profilePictureLink;
+
+        this._links = obj._links;
+
 
     validateClass(this, obj);
   }
@@ -189,6 +207,9 @@ export class ProfileTabComponentCO {
     this.numberOfArticles = obj.numberOfArticles;
     this.numberOfDrafts = obj.numberOfDrafts;
     this.numberOfCommunities = obj.numberOfCommunities;
+
+        this._links = obj._links;
+
 
     validateClass(this, obj);
   }

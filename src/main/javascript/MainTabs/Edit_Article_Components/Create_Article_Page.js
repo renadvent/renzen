@@ -10,11 +10,13 @@ import {
   UpdateArticlePayload,
 } from "../../classes/classes";
 
+import * as store from "../../actions/Store_Actions"
+
 //TODO more like "EDIT ARTICLE PAGE"
 
 function Create_Article_Page(props) {
 
-  const [articleResource,setArticleResource]=useState()
+  const [articleResource,setArticleResource]=useState({})
   const [componentData, setComponentData] = useState([]);
   const [components, setComponents] = useState([]);
   const [updateArticlePayload, setUpdateArticlePayload] = useState(new UpdateArticlePayload());
@@ -99,7 +101,7 @@ function Create_Article_Page(props) {
           </div>
 
           <div>
-            <img src={articleResource.image} height={500} />
+            <img src={articleResource.postImageURL} height={500} />
           </div>
 
           <label>Post In Community</label>
@@ -170,7 +172,7 @@ function Create_Article_Page(props) {
               />
             </div>
           </div>
-
+{/* 
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text" id="basic-addon3-c">
@@ -188,7 +190,7 @@ function Create_Article_Page(props) {
             />
           </div>
 
-          <div>Post Text: {updateArticlePayload.postText}</div>
+          <div>Post Text: {updateArticlePayload.postText}</div> */}
 
           {components}
 
@@ -218,14 +220,25 @@ function Create_Article_Page(props) {
             onClick={() => {
               if (!check()) return;
 
-              props.DISPATCH_createArticle(
-                updateArticlePayload,
-                props.user.id,
-                thisCommunity,
-                componentData,
-                id,
-                true
+              props.dispatch(
+                store.DISPATCH_createArticle(
+                  updateArticlePayload,
+                  componentData,
+                  articleResource._id,
+                  true
+                )
               );
+
+              // props.DISPATCH_createArticle(
+              //   updateArticlePayload,
+              //   props.user.id,
+              //   thisCommunity,
+              //   componentData,
+              //   id,
+              //   true
+              // );
+
+
               //TODO fix here
               props.DISPATCH_removeOpenTabById(props.id + props.id);
             }}
@@ -239,14 +252,23 @@ function Create_Article_Page(props) {
             onClick={() => {
               if (!check()) return;
 
-              props.DISPATCH_createArticle(
-                updateArticlePayload,
-                props.user.id,
-                thisCommunity,
-                componentData,
-                id,
-                false
-              );
+                            props.dispatch(
+                              store.DISPATCH_createArticle(
+                                updateArticlePayload,
+                                componentData,
+                                articleResource._id,
+                                false
+                              )
+                            );
+
+              // props.DISPATCH_createArticle(
+              //   updateArticlePayload,
+              //   props.user.id,
+              //   thisCommunity,
+              //   componentData,
+              //   id,
+              //   false
+              // );
               //TODO fix here
               props.DISPATCH_removeOpenTabById(props.id + props.id);
             }}

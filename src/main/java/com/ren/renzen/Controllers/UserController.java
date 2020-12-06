@@ -131,6 +131,8 @@ public class UserController {
             profileDO.setCreated_at(new Date());
             profileDO.getUpdated_at().add(new Date());
 
+            profileDO.getWorkNames().add("DRAFT");
+
             userService.save(profileDO);
 
             Authentication authentication = authenticationManager.authenticate(
@@ -170,7 +172,7 @@ public class UserController {
 
             var user = userService.findByUsername(loginRequestPayload.getUsername());
             user.getLogins_at().add(new Date());
-            userService.save(user);
+            userService.update(user);
 
             return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, user.get_id()));
 

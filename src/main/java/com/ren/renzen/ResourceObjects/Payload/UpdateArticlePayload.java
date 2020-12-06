@@ -19,5 +19,5 @@ public class UpdateArticlePayload {
     String workName;
     String tags;
 
-    String pollOptions;
+    List<ArticleDO.PollOption> pollOptions;
 }

@@ -40,6 +40,8 @@ public class ArticleDTOs {
         List<ArticleDO.PollOption> pollOptions = new ArrayList<>();
 
         List<ArticleDO.ArticleSectionDO> articleSectionDOList = new ArrayList<>();
+        List<ArticleSectionCO> articleSectionCOList = new ArrayList<>();
+
 
         String postImageURL = "";
 

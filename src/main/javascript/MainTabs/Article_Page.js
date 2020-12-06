@@ -25,14 +25,14 @@ function Article_Page(props) {
 
       {LikeDislikeSection()}
 
-      <h1>{props.payload.name}</h1>
-      <p>{props.payload.description}</p>
-      <p>by: {props.payload.userName}</p>
+      <h1>{props.payload.articleName}</h1>
+
+      <p>by: {props.payload.creatorName}</p>
 
       <img
         height={500}
-        src={props.payload.image}
-        alt={"IMAGE HERE! " + props.payload.image}
+        src={props.payload.postImageURL}
+        alt={"IMAGE HERE! " + props.payload.postImageURL}
       />
 
       <hr />

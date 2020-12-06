@@ -70,6 +70,8 @@ export function CreateArticlePage_mapDispatchToProps(dispatch) {
     //         store.DISPATCH_createArticle(payload, user, community, sectionData)
     //     ),
 
+    dispatch: (action) => dispatch(action),
+
     DISPATCH_createArticle: (payload, user, community, sectionData, id, post) =>
       dispatch(
         store.DISPATCH_createArticle(

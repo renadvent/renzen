@@ -173,15 +173,15 @@ export function getVarsFromResponse(base) {
 
   try{
 
-    drafts=base.articleDraftInfoComponentCOs._embedded
-    .articleInfoComponentCoes
+    drafts =
+      base.articleDraftInfoComponentCOS._embedded.articleInfoComponentCoes;
 
   }catch{
     drafts=[]
   }
 
   try {
-    bookmarks = base.articleBookmarksCM._embedded.articleInfoComponentCoes;
+    bookmarks = base.articleBookmarksCM._embedded.articleInfoComponentCOS;
     if (bookmarks === undefined) bookmarks = [];
   } catch {
     bookmarks = [];

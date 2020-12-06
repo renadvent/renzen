@@ -34,9 +34,6 @@ function Profile_Page(props) {
         <div className="container-fluid">
           {PublicProfileContents()}
 
-          {/*<div className={"row"}>*/}
-          {/*  <RenzenInkImagesConnect data={props.data} />*/}
-          {/*</div>*/}
         </div>
       </div>
     </div>
@@ -155,37 +152,7 @@ function Profile_Page(props) {
   }
 }
 
-const RenzenInkImagesConnect = connect(null, null)(RenzenInkImages);
-
-function RenzenInkImages(props) {
-  return (
-    <div>
-      <h4>Uploads from Renzen Ink</h4>
-      {props.data.screenshotLinks.map((link, index) => {
-        return (
-          <div className={"col"}>
-            <img src={link} height={250} alt={"a screenshot"} />
-            <button
-              onClick={() => {
-                console.log(props.data);
-                props.dispatch(
-                  DISPATCH_deleteImageFromProfile(
-                    props.data.originalLinks[index]
-                  )
-                );
-              }}
-              className="btn btn-secondary"
-            >
-              Delete Upload
-            </button>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-//receives dispatch?
+//receives dispatch
 const StreamArticleConnect = connect(null, null)(StreamArticle);
 
 function StreamArticle(props) {
@@ -203,7 +170,7 @@ function StreamArticle(props) {
                 props.dispatchSent(single._links["Tab_Version"].href);
               }}
             >
-              +{single.name}
+              +{single.articleName}
             </a>
             <button
               className="btn btn-secondary"
