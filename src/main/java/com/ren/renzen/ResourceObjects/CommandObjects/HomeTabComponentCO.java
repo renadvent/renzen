@@ -25,4 +25,5 @@ public class HomeTabComponentCO extends RepresentationModel<HomeTabComponentCO> 
     List<ArticleDTOs.ArticleInfoComponentCO> articleInfoComponentCOList = new ArrayList<>();
     List<ProfileDTOs.ProfileInfoComponentCO> profileInfoComponentCOList = new ArrayList<>();
     List<CommunityDTOs.CommunityInfoComponentCO> communityInfoComponentCOList = new ArrayList<>();
+
 }

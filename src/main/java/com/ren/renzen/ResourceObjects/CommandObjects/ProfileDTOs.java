@@ -35,6 +35,8 @@ public class ProfileDTOs {
         String name;
         String _id;
         ObjectId objectId;
+        String profilePictureLink;
+
 
         List<ObjectId> articleIDList = new ArrayList<>();
         List<ObjectId> communityIDList = new ArrayList<>();
