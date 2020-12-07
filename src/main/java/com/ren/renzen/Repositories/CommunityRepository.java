@@ -1,6 +1,6 @@
 package com.ren.renzen.Repositories;
 
-import com.ren.renzen.DomainObjects.CommunityDO;
+import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

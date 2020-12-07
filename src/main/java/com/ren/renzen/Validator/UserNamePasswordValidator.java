@@ -1,7 +1,7 @@
 package com.ren.renzen.Validator;
 
-import com.ren.renzen.DomainObjects.ProfileDO;
-import com.ren.renzen.Payload.RegisterPayload;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
+import com.ren.renzen.ResourceObjects.Payload.RegisterPayload;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

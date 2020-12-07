@@ -9,6 +9,7 @@ import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
 import { getVarsFromResponse, reloadLoggedInUser } from "./UserActions";
 import { v4 as uuidv4 } from "uuid";
+import { ArticleInfoComponentCO, CommunityInfoComponentCO, HomeTabComponentCO, ProfileInfoComponentCO } from "../classes/classes";
 
 export function DISPATCH_getNextStream() {
   console.log("getting next stream");
@@ -19,6 +20,8 @@ export function DISPATCH_getNextStream() {
     );
 
     let base = res.data._embedded.collectionModels;
+
+    // let homeData = new HomeTabComponentCO(base)
 
     let init = getInitFromEmbedded(base);
 
@@ -109,8 +112,7 @@ export async function reloadHomePage(dispatch, getState) {
       UUIDArray.push(uuidv4());
     }
 
-    console.log("array");
-    console.log(UUIDArray);
+
 
     //await
     await dispatch({
@@ -166,17 +168,29 @@ function getInitFromEmbedded(base) {
     articles = [];
   }
 
+     articles = articles.map((article) => {
+        return new ArticleInfoComponentCO(article)
+      });
+
   try {
     profiles = base[1]._embedded.profileInfoComponentCoes;
   } catch {
     profiles = [];
   }
 
+profiles = profiles.map(profile=>{
+  return new ProfileInfoComponentCO(profile)
+})
+
   try {
     communities = base[2]._embedded.communityInfoComponentCoes;
   } catch {
     communities = [];
   }
+
+  communities = communities.map(community=>{
+    return new CommunityInfoComponentCO(community)
+  })
 
   return {
     articles: articles,

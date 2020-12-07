@@ -1,8 +1,8 @@
 package com.ren.renzen.Services;
 
-import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Exceptions.ProfileNotFoundException;
 import com.ren.renzen.Repositories.UserRepository;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import org.bson.types.ObjectId;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

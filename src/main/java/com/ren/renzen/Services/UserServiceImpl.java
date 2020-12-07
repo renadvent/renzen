@@ -1,9 +1,9 @@
 package com.ren.renzen.Services;
 
-import com.ren.renzen.DomainObjects.ProfileDO;
 import com.ren.renzen.Exceptions.ProfileNotFoundException;
 import com.ren.renzen.Exceptions.UserNameAlreadyExistsException;
 import com.ren.renzen.Repositories.UserRepository;
+import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.Services.Interfaces.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;

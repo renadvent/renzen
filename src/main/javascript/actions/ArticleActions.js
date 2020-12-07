@@ -16,6 +16,12 @@ import {
   select,
 } from "./MiscellaneousActions";
 
+import {
+  ArticleTabComponentCO,
+  UpdateArticlePayload,
+} from "../classes/classes";
+import { reloadLoggedInUser } from "./UserActions";
+
 //TODO wont work until changes for CO
 export function DISPATCH_deleteImageFromProfile(link) {
   return async (dispatch, getState) => {
@@ -39,6 +45,8 @@ export function DISPATCH_deletePost(id) {
       type: "deletePost",
       payload: res,
     });
+
+    await reloadLoggedInUser(dispatch);
   };
 }
 
@@ -91,14 +99,6 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
     let streamRes = await Axios.get("/getArticleStreamComponentCO/" + id);
     let tabRes = await Axios.get("/getArticleTabComponentCO/" + id);
 
-    // await dispatch({
-    //   type: "reload",
-    //   payload: streamRes,
-    //   // uuid:
-    // });
-
-    //TODO Broke likes/comments because of use of new UUID
-
     console.log("dipatch " + uuid);
 
     //stream reloads
@@ -126,12 +126,6 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
       error: error,
     });
   }
-
-  //TODO update article tabs
-
-  // try{
-  //   let res = await Axios.get("/getArticleTabComponentCO/"+id)
-  // }
 }
 
 export function DISPATCH_likeArticle(id, uuid) {
@@ -140,12 +134,6 @@ export function DISPATCH_likeArticle(id, uuid) {
 
     try {
       let res = await Axios.post("/likeArticle/" + id);
-
-      // await dispatch({
-      //   type: ACTION_likeArticle,
-      //   likes: res.data,
-      //   id: id,
-      // });
 
       console.log("about to reaload");
 
@@ -187,55 +175,45 @@ export function DISPATCH_openArticle(url) {
   console.log(url);
 
   return async (dispatch, getState) => {
-    let res = await Axios.get(url); //.then((res) => {
-    //check if already open
+    let res = await Axios.get(url);
+    let article = new ArticleTabComponentCO(res.data);
 
     if (
       !getState().reducer.tabs.open.find((x) => {
-        return x.id === res.data._id;
+        return x.id === article._id;
       })
     ) {
       await dispatch({
         type: ACTION_openArticle,
-        payload: res.data,
+        payload: article,
       });
     }
 
-    await select(dispatch, res.data._id);
+    await select(dispatch, article._id);
 
     document.documentElement.scrollTop = 0;
-
-    // await dispatch({
-    //   type: "selectTab",
-    //   id: res.data._id,
-    // });
   };
 }
 
-export function DISPATCH_createArticle(
-  payload,
-  user,
-  community,
-  sectionData,
-  id,
-  post
-) {
+export function DISPATCH_createArticle(payload, sectionData, id, post) {
   return async (dispatch, getState) => {
     let res = await Axios.post("/UPDATE_ARTICLE/" + id, {
       //let res = await Axios.post("/createArticle", {
 
-      articleName: payload.articleName,
-      description: payload.articleDescription,
-      workName: payload.workName,
-      tags: payload.tags,
-      pollOptions: payload.pollOptions,
+      // articleName: payload.articleName,
+      // workName: payload.workName,
+      // tags: payload.tags,
+      // pollOptions: payload.pollOptions,
+      //
+      // // image: OpenFromInkLink,
+      //
+      // //userID: user,
+      // // communityID: community,
+      // communityID: payload.communityID,
+      // //payload.community,
 
-      image: OpenFromInkLink,
+      ...payload,
 
-      //userID: user,
-      // communityID: community,
-      communityID: payload.communityID,
-      //payload.community,
       articleSectionDOList: sectionData,
     });
 

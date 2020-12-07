@@ -12,21 +12,17 @@ function Home_Page(props) {
     <div>
       <div className="jumbotron">
         <h1 className="display-4">Welcome to Renzen (Dev Version)!</h1>
-        <p className="lead">
+        <div className="lead">
           <div className={"row"}>
             <div className={"col"}>
               A social media community to upload art from Renzen Ink! Create an
               account and get started!
             </div>
 
-            {/*<div className={"col"}>*/}
-            {/*  <CodeProgress />*/}
-            {/*</div>*/}
+
           </div>
-          {/*A social media community to upload art from Renzen Ink! Create an*/}
-          {/*account and get started!*/}
-          {/*<CodeProgress />*/}
-        </p>
+
+        </div>
         <hr className="my-4" />
 
         <div className={"row"}>
@@ -49,26 +45,6 @@ function Home_Page(props) {
             <p>Then, on the website, give and receive comments and likes!</p>
 
             <hr />
-
-            {/*<button*/}
-            {/*  className="btn btn-primary btn-lg"*/}
-            {/*  // href="#"*/}
-            {/*  role="button"*/}
-            {/*  onClick={() => {*/}
-            {/*    Axios.get(*/}
-            {/*      "/getCommunityStreamComponentCO/5f75f709b95e14569c4332a8"*/}
-            {/*    ).then((res) => {*/}
-            {/*      props.DISPATCH_openCommunity(*/}
-            {/*        res.data._links["Tab_Version"].href*/}
-            {/*      );*/}
-            {/*    });*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  Click here to learn more about how the site was created*/}
-            {/*</button>*/}
-
-            {/*<br />*/}
-            {/*<br />*/}
 
             <a
               className="btn btn-secondary"
@@ -93,7 +69,6 @@ function Home_Page(props) {
 
             <hr />
           </div>
-          {/*<CodeProgress />*/}
 
           <div className={"col"}>
             <p>
@@ -115,16 +90,8 @@ function Home_Page(props) {
         </div>
       </div>
 
-      {/*<hr />*/}
-
-      {/*<br />*/}
-
-      {/*<hr />*/}
-
-      {/*<br />*/}
 
       <div
-      // className={"col"} style={{ backgroundColor: "black" }}
       >
         <div
           className="container-fluid"
@@ -159,7 +126,7 @@ function Stream(props) {
   return (
     <div>
       <ul className="list-group list-group-flush">
-        {props.source.map((single) => {
+        {props.source.map((single,i) => {
           return (
             <a
               href={""}

@@ -103,8 +103,8 @@ function Community_Page(props) {
 }
 
 function Stream(props) {
-  console.log("STREAM COMMUNITY NEW PAGE STUFF");
-  console.log(props.source);
+  // console.log("STREAM COMMUNITY NEW PAGE STUFF");
+  // console.log(props.source);
 
   return (
     <div>
@@ -117,7 +117,7 @@ function Stream(props) {
               props.dispatch(single._links["Tab_Version"].href);
             }}
           >
-            <li className={"list-group-item"}>{single.name}</li>
+            <li className={"list-group-item"}>{single.articleName}</li>
           </a>
         );
       })}

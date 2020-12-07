@@ -10,29 +10,7 @@ import thunk from "redux-thunk";
 import setJWTToken from "./securityUtils/setJWTToken";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
-
-//TODO logout if token expired
-
-//const jwtToken = localStorage.jwtToken;
-
-// if (jwtToken) {
-//     setJWTToken(jwtToken);
-//     const decoded_jwtToken = jwt_decode(jwtToken);
-//     store.dispatch({
-//         type: SET_CURRENT_USER,
-//         payload: decoded_jwtToken
-//     });
-//
-//     const currentTime = Date.now() / 1000;
-//     if (decoded_jwtToken.exp < currentTime) {
-//         store.dispatch(logout());
-//         window.location.href = "/";
-//     }
-// }
-
-console.log(store.getState());
 
 ReactDOM.render(
   <Provider store={store}>

@@ -69,7 +69,7 @@ function Bookmarks(props) {
             props.DISPATCH_openArticle(x._links.Tab_Version.href);
           }}
         >
-          {x.name}
+          {x.articleName}
         </a>
       );
     });

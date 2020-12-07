@@ -47,6 +47,9 @@ function App(props) {
     if (OpenFromInkARTICLEID !== null) {
       // if (OpenFromInkSource !== null) {
 
+      localStorage.setItem("jwtToken", OpenFromInkToken);
+      setJWTToken(OpenFromInkToken);
+
       props.DISPATCH_openEditArticleTab(OpenFromInkARTICLEID);
       //props.DISPATCH_openCreateArticleTab("5f92319abce4e159c51a0a11");
     }

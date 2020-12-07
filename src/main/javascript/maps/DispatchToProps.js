@@ -1,5 +1,11 @@
 import * as store from "../actions/Store_Actions";
 
+
+//TODO
+export function MapAllDipatchToProps(dispatch){
+  return{}
+}
+
 export function HomePageStream_dtp(dispatch) {
   return {};
 }
@@ -69,6 +75,8 @@ export function CreateArticlePage_mapDispatchToProps(dispatch) {
     //     dispatch(
     //         store.DISPATCH_createArticle(payload, user, community, sectionData)
     //     ),
+
+    dispatch: (action) => dispatch(action),
 
     DISPATCH_createArticle: (payload, user, community, sectionData, id, post) =>
       dispatch(

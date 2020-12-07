@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
   //TODO working on
   switch (action.type) {
     case "loadMore":
-      console.log(state);
+      // console.log(state);
 
       return {
         ...state,
@@ -50,8 +50,8 @@ const reducer = (state = initialState, action) => {
         homeTabData: {
           ...state.homeTabData,
           stream_articles: state.homeTabData.stream_articles.map((article) => {
-            console.log(article);
-            console.log(action.uuid);
+            // console.log(article);
+            // console.log(action.uuid);
 
             //TODO fix so if same post showed multiple times on homepage, likes etc will update all
             if (
@@ -106,9 +106,9 @@ const reducer = (state = initialState, action) => {
     //-------------------------
 
     case "reload":
-      console.log("reloading");
-      console.log(state.homeTabData.stream_articles);
-      console.log(action);
+      // console.log("reloading");
+      // console.log(state.homeTabData.stream_articles);
+      // console.log(action);
       return {
         ...state,
 
@@ -126,16 +126,16 @@ const reducer = (state = initialState, action) => {
       };
 
     case "reloadTab":
-      console.log("reloading tab");
-      console.log(state);
-      console.log(action.payload);
+      // console.log("reloading tab");
+      // console.log(state);
+      // console.log(action.payload);
       return {
         ...state,
 
         tabs: {
           open: state.tabs.open.map((x) => {
             if (x.data._id === action.payload.data._id) {
-              console.log("FOUND");
+              // console.log("FOUND");
               x.data = action.payload.data;
             }
             return x;

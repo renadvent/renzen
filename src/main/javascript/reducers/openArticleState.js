@@ -9,7 +9,7 @@ export function openArticleState(state, action) {
       ...state.tabs,
       open: state.tabs.open.concat({
         type: "articles",
-        name: action.payload.name,
+        name: action.payload.articleName,
         data: action.payload,
         id: action.payload._id,
 
@@ -18,7 +18,7 @@ export function openArticleState(state, action) {
 
         tab: (
           <AppTab
-            name={action.payload.name}
+            name={action.payload.articleName}
             href={"A" + action.payload._id}
             id={action.payload._id}
           />

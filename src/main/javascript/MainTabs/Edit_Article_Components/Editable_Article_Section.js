@@ -40,9 +40,8 @@ export function Editable_Article_Section(props) {
   //when info is updated
   useEffect(() => {
     props.update((x) => {
-      let dup = x;
-      dup[props.index] = info;
-      return dup;
+            x[props.index] = info;
+            return x;
     });
   }, [info]);
 
