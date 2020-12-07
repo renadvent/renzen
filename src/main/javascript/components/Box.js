@@ -14,11 +14,10 @@ import { async } from "regenerator-runtime";
 function Box(props) {
   let single = props.single;
 
-  console.log(single);
+  // console.log(single);
 
   // let single = props.content;
 
-  const [testField, setTestField] = useState("");
   const [otherNames, setOtherNames] = useState(null);
 
   useEffect(() => {
@@ -170,7 +169,7 @@ function Box(props) {
           width={30}
           height={30}
           onClick={() => {
-            console.log(props2._id);
+            // console.log(props2._id);
             // props.DISPATCH_likeArticle(props2._id);
             props.DISPATCH_likeArticle(props2._id, props.uuid);
           }}

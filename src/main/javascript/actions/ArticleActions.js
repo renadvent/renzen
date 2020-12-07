@@ -47,6 +47,8 @@ export function DISPATCH_deletePost(id) {
     });
 
     await reloadLoggedInUser(dispatch);
+
+    alert("Deleted");
   };
 }
 

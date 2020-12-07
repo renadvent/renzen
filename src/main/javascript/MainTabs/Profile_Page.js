@@ -31,10 +31,7 @@ function Profile_Page(props) {
           ? CreateCommunityButton()
           : null}
 
-        <div className="container-fluid">
-          {PublicProfileContents()}
-
-        </div>
+        <div className="container-fluid">{PublicProfileContents()}</div>
       </div>
     </div>
   );
@@ -57,24 +54,6 @@ function Profile_Page(props) {
       </div>
     );
   }
-
-  //originalImageLink
-
-  // function RenzenInkImages() {
-  //   return (
-  //     <div>
-  //       <h4>Uploads from Renzen Ink</h4>
-  //       {props.data.screenshotLinks.map((link) => {
-  //         return (
-  //           <div className={"col"}>
-  //             <img src={link} height={250} alt={"a screenshot"} />
-  //             <button className="btn btn-secondary">Delete Upload</button>
-  //           </div>
-  //         );
-  //       })}
-  //     </div>
-  //   );
-  // }
 
   function PublicProfileContents() {
     return (
@@ -104,18 +83,10 @@ function Profile_Page(props) {
             <hr />
 
             <h4>Drafts:</h4>
-            {console.log("props.data")}
-            {console.log(props.data)}
+            {/*{console.log("props.data")}*/}
+            {/*{console.log(props.data)}*/}
             <StreamArticleConnect
-              source={
-
-           
-                  props.drafts
-   
-
-
-
-              }
+              source={props.drafts}
               dispatchSent={props.DISPATCH_openArticle}
             />
             <hr />
@@ -156,7 +127,7 @@ function Profile_Page(props) {
 const StreamArticleConnect = connect(null, null)(StreamArticle);
 
 function StreamArticle(props) {
-  console.log(props);
+  // console.log(props);
 
   return (
     <ul className="list-group">
@@ -174,6 +145,7 @@ function StreamArticle(props) {
             </a>
             <button
               className="btn btn-secondary"
+              style={{ marginRight: "10px", marginLeft: "10px" }}
               onClick={() => {
                 // alert("DELETING CLICKD");
                 props.dispatch(DISPATCH_deletePost(single._id));
@@ -186,6 +158,7 @@ function StreamArticle(props) {
                 props.dispatch(DISPATCH_openEditArticleTab(single._id));
               }}
               className="btn btn-secondary"
+              style={{ marginRight: "10px", marginLeft: "10px" }}
             >
               Edit Article
             </button>
@@ -197,7 +170,7 @@ function StreamArticle(props) {
 }
 
 function StreamCommunity(props) {
-  console.log(props);
+  // console.log(props);
 
   return (
     <ul className="list-group">

@@ -24,11 +24,11 @@ export function DISPATCH_logOut() {
 
 export function DISPATCH_openUser(url) {
   //USING getstate
-  console.log(url);
+  // console.log(url);
   return async (dispatch, getState) => {
     let res = await Axios.get(url); //.then((res) => {
-    console.log("data");
-    console.log(res.data);
+    // console.log("data");
+    // console.log(res.data);
 
     let base = res.data;
 
@@ -158,9 +158,9 @@ export function getVarsFromResponse(base) {
   } catch {
     drafts = [];
   }
-
-  console.log("VARS");
-  console.log(base);
+  //
+  // console.log("VARS");
+  // console.log(base);
 
   try {
     bookmarks = base.articleBookmarksCM._embedded.articleInfoComponentCoes;

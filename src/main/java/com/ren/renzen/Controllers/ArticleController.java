@@ -190,10 +190,18 @@ public class ArticleController {
 
 
             if (article.getCreatorName().equals(principal.getName())) {
+
+                user.getArticleDraftIDList().remove(article.get_id());
+                user.getArticleIDList().remove(article.get_id());
+
+                if (article.get_id()!=null){
+                    var com = communityService.findBy_id(article.get_id());
+                    com.getArticleDOList().remove(article.get_id());
+                }
+
                 articleService.deleteArticle(id);
                 //TODO remove from user
 
-                //user.getArticleDraftIDList().remove()
                 return ResponseEntity.ok().build();
             }
 
