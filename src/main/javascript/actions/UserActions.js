@@ -105,24 +105,6 @@ export function DISPATCH_logIn(payload) {
       setJWTToken(token);
 
       await reloadLoggedInUser(dispatch, getState);
-
-      //   const decoded = jwt_decode(token);
-      //
-      //   let profileRes = await Axios.get(
-      //     "/getProfileTabComponentCO/" + decoded.id
-      //   );
-      //
-      //   let data = profileRes.data;
-      //
-      //   let vars = getVarsFromResponse(data);
-      //
-      //   dispatch({
-      //     type: ACTION_logIn,
-      //     payload: data,
-      //     articles: vars.articles,
-      //     communities: vars.communities,
-      //     bookmarks: vars.bookmarks,
-      //   });
     } catch (error) {
       dispatch({
         type: GET_ERRORS,

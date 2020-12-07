@@ -14,6 +14,8 @@ import { async } from "regenerator-runtime";
 function Box(props) {
   let single = props.single;
 
+  console.log(single);
+
   // let single = props.content;
 
   const [testField, setTestField] = useState("");
@@ -22,7 +24,7 @@ function Box(props) {
   useEffect(() => {
     Promise.all(
       single.otherPostsInWorkHex.map(async (x) => {
-        console.log(x);
+        // console.log(x);
         let res = await Axios.get(
           "/getArticleField/" + x + "/" + "articleName"
         );
@@ -61,7 +63,10 @@ function Box(props) {
       {/*<div>TestField: {testField}</div>*/}
       <div className="card">
         <div className="card-header" style={{ textAlign: "left" }}>
-          By: {single.creatorName}
+          <div className={"row"}>
+            <div className={"col"}>By: {single.creatorName}</div>
+            <div className={"col"}>Community: {single.communityName}</div>
+          </div>
         </div>
         {/*<div>*/}
         {/*  Completion Status{" "}*/}

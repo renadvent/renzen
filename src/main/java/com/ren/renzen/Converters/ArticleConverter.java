@@ -26,12 +26,14 @@ public class ArticleConverter {
         final UserService userService;
         final ArticleService articleService;
         final ImageService imageService;
+        final CommunityService communityService;
         final ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO;
 
-        public ArticleDO_to_ArticleStreamComponentCO(UserService userService, ArticleService articleService, ImageService imageService, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
+        public ArticleDO_to_ArticleStreamComponentCO(UserService userService, ArticleService articleService, ImageService imageService, CommunityService communityService, ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileDO_to_profileStreamComponentCO) {
             this.userService = userService;
             this.articleService = articleService;
             this.imageService = imageService;
+            this.communityService = communityService;
             this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
         }
 
@@ -67,6 +69,10 @@ public class ArticleConverter {
                 co.setPostImageURL(imageService.generateSAS(name));
             } catch (Exception e) {
                 co.setPostImageURL(null);
+            }
+
+            if (source.getCommunityID()!=null){
+                co.setCommunityName(communityService.findBy_id(source.getCommunityID()).getName());
             }
 
             var author = userService.findBy_id(source.getCreatorID());

@@ -47,6 +47,8 @@ public class CONTROLLER_PATHS {
         public static final String GET_COMMUNITY_STREAM_COMPONENT = "/getCommunityStreamComponentCO/{id}";
         public static final String GET_COMMUNITY_TAB_COMPONENT = "/getCommunityTabComponent/{id}";
 
+        public static final String DELETE_COMMUNITY = "/deleteCommunity/{id}";
+
     }
 
     public static class User {
@@ -57,6 +59,8 @@ public class CONTROLLER_PATHS {
 
         public static final String GET_PROFILE_STREAM_COMPONENT = "/getProfileStreamComponentCO/{id}";
         public static final String GET_PROFILE_TAB_COMPONENT = "/getProfileTabComponentCO/{id}";
+
+        public static final String DELETE_PROFILE = "/deleteProfile/{id}";
 
     }
 
