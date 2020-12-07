@@ -47,6 +47,8 @@ export function DISPATCH_deletePost(id) {
     });
 
     await reloadLoggedInUser(dispatch);
+
+    alert("Deleted");
   };
 }
 
@@ -228,6 +230,7 @@ export function DISPATCH_createArticle(payload, sectionData, id, post) {
       payload: res.data,
     });
 
+    await reloadLoggedInUser(dispatch, getState);
     await reloadHomePage(dispatch, getState);
 
     await select(dispatch, res.data._id);

@@ -13,6 +13,8 @@ import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 public class CommunityConverter {
     @Component
 
@@ -94,8 +96,16 @@ public class CommunityConverter {
 
             co.setName(source.getName());
 
-            co.setArticleInfoComponentCOS(articleStreamCOAssembler
-                    .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDOList())));
+            //only gets articles that are not drafts
+            co.setArticleInfoComponentCOS(
+                    articleStreamCOAssembler
+                    .assembleDomainToPublicModelViewCollection(
+                            articleService.findBy_idIn(
+                                    source.getArticleDOList()
+                            ).stream().filter(article-> (!article.getIsDraft())).collect(Collectors.toList())
+                    ));
+
+
             co.setProfileInfoComponentCOS(profileStreamCOAssembler
                     .assembleDomainToPublicModelViewCollection(userService.findAllBy_Id(source.getProfileDOList())));
 
