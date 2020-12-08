@@ -44,18 +44,20 @@ function Box(props) {
         // console.log(res.data);
         if (props.content._id === x) {
           return (
-            <li>
-              {x === orig ? <span>~~</span> : null}
-              {single.articleName} [Posted on: {renderDate}]
-              {x === orig ? <span>~~</span> : null}
-            </li>
+            <div className={x === orig ? "bg-light" : null}>
+              <li>
+                {/*{x === orig ? <span>~~</span> : null}*/}
+                {single.articleName} [Posted on: {renderDate}]
+                {/*{x === orig ? <span>~~</span> : null}*/}
+              </li>
+            </div>
           );
         }
 
         return (
-          <div>
+          <div className={x === orig ? "bg-light" : null}>
             <li>
-              {x === orig ? <span>~~</span> : null}
+              {/*{x === orig ? <span>~~</span> : null}*/}
               <a
                 href={""}
                 onClick={(e) => {
@@ -70,7 +72,7 @@ function Box(props) {
               >
                 [{res.data}]
               </a>
-              [Posted on: {renderDate}]{x === orig ? <span>~~</span> : null}
+              [Posted on: {renderDate}]
             </li>
           </div>
         );
@@ -182,6 +184,8 @@ function Box(props) {
             ) : null}
           </div>
         </div>
+
+        <br />
 
         <div className={"row"}>
           <div className={"col"}>
