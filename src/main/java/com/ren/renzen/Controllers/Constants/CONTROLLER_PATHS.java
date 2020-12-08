@@ -4,6 +4,8 @@ public class CONTROLLER_PATHS {
 
     public static class Article {
 
+//        /getCommunityStreamComponentCO/5fcd9946534bcd5057d61e9a
+
         public static final String PUBLISH_ARTICLE = "/publishArticle/{id}";
         public static final String UNPUBLISH_ARTICLE = "/unpublishArticle/{id}";
         public static final String DELETE_ARTICLE = "/deleteArticle/{id}";

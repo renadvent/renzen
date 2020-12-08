@@ -279,6 +279,9 @@ public class ArticleController {
         @RequestMapping(UPDATE_ARTICLE)
         public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody UpdateArticlePayload payload, Principal principal) {
 
+            try{
+
+
             var articleDO = articleService.findBy_id(id);
             var user = userService.findByUsername(principal.getName());
 
@@ -294,6 +297,7 @@ public class ArticleController {
                 }
 
                 if (payload.getCommunityID()!=null){
+                    System.out.println(payload.getCommunityID());
                     var newCom = communityService.findBy_id(payload.getCommunityID());
                     newCom.getArticleDOList().add(articleDO.get_id());
                     communityService.save(newCom);
@@ -313,14 +317,23 @@ public class ArticleController {
                     .findAny()
                     .ifPresentOrElse((value) -> {
                     }, () -> user.getWorkNames().add(payload.getWorkName()));
+
             userService.update(user);
 
             articleDO.setWorkName(payload.getWorkName());
 
             ArticleDO savedArticleDO = articleService.save(articleDO);
 
+                return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
 
-            return ResponseEntity.ok(articleTabCOAssembler.assembleDomainToFullModelView(savedArticleDO));
+            }catch (Exception e){
+                e.printStackTrace();
+                return ResponseEntity.badRequest().build();
+            }
+
+
+
+
 
         }
 

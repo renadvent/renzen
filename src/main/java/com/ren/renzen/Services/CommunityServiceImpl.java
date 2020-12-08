@@ -29,7 +29,10 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public CommunityDO findBy_id(ObjectId id) {
 
-        Optional<CommunityDO> communityDOOptional = communityRepository.findById(id);
+//        Optional<CommunityDO> communityDOOptional = communityRepository.findById(id);
+
+        Optional<CommunityDO> communityDOOptional = communityRepository.findBy_id(id);
+
 
         if (communityDOOptional.isPresent()) {
             return communityDOOptional.get();

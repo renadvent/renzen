@@ -8,24 +8,26 @@ export function editArticleState(state, action) {
 
   return {
     ...state,
-    // selectedTab: action.id + action.id,
+    selectedTab: action.id + action.id,
     tabs: {
       ...state.tabs,
       open: state.tabs.open.concat({
-        // data: {
-        //   _id: action.id + action.id,
-        // },
+        data: {
+          _id: action.id + action.id,
+        },
         type: "writing article",
-        id: action.id,
+        id: action.id + action.id,
 
         name: action.articleName,
 
-        component: <ArticleEditTab id={action.id} href={"A" + action.id} />,
+        component: (
+          <ArticleEditTab id={action.id} href={"A" + action.id + action.id} />
+        ),
         tab: (
           <AppTab
             name={"Editing Article"}
-            href={"A" + action.id}
-            id={action.id}
+            href={"A" + action.id + action.id}
+            // id={action.id}
           />
         ),
       }),

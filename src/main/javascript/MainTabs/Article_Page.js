@@ -73,6 +73,9 @@ function Article_Page(props) {
   );
 
   function LikeDislikeSection() {
+
+    console.log(props)
+    
     return (
       <div>
         <button
