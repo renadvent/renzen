@@ -20,6 +20,12 @@ function Box(props) {
 
   const [otherNames, setOtherNames] = useState(null);
 
+  const [orig, setOrig] = useState(props.single._id);
+
+  // useEffect(()=>{
+  //
+  // })
+
   useEffect(() => {
     Promise.all(
       single.otherPostsInWorkHex.map(async (x) => {
@@ -39,7 +45,9 @@ function Box(props) {
         if (props.content._id === x) {
           return (
             <li>
+              {x === orig ? <span>~~</span> : null}
               {single.articleName} [Posted on: {renderDate}]
+              {x === orig ? <span>~~</span> : null}
             </li>
           );
         }
@@ -47,6 +55,7 @@ function Box(props) {
         return (
           <div>
             <li>
+              {x === orig ? <span>~~</span> : null}
               <a
                 href={""}
                 onClick={(e) => {
@@ -61,7 +70,7 @@ function Box(props) {
               >
                 [{res.data}]
               </a>
-              [Posted on: {renderDate}]
+              [Posted on: {renderDate}]{x === orig ? <span>~~</span> : null}
             </li>
           </div>
         );

@@ -255,6 +255,10 @@ export function DISPATCH_openEditArticleTab(articleId) {
       id: articleId,
     });
 
+    await select(dispatch, articleId);
+
+    document.documentElement.scrollTop = 0;
+
     //await select(dispatch, communityId); //???
   };
 }
