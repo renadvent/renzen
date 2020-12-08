@@ -18,10 +18,7 @@ function Home_Page(props) {
               A social media community to upload art from Renzen Ink! Create an
               account and get started!
             </div>
-
-
           </div>
-
         </div>
         <hr className="my-4" />
 
@@ -90,9 +87,7 @@ function Home_Page(props) {
         </div>
       </div>
 
-
-      <div
-      >
+      <div>
         <div
           className="container-fluid"
           style={{ textAlign: "center", width: "75%" }}
@@ -104,18 +99,18 @@ function Home_Page(props) {
               dispatchOpen={props.DISPATCH_openArticle}
             />
           </div>
-          <div className={"col"}>
-            <div className="card">
-              <div className="card-header">
-                <h4>New Communities</h4>
-              </div>
-              <Stream
-                key={"communityStream"}
-                source={props.loadedCommunities}
-                dispatch={props.DISPATCH_openCommunity}
-              />
-            </div>
-          </div>
+          {/*<div className={"col"}>*/}
+          {/*  <div className="card">*/}
+          {/*    <div className="card-header">*/}
+          {/*      <h4>New Communities</h4>*/}
+          {/*    </div>*/}
+          {/*    <Stream*/}
+          {/*      key={"communityStream"}*/}
+          {/*      source={props.loadedCommunities}*/}
+          {/*      dispatch={props.DISPATCH_openCommunity}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       </div>
     </div>
@@ -126,7 +121,7 @@ function Stream(props) {
   return (
     <div>
       <ul className="list-group list-group-flush">
-        {props.source.map((single,i) => {
+        {props.source.map((single, i) => {
           return (
             <a
               href={""}

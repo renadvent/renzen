@@ -27,10 +27,23 @@ function Box(props) {
         let res = await Axios.get(
           "/getArticleField/" + x + "/" + "articleName"
         );
+
+        let createdAt = await Axios.get(
+          "/getArticleField/" + x + "/" + "created_at"
+        );
+
+        let date = new Date(single.created_at);
+        let renderDate = date.getMonth() + "/" + date.getDay();
+
         // console.log(res.data);
         if (props.content._id === x) {
-          return <li>{single.articleName}</li>;
+          return (
+            <li>
+              {single.articleName} [Posted on: {renderDate}]
+            </li>
+          );
         }
+
         return (
           <div>
             <li>
@@ -48,6 +61,7 @@ function Box(props) {
               >
                 [{res.data}]
               </a>
+              [Posted on: {renderDate}]
             </li>
           </div>
         );
@@ -63,8 +77,30 @@ function Box(props) {
       <div className="card">
         <div className="card-header" style={{ textAlign: "left" }}>
           <div className={"row"}>
-            <div className={"col"}>By: {single.creatorName}</div>
-            <div className={"col"}>Community: {single.communityName}</div>
+            <div className={"col"}>
+              <a
+                href={""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  console.log(single);
+                  props.DISPATCH_openUser(single._links["creator"].href);
+                }}
+              >
+                By: {single.creatorName}
+              </a>
+            </div>
+
+            <div className={"col"}>
+              <a
+                href={""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.DISPATCH_openCommunity(single._links["community"].href);
+                }}
+              >
+                Community: {single.communityName}
+              </a>
+            </div>
           </div>
         </div>
         {/*<div>*/}

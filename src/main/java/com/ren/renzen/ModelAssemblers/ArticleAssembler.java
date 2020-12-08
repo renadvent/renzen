@@ -1,6 +1,8 @@
 package com.ren.renzen.ModelAssemblers;
 
 import com.ren.renzen.Controllers.ArticleController;
+import com.ren.renzen.Controllers.CommunityController;
+import com.ren.renzen.Controllers.UserController;
 import com.ren.renzen.Converters.ArticleConverter;
 import com.ren.renzen.ModelAssemblers.InterfaceAndAbstract.DOMAIN_VIEW_ASSEMBLER_SUPPORT;
 import com.ren.renzen.ResourceObjects.CommandObjects.ArticleDTOs;
@@ -46,6 +48,10 @@ public class ArticleAssembler {
             return entity
                     .add(List.of(
 
+                            //TODO box links
+                            linkTo(methodOn(UserController.UserViewerController.class).getProfileTabComponentCO(entity.getCreatorID(),getAuth())).withRel("creator"),
+
+                            linkTo(methodOn(CommunityController.CommunityViewerController.class).getCommunityTabComponentCO(entity.getCommunityID(),getAuth())).withRel("community"),
 
                             //TODO adding REST links
                             linkTo(methodOn(ArticleController.ArticleEditorController.class).likeArticle(entity.getObjectId(), getAuth())).withRel("LikeArticle"),

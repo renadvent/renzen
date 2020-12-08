@@ -24,7 +24,7 @@ export function DISPATCH_logOut() {
 
 export function DISPATCH_openUser(url) {
   //USING getstate
-  // console.log(url);
+  console.log(url);
   return async (dispatch, getState) => {
     let res = await Axios.get(url); //.then((res) => {
     // console.log("data");
