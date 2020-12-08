@@ -225,6 +225,9 @@ export function DISPATCH_createArticle(payload, sectionData, id, post) {
       await Axios.post("/unpublishArticle/" + id);
     }
 
+    console.log("_------------------------------------------");
+    console.log(res.data);
+
     dispatch({
       type: ACTION_openArticle,
       payload: res.data,
@@ -254,6 +257,10 @@ export function DISPATCH_openEditArticleTab(articleId) {
       type: ACTION_editArticle,
       id: articleId,
     });
+
+    await select(dispatch, articleId + articleId);
+
+    document.documentElement.scrollTop = 0;
 
     //await select(dispatch, communityId); //???
   };

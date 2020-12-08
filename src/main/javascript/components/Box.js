@@ -20,6 +20,12 @@ function Box(props) {
 
   const [otherNames, setOtherNames] = useState(null);
 
+  const [orig, setOrig] = useState(props.single._id);
+
+  // useEffect(()=>{
+  //
+  // })
+
   useEffect(() => {
     Promise.all(
       single.otherPostsInWorkHex.map(async (x) => {
@@ -38,15 +44,20 @@ function Box(props) {
         // console.log(res.data);
         if (props.content._id === x) {
           return (
-            <li>
-              {single.articleName} [Posted on: {renderDate}]
-            </li>
+            <div className={x === orig ? "bg-light" : null}>
+              <li>
+                {/*{x === orig ? <span>~~</span> : null}*/}
+                {single.articleName} [Posted on: {renderDate}]
+                {/*{x === orig ? <span>~~</span> : null}*/}
+              </li>
+            </div>
           );
         }
 
         return (
-          <div>
+          <div className={x === orig ? "bg-light" : null}>
             <li>
+              {/*{x === orig ? <span>~~</span> : null}*/}
               <a
                 href={""}
                 onClick={(e) => {
@@ -157,7 +168,7 @@ function Box(props) {
         </a>
 
         <div>
-          Work: {single.workName} {"     "}
+          {/*Work Collection: {single.workName} {"     "}*/}
           <div
             style={{
               alight: "left",
@@ -166,13 +177,21 @@ function Box(props) {
           >
             {otherNames !== null ? (
               <div>
-                {" "}
-                Versions/Posts of this Work:
-                <ul>{otherNames}</ul>
+                <br />
+                {/*{" "}*/}
+                <div className="card">
+                  <div className="card-header" style={{ textAlign: "left" }}>
+                    Collection: {single.workName}
+                  </div>
+                  {/*Versions/Posts of this Work:*/}
+                  <ul>{otherNames}</ul>
+                </div>
               </div>
             ) : null}
           </div>
         </div>
+
+        <br />
 
         <div className={"row"}>
           <div className={"col"}>
@@ -199,17 +218,33 @@ function Box(props) {
   function LikeDislikeSection(props2) {
     return (
       <div style={{ textAlign: "left" }}>
-        <img
-          src={likeIcon}
-          alt={"like"}
-          width={30}
-          height={30}
+        {/*<img*/}
+        {/*  src={likeIcon}*/}
+        {/*  alt={"like"}*/}
+        {/*  width={30}*/}
+        {/*  height={30}*/}
+        {/*  onClick={() => {*/}
+        {/*    // console.log(props2._id);*/}
+        {/*    // props.DISPATCH_likeArticle(props2._id);*/}
+        {/*    props.DISPATCH_likeArticle(props2._id, props.uuid);*/}
+        {/*  }}*/}
+        {/*/>*/}
+
+        <button
+          // src={likeIcon}
+          // alt={"like"}
+          // width={30}
+          // height={30}
+          className="btn btn-secondary"
           onClick={() => {
             // console.log(props2._id);
             // props.DISPATCH_likeArticle(props2._id);
             props.DISPATCH_likeArticle(props2._id, props.uuid);
           }}
-        />
+        >
+          ⬆
+        </button>
+
         {/*<img src={"src/main/resources/static/like.png"} />*/}
         {/*<button*/}
         {/*  className="btn btn-secondary"*/}

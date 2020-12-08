@@ -17,11 +17,18 @@ export function editArticleState(state, action) {
         },
         type: "writing article",
         id: action.id + action.id,
+
+        name: action.articleName,
+
         component: (
           <ArticleEditTab id={action.id} href={"A" + action.id + action.id} />
         ),
         tab: (
-          <AppTab name={"Editing Article"} href={"A" + action.id + action.id} />
+          <AppTab
+            name={"Editing Article"}
+            href={"A" + action.id + action.id}
+            // id={action.id}
+          />
         ),
       }),
     },
