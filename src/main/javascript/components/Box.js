@@ -168,7 +168,7 @@ function Box(props) {
         </a>
 
         <div>
-          Work: {single.workName} {"     "}
+          {/*Work Collection: {single.workName} {"     "}*/}
           <div
             style={{
               alight: "left",
@@ -177,9 +177,15 @@ function Box(props) {
           >
             {otherNames !== null ? (
               <div>
-                {" "}
-                Versions/Posts of this Work:
-                <ul>{otherNames}</ul>
+                <br />
+                {/*{" "}*/}
+                <div className="card">
+                  <div className="card-header" style={{ textAlign: "left" }}>
+                    Collection: {single.workName}
+                  </div>
+                  {/*Versions/Posts of this Work:*/}
+                  <ul>{otherNames}</ul>
+                </div>
               </div>
             ) : null}
           </div>
@@ -212,17 +218,33 @@ function Box(props) {
   function LikeDislikeSection(props2) {
     return (
       <div style={{ textAlign: "left" }}>
-        <img
-          src={likeIcon}
-          alt={"like"}
-          width={30}
-          height={30}
+        {/*<img*/}
+        {/*  src={likeIcon}*/}
+        {/*  alt={"like"}*/}
+        {/*  width={30}*/}
+        {/*  height={30}*/}
+        {/*  onClick={() => {*/}
+        {/*    // console.log(props2._id);*/}
+        {/*    // props.DISPATCH_likeArticle(props2._id);*/}
+        {/*    props.DISPATCH_likeArticle(props2._id, props.uuid);*/}
+        {/*  }}*/}
+        {/*/>*/}
+
+        <button
+          // src={likeIcon}
+          // alt={"like"}
+          // width={30}
+          // height={30}
+          className="btn btn-secondary"
           onClick={() => {
             // console.log(props2._id);
             // props.DISPATCH_likeArticle(props2._id);
             props.DISPATCH_likeArticle(props2._id, props.uuid);
           }}
-        />
+        >
+          ⬆
+        </button>
+
         {/*<img src={"src/main/resources/static/like.png"} />*/}
         {/*<button*/}
         {/*  className="btn btn-secondary"*/}
