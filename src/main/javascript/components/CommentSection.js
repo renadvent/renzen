@@ -39,6 +39,8 @@ function CommentSection(commentProps) {
                   commentProps.props.uuid
                 );
 
+                $("#comments" + commentProps.uuid).collapse("show");
+
                 resetFields();
 
                 //)
@@ -59,20 +61,33 @@ function CommentSection(commentProps) {
             </form>
           </li>
 
-          {commentProps.comments.map((x,i) => {
-            // console.log(x);
-            return (
-              <li
-              key={i}
-                className="list-group-item"
-                //className="d-flex justify-content-center"
-                //style={{ width: "60%" }}
-              >
-                {/*<hr />*/}
-                {x.authorName}: {x.comment}
-              </li>
-            );
-          })}
+          <a
+            // className="btn btn-primary"
+            data-toggle="collapse"
+            href={"#comments" + commentProps.uuid}
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            Show Comments ⬇ ({commentProps.comments.length})
+          </a>
+
+          <div id={"comments" + commentProps.uuid} className={"collapse"}>
+            {commentProps.comments.map((x, i) => {
+              // console.log(x);
+              return (
+                <li
+                  key={i}
+                  className="list-group-item"
+                  //className="d-flex justify-content-center"
+                  //style={{ width: "60%" }}
+                >
+                  {/*<hr />*/}
+                  {x.authorName}: {x.comment}
+                </li>
+              );
+            })}
+          </div>
         </ul>
       </div>
     </div>

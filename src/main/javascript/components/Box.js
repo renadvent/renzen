@@ -181,10 +181,21 @@ function Box(props) {
                 {/*{" "}*/}
                 <div className="card">
                   <div className="card-header" style={{ textAlign: "left" }}>
-                    Collection: {single.workName}
+                    <a
+                      // className="btn btn-primary"
+                      data-toggle="collapse"
+                      href={"#others" + props.uuid}
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="collapseExample"
+                    >
+                      Collection: {single.workName} ⬇
+                    </a>
                   </div>
                   {/*Versions/Posts of this Work:*/}
-                  <ul>{otherNames}</ul>
+                  <ul id={"others" + props.uuid} className={"collapse"}>
+                    {otherNames}
+                  </ul>
                 </div>
               </div>
             ) : null}
@@ -198,11 +209,12 @@ function Box(props) {
             <div className={"card"} style={{ textAlign: "left" }}>
               <div className={"row"}>
                 <div className={"col"}>
-                  <div className={"card-header"}>Comments</div>
+                  <div className={"card-header"}>Comment</div>
                   <CommentSection
                     _id={props.content._id}
                     comments={props.content.comments}
                     props={props}
+                    uuid={props.uuid}
                   />
                 </div>
               </div>
