@@ -63,7 +63,7 @@ public class ArticleController {
         final ArticleAssembler.ArticleStreamCOAssembler articleStreamCOAssembler;
         //ERROR MAP
         final MapValidationErrorService mapValidationErrorService;
-        final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName"));
+        final ArrayList<String> accessibleArticleFields = new ArrayList<>(List.of("articleName","created_at"));
         //AZURE
         BlobServiceClient blobServiceClient;
         BlobContainerClient containerClient;
@@ -138,8 +138,8 @@ public class ArticleController {
 
                 //TODO add to community
 
-                user.getArticleDraftIDList().remove(id);
                 user.getArticleIDList().add(id);
+                user.getArticleDraftIDList().remove(id);
                 article.setIsDraft(false);
 
                 article.getUpdated_at().add(new Date());
@@ -163,13 +163,11 @@ public class ArticleController {
 
                 //TODO remove from community
 
-
                 user.getArticleIDList().remove(id);
                 user.getArticleDraftIDList().add(id);
                 article.setIsDraft(true);
 
                 article.getUpdated_at().add(new Date());
-
 
                 articleService.save(article);
                 userService.update(user);

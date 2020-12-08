@@ -94,6 +94,30 @@ public class UserController {
             this.authenticationManager = authenticationManager;
         }
 
+        //TODO work on
+        @RequestMapping(DELETE_PROFILE)
+        public ResponseEntity<?> deleteProfile(@PathVariable ObjectId id, Principal principal){
+
+            var profile = userService.findBy_id(id);
+            var profileName = profile.getUsername();
+
+            if (profileName.equals(principal.getName())){
+
+                //TODO delete profile
+
+                //delete articles
+
+                //remove from communities
+
+                return ResponseEntity.ok().build();
+
+
+            }else{
+                return ResponseEntity.badRequest().build();
+            }
+
+        }
+
         @PostMapping(ADD_BOOKMARK)
         public ResponseEntity<?> addBookmark(@RequestBody @Valid addBookmarkPayload payload, Principal principal) {
 
