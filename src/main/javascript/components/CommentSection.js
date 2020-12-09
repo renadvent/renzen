@@ -75,6 +75,7 @@ function CommentSection(commentProps) {
           <div id={"comments" + commentProps.uuid} className={"collapse"}>
             {commentProps.comments.map((x, i) => {
               // console.log(x);
+              console.log(x);
               return (
                 <li
                   key={i}
@@ -82,8 +83,17 @@ function CommentSection(commentProps) {
                   //className="d-flex justify-content-center"
                   //style={{ width: "60%" }}
                 >
-                  {/*<hr />*/}
-                  {x.authorName}: {x.comment}
+                  {/*//commentsDTO[0].*/}
+                  <a
+                    href={""}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      commentProps.DISPATCH_openUser(x._links.author.href);
+                    }}
+                  >
+                    {x.authorName}
+                  </a>
+                  : {x.comment}
                 </li>
               );
             })}

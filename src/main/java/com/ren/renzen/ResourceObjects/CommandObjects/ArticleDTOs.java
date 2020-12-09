@@ -55,6 +55,10 @@ public class ArticleDTOs {
         ProfileDTOs.ProfileInfoComponentCO profileInfoComponentCO;
         List<ObjectId> otherPostsInWork = new ArrayList<>();
         List<String> otherPostsInWorkHex = new ArrayList<>();
+
+
+
+        List<CommentCO> commentsDTO = new ArrayList<>();
     }
 
     /**
@@ -84,7 +88,14 @@ public class ArticleDTOs {
         String workName = "";
 
         List<String> tagList = new ArrayList<>();
+
         List<ArticleDO.Comment> comments = new ArrayList<>();
+
+
+
+        List<CommentCO> commentsDTO = new ArrayList<>();
+
+
         List<ArticleDO.PollOption> pollOptions = new ArrayList<>();
 
         List<ArticleDO.ArticleSectionDO> articleSectionDOList = new ArrayList<>();
@@ -103,6 +114,20 @@ public class ArticleDTOs {
         String creatorName = "";
         String communityName = "";
 
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class CommentCO extends RepresentationModel<CommentCO>{
+        int likes;
+        int dislikes;
+
+        List<ObjectId> userLikeIDs = new ArrayList<>();
+        List<ObjectId> userDislikeIDs = new ArrayList<>();
+
+        String comment;
+        ObjectId author;
+        String authorName = "";
     }
 
     /**

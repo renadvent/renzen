@@ -23,7 +23,15 @@ function Article_Page(props) {
 
       {bookmarkLogic()}
 
-      {LikeDislikeSection()}
+      <br />
+
+      <LikeDislikeSection
+        _id={props.payload._id}
+        likes={props.article.data.likes}
+        dislikes={props.article.data.dislikes}
+      />
+
+      {/*{LikeDislikeSection()}*/}
 
       <h1>{props.payload.articleName}</h1>
 
@@ -72,31 +80,94 @@ function Article_Page(props) {
     </div>
   );
 
-  function LikeDislikeSection() {
+  // function LikeDislikeSection() {
+  //   console.log(props);
+  //
+  //   return (
+  //     <LikeDislikeSection
+  //       _id={props.payload._id}
+  //       likes={props.article.data.likes}
+  //       dislikes={props.article.data.dislikes}
+  //     />
+  //
+  //     // <div>
+  //     //   <button
+  //     //     className="btn btn-secondary"
+  //     //     onClick={() => {
+  //     //       console.log(props.payload._id);
+  //     //       props.DISPATCH_likeArticle(props.payload._id);
+  //     //     }}
+  //     //   >
+  //     //     Likes
+  //     //   </button>
+  //     //   {props.article.data.likes}
+  //     //   <button
+  //     //     className="btn btn-secondary"
+  //     //     onClick={() => {
+  //     //       props.DISPATCH_dislikeArticle(props.payload._id);
+  //     //     }}
+  //     //   >
+  //     //     Dislikes
+  //     //   </button>
+  //     //   {props.article.data.dislikes}
+  //     // </div>
+  //   );
+  // }
 
-    console.log(props)
-    
+  function LikeDislikeSection(props2) {
     return (
       <div>
+        {/*<img*/}
+        {/*  src={likeIcon}*/}
+        {/*  alt={"like"}*/}
+        {/*  width={30}*/}
+        {/*  height={30}*/}
+        {/*  onClick={() => {*/}
+        {/*    // console.log(props2._id);*/}
+        {/*    // props.DISPATCH_likeArticle(props2._id);*/}
+        {/*    props.DISPATCH_likeArticle(props2._id, props.uuid);*/}
+        {/*  }}*/}
+        {/*/>*/}
+
+        <button
+          // src={likeIcon}
+          // alt={"like"}
+          // width={30}
+          // height={30}
+          className="btn btn-secondary"
+          onClick={() => {
+            // console.log(props2._id);
+            // props.DISPATCH_likeArticle(props2._id);
+            props.DISPATCH_likeArticle(props2._id, props.uuid);
+          }}
+        >
+          ⬆
+        </button>
+
+        {/*<img src={"src/main/resources/static/like.png"} />*/}
+        {/*<button*/}
+        {/*  className="btn btn-secondary"*/}
+        {/*  onClick={() => {*/}
+        {/*    console.log(props2._id);*/}
+        {/*    props.DISPATCH_likeArticle(props2._id);*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  ⬆*/}
+        {/*</button>*/}
+
+        {props2.likes}
+
+        <br />
+
         <button
           className="btn btn-secondary"
           onClick={() => {
-            console.log(props.payload._id);
-            props.DISPATCH_likeArticle(props.payload._id);
+            props.DISPATCH_dislikeArticle(props2._id, props.uuid);
           }}
         >
-          Likes
+          ⬇
         </button>
-        {props.article.data.likes}
-        <button
-          className="btn btn-secondary"
-          onClick={() => {
-            props.DISPATCH_dislikeArticle(props.payload._id);
-          }}
-        >
-          Dislikes
-        </button>
-        {props.article.data.dislikes}
+        {props2.dislikes}
       </div>
     );
   }

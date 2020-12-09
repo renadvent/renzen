@@ -51,6 +51,7 @@ public class ArticleDO {
     public static class Comment {
         int likes;
         int dislikes;
+
         List<ObjectId> userLikeIDs = new ArrayList<>();
         List<ObjectId> userDislikeIDs = new ArrayList<>();
 

@@ -13,6 +13,7 @@ import { async } from "regenerator-runtime";
 
 function Box(props) {
   let single = props.single;
+  console.log(props.single);
 
   // console.log(single);
 
@@ -212,7 +213,8 @@ function Box(props) {
                   <div className={"card-header"}>Comment</div>
                   <CommentSection
                     _id={props.content._id}
-                    comments={props.content.comments}
+                    comments={props.content.commentsDTO}
+                    // comments={props.content.comments}
                     props={props}
                     uuid={props.uuid}
                   />
