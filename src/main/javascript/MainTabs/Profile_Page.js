@@ -79,16 +79,22 @@ function Profile_Page(props) {
             <StreamArticleConnect
               source={props.articles}
               dispatchSent={props.DISPATCH_openArticle}
+              props={props}
             />
             <hr />
 
-            <h4>Drafts:</h4>
-            {/*{console.log("props.data")}*/}
-            {/*{console.log(props.data)}*/}
-            <StreamArticleConnect
-              source={props.drafts}
-              dispatchSent={props.DISPATCH_openArticle}
-            />
+            {props.user.logged_in && props.user.id === props.data._id ? (
+              <div>
+                <h4>Drafts:</h4>
+                {/*{console.log("props.data")}*/}
+                {/*{console.log(props.data)}*/}
+                <StreamArticleConnect
+                  source={props.drafts}
+                  dispatchSent={props.DISPATCH_openArticle}
+                  props={props}
+                />
+              </div>
+            ) : null}
             <hr />
           </div>
         </div>
@@ -127,7 +133,7 @@ function Profile_Page(props) {
 const StreamArticleConnect = connect(null, null)(StreamArticle);
 
 function StreamArticle(props) {
-  // console.log(props);
+  console.log(props);
 
   return (
     <ul className="list-group">
@@ -143,25 +149,31 @@ function StreamArticle(props) {
             >
               +{single.articleName}
             </a>
-            <button
-              className="btn btn-secondary"
-              style={{ marginRight: "10px", marginLeft: "10px" }}
-              onClick={() => {
-                // alert("DELETING CLICKD");
-                props.dispatch(DISPATCH_deletePost(single._id));
-              }}
-            >
-              Delete Article
-            </button>
-            <button
-              onClick={() => {
-                props.dispatch(DISPATCH_openEditArticleTab(single._id));
-              }}
-              className="btn btn-secondary"
-              style={{ marginRight: "10px", marginLeft: "10px" }}
-            >
-              Edit Article
-            </button>
+
+            {props.props.user.logged_in &&
+            props.props.user.id === props.props.data._id ? (
+              <span>
+                <button
+                  className="btn btn-secondary"
+                  style={{ marginRight: "10px", marginLeft: "10px" }}
+                  onClick={() => {
+                    // alert("DELETING CLICKD");
+                    props.dispatch(DISPATCH_deletePost(single._id));
+                  }}
+                >
+                  Delete Article
+                </button>
+                <button
+                  onClick={() => {
+                    props.dispatch(DISPATCH_openEditArticleTab(single._id));
+                  }}
+                  className="btn btn-secondary"
+                  style={{ marginRight: "10px", marginLeft: "10px" }}
+                >
+                  Edit Article
+                </button>
+              </span>
+            ) : null}
           </li>
         );
       })}

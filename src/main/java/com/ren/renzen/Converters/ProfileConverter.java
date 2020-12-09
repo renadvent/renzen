@@ -92,12 +92,15 @@ public class ProfileConverter {
 
             final ProfileDTOs.ProfileTabComponentCO co = new ProfileDTOs.ProfileTabComponentCO();
 
-            co.setArticleDraftIDList(source.getArticleDraftIDList());
+
+
             co.setName(source.getUsername());
             co.set_id(source.get_id().toHexString());
             co.setObjectId(source.get_id());
 
-            co.setNumberOfDrafts(source.getArticleDraftIDList().size());
+//            co.setArticleDraftIDList(source.getArticleDraftIDList());
+//            co.setNumberOfDrafts(source.getArticleDraftIDList().size());
+
             co.setNumberOfArticles(source.getArticleIDList().size());
             co.setNumberOfCommunities(source.getJoinedCommunityIDList().size());
 
@@ -113,8 +116,8 @@ public class ProfileConverter {
             final var co = common(source);
             co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
 
-            co.setArticleDraftInfoComponentCOS(articleStreamCOAssembler
-                    .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
+//            co.setArticleDraftInfoComponentCOS(articleStreamCOAssembler
+//                    .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
 
             co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                     .assembleDomainToPublicModelViewCollection(communityService.findBy_idIn(source.getJoinedCommunityIDList())));
@@ -132,8 +135,12 @@ public class ProfileConverter {
             final var co = common(source);
             co.setACCESS_TYPE(ACCESS_TYPE_FULL);
 
+            //NEW
+            co.setArticleDraftIDList(source.getArticleDraftIDList());
+            co.setNumberOfDrafts(source.getArticleDraftIDList().size());
+
             co.setArticleDraftInfoComponentCOS(articleStreamCOAssembler
-                    .assembleDomainToPublicModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
+                    .assembleDomainToFullModelViewCollection(articleService.findBy_idIn(source.getArticleDraftIDList())));
 
             co.setCommunityInfoComponentCOS(communityStreamCOAssembler
                     .assembleDomainToFullModelViewCollection(communityService.findBy_idIn(source.getJoinedCommunityIDList())));
