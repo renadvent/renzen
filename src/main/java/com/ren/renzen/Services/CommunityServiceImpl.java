@@ -39,6 +39,7 @@ public class CommunityServiceImpl implements CommunityService {
         } else {
             throw new ResourceNotFoundException("Community not found");
         }
+
     }
 
     @Override
