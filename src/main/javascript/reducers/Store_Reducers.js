@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case "selectTab":
-      console.log("ACTIVE TAB ID: " + action.id);
+      // console.log("ACTIVE TAB ID: " + action.id);
 
       return {
         ...state,

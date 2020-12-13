@@ -27,7 +27,7 @@ function Update_Article_Page(props) {
     let res = await Axios.get("/getArticleTabComponentCO/" + props.id);
     let article = new ArticleTabComponentCO(res.data);
 
-    console.log(article);
+    // console.log(article);
 
     setCommunityName(article.communityName);
 

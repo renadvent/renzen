@@ -13,7 +13,7 @@ import { async } from "regenerator-runtime";
 
 function Box(props) {
   let single = props.single;
-  console.log(props.single);
+  // console.log(props.single);
 
   // console.log(single);
 
@@ -94,7 +94,7 @@ function Box(props) {
                 href={""}
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log(single);
+                  // console.log(single);
                   props.DISPATCH_openUser(single._links["creator"].href);
                 }}
               >

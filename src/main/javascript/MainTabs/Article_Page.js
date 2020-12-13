@@ -11,7 +11,7 @@ renders the article content as tab content
  */
 
 function Article_Page(props) {
-  console.log(props.payload);
+  // console.log(props.payload);
 
   return (
     <div

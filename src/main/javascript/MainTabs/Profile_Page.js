@@ -133,7 +133,7 @@ function Profile_Page(props) {
 const StreamArticleConnect = connect(null, null)(StreamArticle);
 
 function StreamArticle(props) {
-  console.log(props);
+  // console.log(props);
 
   return (
     <ul className="list-group">

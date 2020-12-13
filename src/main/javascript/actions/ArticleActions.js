@@ -174,8 +174,8 @@ export function DISPATCH_dislikeArticle(id, uuid) {
 }
 
 export function DISPATCH_openArticle(url) {
-  console.log("open article");
-  console.log(url);
+  // console.log("open article");
+  // console.log(url);
 
   return async (dispatch, getState) => {
     let res = await Axios.get(url);
@@ -228,8 +228,8 @@ export function DISPATCH_createArticle(payload, sectionData, id, post) {
       await Axios.post("/unpublishArticle/" + id);
     }
 
-    console.log("_------------------------------------------");
-    console.log(res.data);
+    // console.log("_------------------------------------------");
+    // console.log(res.data);
 
     dispatch({
       type: ACTION_openArticle,
