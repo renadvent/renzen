@@ -6,9 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Data for an Article
@@ -28,14 +26,14 @@ public class ArticleDO {
 
     int likes = 0;
     int dislikes = 0;
-    List<ObjectId> userLikeIDs = new ArrayList<>();
-    List<ObjectId> userDislikeIDs = new ArrayList<>();
+    Set<ObjectId> userLikeIDs = new HashSet<>();
+    Set<ObjectId> userDislikeIDs = new HashSet<>();
 
     Boolean isDraft = true;
     String articleName = "";
     String workName = "";
 
-    List<String> tagList = new ArrayList<>();
+    Set<String> tagList = new HashSet<>();
     List<Comment> comments = new ArrayList<>();
     List<PollOption> pollOptions = new ArrayList<>();
 

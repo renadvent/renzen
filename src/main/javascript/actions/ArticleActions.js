@@ -48,6 +48,7 @@ export function DISPATCH_deletePost(id) {
     });
 
     await reloadLoggedInUser(dispatch);
+    await reloadHomePage(dispatch, getState);
 
     alert("Deleted");
   };

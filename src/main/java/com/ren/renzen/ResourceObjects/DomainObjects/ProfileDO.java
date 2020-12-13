@@ -9,10 +9,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * DO for Users
@@ -32,22 +29,22 @@ public class ProfileDO implements UserDetails {
 
     String profilePictureLink = "";
 
-    List<ObjectId> friends = new ArrayList<>();
+    Set<ObjectId> friends = new HashSet<>();
 
-    List<ObjectId> likedArticles = new ArrayList<>();
-    List<ObjectId> dislikedArticles = new ArrayList<>();
+    Set<ObjectId> likedArticles = new HashSet<>();
+    Set<ObjectId> dislikedArticles = new HashSet<>();
 
     //lists for contents
-    List<ObjectId> createdCommunityIDList = new ArrayList<>();
-    List<ObjectId> joinedCommunityIDList = new ArrayList<>();
-    List<ObjectId> articleBookmarkIDList = new ArrayList<>();
+    Set<ObjectId> createdCommunityIDList = new HashSet<>();
+    Set<ObjectId> joinedCommunityIDList = new HashSet<>();
+    Set<ObjectId> articleBookmarkIDList = new HashSet<>();
 
     ObjectId noneCommunity;
 
-    List<ObjectId> articleIDList = new ArrayList<>();
-    List<ObjectId> articleDraftIDList = new ArrayList<>();
+    Set<ObjectId> articleIDList = new HashSet<>();
+    Set<ObjectId> articleDraftIDList = new HashSet<>();
 
-    List<String> workNames = new ArrayList<>();
+    Set<String> workNames = new HashSet<>();
 
     Date created_at = new Date();
     List<Date> updated_at = new ArrayList<>();
