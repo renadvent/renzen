@@ -9,10 +9,15 @@ import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
 import { getVarsFromResponse, reloadLoggedInUser } from "./UserActions";
 import { v4 as uuidv4 } from "uuid";
-import { ArticleInfoComponentCO, CommunityInfoComponentCO, HomeTabComponentCO, ProfileInfoComponentCO } from "../classes/classes";
+import {
+  ArticleInfoComponentCO,
+  CommunityInfoComponentCO,
+  HomeTabComponentCO,
+  ProfileInfoComponentCO,
+} from "../classes/classes";
 
 export function DISPATCH_getNextStream() {
-  console.log("getting next stream");
+  // console.log("getting next stream");
 
   return async (dispatch, getState) => {
     let res = await Axios.get(
@@ -92,7 +97,7 @@ export function DISPATCH_init() {
 //---------------------------------------------------UTILS
 
 export function LoginCheck(state) {
-  console.log(state);
+  // console.log(state);
   if (!state().reducer.user.logged_in) {
     alert("You must Login First!");
     return false;
@@ -111,8 +116,6 @@ export async function reloadHomePage(dispatch, getState) {
     for (let i = 0; i < init.articles.length; i++) {
       UUIDArray.push(uuidv4());
     }
-
-
 
     //await
     await dispatch({
@@ -168,9 +171,9 @@ function getInitFromEmbedded(base) {
     articles = [];
   }
 
-     articles = articles.map((article) => {
-        return new ArticleInfoComponentCO(article)
-      });
+  articles = articles.map((article) => {
+    return new ArticleInfoComponentCO(article);
+  });
 
   try {
     profiles = base[1]._embedded.profileInfoComponentCoes;
@@ -178,9 +181,9 @@ function getInitFromEmbedded(base) {
     profiles = [];
   }
 
-profiles = profiles.map(profile=>{
-  return new ProfileInfoComponentCO(profile)
-})
+  profiles = profiles.map((profile) => {
+    return new ProfileInfoComponentCO(profile);
+  });
 
   try {
     communities = base[2]._embedded.communityInfoComponentCoes;
@@ -188,9 +191,9 @@ profiles = profiles.map(profile=>{
     communities = [];
   }
 
-  communities = communities.map(community=>{
-    return new CommunityInfoComponentCO(community)
-  })
+  communities = communities.map((community) => {
+    return new CommunityInfoComponentCO(community);
+  });
 
   return {
     articles: articles,

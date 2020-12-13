@@ -3,6 +3,7 @@ package com.ren.renzen.Services.Interfaces;
 import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import org.bson.types.ObjectId;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface CommunityService {
@@ -14,7 +15,7 @@ public interface CommunityService {
 
     boolean checkIfCommunityNameUsed(String name);
 
-    List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList);
+    List<CommunityDO> findBy_idIn(Collection<ObjectId> objectIdList);
 
 //    CommunityDO save(CommunityDO communityDO);
 

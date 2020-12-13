@@ -12,6 +12,7 @@ import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
+import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,6 @@ public class ProfileConverter {
 
         final UserService userService;
 
-        @Autowired
         public ProfileDO_to_ProfileStreamComponentCO(UserService userService) {
             this.userService = userService;
         }
@@ -41,6 +41,7 @@ public class ProfileConverter {
 
         }
 
+        @Synchronized
         @Override
         public ProfileDTOs.ProfileInfoComponentCO convertDomainToPublicView(ProfileDO source) {
 
@@ -49,6 +50,7 @@ public class ProfileConverter {
             return co;
         }
 
+        @Synchronized
         @Override
         public ProfileDTOs.ProfileInfoComponentCO convertDomainToFullView(ProfileDO source) {
 
@@ -88,6 +90,7 @@ public class ProfileConverter {
             this.communityStreamCOAssembler = communityStreamCOAssembler;
         }
 
+        @Synchronized
         ProfileDTOs.ProfileTabComponentCO common(ProfileDO source) {
 
             final ProfileDTOs.ProfileTabComponentCO co = new ProfileDTOs.ProfileTabComponentCO();
@@ -112,6 +115,7 @@ public class ProfileConverter {
 
         }
 
+        @Synchronized
         @Override
         public ProfileDTOs.ProfileTabComponentCO convertDomainToPublicView(ProfileDO source) {
 
@@ -131,6 +135,7 @@ public class ProfileConverter {
             return co;
         }
 
+        @Synchronized
         @Override
         public ProfileDTOs.ProfileTabComponentCO convertDomainToFullView(ProfileDO source) {
 

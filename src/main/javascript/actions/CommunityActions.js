@@ -12,8 +12,8 @@ export function DISPATCH_joinCommunity(payload) {
       //userId: payload.userId,
       communityId: payload.communityId,
     }).then((res) => {
-      console.log("JOIN COMMUNITY LOG");
-      console.log(res);
+      // console.log("JOIN COMMUNITY LOG");
+      // console.log(res);
 
       dispatch({
         type: ACTION_addCommunityToLoggedInUser,
@@ -27,7 +27,7 @@ export function DISPATCH_joinCommunity(payload) {
 export function DISPATCH_openCommunity(com_url) {
   return async (dispatch, getState) => {
     let res = await Axios.get(com_url);
-    console.log(res);
+    // console.log(res);
 
     let articles = [];
 
@@ -67,8 +67,8 @@ export function DISPATCH_createCommunity(payload) {
     let res = await Axios.post("/createCommunity", {
       name: payload.name,
     });
-    console.log("create com res");
-    console.log(res.data);
+    // console.log("create com res");
+    // console.log(res.data);
 
     let articles = [];
 

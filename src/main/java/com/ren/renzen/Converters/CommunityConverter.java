@@ -10,9 +10,11 @@ import com.ren.renzen.Services.Interfaces.ArticleService;
 import com.ren.renzen.Services.Interfaces.CommunityService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import lombok.Synchronized;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommunityConverter {
@@ -28,7 +30,6 @@ public class CommunityConverter {
         final ArticleService articleService;
         final CommunityService communityService;
 
-        @Autowired
         public CommunityDO_to_CommunityStreamComponentCO(ArticleConverter.ArticleDO_to_ArticleStreamComponentCO testConverter, com.ren.renzen.Converters.ProfileConverter.ProfileDO_to_ProfileStreamComponentCO profileConverter, UserService userService, ArticleService articleService, CommunityService communityService) {
             this.testConverter = testConverter;
             ProfileConverter = profileConverter;
@@ -37,6 +38,7 @@ public class CommunityConverter {
             this.communityService = communityService;
         }
 
+        @Synchronized
         @Override
         public CommunityDTOs.CommunityInfoComponentCO convertDomainToPublicView(CommunityDO source) {
             CommunityDTOs.CommunityInfoComponentCO co = new CommunityDTOs.CommunityInfoComponentCO();
@@ -50,6 +52,7 @@ public class CommunityConverter {
             return co;
         }
 
+        @Synchronized
         @Override
         public CommunityDTOs.CommunityInfoComponentCO convertDomainToFullView(CommunityDO source) {
             CommunityDTOs.CommunityInfoComponentCO co = new CommunityDTOs.CommunityInfoComponentCO();
@@ -96,13 +99,15 @@ public class CommunityConverter {
 
             co.setName(source.getName());
 
+            var ids = articleService.findBy_idIn(
+                    source.getArticleDOList()
+            ).stream().filter(article-> (!article.getIsDraft())).collect(Collectors.toList());
+
             //only gets articles that are not drafts
             co.setArticleInfoComponentCOS(
                     articleStreamCOAssembler
                     .assembleDomainToPublicModelViewCollection(
-                            articleService.findBy_idIn(
-                                    source.getArticleDOList()
-                            ).stream().filter(article-> (!article.getIsDraft())).collect(Collectors.toList())
+                            ids
                     ));
 
 
@@ -110,7 +115,9 @@ public class CommunityConverter {
                     .assembleDomainToPublicModelViewCollection(userService.findAllBy_Id(source.getProfileDOList())));
 
             co.setNumberOfUsers(source.getProfileDOList().size());
-            co.setNumberOfArticles(source.getArticleDOList().size());
+//            co.setNumberOfArticles(source.getArticleDOList().size());
+            co.setNumberOfArticles(ids.size());
+
 
             return co;
         }

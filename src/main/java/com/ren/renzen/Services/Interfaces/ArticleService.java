@@ -4,6 +4,7 @@ import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import org.bson.types.ObjectId;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ArticleService {
     ArticleDO save(ArticleDO articleDO);
@@ -26,4 +27,5 @@ public interface ArticleService {
 
     List<ArticleDO> findByIsDraft(boolean published, int page);
 
+    List<ArticleDO> findBy_idIn(Set<ObjectId> articleDraftIDList);
 }

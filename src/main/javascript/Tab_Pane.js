@@ -9,7 +9,7 @@ import { DISPATCH_getNextStream, select } from "./actions/MiscellaneousActions";
 function Tab_Pane(props) {
   window.onscroll = (ev) => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      console.log("bottom of page");
+      // console.log("bottom of page");
 
       if (props.streamPage > 0) {
         props.dispatch(DISPATCH_getNextStream());

@@ -37,6 +37,7 @@ public class ArticleConverter {
             this.articleService = articleService;
         }
 
+        @Synchronized
         public ArticleDTOs.CommentCO convert (ArticleDO.Comment comment){
             var commentCO = new ArticleDTOs.CommentCO();
 
@@ -73,6 +74,7 @@ public class ArticleConverter {
             this.profileDO_to_profileStreamComponentCO = profileDO_to_profileStreamComponentCO;
         }
 
+        @Synchronized
         @Override
         public ArticleDTOs.ArticleInfoComponentCO convertDomainToPublicView(ArticleDO source) {
 
@@ -129,6 +131,7 @@ public class ArticleConverter {
             return co;
         }
 
+        @Synchronized
         @Override
         public ArticleDTOs.ArticleInfoComponentCO convertDomainToFullView(ArticleDO source) {
 
@@ -175,6 +178,7 @@ public class ArticleConverter {
             this.imageService = imageService;
         }
 
+        @Synchronized
         ArticleDTOs.ArticleTabComponentCO common(ArticleDO source) {
 
             ArticleDTOs.ArticleTabComponentCO co = new ArticleDTOs.ArticleTabComponentCO();
@@ -256,7 +260,7 @@ public class ArticleConverter {
         }
 
         @Synchronized
-        @com.mongodb.lang.Nullable
+        @Nullable
         @Override
         public ArticleDTOs.ArticleSectionCO convert(ArticleDO.ArticleSectionDO source) {
             ArticleDTOs.ArticleSectionCO co = new ArticleDTOs.ArticleSectionCO();

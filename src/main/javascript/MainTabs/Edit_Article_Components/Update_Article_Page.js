@@ -33,13 +33,23 @@ function Update_Article_Page(props) {
 
     setArticleResource(article);
 
-    setUpdateArticlePayload({
-      ...updateArticlePayload,
-      articleName: article.articleName,
-      workName: article.workName,
-      // community: article.communityID,
-      communityID: article.communityID,
-      tags: article.tags,
+    // setUpdateArticlePayload({
+    //   ...updateArticlePayload,
+    //   articleName: article.articleName,
+    //   workName: article.workName,
+    //   // community: article.communityID,
+    //   communityID: article.communityID,
+    //   tags: article.tags,
+    // });
+
+    setUpdateArticlePayload((prevState) => {
+      return {
+        ...prevState,
+        articleName: article.articleName,
+        workName: article.workName,
+        communityID: article.communityID,
+        tags: article.tags,
+      };
     });
 
     try {
@@ -78,6 +88,7 @@ function Update_Article_Page(props) {
   function handleChange(event) {
     const { value, name } = event.target;
     setUpdateArticlePayload((prevState) => {
+      console.log(prevState);
       return {
         ...prevState,
         [name]: value,
@@ -86,6 +97,8 @@ function Update_Article_Page(props) {
   }
 
   function PostArticleLogic() {
+    console.log(updateArticlePayload);
+
     return (
       <button
         type="button"
@@ -141,6 +154,8 @@ function Update_Article_Page(props) {
       <button
         type="button"
         onClick={() => {
+          console.log(updateArticlePayload);
+
           if (!check()) return;
 
           props.dispatch(
@@ -178,16 +193,23 @@ function Update_Article_Page(props) {
 
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {props.user.communities.map((x) => {
+            console.log(x);
+
             return (
               <button
                 className="dropdown-item"
                 onClick={() => {
                   setUpdateArticlePayload((prevState) => {
-                    prevState.communityID = x.objectId;
+                    // prevState.communityID = x.objectId;
+                    prevState.communityID = x._id;
 
-                    return {
-                      ...prevState,
-                    };
+                    let newState = prevState;
+                    newState.communityID = x._id;
+
+                    // console.log(x._id);
+                    // console.log(prevState);
+
+                    return newState;
                   });
                   setCommunityName(x.name);
                 }}
@@ -275,7 +297,7 @@ function Update_Article_Page(props) {
   function check() {
     if (
       updateArticlePayload.workName === "" ||
-      updateArticlePayload.community === "" ||
+      updateArticlePayload.communityID === "" ||
       updateArticlePayload.articleName === ""
     ) {
       alert("Required Fields not Filled Out!");

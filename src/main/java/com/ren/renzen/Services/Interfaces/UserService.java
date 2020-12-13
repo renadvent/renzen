@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public interface UserService {
 
     ProfileDO findBy_id(ObjectId id);
 
-    List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList);
+    List<ProfileDO> findAllBy_Id(Collection<ObjectId> objectIdList);
 
     boolean checkIfUsernameTaken(String name);
 

@@ -6,9 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * DO for community
@@ -27,8 +25,8 @@ public class CommunityDO {
     Date created_at = new Date();
     List<Date> updated_at = new ArrayList<>();
 
-    List<ObjectId> profileDOList = new ArrayList<>();
-    List<ObjectId> articleDOList = new ArrayList<>();
+    Set<ObjectId> profileDOList = new HashSet<>();
+    Set<ObjectId> articleDOList = new HashSet<>();
 
     ObjectId discussionID;
 }

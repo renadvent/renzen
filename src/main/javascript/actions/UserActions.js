@@ -152,6 +152,9 @@ export function getVarsFromResponse(base) {
 
   let drafts = [];
 
+  console.log("HERE___________________---------");
+  console.log(base);
+
   try {
     drafts =
       base.articleDraftInfoComponentCOS._embedded.articleInfoComponentCoes;

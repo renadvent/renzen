@@ -48,6 +48,7 @@ export function DISPATCH_deletePost(id) {
     });
 
     await reloadLoggedInUser(dispatch);
+    await reloadHomePage(dispatch, getState);
 
     alert("Deleted");
   };
@@ -55,11 +56,11 @@ export function DISPATCH_deletePost(id) {
 
 export function DISPATCH_replacePost(originalID, currentID, replacementID) {
   return async (dispatch, getState) => {
-    console.log("REPLACMENT" + replacementID);
+    // console.log("REPLACMENT" + replacementID);
 
     let res = await Axios.get("/getArticleStreamComponentCO/" + replacementID);
 
-    console.log("got replacement");
+    // console.log("got replacement");
 
     await dispatch({
       type: ACTION_replaceArticle,
@@ -102,7 +103,7 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
     let streamRes = await Axios.get("/getArticleStreamComponentCO/" + id);
     let tabRes = await Axios.get("/getArticleTabComponentCO/" + id);
 
-    console.log("dipatch " + uuid);
+    // console.log("dipatch " + uuid);
 
     //stream reloads
     if (uuid !== undefined) {
@@ -174,8 +175,8 @@ export function DISPATCH_dislikeArticle(id, uuid) {
 }
 
 export function DISPATCH_openArticle(url) {
-  console.log("open article");
-  console.log(url);
+  // console.log("open article");
+  // console.log(url);
 
   return async (dispatch, getState) => {
     let res = await Axios.get(url);
@@ -228,8 +229,8 @@ export function DISPATCH_createArticle(payload, sectionData, id, post) {
       await Axios.post("/unpublishArticle/" + id);
     }
 
-    console.log("_------------------------------------------");
-    console.log(res.data);
+    // console.log("_------------------------------------------");
+    // console.log(res.data);
 
     dispatch({
       type: ACTION_openArticle,

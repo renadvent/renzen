@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +99,7 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public List<ProfileDO> findAllBy_Id(List<ObjectId> objectIdList) {
+    public List<ProfileDO> findAllBy_Id(Collection<ObjectId> objectIdList) {
 
         //for deleting, might have to have findAllBy_id return an optional
         //then if a profile is deleted, have it return a dummy object for "deleted user"

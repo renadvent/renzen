@@ -75,7 +75,7 @@ function CommentSection(commentProps) {
           <div id={"comments" + commentProps.uuid} className={"collapse"}>
             {commentProps.comments.map((x, i) => {
               // console.log(x);
-              console.log(x);
+              // console.log(x);
               return (
                 <li
                   key={i}

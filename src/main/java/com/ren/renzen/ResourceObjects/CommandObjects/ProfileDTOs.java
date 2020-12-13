@@ -7,7 +7,9 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ProfileDTOs {
 
@@ -38,16 +40,16 @@ public class ProfileDTOs {
         String profilePictureLink;
 
 
-        List<ObjectId> articleIDList = new ArrayList<>();
-        List<ObjectId> communityIDList = new ArrayList<>();
-        List<ObjectId> articleDraftIDList = new ArrayList<>();
+        Set<ObjectId> articleIDList = new HashSet<>();
+        Set<ObjectId> communityIDList = new HashSet<>();
+        Set<ObjectId> articleDraftIDList = new HashSet<>();
 
         CollectionModel<ArticleDTOs.ArticleInfoComponentCO> articleDraftInfoComponentCOS;
         CollectionModel<ArticleDTOs.ArticleInfoComponentCO> articleInfoComponentCOS;
         CollectionModel<CommunityDTOs.CommunityInfoComponentCO> communityInfoComponentCOS;
         CollectionModel<ArticleDTOs.ArticleInfoComponentCO> articleBookmarksCM;
 
-        List<String> workNames = new ArrayList<>();
+        Set<String> workNames = new HashSet<>();
 
         //Calculated Values
 
