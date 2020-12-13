@@ -86,6 +86,8 @@ function Update_Article_Page(props) {
   }
 
   function PostArticleLogic() {
+    console.log(updateArticlePayload);
+
     return (
       <button
         type="button"
@@ -141,6 +143,8 @@ function Update_Article_Page(props) {
       <button
         type="button"
         onClick={() => {
+          console.log(updateArticlePayload);
+
           if (!check()) return;
 
           props.dispatch(
@@ -183,7 +187,11 @@ function Update_Article_Page(props) {
                 className="dropdown-item"
                 onClick={() => {
                   setUpdateArticlePayload((prevState) => {
-                    prevState.communityID = x.objectId;
+                    // prevState.communityID = x.objectId;
+                    prevState.communityID = x._id;
+
+                    // console.log(x._id);
+                    // console.log(prevState);
 
                     return {
                       ...prevState,
@@ -275,7 +283,7 @@ function Update_Article_Page(props) {
   function check() {
     if (
       updateArticlePayload.workName === "" ||
-      updateArticlePayload.community === "" ||
+      updateArticlePayload.communityID === "" ||
       updateArticlePayload.articleName === ""
     ) {
       alert("Required Fields not Filled Out!");

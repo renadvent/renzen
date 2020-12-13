@@ -287,6 +287,10 @@ public class ArticleController {
 
             articleDO.setArticleName(payload.getArticleName());
 
+
+
+
+
             //update community lists
             if (articleDO.getCommunityID()!=payload.getCommunityID()){
 
@@ -384,6 +388,8 @@ public class ArticleController {
             article.setCommunityID(user.getNoneCommunity());
             var noneCom = communityService.findBy_id(user.getNoneCommunity());
             noneCom.getArticleDOList().add(article.get_id());
+
+            communityService.save(noneCom);
 
 
             article = articleService.save(article);

@@ -55,11 +55,11 @@ export function DISPATCH_deletePost(id) {
 
 export function DISPATCH_replacePost(originalID, currentID, replacementID) {
   return async (dispatch, getState) => {
-    console.log("REPLACMENT" + replacementID);
+    // console.log("REPLACMENT" + replacementID);
 
     let res = await Axios.get("/getArticleStreamComponentCO/" + replacementID);
 
-    console.log("got replacement");
+    // console.log("got replacement");
 
     await dispatch({
       type: ACTION_replaceArticle,
@@ -102,7 +102,7 @@ export async function DISPATCH_reloadArticleById(id, dispatch, getState, uuid) {
     let streamRes = await Axios.get("/getArticleStreamComponentCO/" + id);
     let tabRes = await Axios.get("/getArticleTabComponentCO/" + id);
 
-    console.log("dipatch " + uuid);
+    // console.log("dipatch " + uuid);
 
     //stream reloads
     if (uuid !== undefined) {
