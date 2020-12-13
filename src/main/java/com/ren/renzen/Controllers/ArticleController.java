@@ -130,6 +130,7 @@ public class ArticleController {
             return ResponseEntity.ok(null);
         }
 
+        @Synchronized
         @RequestMapping(PUBLISH_ARTICLE)
         public ResponseEntity<?> publishArticle(@PathVariable ObjectId id, Principal principal) {
 
@@ -155,6 +156,7 @@ public class ArticleController {
             return ResponseEntity.badRequest().build();
         }
 
+        @Synchronized
         @RequestMapping(UNPUBLISH_ARTICLE)
         public ResponseEntity<?> unpublishArticle(@PathVariable ObjectId id, Principal principal) {
             var article = articleService.findBy_id(id);
@@ -245,6 +247,7 @@ public class ArticleController {
 
         }
 
+
         @PostMapping(DISLIKE_ARTICLE)
         public ResponseEntity<?> dislikeArticle(@PathVariable ObjectId id, Principal principal) {
 
@@ -288,19 +291,15 @@ public class ArticleController {
             var articleDO = articleService.findBy_id(id);
             var user = userService.findByUsername(principal.getName());
 
-            System.out.println(payload);
-            System.out.println(articleDO);
+//            System.out.println(payload);
+//            System.out.println(articleDO);
 
             articleDO.setArticleName(payload.getArticleName());
 
-
-
-
-
             //update community lists
-            if (articleDO.getCommunityID()!=payload.getCommunityID()){
-
-                if (payload.getCommunityID()!=null){
+//            if (articleDO.getCommunityID()!=payload.getCommunityID()){
+//
+//                if (payload.getCommunityID()!=null){
 
                     var oldCom = communityService.findBy_id(articleDO.getCommunityID());
                     oldCom.getArticleDOList().remove(articleDO.get_id());
@@ -310,9 +309,9 @@ public class ArticleController {
 
                     communityService.save(oldCom);
                     communityService.save(newCom);
-                }
-
-            }
+//                }
+//
+//            }
 
             articleDO.setCommunityID(payload.getCommunityID());
 
@@ -320,12 +319,14 @@ public class ArticleController {
 
             articleDO.getUpdated_at().add(new Date());
 
-            user.getWorkNames()
-                    .stream()
-                    .filter(name -> payload.getWorkName().equals(name))
-                    .findAny()
-                    .ifPresentOrElse((value) -> {
-                    }, () -> user.getWorkNames().add(payload.getWorkName()));
+            user.getWorkNames().add(payload.getWorkName());
+
+//            user.getWorkNames()
+//                    .stream()
+//                    .filter(name -> payload.getWorkName().equals(name))
+//                    .findAny()
+//                    .ifPresentOrElse((value) -> {
+//                    }, () -> user.getWorkNames().add(payload.getWorkName()));
 
             userService.update(user);
 
@@ -381,34 +382,28 @@ public class ArticleController {
             var user = userService.findBy_id(userId);
 
             //TODO new to create Article
-            var article = new ArticleDO();
-            article = articleService.save(article);
-
+//            var article = ;
+            var article = articleService.save(new ArticleDO());
 
             article.setCreated_at(new Date());
             article.getUpdated_at().add(new Date());
-
             article.setArticleName("DRAFT");
             article.setWorkName("DRAFTS");
             article.setCreatorName(user.getUsername());
             article.setCreatorID(user.get_id());
             article.setPostImageURL(url);
             article.setIsDraft(true);
-
             article.setCommunityID(user.getNoneCommunity());
-
 
             var noneCom = communityService.findBy_id(user.getNoneCommunity());
             noneCom.getArticleDOList().add(article.get_id());
 
             communityService.save(noneCom);
 
-
-            article = articleService.save(article);
-
             //add article to drafts
             user.getArticleDraftIDList().add(article.get_id());
             userService.update(user);
+            articleService.save(article);
 
             var responseMap = new HashMap<String, String>();
             responseMap.put("articleID", article.get_id().toHexString());

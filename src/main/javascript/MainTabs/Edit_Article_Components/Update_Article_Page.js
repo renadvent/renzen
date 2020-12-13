@@ -29,7 +29,7 @@ function Update_Article_Page(props) {
 
     console.log(article);
 
-    setCommunityName(article.communityName);
+    // setCommunityName(article.communityName);
 
     setArticleResource(article);
 
@@ -47,7 +47,7 @@ function Update_Article_Page(props) {
         ...prevState,
         articleName: article.articleName,
         workName: article.workName,
-        communityID: article.communityID,
+        // communityID: article.communityID,
         tags: article.tags,
       };
     });
