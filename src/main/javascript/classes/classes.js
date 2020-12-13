@@ -63,6 +63,8 @@ export class ArticleInfoComponentCO {
   constructor(obj) {
     this.ACCESS_TYPE = obj.access_TYPE;
 
+    this.commentsDTO = obj.commentsDTO;
+
     this._id = obj._id;
     this.objectId = obj.objectId;
 

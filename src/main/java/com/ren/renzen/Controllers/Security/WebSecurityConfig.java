@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static com.ren.renzen.Controllers.Constants.CONTROLLER_PATHS.Article.*;
+import static com.ren.renzen.Controllers.Constants.CONTROLLER_PATHS.User.REGISTER;
 import static com.ren.renzen.additional.KEYS.*;
 
 @Configuration
@@ -89,6 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         DELETE_ARTICLE + "/**",
                         DELETE_ARTICLE,
                         DELETE_IMAGE_FROM_PROFILE_COMPAT + "/**",
+
+                        REGISTER,
 
 
                         "/getArticleField/**",

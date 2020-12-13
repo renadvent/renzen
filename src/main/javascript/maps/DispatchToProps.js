@@ -34,6 +34,7 @@ export function ArticlePage_mapDispatchToProps(dispatch) {
       dispatch(store.DISPATCH_likeArticle(articleId, uuid)),
     DISPATCH_dislikeArticle: (articleId, uuid) =>
       dispatch(store.DISPATCH_dislikeArticle(articleId, uuid)),
+    DISPATCH_openUser: (url) => dispatch(store.DISPATCH_openUser(url)),
   };
 }
 

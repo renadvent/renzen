@@ -11,6 +11,7 @@ import {
 } from "./StoreDefs";
 import {
   DISPATCH_init,
+  DISPATCH_removeOpenTabById,
   LoginCheck,
   reloadHomePage,
   select,
@@ -179,6 +180,8 @@ export function DISPATCH_openArticle(url) {
   return async (dispatch, getState) => {
     let res = await Axios.get(url);
     let article = new ArticleTabComponentCO(res.data);
+
+    await dispatch(DISPATCH_removeOpenTabById(article._id));
 
     if (
       !getState().reducer.tabs.open.find((x) => {

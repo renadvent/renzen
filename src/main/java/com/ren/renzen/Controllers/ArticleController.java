@@ -331,10 +331,6 @@ public class ArticleController {
                 return ResponseEntity.badRequest().build();
             }
 
-
-
-
-
         }
 
         //TODO work on
@@ -384,6 +380,12 @@ public class ArticleController {
             article.setCreatorID(user.get_id());
             article.setPostImageURL(url);
             article.setIsDraft(true);
+
+            article.setCommunityID(user.getNoneCommunity());
+            var noneCom = communityService.findBy_id(user.getNoneCommunity());
+            noneCom.getArticleDOList().add(article.get_id());
+
+
             article = articleService.save(article);
 
             //add article to drafts

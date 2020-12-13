@@ -16,10 +16,46 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
+
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Component
 public class ArticleConverter {
+
+
+    @Component
+    public static class Comment_to_CommentCO{
+
+        final UserService userService;
+        final ArticleService articleService;
+
+        public Comment_to_CommentCO(UserService userService, ArticleService articleService) {
+            this.userService = userService;
+            this.articleService = articleService;
+        }
+
+        public ArticleDTOs.CommentCO convert (ArticleDO.Comment comment){
+            var commentCO = new ArticleDTOs.CommentCO();
+
+            commentCO.setLikes(comment.getLikes());
+            commentCO.setDislikes(comment.getDislikes());
+            commentCO.setUserDislikeIDs(comment.getUserDislikeIDs());
+            commentCO.setUserLikeIDs(comment.getUserLikeIDs());
+            commentCO.setComment(comment.getComment());
+            commentCO.setAuthor(comment.getAuthor());
+            commentCO.setAuthorName(comment.getAuthorName());
+
+            return commentCO;
+
+        }
+
+
+
+    }
+
     @Component
     public static class ArticleDO_to_ArticleStreamComponentCO extends DOMAIN_VIEW_CONVERTER_SUPPORT<ArticleDO, ArticleDTOs.ArticleInfoComponentCO> {
 
@@ -42,6 +78,10 @@ public class ArticleConverter {
 
             final ArticleDTOs.ArticleInfoComponentCO co = new ArticleDTOs.ArticleInfoComponentCO();
             co.setACCESS_TYPE(ACCESS_TYPE_PUBLIC);
+
+
+            //THIS IS SET IN ASSEMBLER
+            //co.setCommentsDTO();
 
 
             co.set_id(source.get_id().toHexString());

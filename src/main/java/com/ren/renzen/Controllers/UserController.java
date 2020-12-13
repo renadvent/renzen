@@ -8,6 +8,7 @@ import com.ren.renzen.ModelAssemblers.ArticleAssembler;
 import com.ren.renzen.ModelAssemblers.CommunityAssembler;
 import com.ren.renzen.ModelAssemblers.ProfileAssembler;
 import com.ren.renzen.ResourceObjects.CommandObjects.ProfileDTOs;
+import com.ren.renzen.ResourceObjects.DomainObjects.CommunityDO;
 import com.ren.renzen.ResourceObjects.DomainObjects.ProfileDO;
 import com.ren.renzen.ResourceObjects.Payload.JWTLoginSuccessResponse;
 import com.ren.renzen.ResourceObjects.Payload.LoginRequestPayload;
@@ -155,9 +156,33 @@ public class UserController {
             profileDO.setCreated_at(new Date());
             profileDO.getUpdated_at().add(new Date());
 
+            //TODO added a default community to
+
+            var noneCommunity = new CommunityDO();
+            noneCommunity.setName("None-"+profileDO.getUsername());
+            noneCommunity.setCreatorName(profileDO.getUsername());
+
+            noneCommunity.setCreated_at(new Date());
+            noneCommunity.getUpdated_at().add(new Date());
+
+
+
             profileDO.getWorkNames().add("DRAFT");
 
-            userService.save(profileDO);
+            profileDO = userService.save(profileDO);
+
+            noneCommunity.setCreatorID(profileDO.get_id());
+            noneCommunity = communityService.save(noneCommunity);
+
+
+            profileDO.getCreatedCommunityIDList().add(noneCommunity.get_id());
+
+            //temp??
+            profileDO.getJoinedCommunityIDList().add(noneCommunity.get_id());
+
+            profileDO.setNoneCommunity(noneCommunity.get_id());
+
+            userService.update(profileDO);
 
             Authentication authentication = authenticationManager.authenticate(
 

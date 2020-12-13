@@ -10,6 +10,7 @@ import com.ren.renzen.ResourceObjects.DomainObjects.ArticleDO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_FULL;
 import static com.ren.renzen.Converters.InterfaceAndAbstract.DOMAIN_VIEW_CONVERTER.ACCESS_TYPE_PUBLIC;
@@ -21,8 +22,11 @@ public class ArticleAssembler {
 
         final ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO;
 
-        public ArticleStreamCOAssembler(ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO) {
+        final ArticleConverter.Comment_to_CommentCO comment_to_commentCO;
+
+        public ArticleStreamCOAssembler(ArticleConverter.ArticleDO_to_ArticleStreamComponentCO articleDO_to_articleStreamComponentCO, ArticleConverter.Comment_to_CommentCO comment_to_commentCO) {
             this.articleDO_to_articleStreamComponentCO = articleDO_to_articleStreamComponentCO;
+            this.comment_to_commentCO = comment_to_commentCO;
         }
 
 
@@ -35,7 +39,24 @@ public class ArticleAssembler {
         @Override
         public ArticleDTOs.ArticleInfoComponentCO assembleDomainToFullModelView(ArticleDO entity) {
             ArticleDTOs.ArticleInfoComponentCO articleInfoComponentCO = articleDO_to_articleStreamComponentCO.convertDomainToPublicView(entity);
+
+            //NEW
+
+
             return addLinksWithCurrentAuthentication(articleInfoComponentCO);
+        }
+
+        public ArticleDTOs.CommentCO assembleComment(ArticleDO.Comment entity){
+            var commentCO = comment_to_commentCO.convert(entity);
+
+            commentCO.add(
+                    List.of(
+                            linkTo(methodOn(UserController.UserViewerController.class).getProfileTabComponentCO(entity.getAuthor(),getAuth())).withRel("author")
+                    )
+            );
+
+              return commentCO;
+
         }
 
         @Override
@@ -44,6 +65,10 @@ public class ArticleAssembler {
             //        entity.add
 
             //Link findOneLink = linkTo(methodOn(controllerClass).findOne(id)).withSelfRel();
+
+            entity.setCommentsDTO(
+                    entity.getComments().stream().map(this::assembleComment).collect(Collectors.toList())
+            );
 
             return entity
                     .add(List.of(
@@ -104,9 +129,12 @@ public class ArticleAssembler {
     public static class ArticleTabCOAssembler extends DOMAIN_VIEW_ASSEMBLER_SUPPORT<ArticleDO, ArticleDTOs.ArticleTabComponentCO> {
 
         final ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO;
+        final ArticleConverter.Comment_to_CommentCO comment_to_commentCO;
 
-        public ArticleTabCOAssembler(ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO) {
+
+        public ArticleTabCOAssembler(ArticleConverter.ArticleDO_to_ArticleTabComponentCO articleDO_to_articleTabComponentCO, ArticleConverter.Comment_to_CommentCO comment_to_commentCO) {
             this.articleDO_to_articleTabComponentCO = articleDO_to_articleTabComponentCO;
+            this.comment_to_commentCO = comment_to_commentCO;
         }
 
         @Override
@@ -129,6 +157,11 @@ public class ArticleAssembler {
 
         @Override
         public ArticleDTOs.ArticleTabComponentCO addLinksWithCurrentAuthentication(ArticleDTOs.ArticleTabComponentCO entity) {
+
+//            entity.setCommentsDTO(
+//                    entity.getComments().stream().map(this::assembleComment).collect(Collectors.toList())
+//            );
+
             return entity
                     .add(List.of(
 

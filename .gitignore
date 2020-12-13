@@ -32,3 +32,5 @@ build/
 src/main/resources/application.properties
 src/main/resources/application.properties
 /src/main/java/com/ren/renzen/additional/keys.java
+/node_modules/
+**/node_modules/
