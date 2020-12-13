@@ -56,7 +56,7 @@ public class CONTROLLER_PATHS {
     public static class User {
 
         public static final String ADD_BOOKMARK = "/addBookmark";
-        public static final String REGISTER = "/register";
+            public static final String REGISTER = "/register";
         public static final String LOGIN = "/login";
 
         public static final String GET_PROFILE_STREAM_COMPONENT = "/getProfileStreamComponentCO/{id}";

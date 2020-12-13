@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,9 @@ public class CommunityServiceImpl implements CommunityService {
 //            com.setName("not found");
 //            return com;
             //return new CommunityDO();
+
+            System.out.println(findAllPage());
+
             throw new ResourceNotFoundException(id+" Community not found");
         }
 
@@ -59,7 +63,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityDO> findBy_idIn(List<ObjectId> objectIdList) {
+    public List<CommunityDO> findBy_idIn(Collection<ObjectId> objectIdList) {
         return communityRepository.findBy_idIn(objectIdList);
     }
 

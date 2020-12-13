@@ -18,7 +18,7 @@ public class UpdateArticlePayload {
 
 //    @NotNull(message = "community must not be null")
 //            @NotBlank(message = "community must not be blank")
-    ObjectId CommunityID;
+    ObjectId communityID;
     List<ArticleDO.ArticleSectionDO> articleSectionDOList;
 
     String workName;

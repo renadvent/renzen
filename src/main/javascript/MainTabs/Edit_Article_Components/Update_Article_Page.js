@@ -27,19 +27,29 @@ function Update_Article_Page(props) {
     let res = await Axios.get("/getArticleTabComponentCO/" + props.id);
     let article = new ArticleTabComponentCO(res.data);
 
-    // console.log(article);
+    console.log(article);
 
     setCommunityName(article.communityName);
 
     setArticleResource(article);
 
-    setUpdateArticlePayload({
-      ...updateArticlePayload,
-      articleName: article.articleName,
-      workName: article.workName,
-      // community: article.communityID,
-      communityID: article.communityID,
-      tags: article.tags,
+    // setUpdateArticlePayload({
+    //   ...updateArticlePayload,
+    //   articleName: article.articleName,
+    //   workName: article.workName,
+    //   // community: article.communityID,
+    //   communityID: article.communityID,
+    //   tags: article.tags,
+    // });
+
+    setUpdateArticlePayload((prevState) => {
+      return {
+        ...prevState,
+        articleName: article.articleName,
+        workName: article.workName,
+        communityID: article.communityID,
+        tags: article.tags,
+      };
     });
 
     try {
@@ -78,6 +88,7 @@ function Update_Article_Page(props) {
   function handleChange(event) {
     const { value, name } = event.target;
     setUpdateArticlePayload((prevState) => {
+      console.log(prevState);
       return {
         ...prevState,
         [name]: value,
@@ -182,6 +193,8 @@ function Update_Article_Page(props) {
 
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {props.user.communities.map((x) => {
+            console.log(x);
+
             return (
               <button
                 className="dropdown-item"
@@ -190,12 +203,13 @@ function Update_Article_Page(props) {
                     // prevState.communityID = x.objectId;
                     prevState.communityID = x._id;
 
+                    let newState = prevState;
+                    newState.communityID = x._id;
+
                     // console.log(x._id);
                     // console.log(prevState);
 
-                    return {
-                      ...prevState,
-                    };
+                    return newState;
                   });
                   setCommunityName(x.name);
                 }}

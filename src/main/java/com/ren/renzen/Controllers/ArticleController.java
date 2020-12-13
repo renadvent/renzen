@@ -24,6 +24,7 @@ import com.ren.renzen.Services.Interfaces.ImageService;
 import com.ren.renzen.Services.Interfaces.UserService;
 import com.ren.renzen.Services.MapValidationErrorService;
 import com.ren.renzen.additional.KEYS;
+import lombok.Synchronized;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -277,6 +278,7 @@ public class ArticleController {
         }
 
         //TODO work on
+        @Synchronized
         @RequestMapping(UPDATE_ARTICLE)
         public ResponseEntity<?> updateArticle(@PathVariable ObjectId id, @RequestBody UpdateArticlePayload payload, Principal principal) {
 
@@ -285,6 +287,9 @@ public class ArticleController {
 
             var articleDO = articleService.findBy_id(id);
             var user = userService.findByUsername(principal.getName());
+
+            System.out.println(payload);
+            System.out.println(articleDO);
 
             articleDO.setArticleName(payload.getArticleName());
 
@@ -295,16 +300,15 @@ public class ArticleController {
             //update community lists
             if (articleDO.getCommunityID()!=payload.getCommunityID()){
 
-                if (articleDO.getCommunityID()!=null){
+                if (payload.getCommunityID()!=null){
+
                     var oldCom = communityService.findBy_id(articleDO.getCommunityID());
                     oldCom.getArticleDOList().remove(articleDO.get_id());
-                    communityService.save(oldCom);
-                }
 
-                if (payload.getCommunityID()!=null){
-                    System.out.println(payload.getCommunityID());
                     var newCom = communityService.findBy_id(payload.getCommunityID());
                     newCom.getArticleDOList().add(articleDO.get_id());
+
+                    communityService.save(oldCom);
                     communityService.save(newCom);
                 }
 
@@ -339,6 +343,7 @@ public class ArticleController {
         }
 
         //TODO work on
+        @Synchronized
         @RequestMapping(CREATE_ARTICLE_DRAFT_FROM_APP)
         public Map<String, String> createDraftFromApp(@RequestBody Map<String, Object> payload) {
 
@@ -371,22 +376,28 @@ public class ArticleController {
 
             String url = blobClient.getBlobUrl();
 
+            //--------------------------------------------------------------
+
             var user = userService.findBy_id(userId);
 
             //TODO new to create Article
             var article = new ArticleDO();
+            article = articleService.save(article);
+
 
             article.setCreated_at(new Date());
             article.getUpdated_at().add(new Date());
 
             article.setArticleName("DRAFT");
-            article.setWorkName("DRAFT");
+            article.setWorkName("DRAFTS");
             article.setCreatorName(user.getUsername());
             article.setCreatorID(user.get_id());
             article.setPostImageURL(url);
             article.setIsDraft(true);
 
             article.setCommunityID(user.getNoneCommunity());
+
+
             var noneCom = communityService.findBy_id(user.getNoneCommunity());
             noneCom.getArticleDOList().add(article.get_id());
 
@@ -409,6 +420,7 @@ public class ArticleController {
             return null;
         }
 
+        @Synchronized
         @GetMapping(path = "/getArticleField/{id}/{field}")
         public ResponseEntity<?> getArticleField(@PathVariable ObjectId id, @PathVariable String field, Principal principal) {
 

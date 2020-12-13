@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,5 +18,5 @@ public interface UserRepository extends MongoRepository<ProfileDO, ObjectId> {
 
     Optional<ProfileDO> findBy_id(ObjectId _id);
 
-    List<ProfileDO> findAllBy_id(List<ObjectId> objectIdList);
+    List<ProfileDO> findAllBy_id(Collection<ObjectId> objectIdList);
 }

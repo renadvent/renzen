@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -85,6 +86,11 @@ public class ArticleServiceImpl implements ArticleService {
 
 
         return articleRepository.findByIsDraft(published, PageRequest.of(page, 1, Sort.by("_id").descending()));
+    }
+
+    @Override
+    public List<ArticleDO> findBy_idIn(Set<ObjectId> articleDraftIDList) {
+        return articleRepository.findBy_idIn(articleDraftIDList);
     }
 
 

@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.hateoas.RepresentationModel;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ArticleDTOs {
 
@@ -28,14 +26,14 @@ public class ArticleDTOs {
 
         int likes = 0;
         int dislikes = 0;
-        List<ObjectId> userLikeIDs = new ArrayList<>();
-        List<ObjectId> userDislikeIDs = new ArrayList<>();
+        Set<ObjectId> userLikeIDs = new HashSet<>();
+        Set<ObjectId> userDislikeIDs = new HashSet<>();
 
         Boolean isDraft = true;
         String articleName = "";
         String workName = "";
 
-        List<String> tagList = new ArrayList<>();
+        Set<String> tagList = new HashSet<>();
         List<ArticleDO.Comment> comments = new ArrayList<>();
         List<ArticleDO.PollOption> pollOptions = new ArrayList<>();
 
@@ -80,14 +78,14 @@ public class ArticleDTOs {
 
         int likes = 0;
         int dislikes = 0;
-        List<ObjectId> userLikeIDs = new ArrayList<>();
-        List<ObjectId> userDislikeIDs = new ArrayList<>();
+        Set<ObjectId> userLikeIDs = new HashSet<>();
+        Set<ObjectId> userDislikeIDs = new HashSet<>();
 
         Boolean isDraft = true;
         String articleName = "";
         String workName = "";
 
-        List<String> tagList = new ArrayList<>();
+        Set<String> tagList = new HashSet<>();
 
         List<ArticleDO.Comment> comments = new ArrayList<>();
 

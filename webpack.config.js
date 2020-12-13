@@ -7,6 +7,13 @@ module.exports = {
   cache: true,
   // mode: "development",
   mode: "production",
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        /* additional options here */
+      }),
+    ],
+  },
   output: {
     path: __dirname,
     filename: "./src/main/resources/static/built/bundle.js",
