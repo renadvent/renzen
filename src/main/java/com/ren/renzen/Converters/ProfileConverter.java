@@ -101,6 +101,8 @@ public class ProfileConverter {
 //            co.setArticleDraftIDList(source.getArticleDraftIDList());
 //            co.setNumberOfDrafts(source.getArticleDraftIDList().size());
 
+
+
             co.setNumberOfArticles(source.getArticleIDList().size());
             co.setNumberOfCommunities(source.getJoinedCommunityIDList().size());
 

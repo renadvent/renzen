@@ -183,7 +183,7 @@ function Update_Article_Page(props) {
                 className="dropdown-item"
                 onClick={() => {
                   setUpdateArticlePayload((prevState) => {
-                    prevState.communityID = x._id;
+                    prevState.communityID = x.objectId;
 
                     return {
                       ...prevState,

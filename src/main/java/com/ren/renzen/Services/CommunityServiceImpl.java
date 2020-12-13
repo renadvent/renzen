@@ -37,7 +37,12 @@ public class CommunityServiceImpl implements CommunityService {
         if (communityDOOptional.isPresent()) {
             return communityDOOptional.get();
         } else {
-            throw new ResourceNotFoundException("Community not found");
+            //TODO temp fix
+//            var com = new CommunityDO();
+//            com.setName("not found");
+//            return com;
+            //return new CommunityDO();
+            throw new ResourceNotFoundException(id+" Community not found");
         }
 
     }

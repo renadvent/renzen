@@ -42,6 +42,8 @@ public class ProfileDO implements UserDetails {
     List<ObjectId> joinedCommunityIDList = new ArrayList<>();
     List<ObjectId> articleBookmarkIDList = new ArrayList<>();
 
+    ObjectId noneCommunity;
+
     List<ObjectId> articleIDList = new ArrayList<>();
     List<ObjectId> articleDraftIDList = new ArrayList<>();
 
