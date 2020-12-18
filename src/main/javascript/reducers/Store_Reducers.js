@@ -15,12 +15,18 @@ import { editArticleState } from "./editArticleState";
 const reducer = (state = initialState, action) => {
   //TODO working on
   switch (action.type) {
+    case "incrementState":
+      return {
+        ...state,
+        streamPage: state.streamPage + 1,
+      };
+
     case "loadMore":
       // console.log(state);
 
       return {
         ...state,
-        streamPage: state.streamPage + 1,
+        // streamPage: state.streamPage + 1,
         homeTabData: {
           ...state.homeTabData,
 

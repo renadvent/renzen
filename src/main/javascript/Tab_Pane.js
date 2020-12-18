@@ -7,19 +7,22 @@ import { TabPane_mapDispatchToProps as mapDispatchToProps } from "./maps/Dispatc
 import { DISPATCH_getNextStream, select } from "./actions/MiscellaneousActions";
 
 function Tab_Pane(props) {
-  window.onscroll = (ev) => {
-    if (
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 10
-    ) {
-      // console.log("bottom of page");
+  useEffect(() => {
+    window.onscroll = (ev) => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 5
+      ) {
+        console.log("bottom of page " + props.streamPage);
 
-      if (props.streamPage > 0) {
-        props.dispatch(DISPATCH_getNextStream());
+        if (props.streamPage > 0) {
+          props.dispatch(DISPATCH_getNextStream());
+          props.dispatch({ type: "incrementState" });
+        }
+        // you're at the bottom of the page
       }
-      // you're at the bottom of the page
-    }
-  };
+    };
+  }, [props.streamPage]);
 
   useEffect(() => {
     // console.log("selected tab changed" + props.selectedTab);
