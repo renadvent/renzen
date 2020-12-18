@@ -102,7 +102,7 @@ function Box(props) {
               </a>
             </div>
 
-            <div className={"col"}>
+            <div className={"col"} style={{ alignItems: "center" }}>
               <a
                 href={""}
                 onClick={(e) => {
@@ -126,7 +126,7 @@ function Box(props) {
 
         <div className={"row"}>
           <div
-            className={"col col-md-auto"}
+            className={"col col-sm-auto"}
             // style={{ backgroundColor: "#e3e3e3" }}
           >
             <LikeDislikeSection
@@ -136,30 +136,34 @@ function Box(props) {
             />
           </div>
 
-          <div
-          // style={{ height: 500 }}
-          >
+          <div className={"col"} style={{ alignItems: "center" }}>
             <img
               className={"img-fluid"}
-              //className={"mx-auto d-block"}
+              // className={"mx-auto d-block"}
               src={props.content.postImageURL}
               // src={single.image}
               alt={"post image"}
               // width={500}
               //height={500}
 
-              width={"75%"}
+              // height={"75%"}
+              // width={"75%"}
+              style={{ maxHeight: "650px" }}
             />
           </div>
+          <div
+            className={"col col-sm-auto"}
+            style={{ alignItems: "center" }}
+          ></div>
         </div>
 
         <a
           href={""}
           style={{
-            alight: "center",
+            align: "center",
             textAlign: "center",
           }}
-          className="list-group-item shadow-sm"
+          className="list-group-item shadow-sm center"
           onClick={(e) => {
             e.preventDefault();
             props.dispatchOpen(single._links["Tab_Version"].href);
