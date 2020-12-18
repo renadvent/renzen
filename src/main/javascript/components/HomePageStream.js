@@ -16,11 +16,11 @@ function HomePageStream(props) {
   return (
     <div>
       <ul className="list-group list-group-flush">
-        {props.loadedArticles.map((single,i) => {
+        {props.loadedArticles.map((single, i) => {
           //console.log(single);
           return (
             <Box
-            key={i}
+              key={single.UUID}
               single={single}
               uuid={single.UUID}
               dispatchOpen={props.dispatchOpen}
